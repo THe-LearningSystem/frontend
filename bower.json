@@ -1,0 +1,18 @@
+{
+  "name": "mean-js",
+  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js",
+  "homepage": "http://meanjs.org/",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-bootstrap": "~1.2.1",
+    "angular-ui-notification": "~0.2.0",
+    "angular-ui-router": "~0.2.18",
+    "bootstrap-sass": "^3.3.7",
+    "automata-simulation": "https://github.com/THe-LearningSystem/automata-simulation",
+    "boolean-algebra": "https://github.com/THe-LearningSystem/boolean-algebra",
+    "angular-jwt": "^0.1.9",
+    "lodash": "^4.17.4",
+    "angular-local-storage": "^0.5.2"
+  }
+}

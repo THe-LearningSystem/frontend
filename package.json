@@ -1,0 +1,44 @@
+{
+  "name": "the-learning-system-frontend",
+  "version": "0.0.1",
+  "description": "THe-Learning System is a website project that improves your way of learning. Frontend Repository",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THe-LearningSystem/THe-LearningSystem.git"
+  },
+  "keywords": [
+    "Learning",
+    "System",
+    "MongoDB",
+    "Express",
+    "Angular",
+    "NodeJS"
+  ],
+  "author": "THe-LearningSystem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/THe-LearningSystem/THe-LearningSystem/issues"
+  },
+  "homepage": "https://github.com/THe-LearningSystem/THe-LearningSystem#readme",
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-inject": "^4.2.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sass": "^3.1.0",
+    "lodash": "^4.17.4",
+    "nodemon": "^1.11.0",
+    "run-sequence": "^1.2.2"
+  },
+  "dependencies": {
+    "connect-history-api-fallback": "latest"
+  }
+}
