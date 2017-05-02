@@ -5,15 +5,15 @@
         .module('courses')
         .controller('CourseCreateCtrl', CourseCreateCtrl);
 
-    CourseCreateCtrl.$inject = ['coursesService', 'i18nManagerService','$stateParams'];
+    CourseCreateCtrl.$inject = ['Courses', 'I18nManager','$stateParams'];
 
-    function CourseCreateCtrl(coursesService, i18nManager,$stateParams) {
+    function CourseCreateCtrl(Courses, i18nManager,$stateParams) {
         var vm = this;
         vm.update = false;
         var urlName = $stateParams.urlName;
         if(urlName){
             vm.update = true;
-            coursesService.courseDisplay(urlName).then(function(response) {
+            Courses.courseDisplay(urlName).then(function(response) {
                 vm._id = response.data._id;
                 vm.name = response.data.name;
                 vm.description = response.data.description;
@@ -38,7 +38,7 @@
                     urlName: vm.urlName
                 }
             };
-            coursesService.createCourse(data)
+            Courses.createCourse(data)
             //TODO:redirect to created course display
         }
     }

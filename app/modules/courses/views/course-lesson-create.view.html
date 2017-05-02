@@ -1,0 +1,35 @@
+<div class="page-header">
+    <h1>Create Lesson</h1>
+</div>
+<div>
+    <div class="lesys-selection">
+            <span class="lesys-select" ng-repeat="language in vm.languages"
+                  ng-class="{'selected':language===vm.selected}" ng-click="vm.selected = language">
+            {{language}}
+        </span>
+    </div>
+    <div id="{{language}}-select" ng-repeat="language in vm.languages" ng-if="vm.selected === language">
+        <label for="translation-name">Name</label>
+
+        <div class="input-group">
+            <input type="text" class="form-control" id="translation-name" placeholder="Name"
+                   ng-model="vm.name[language]">
+            <span class="input-group-addon">{{language}}</span>
+        </div>
+        <label for="translation-description">Description</label>
+
+        <div class="input-group">
+
+                <textarea class="form-control" id="translation-description" placeholder="Description"
+                          ng-model="vm.description[language]"></textarea>
+            <span class="input-group-addon">{{language}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="lesys-selection">
+            <span class="lesys-select" ng-repeat="type in vm.types"
+                  ng-class="{'selected':type===vm.selectedType}" ng-click="vm.selectedType = type">
+            {{type.typeName}}
+        </span>
+</div>

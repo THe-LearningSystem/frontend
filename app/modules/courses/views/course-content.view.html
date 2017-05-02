@@ -1,4 +1,24 @@
 <div>
-    <div class="alert alert-warning" role="alert">Der Kurs enthält noch keine Abschnitte</div>
     <button class="btn btn-default" ng-click="vm.createSection()">Einen neuen Abschnitt hinzufügen.</button>
+</div>
+<div>
+    <div ng-repeat="section in vm.course.sections track by $index" ng-drop="true"
+         ng-drop-success="vm.onDropComplete($index, $data,$event)">
+        <div ng-drag="true" ng-drag-data="section">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h5>Abschnitt {{$index+1}}</h5>
+                    <p>{{section.name.de}}</p>
+                    <div class="alert alert-warning" role="alert" ng-if="section.lessons.length ===0">
+                        Der Abschnitt enthält noch keine Unterrichtseinheiten.
+                    </div>
+                    <a class="btn btn-default" ui-sref="frontend.courses.lessons.create">Lesson erstellen</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="alert alert-warning" role="alert" ng-if="vm.courses.sections.length ===0">
+    Der Kurs enthält noch keine Abschnitte
 </div>

@@ -27,6 +27,7 @@
                 } else {
                     auth.removeToken();
                 }
+                return auth;
 
             },
             isTokenExpired: function () {

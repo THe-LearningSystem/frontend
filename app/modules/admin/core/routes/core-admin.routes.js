@@ -32,7 +32,19 @@
                 templateUrl: '/modules/admin/core/views/admin-default.view.html',
                 ncyBreadcrumb: {
                     label: 'Admin'
-                }
+                },
+                resolve: [
+                    //Load this before u can go further
+                    'Authentication', function (Authentication) {
+                        return Authentication.init();
+                    },
+                    'I18nManager', function (I18nManager) {
+                        return I18nManager.loadData();
+                    },
+                    'I18nManager', function (I18nManager) {
+                        return I18nManager.loadConfig();
+                    }
+                ]
             })
             .state('backend.dashboard', {
                 url: '',

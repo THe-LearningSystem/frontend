@@ -4,11 +4,11 @@
     // Users service used for communicating with the users REST endpoint
     angular
         .module('core')
-        .factory('i18nManagerService', i18nManagerService);
+        .factory('I18nManager', I18nManager);
 
-    i18nManagerService.$inject = ['localStorageService', 'i18nService'];
+    I18nManager.$inject = ['localStorageService', 'i18nService'];
 
-    function i18nManagerService(localStorageService, i18nService) {
+    function I18nManager(localStorageService, i18nService) {
         var i18n = {
             config: null,
             data: null,
@@ -32,6 +32,20 @@
                         console.log(i18n);
                     })
                 }
+            },
+            loadData:function(){
+                return i18nService.getAllSimplified()
+                    .then(function(response){
+                        i18n.data = response.data;
+                       return i18n;
+                    })
+            },
+            loadConfig:function(){
+                return i18nService.getConfig()
+                    .then(function(response){
+                        i18n.config = response.data;
+                        return i18n;
+                    })
             }
         };
         return i18n;

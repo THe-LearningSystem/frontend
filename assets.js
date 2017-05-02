@@ -21,7 +21,8 @@ module.exports = {
             'app/lib/angular-local-storage/dist/angular-local-storage.js',
             'app/lib/angular-sanitize/angular-sanitize.js',
             'app/lib/angular-ui-select/dist/select.js',
-            'app/lib/angular-breadcrumb/dist/angular-breadcrumb.js'
+            'app/lib/angular-breadcrumb/dist/angular-breadcrumb.js',
+            'app/lib/ngDraggable/ngDraggable.js'
 
         ],
         tests: []

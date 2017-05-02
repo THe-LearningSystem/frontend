@@ -5,9 +5,9 @@
         .module('courses')
         .controller('CourseCtrl', CourseCtrl);
 
-    CourseCtrl.$inject = ['$scope','$state','coursesService', '$stateParams','Authentication'];
+    CourseCtrl.$inject = ['$scope','$state','Courses', '$stateParams','Authentication'];
 
-    function CourseCtrl($scope,$state,coursesService, $stateParams,Authentication) {
+    function CourseCtrl($scope,$state,Courses, $stateParams,Authentication) {
         var vm = this;
         var urlName = $stateParams.urlName;
         vm.currentState =$state.current;
@@ -18,7 +18,7 @@
             vm.currentState =newVal;
         });
 
-        coursesService.courseDisplay(urlName).then(function(response) {
+        Courses.courseDisplay(urlName).then(function(response) {
             vm.course = response.data;
         });
 

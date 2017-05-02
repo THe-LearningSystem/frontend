@@ -3,15 +3,19 @@
 
     angular
         .module('courses.services')
-        .factory('coursesService', coursesService);
+        .factory('Courses', Courses);
 
-    coursesService.$inject = ['crud'];
+    Courses.$inject = ['crud'];
 
-    function coursesService(crud) {
+    function Courses(crud) {
         return {
             courseList: courseList,
             courseDisplay : courseDisplay,
-            createCourse:createCourse
+            createCourse:createCourse,
+            updateCourse:updateCourse,
+            createSection:createSection,
+            updateSection:updateSection,
+            deleteSection:deleteSection
         };
 
         function courseList() {
@@ -23,7 +27,25 @@
         }
 
         function createCourse(data){
-            return crud.put('/courses/', data.payload);
+            return crud.post('/courses/', data.payload);
+        }
+        function updateCourse(data){
+            return crud.put('/courses/'+data.courseId+'/', data.payload);
+        }
+
+        /**
+         * Section
+         */
+        function createSection(data) {
+            return crud.post('/courses/'+data.courseId+'/sections/', data.payload);
+        }
+
+        function updateSection(data) {
+            return crud.put('/courses/'+data.courseId+'/sections/'+data.sectionId+'/', data.payload);
+        }
+
+        function deleteSection(data) {
+            return crud.delete('/courses/'+data.courseId+'/sections/');
         }
     }
 }());

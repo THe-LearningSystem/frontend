@@ -9,7 +9,7 @@ var config = {
         'ngSanitize',
         'ui.select',
         'ncy-angular-breadcrumb',
-        'ngResource'
+        'ngDraggable'
     ]
 };
 
@@ -33,9 +33,11 @@ var app = angular.module(config.name, config.vendorDependencies)
             $httpProvider.interceptors.push('jwtInterceptor');
         }])
 
-    .run(function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, i18nManagerService) {
-        Authentication.init();
-        i18nManagerService.init();
+    .run(['$rootScope','$state','jwtHelper','localStorageService','Authentication','Notification','I18nManager',
+        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification,I18nManager) {
+        $rootScope.Authentication = Authentication.init();
+        $rootScope.I18nManager = I18nManager.init();
+
         $rootScope.serverUrl = "http://localhost:3000/api";
         $rootScope.isAuthenticated = Authentication.isAuthenticated;
 
@@ -51,7 +53,7 @@ var app = angular.module(config.name, config.vendorDependencies)
 
 
         $rootScope.i18nGet = function (value) {
-            var returnVal = _deep_value(i18nManagerService.data, value + '.' + i18nManagerService.currentLanguage);
+            var returnVal = _deep_value(I18nManager.data, value + '.' + I18nManager.currentLanguage);
             if (returnVal === undefined)
                 return value;
             else
@@ -62,6 +64,11 @@ var app = angular.module(config.name, config.vendorDependencies)
         //Dont show signin or signup page when the user is already logged in
         //Not the best solution
         //TODO: find a better solution
+            $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+                event.preventDefault();
+                $state.transitionTo('not-reachable'); // error has data, status and config properties
+            });
+
         $rootScope.$on("$stateChangeStart",
             function (event, toState, toParams, fromState, fromParams) {
                 $state.previous = {};
@@ -96,12 +103,6 @@ var app = angular.module(config.name, config.vendorDependencies)
 
             }
         );
-    }).controller('NavbarController', ['$scope', function ($scope) {
-        $scope.isCollapsed = true;
-        var _this = this;
-        _this.test = function () {
-            console.log("asd");
-        }
     }]);
 
 /**

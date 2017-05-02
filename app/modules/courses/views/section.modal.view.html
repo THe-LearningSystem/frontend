@@ -1,19 +1,31 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" ng-click="vm.cancel()">&times;</button>
-    <h3 class="modal-title" id="modal-title">User</h3>
+    <h3 class="modal-title" id="modal-title">Section</h3>
 </div>
 <div class="modal-body" id="modal-body">
+    <div class="lesys-selection">
+            <span class="lesys-select" ng-repeat="language in vm.languages"
+                  ng-class="{'selected':language===vm.selected}" ng-click="vm.selectLanguage(language)">
+            {{language}}
+        </span>
+    </div>
     <form>
-        <div class="form-group">
-            <label for="user-roles">Roles</label>
-                <ui-select ng-model="vm.selected" multiple   title="Choose a person" id="user-roles">
-                    <ui-select-match  ui-lock-choice="$item.name == 'authenticated'">
-                        {{$item.name}}
-                    </ui-select-match>
-                    <ui-select-choices repeat="item in vm.roles | filter: $select.name" ui-disable-choice>
-                        <div ng-bind-html="item.name"></div>
-                    </ui-select-choices>
-                </ui-select>
+        <div id="{{language}}-select" ng-repeat="language in vm.languages" ng-if="vm.selected === language" >
+            <label for="translation-name">Name</label>
+
+            <div class="input-group">
+                <input type="text" class="form-control" id="translation-name" placeholder="Name"
+                       ng-model="vm.name[language]">
+                <span class="input-group-addon">{{language}}</span>
+            </div>
+            <label for="translation-description">Description</label>
+
+            <div class="input-group">
+
+                <textarea class="form-control" id="translation-description" placeholder="Description"
+                          ng-model="vm.description[language]"></textarea>
+                <span class="input-group-addon">{{language}}</span>
+
             </div>
         </div>
     </form>
