@@ -1,15 +1,15 @@
 var config = {
     name: 'app',
     vendorDependencies: [
-        'ngResource',
-        'ngAnimate',
-        'ngMessages',
         'ui.router',
         'ui.bootstrap',
-        'ngFileUpload',
         'ui-notification',
         'angular-jwt',
-        'LocalStorageModule'
+        'LocalStorageModule',
+        'ngSanitize',
+        'ui.select',
+        'ncy-angular-breadcrumb',
+        'ngResource'
     ]
 };
 
@@ -33,10 +33,32 @@ var app = angular.module(config.name, config.vendorDependencies)
             $httpProvider.interceptors.push('jwtInterceptor');
         }])
 
-    .run(function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification) {
+    .run(function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, i18nManagerService) {
         Authentication.init();
+        i18nManagerService.init();
         $rootScope.serverUrl = "http://localhost:3000/api";
         $rootScope.isAuthenticated = Authentication.isAuthenticated;
+
+
+        //http://stackoverflow.com/questions/8817394/javascript-get-deep-value-from-object-by-passing-path-to-it-as-string
+        //TODO: remove undefined errors and return undefined if no value found
+        var _deep_value = function (obj, path) {
+            for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
+                obj = obj[path[i]];
+            }
+            return obj;
+        };
+
+
+        $rootScope.i18nGet = function (value) {
+            var returnVal = _deep_value(i18nManagerService.data, value + '.' + i18nManagerService.currentLanguage);
+            if (returnVal === undefined)
+                return value;
+            else
+                return returnVal;
+        };
+
+
         //Dont show signin or signup page when the user is already logged in
         //Not the best solution
         //TODO: find a better solution
@@ -46,11 +68,11 @@ var app = angular.module(config.name, config.vendorDependencies)
                 $state.previous.state = fromState;
                 $state.previous.params = fromParams;
                 Authentication.init();
-                if (Authentication.isAuthenticated && (toState.name === "users.signin" || toState.name === "users.signup")) {
+                if (Authentication.isAuthenticated && (toState.name === "frontend.users.signin" || toState.name === "frontend.users.signup")) {
                     event.preventDefault();
-                    $state.transitionTo('home');
+                    $state.transitionTo('frontend.home');
                 }
-                if (toState.name === "users.signout" && Authentication.isAuthenticated) {
+                if (toState.name === "frontend.users.signout" && Authentication.isAuthenticated) {
                     event.preventDefault();
                     Notification.success({
                         message: '<i class="glyphicon glyphicon-ok"></i> Signout successfull!',
@@ -58,22 +80,29 @@ var app = angular.module(config.name, config.vendorDependencies)
                         positionY: 'bottom'
                     });
                     Authentication.removeToken();
-                    $state.go('home');
+                    $state.go('frontend.home');
                 }
-                console.log(Authentication.isAuthenticated, toState.requirements);
                 //if the site is restricted and the user isnt logged in then redirect to login
                 if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
                     event.preventDefault();
-                    $state.go('users.signin');
+                    $state.go('frontend.users.signin');
                     //if the user has not the right then redirect to not-authorized
                 } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
+                    console.log(toState.requiredRight, Authentication.rights);
+
                     event.preventDefault();
                     $state.go('not-authorized');
                 }
 
             }
         );
-    });
+    }).controller('NavbarController', ['$scope', function ($scope) {
+        $scope.isCollapsed = true;
+        var _this = this;
+        _this.test = function () {
+            console.log("asd");
+        }
+    }]);
 
 /**
  * Registers a new Module to the system (from https://github.com/meanjs/mean/blob/master/modules/core/client/app/config.js#L16)

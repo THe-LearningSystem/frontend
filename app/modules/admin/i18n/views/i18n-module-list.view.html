@@ -1,0 +1,35 @@
+<div class="page-header">
+    <h1>Translationmodule</h1>
+</div>
+<button type="button" class="btn btn-default" ng-click="vm.createTranslationModule()">Create Translationmodul</button>
+<div class="row">
+    <div class="col-sm-6" ng-repeat="module in vm.translationsModules">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4><a ui-sref="backend.i18n.module({moduleId:module._id})"><strong>{{module.name}}</strong> </a></h4>
+                <p>
+                    <strong>Description:</strong>{{module.description}}
+                </p>
+                <p>
+                    <strong>Gruppen:</strong>
+                    <span ng-repeat="groups in module.groups">{{groups.name}}{{$last ? '' : ', '}}</span>
+                </p>
+                <p>
+                    <strong>Translations Insgesamt:</strong>
+                    <span>{{module.translationsCount}}</span>
+                </p>
+                <strong>Translations Status:</strong>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{module.translationsRatio}}"
+                         aria-valuemin="0" aria-valuemax="100" style="width: {{module.translationsRatio}}%">
+                        {{module.translationsRatio}}%
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default"
+                        ng-click="vm.updateTranslationModule(module)">Update
+                    Module
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

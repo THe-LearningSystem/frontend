@@ -9,15 +9,20 @@ var _ = require('lodash'),
     gulpLoadPlugins = require('gulp-load-plugins'),
     runSequence = require('run-sequence'),
     plugins = gulpLoadPlugins(),
-    browserSync = require('browser-sync').create(); // create a browser sync instance.
-var historyApiFallback = require('connect-history-api-fallback')
+    browserSync = require('browser-sync').create(),
+    historyApiFallback = require('connect-history-api-fallback'); // create a browser sync instance.
 
 // Sass task
 gulp.task('sass', function () {
-    return gulp.src(defaultAssets.sass)
+    return gulp.src([
+        'app/css/bootstrap.scss',
+        'app/modules/**/css/*.scss'
+    ])
         .pipe(plugins.concat('main.css'))
-        .pipe(plugins.sass())
-        .pipe(plugins.autoprefixer())
+        .pipe(plugins.sass({
+            includePaths: ['./app/css'],
+            errLogToConsole: true
+        }))
         .pipe(gulp.dest('./app/css/'))
         .pipe(browserSync.stream());
 });
@@ -41,6 +46,7 @@ gulp.task('inject', function () {
 
 // Watch Files For Changes
 gulp.task('watch', function () {
+    gulp.watch([defaultAssets.lib.js, defaultAssets.js, defaultAssets.lib.css, defaultAssets.css], ['inject']);
     gulp.watch(defaultAssets.sass, ['sass']);
     gulp.watch([defaultAssets.views, defaultAssets.js], browserSync.reload);
 });
@@ -49,7 +55,7 @@ gulp.task('browserSync', function () {
     return browserSync.init({
         server: {
             baseDir: "./app",
-            middleware: [ historyApiFallback() ]
+            middleware: [historyApiFallback()]
         },
         notify: false,
         open: false,

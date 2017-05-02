@@ -5,82 +5,71 @@
     <title>THe Learning System</title>
     <!-- inject:css -->
     <link rel="stylesheet" href="/lib/angular-ui-notification/dist/angular-ui-notification.css">
+    <link rel="stylesheet" href="/lib/angular-ui-select/dist/select.css">
     <link rel="stylesheet" href="/css/main.css">
     <!-- endinject -->
+
     <base href="/">
 </head>
 <body ng-cloak>
-<div id="load">
-
-</div>
-
-<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-    <a class="navbar-brand" href="/">THe Learning System</a>
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-
-    <div id="user-navigation" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-left">
-            <li><a ui-sref="courses.list">Kurse</a></li>
-        </ul>
-        <span class="btn-separator"></span>
-        <ul id="top-navbar-right" class="nav navbar-nav navbar-right" ng-controller="AuthenticationController as vm">
-            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="users.signin">Anmelden</a></li>
-            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="users.signup">Registrieren</a></li>
-            <li ng-if="vm.auth.isAuthenticated" id="profile-link"><a ui-sref="users.profile"><span
-                    class="glyphicon glyphicon-user"></span></a></li>
-            <li ng-if="vm.auth.isAuthenticated" id="profile-navigation">
-                <ul>
-                    <li><a ui-sref="users.signout">Sign Out</a></li>
-                </ul>
-            </li>
-        </ul>
-
-    </div>
-</nav>
-
-<div class="container">
-    <section ui-view></section>
-</div>
+<div ui-view ng-cloak></div>
 <!-- inject:js -->
 <script src="/lib/lodash/dist/lodash.js"></script>
 <script src="/lib/angular/angular.js"></script>
-<script src="/lib/angular-animate/angular-animate.js"></script>
 <script src="/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="/lib/angular-messages/angular-messages.js"></script>
-<script src="/lib/angular-mocks/angular-mocks.js"></script>
 <script src="/lib/angular-resource/angular-resource.js"></script>
 <script src="/lib/angular-ui-notification/dist/angular-ui-notification.js"></script>
 <script src="/lib/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="/lib/ng-file-upload/ng-file-upload.js"></script>
-<script src="/lib/owasp-password-strength-test/owasp-password-strength-test.js"></script>
 <script src="/lib/angular-jwt/dist/angular-jwt.js"></script>
 <script src="/lib/angular-local-storage/dist/angular-local-storage.js"></script>
+<script src="/lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="/lib/angular-ui-select/dist/select.js"></script>
+<script src="/lib/angular-breadcrumb/dist/angular-breadcrumb.js"></script>
 <script src="/js/app.js"></script>
+<script src="/modules/admin/admin.module.js"></script>
 <script src="/modules/core/core.module.js"></script>
 <script src="/modules/courses/courses.module.js"></script>
 <script src="/modules/users/users.module.js"></script>
-<script src="/modules/core/config/core.routes.js"></script>
-<script src="/modules/core/controllers/core.controllers.js"></script>
-<script src="/modules/core/controllers/header.controller.js"></script>
-<script src="/modules/core/directives/core.lowercase.directive.js"></script>
-<script src="/modules/courses/controlllers/courses.display.controller.js"></script>
-<script src="/modules/courses/controlllers/courses.list.controller.js"></script>
-<script src="/modules/courses/routes/courses.routes.js"></script>
+<script src="/modules/admin/acl/acl.module.js"></script>
+<script src="/modules/admin/core/admin.core.module.js"></script>
+<script src="/modules/admin/i18n/admin.i18n.module.js"></script>
+<script src="/modules/courses/controllers/course-content.controller.js"></script>
+<script src="/modules/courses/controllers/course-create.controller.js"></script>
+<script src="/modules/courses/controllers/course.controller.js"></script>
+<script src="/modules/courses/controllers/courses-list.controller.js"></script>
+<script src="/modules/courses/controllers/section.modal.controller.js"></script>
+<script src="/modules/users/controllers/authentication.controller.js"></script>
+<script src="/modules/admin/acl/controllers/acl.controller.js"></script>
+<script src="/modules/admin/acl/controllers/list-users.controller.js"></script>
+<script src="/modules/admin/acl/controllers/right.modal.controller.js"></script>
+<script src="/modules/admin/acl/controllers/role.modal.controller.js"></script>
+<script src="/modules/admin/acl/controllers/user.modal.controller.js"></script>
+<script src="/modules/admin/core/controllers/dashboard.controller.js"></script>
+<script src="/modules/admin/i18n/controllers/i18n-group.controller.js"></script>
+<script src="/modules/admin/i18n/controllers/i18n-module.controller.js"></script>
+<script src="/modules/admin/i18n/controllers/i18n.controller.js"></script>
+<script src="/modules/admin/i18n/controllers/translation-group.modal.controller.js"></script>
+<script src="/modules/admin/i18n/controllers/translation-module.modal.controller.js"></script>
+<script src="/modules/admin/i18n/controllers/translation.modal.controller.js"></script>
+<script src="/modules/core/services/crud.service.js"></script>
+<script src="/modules/core/services/i18n-manage.service.js"></script>
+<script src="/modules/core/services/notify.service.js"></script>
 <script src="/modules/courses/services/courses.service.js"></script>
-<script src="/modules/users/controllers/users.authentication.controller.js"></script>
-<script src="/modules/users/controllers/users.controller.js"></script>
-<script src="/modules/users/directives/hasPermission.js"></script>
-<script src="/modules/users/directives/password-validator.directive.js"></script>
+<script src="/modules/users/services/authentication.service.js"></script>
+<script src="/modules/users/services/users-api.service.js"></script>
+<script src="/modules/admin/acl/services/acl.service.js"></script>
+<script src="/modules/admin/i18n/services/i18n.service.js"></script>
+<script src="/modules/core/routes/core.routes.js"></script>
+<script src="/modules/courses/routes/courses.routes.js"></script>
 <script src="/modules/users/routes/users.routes.js"></script>
-<script src="/modules/users/services/Authentication.js"></script>
-<script src="/modules/users/services/password-validator.service.js"></script>
-<script src="/modules/users/services/users.service.js"></script>
+<script src="/modules/admin/acl/routes/users-admin.routes.js"></script>
+<script src="/modules/admin/core/routes/core-admin.routes.js"></script>
+<script src="/modules/admin/i18n/routes/i18n.routes.js"></script>
+<script src="/modules/core/controllers/core.controllers.js"></script>
+<script src="/modules/core/directives/lowercase.directive.js"></script>
+<script src="/modules/users/directives/hasPermission.directive.js"></script>
+<script src="/modules/users/directives/password-validator.directive.js"></script>
+<script src="/modules/courses/tools/tcs/tcs.route.js"></script>
 <!-- endinject -->
 </body>
 </html>

@@ -1,5 +1,5 @@
-body {
-  padding-top: 70px;
+#content-wrapper{
+  margin-top:50px;
 }
 
 /*
@@ -7,37 +7,6 @@ body {
   templates compile.  The !important is important given that there may be
   other selectors that are more specific or come later and might alter display.
  */
-[ng\:cloak], [ng-cloak], .ng-cloak {
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
-}
-
-#top-navbar-right {
-  margin-right: 10px;
-}
-
-#user-navigation {
-}
-#profile-link{
-  width:50px;
-}
-
-#profile-navigation {
-  border: 1px solid;
-  position: absolute;
-  top: 50px;
-  right: 0;
-  display: none;
-}
-
-#profile-link:hover + #profile-navigation {
-  display: block;
-}
-
-#profile-navigation:hover {
-  display: block;
-}
-
-#profile-navigation ul li {
-  list-style: none;
-  margin: 5px 30px 5px 0;
 }

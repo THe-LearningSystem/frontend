@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation"  ng-controller="AuthenticationCtrl as vm">
+    <a class="navbar-brand" href="http://localhost:8080/">THe Learning System</a>
+    <div id="user-navigation">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a ui-sref="frontend.courses.list">Kurs</a></li>
+            <li><a  ng-if="vm.auth.isAuthenticated" has-permission="admin.enter" ui-sref="backend.dashboard">Admin</a></li>
+        </ul>
+        <span class="btn-separator"></span>
+        <ul id="top-navbar-right" class="nav navbar-nav navbar-right">
+            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="frontend.users.signin">Anmelden</a></li>
+            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="frontend.users.signup">Registrieren</a></li>
+            <li ng-if="vm.auth.isAuthenticated" id="profile-link"><a ui-sref="frontend.users.profile"><span
+                    class="glyphicon glyphicon-user"></span></a></li>
+            <li ng-if="vm.auth.isAuthenticated" id="profile-navigation">
+                <ul>
+                    <li><a ui-sref="frontend.users.signout">Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+<div id="content-wrapper" class="container">
+    <section ui-view></section>
+</div>

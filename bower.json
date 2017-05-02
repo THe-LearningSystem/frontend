@@ -4,15 +4,17 @@
   "homepage": "http://meanjs.org/",
   "license": "MIT",
   "dependencies": {
-    "angular": "~1.5.0",
-    "angular-bootstrap": "~1.2.1",
-    "angular-ui-notification": "~0.2.0",
-    "angular-ui-router": "~0.2.18",
-    "bootstrap-sass": "^3.3.7",
-    "automata-simulation": "https://github.com/THe-LearningSystem/automata-simulation",
-    "boolean-algebra": "https://github.com/THe-LearningSystem/boolean-algebra",
+    "angular-ui-router": "^0.4.2",
+    "angular": "^1.6.4",
+    "angular-ui-notification": "^0.3.6",
+    "angular-bootstrap": "^2.5.0",
     "angular-jwt": "^0.1.9",
     "lodash": "^4.17.4",
-    "angular-local-storage": "^0.5.2"
+    "angular-local-storage": "^0.5.2",
+    "bootstrap-sass": "^3.3.7",
+    "angular-ui-select": "^0.19.8",
+    "angular-sanitize": "^1.6.4",
+    "angular-breadcrumb": "^0.5.0",
+    "angular-resource": "^1.6.4"
   }
 }

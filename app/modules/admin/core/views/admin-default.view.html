@@ -1,0 +1,29 @@
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+    <a class="navbar-brand" href="/">THe Learning System</a>
+    <div id="user-navigation">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a ui-sref="frontend.home">Frontend</a></li>
+            <li><a ui-sref="backend.dashboard">Dashboard</a></li>
+            <li><a ui-sref="backend.acl">Berechtigungen</a></li>
+            <li><a ui-sref="backend.users">Benutzer</a></li>
+            <li><a ui-sref="backend.i18n.list">Translations</a></li>
+        </ul>
+        <span class="btn-separator"></span>
+        <ul id="top-navbar-right" class="nav navbar-nav navbar-right" ng-controller="AuthenticationCtrl as vm">
+            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="frontend.users.signin">Anmelden</a></li>
+            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="frontend.users.signup">Registrieren</a></li>
+            <li ng-if="vm.auth.isAuthenticated" id="profile-link"><a ui-sref="frontend.users.profile"><span
+                    class="glyphicon glyphicon-user"></span></a></li>
+            <!--<li ng-if="vm.auth.isAuthenticated" id="profile-navigation">-->
+                <!--<ul>-->
+                    <!--<li><a ui-sref="frontend.users.signout">Sign Out</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        </ul>
+
+    </div>
+</nav>
+<div id="content-wrapper" class="container">
+    <div ncy-breadcrumb></div>
+    <section ui-view></section>
+</div>

@@ -1,0 +1,49 @@
+<div>
+    <h3 class="col-xs-12 text-center">Or sign up using your email</h3>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+        <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
+            <div class="form-group"
+                 ng-class="{ 'has-error' : !vm.usernameIsUnique || vm.userForm.username.$error.pattern}">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control"
+                       ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex"
+                       ng-change="vm.isUsernameUnique()" placeholder="Username"
+                       lowercase required>
+                <p ng-show="vm.userForm.username.$error.pattern" class="help-block">
+                    Bitte gib ein Validen Benutzernamen ein!
+                </p>
+                <p ng-show="!vm.usernameIsUnique" class="help-block">
+                    Benutzername wird bereits verwendet!
+                </p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : !vm.emailIsUnique || vm.userForm.email.$error.pattern}">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" ng-pattern="vm.emailRegex"
+                       ng-model="vm.credentials.email" placeholder="Email" ng-change="vm.isEmailUnique()" lowercase
+                       required>
+                <p ng-show="vm.userForm.email.$error.pattern" class="help-block">
+                    Bitte gib eine valide Email ein.
+                </p>
+                <p ng-show="!vm.emailIsUnique" class="help-block">
+                    Email wird bereits verwendet!
+                </p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : passwordErrors.length >0}">
+                <label for="email">Passwort</label>
+                <input type="password" id="password" name="password" class="form-control"
+                       ng-model="vm.credentials.password" placeholder="Password" required>
+                <div ng-messages="vm.userForm.password.$error" role="alert" class="has-error">
+                    <div ng-repeat="passwordError in passwordErrors">
+                        <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">
+                            {{passwordError}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center form-group">
+                <button type="submit" class="btn btn-primary">Sign up</button>
+                &nbsp; or&nbsp;
+                <a ui-sref="users.signin" class="show-signup">Sign in</a>
+            </div>
+        </form>
+    </div>
+</div>

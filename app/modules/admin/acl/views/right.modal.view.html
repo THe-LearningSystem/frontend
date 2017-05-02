@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="vm.cancel()">&times;</button>
+    <h3 class="modal-title" id="modal-title">Create Right</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="role-name">Name</label>
+            <input type="text" class="form-control" id="role-name" placeholder="Name" ng-model="vm.name">
+        </div>
+        <div class="form-group">
+            <label for="role-description">Description</label>
+            <textarea type="text" class="form-control" id="role-description" placeholder="Description"
+                      ng-model="vm.description"></textarea>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.create()" ng-if="vm._id === undefined">
+        Create
+    </button>
+    <button class="btn btn-danger" type="button" ng-click="vm.delete()" ng-if="vm._id !== undefined">
+        Delete
+    </button>
+    <button class="btn btn-primary" type="button" ng-click="vm.update()" ng-if="vm._id !== undefined">
+        Update
+    </button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

@@ -1,0 +1,24 @@
+<div class="page-header">
+    <h1>User</h1>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>UserId</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in vm.users">
+        <td>{{user._id}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td><span ng-repeat="role in user.roles">{{role.name}}{{$last ? '' : ', '}}</span></td>
+        <td><button class="btn btn-default" ng-click="vm.editUser(user,vm.roles)">Edit</button></td>
+    </tr>
+    </tbody>
+</table>

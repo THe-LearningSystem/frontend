@@ -5,28 +5,25 @@
         .module('courses.services')
         .factory('coursesService', coursesService);
 
-    coursesService.$inject = ['$rootScope','$resource', '$log','$http'];
+    coursesService.$inject = ['crud'];
 
-    function coursesService($rootScope,$resource, $log,$http) {
+    function coursesService(crud) {
         return {
             courseList: courseList,
-            courseDisplay : courseDisplay
+            courseDisplay : courseDisplay,
+            createCourse:createCourse
         };
 
         function courseList() {
-            return $http.get($rootScope.serverUrl+'/courses/');
+            return crud.get('/courses/');
         }
 
         function courseDisplay(urlName) {
-            return $http.get($rootScope.serverUrl+'/courses/' + urlName).then(complete).catch(failed);
+            return crud.get('/courses/' + urlName);
         }
 
-        function complete(response) {
-            return response;
-        }
-
-        function failed(error) {
-            console.log(error.statusText);
+        function createCourse(data){
+            return crud.put('/courses/', data.payload);
         }
     }
 }());

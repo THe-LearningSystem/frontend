@@ -39,6 +39,6 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
-    "connect-history-api-fallback": "latest"
+    "connect-history-api-fallback": "^1.3.0"
   }
 }

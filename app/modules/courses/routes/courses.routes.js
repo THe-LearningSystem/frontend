@@ -21,39 +21,68 @@
         });
 
         $stateProvider
-            .state('courses', {
+            .state('frontend.courses', {
                 abstract: true,
                 url: '/courses',
                 template: '<ui-view/>'
 
             })
-            .state('courses.list', {
+            .state('frontend.courses.list', {
                 url: '',
-                templateUrl: '/modules/courses/views/courses.list.view.html',
-                controller: 'coursesController',
+                templateUrl: '/modules/courses/views/list-courses.view.html',
+                controller: 'CoursesCtrl',
                 controllerAs: 'vm',
-                requiredRight:'view_courses'
+                requiredRight:'courses.view'
             })
-            .state('courses.display', {
+            .state('frontend.courses.create', {
+                url: '/courses/create',
+                templateUrl: '/modules/courses/views/course-create.html',
+                controller: 'CoursesCreateCtrl',
+                controllerAs: 'vm',
+                parent:'frontend'
+            })
+            .state('frontend.courses.display', {
                 abstract: true,
                 url: '/:urlName',
-                templateUrl: '/modules/courses/views/course.root.view.html',
-                controller: 'courseController',
+                templateUrl: '/modules/courses/views/course.template.view.html',
+                controller: 'CourseCtrl',
                 controllerAs: 'vm'
             })
-            .state('courses.display.overview', {
+            .state('frontend.courses.display.overview', {
                 url: '',
-                templateUrl: '/modules/courses/views/course.overview.view.html',
+                templateUrl: '/modules/courses/views/course-overview.view.html',
+                controller: 'CourseCtrl',
+                controllerAs: 'vm'
+            })
+            .state('frontend.courses.display.content', {
+                url: '/content',
+                templateUrl: '/modules/courses/views/course-content.view.html',
+                controller: 'CourseContentCtrl',
+                controllerAs: 'vm'
+            })
+            .state('frontend.courses.display.tools', {
+                url: '/tools',
+                templateUrl: '/modules/courses/views/course-tools.view.html',
                 controller: 'courseController',
                 controllerAs: 'vm'
             })
-            .state('courses.display.lection', {
-                url: '/lection',
-                templateUrl: '/modules/courses/views/course.lections.view.html',
+            .state('frontend.courses.display.questionsAndAnswers', {
+                url: '/questions-and-answers',
+                templateUrl: '/modules/courses/views/course-questions-and-answers.view.html',
                 controller: 'courseController',
+                controllerAs: 'vm'
+            })
+            .state('frontend.courses.display.notifications', {
+                url: '/notifications',
+                templateUrl: '/modules/courses/views/course-notifications.view.html',
+                controller: 'courseController',
+                controllerAs: 'vm'
+            })
+            .state('frontend.courses.display.edit', {
+                url: '/edit',
+                templateUrl: '/modules/courses/views/course-create.html',
+                controller: 'CourseCreateCtrl',
                 controllerAs: 'vm'
             });
     }
-
-
 }());

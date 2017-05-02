@@ -1,0 +1,14 @@
+.language-selection{
+  margin-bottom:50px;
+}
+.language-select{
+  border:1px solid lightgray;
+  margin:5px;
+  padding:3px;
+}
+.language-select.selected{
+  background-color:lightgray;
+}
+  .course-nav >li.selected{
+    border-bottom:3px solid black;
+  }

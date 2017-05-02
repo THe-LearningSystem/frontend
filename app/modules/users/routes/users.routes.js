@@ -21,31 +21,29 @@
         });
 
         $stateProvider
-            .state('users', {
+            .state('frontend.users', {
                 abstract: true,
                 url: '/users',
                 template: '<ui-view/>'
             })
-            .state('users.signin', {
+            .state('frontend.users.signin', {
                 url: '/signin',
-                templateUrl: '/modules/users/views/users.signin.view.html',
-                controller: 'AuthenticationController',
+                templateUrl: '/modules/users/views/signin.view.html',
+                controller: 'AuthenticationCtrl',
                 controllerAs: 'vm'
             })
-            .state('users.signup', {
+            .state('frontend.users.signup', {
                 url: '/signup',
-                templateUrl: '/modules/users/views/users.signup.view.html',
-                controller: 'AuthenticationController',
+                templateUrl: '/modules/users/views/signup.view.html',
+                controller: 'AuthenticationCtrl',
                 controllerAs: 'vm'
             })
-            .state('users.signout', {
+            .state('frontend.users.signout', {
                 url: '/signout'
             })
-            .state('users.profile', {
+            .state('frontend.users.profile', {
                 url: '/profile',
-                templateUrl: '/modules/users/views/users.profile.view.html',
-                controller: 'userController',
-                controllerAs: 'vm'
+                templateUrl: '/modules/users/views/profile.view.html'
             });
     }
 }());
