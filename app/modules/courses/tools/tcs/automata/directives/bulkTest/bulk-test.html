@@ -1,11 +1,11 @@
 <container-item titlename="as.core.bulkTitle" id="bulk-tester-tab">
-    <label>Accept (one per line):</label>
+    <label>{{'core.general.accepted' | translate}} ({{'as.core.onePerLine' | translate}}):</label>
     <textarea class="form-control bulk-test-textarea" id="acceptedInput"
               ng-model="parent.automatonData.acceptedInputRaw"
               ng-change="bulkTest()">
 
     </textarea>
-    <label>Reject (one per line):</label>
+    <label>{{'core.general.rejected' | translate}} ({{'as.core.onePerLine' | translate}}):</label>
     <textarea class="form-control bulk-test-textarea" id="rejectedInput"
               ng-model="parent.automatonData.rejectedInputRaw"
               ng-change="bulkTest()">
@@ -15,9 +15,9 @@
                ng-change="bulktester.bulkTest()"></textarea>-->
     <div class="bulktest-result"
          ng-show="acceptedInput.length != 0 ||rejectedInput.length != 0">
-        <h4>Result</h4>
+       <hr style="margin:7px">
         <div>
-            <label>Accepted:</label>
+            <label>{{'core.general.accepted' | translate}}:</label>
 
             <div ng-repeat="value in acceptedInput" class="bulk-result"
                  ng-class="value.possible ? 'pass-class' : 'fail-class'">
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div>
-            <label>Rejected:</label>
+            <label>{{'core.general.rejected' | translate}}:</label>
 
             <div ng-repeat="value in rejectedInput" class="bulk-result"
                  ng-class="!value.possible? 'pass-class' : 'fail-class'">

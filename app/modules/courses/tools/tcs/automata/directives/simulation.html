@@ -15,7 +15,7 @@
                     tttext="as.core.stepForward"></menubutton>
     </div>
     <div class="input-group" ng-show="!simulator.isInAnimation  || simulator.animatedSequence !== null">
-        <span class="input-group-addon" aria-hidden="true">{{"SIM.INPUT" | translate}}</span>
+        <span class="input-group-addon" aria-hidden="true">{{"as.core.inputWord" | translate}}</span>
         <input class="inputWord form-control" ng-if="automatonData.type !== 'TM'" ng-model="automatonData.inputWord" ng-change="simulator.updateFunction()" ng-disabled="simulator.isInAnimation" />
         <input class="inputWord form-control" ng-if="automatonData.type === 'TM'" ng-model="automatonData.inputWord" ng-change="simulator.updateFunction()" ng-disabled="simulator.isInAnimation" maxlength="20" />
         <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true" ng-if="automatonData.type !== 'TM'" ng-show="!simulator.isInputWordAccepted(automatonData.inputWord)"></span>

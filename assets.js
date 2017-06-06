@@ -59,6 +59,7 @@ module.exports = {
     ],
     views: [
         'app/index.html',
-        'app/modules/**/views/*.html'
+        'app/modules/**/views/*.html',
+        'app/modules/courses/tools/**/directives/**/*.html'
     ]
 };
