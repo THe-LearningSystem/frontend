@@ -1,39 +1,83 @@
-<div class="page-header" ng-if="!vm.update">
-    <h1>Create Course</h1>
-</div>
-<div>
-    <div class="lesys-selection">
-            <span class="lesys-select" ng-repeat="language in vm.languages"
-                  ng-class="{'selected':language===vm.selected}" ng-click="vm.selectLanguage(language)">
-            {{language}}
-        </span>
-    </div>
-    <form>
-        <div id="{{language}}-select" ng-repeat="language in vm.languages" ng-if="vm.selected === language">
-            <label for="translation-name">Name</label>
-
-            <div class="input-group">
-                <input type="text" class="form-control" id="translation-name" placeholder="Name"
-                       ng-model="vm.name[language]">
-                <span class="input-group-addon">{{language}}</span>
-            </div>
-            <label for="translation-description">Description</label>
-
-            <div class="input-group">
-
-                <textarea class="form-control" id="translation-description" placeholder="Description"
-                          ng-model="vm.description[language]"></textarea>
-                <span class="input-group-addon">{{language}}</span>
-
-            </div>
+<h1 ng-hide="vm.data._id">{{"core.courses.createCourse" | translate}}</h1>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group">
+            <label>Primärsprache</label>
+            <select class="form-control" ng-model="vm.data.primaryLanguage">
+                <option ng-selected="{{language == vm.data.primaryLanguage}}"
+                        ng-repeat="language in vm.languages"
+                        value="{{language}}">{{'core.languages.'+language |translate}}
+                </option>
+            </select>
         </div>
         <div class="form-group">
-            <label for="translation-name">UrlName</label>
-            <input type="text" class="form-control" id="translation-urlname" placeholder="Name"
-                   ng-model="vm.urlName">
+            <label for="user-roles">Sekundärsprachen</label>
+            <ui-select ng-model="vm.data.secondaryLanguages" multiple title="Choose a person" id="user-roles">
+                <ui-select-match ui-lock-choice="$item.name == 'authenticated'">
+                    {{'core.languages.'+$item |translate}}
+                </ui-select-match>
+                <ui-select-choices repeat="language in vm.languages |filter:'!'+vm.data.primaryLanguage"
+                                   ui-disable-choice>
+                    <div> {{'core.languages.'+language |translate}}</div>
+                </ui-select-choices>
+            </ui-select>
         </div>
-        <button class="btn btn-default" ng-click="vm.createCourse()" ng-if="!vm._id">Create Course</button>
-        <button class="btn btn-default" ng-click="vm.updateCourse()" ng-if="vm._id">Update Course</button>
+        <!--<div class="alert alert-info" ng-show="vm.data._id">-->
+        <!--Die Sekundärsprachen werden anschließend in der Erstellung von Abschnitten oder Lessons dargestellt.-->
+        <!--</div>-->
+        <div class="form-group">
+            <label>{{"core.courses.courseUrl" | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'core.courses.courseUrl' | translate}}"
+                   ng-model="vm.data.urlName" required>
+        </div>
+        <div class="alert alert-info" ng-show="vm.data._id">
+            Die Kursurl sollte nicht geändert werden, da der Kurs sonst eventuell
+            nicht wieder unter der gleichen URL gefunden wird.
+        </div>
+        <hr>
 
-    </form>
+        <div class="row" ng-show="vm.data.primaryLanguage">
+            <div class="col-sm-6">
+                <div>
+                    <div class="lesys-selection">
+                        <span class="lesys-select selected">Primärsprache: {{'core.languages.'+vm.data.primaryLanguage
+                            |translate}}</span>
+                    </div>
+                    <label>{{"core.courses.name" | translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'core.courses.name' | translate}}"
+                           ng-model="vm.data.name[vm.data.primaryLanguage]">
+                    <label>{{"core.general.description" | translate}}</label>
+                    <textarea class="form-control textarea-normal" placeholder="{{'core.general.description' | translate}}"
+                              ng-model="vm.data.description[vm.data.primaryLanguage]"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="lesys-selection">
+            <span class="lesys-select" ng-repeat="language in vm.data.secondaryLanguages"
+                  ng-class="{'selected':language===vm.selected}" ng-click="vm.selected = language">
+            {{'core.languages.'+language |translate}}
+        </span>
+                </div>
+                <div ng-repeat="language in vm.data.secondaryLanguages"
+                     ng-show="vm.selected === language">
+                    <label>{{"core.courses.name" | translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'core.courses.name' | translate}}"
+                           ng-model="vm.data.name[language]">
+                    <label>{{"core.general.description" | translate}}</label>
+                    <textarea class="form-control  textarea-normal" placeholder="{{'core.general.description' | translate}}"
+                              ng-model="vm.data.description[language]"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right margin-top">
+            <button class="btn btn-default" ng-click="vm.create()" ng-if="!vm.data._id">
+                {{"core.general.save" | translate}}
+            </button>
+            <button class="btn btn-default" ng-click="vm.update()" ng-if="vm.data._id">
+                {{"core.general.save" | translate}}
+            </button>
+        </div>
+
+    </div>
 </div>

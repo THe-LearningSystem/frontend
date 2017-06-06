@@ -30,6 +30,8 @@
                 url: '/admin',
                 abstract: true,
                 templateUrl: '/modules/admin/core/views/admin-default.view.html',
+                controller: 'CoreCtrl',
+                controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Admin'
                 },

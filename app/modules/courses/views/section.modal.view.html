@@ -1,46 +1,73 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" ng-click="vm.cancel()">&times;</button>
-    <h3 class="modal-title" id="modal-title">Section</h3>
+    <h3 class="modal-title" id="modal-title">{{'core.courses.section' | translate}}</h3>
 </div>
-<div class="modal-body" id="modal-body">
-    <div class="lesys-selection">
-            <span class="lesys-select" ng-repeat="language in vm.languages"
-                  ng-class="{'selected':language===vm.selected}" ng-click="vm.selectLanguage(language)">
-            {{language}}
-        </span>
-    </div>
-    <form>
-        <div id="{{language}}-select" ng-repeat="language in vm.languages" ng-if="vm.selected === language" >
-            <label for="translation-name">Name</label>
-
-            <div class="input-group">
-                <input type="text" class="form-control" id="translation-name" placeholder="Name"
-                       ng-model="vm.name[language]">
-                <span class="input-group-addon">{{language}}</span>
+<form name="inputform">
+    <div class="modal-body" id="modal-body">
+        <div class="form-group">
+            <label>{{'core.courses.sectionUrl' | translate}}</label>
+            <input type="text" class="form-control"
+                   placeholder="{{'core.courses.sectionUrl' | translate}}"
+                   ng-model="vm.data.urlName"
+                   required>
+        </div>
+        <div class="checkbox checkbox-success abc-checkbox">
+            <input type="checkbox"
+                   class="styled cursor-pointer"
+                   aria-label="Single  One"
+                   ng-model="vm.data.isPublished">
+            <label>{{'core.general.published' | translate}}</label>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <course-primary-language></course-primary-language>
+                <div class="form-group">
+                    <label>{{'core.courses.sectionName' | translate}}</label>
+                    <input type="text" class="form-control"
+                           placeholder="{{'core.courses.sectionName' | translate}}"
+                           ng-model="vm.data.name[vm.course.primaryLanguage]"
+                           ng-class="{'has-success': vm.data.name[vm.course.primaryLanguage].$valid, 'has-error': vm.data.name[vm.course.primaryLanguage].$invalid}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label>{{'core.general.description' | translate}}</label>
+                    <textarea class="form-control textarea-normal"
+                              placeholder="{{'core.general.description' | translate}}"
+                              ng-model="vm.data.description[vm.course.primaryLanguage]"
+                              required>
+                    </textarea>
+                </div>
             </div>
-            <label for="translation-description">Description</label>
-
-            <div class="input-group">
-
-                <textarea class="form-control" id="translation-description" placeholder="Description"
-                          ng-model="vm.description[language]"></textarea>
-                <span class="input-group-addon">{{language}}</span>
-
+            <div class="col-sm-6">
+                <course-language-selection></course-language-selection>
+                <div id="{{language}}-select" ng-repeat="language in vm.course.secondaryLanguages"
+                     ng-if="vm.selected === language">
+                    <div class="form-group">
+                        <label>{{'core.courses.sectionName' | translate}}</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="{{'core.courses.sectionName' | translate}}"
+                               ng-model="vm.data.name[language]">
+                    </div>
+                    <div class="form-group">
+                        <label>{{'core.general.description' | translate}}</label>
+                        <textarea class="form-control textarea-normal"
+                                  placeholder="{{'core.general.description' | translate}}"
+                                  ng-model="vm.data.description[language]">
+                        </textarea>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
 
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.create()" ng-if="vm.userData === undefined">
-        Create
-    </button>
-    <button class="btn btn-danger" type="button" ng-click="vm.delete()" ng-if="vm.userData !== undefined">
-        Delete
-    </button>
-    <button class="btn btn-primary" type="button" ng-click="vm.update()" ng-if="vm.userData !== undefined">
-        Update
-    </button>
-    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
-</div>
 
+    </div>
+    <div class="modal-footer">
+        <course-form-control-buttons></course-form-control-buttons>
+        <button class="btn btn-warning" type="button"
+                ng-click="vm.cancel()">
+            {{'core.general.cancel' | translate}}
+        </button>
+    </div>
+</form>

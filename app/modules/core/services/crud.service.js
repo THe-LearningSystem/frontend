@@ -5,12 +5,12 @@
         .module('core.services')
         .factory('crud', crud);
 
-    crud.$inject = ['notify', '$http', '$state'];
+    crud.$inject = ['CustomNotify', '$http', '$state'];
 
     var _serverUrl = "http://localhost:3000/api";
 
 
-    function crud(notify, $http, $state) {
+    function crud(CustomNotify, $http, $state) {
         return {
             get: get, //GetAll or GetOne depends on the url
             post: post, //Create
@@ -22,35 +22,36 @@
             return $http.get(_serverUrl + url);
         }
 
-        function post(url, payload, callback) {
+        function post(url, payload, callback, notify) {
             return $http.post(_serverUrl + url, payload)
                 .then(function (response) {
-                    success(response, callback)
+                    success(response, callback, notify)
                 }).catch(function (response) {
-                    error(response, callback);
+                    error(response, callback, notify);
                 });
         }
 
-        function put(url, payload, callback) {
+        function put(url, payload, callback, notify) {
             return $http.put(_serverUrl + url, payload)
                 .then(function (response) {
-                    success(response, callback)
+                    success(response, callback, notify)
                 }).catch(function (response) {
-                    error(response, callback);
+                    error(response, callback, notify);
                 });
         }
 
-        function deleteItem(url, callback) {
+        function deleteItem(url, callback, notify) {
             return $http.delete(_serverUrl + url)
                 .then(function (response) {
-                    success(response, callback)
+                    success(response, callback, notify)
                 }).catch(function (response) {
-                    error(response, callback);
+                    error(response, callback, notify);
                 });
         }
 
-        function success(response, callback) {
-                notify.success(response.data.msg);
+        function success(response, callback, notify) {
+            if (response.data.msg !== null &&(notify || notify === undefined))
+                CustomNotify.success(response.data.msg);
             if (callback !== undefined) {
                 callback(response);
             } else {
@@ -58,9 +59,10 @@
             }
         }
 
-        function error(response, callback) {
-            if (response.data !== null)
-                notify.error(response.data.msg);
+        function error(response, callback, notify) {
+                      console.log(response);
+            if (response.data !== null && response.data.msg !== null && (notify || notify === undefined))
+                CustomNotify.error(response.data.msg);
             if (callback !== undefined) {
                 callback(response);
             } else {

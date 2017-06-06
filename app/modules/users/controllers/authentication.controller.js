@@ -5,12 +5,13 @@
         .module('users')
         .controller('AuthenticationCtrl', AuthenticationCtrl);
 
-    AuthenticationCtrl.$inject = ['$state', 'UsersService', 'Notification', 'Authentication'];
+    AuthenticationCtrl.$inject = ['$state', '$stateParams','UsersService', 'Notification', 'Authentication','I18nManager'];
 
-    function AuthenticationCtrl($state, UsersService, Notification, Authentication) {
+    function AuthenticationCtrl($state,$stateParams, UsersService, Notification, Authentication,I18nManager) {
         var vm = this;
 
         vm.auth = Authentication;
+        vm.fromOutside = $stateParams.fromOutside;
         vm.signup = signup;
         vm.signin = signin;
         vm.isUsernameUnique = isUsernameUnique;
@@ -24,9 +25,9 @@
             if (!isValid) {
                 return false;
             } else {
-                UsersService.signup(vm.credentials)
-                    .then(onUserSignupSuccess)
-                    .catch(onUserSignupError);
+                UsersService.signup(vm.credentials, function (response) {
+
+                });
             }
         }
 
@@ -35,10 +36,20 @@
             if (!isValid) {
                 return false;
             } else {
-                //TODO:fix this
-                UsersService.signin({username: vm.credentials.usernameOrEmail, password: vm.credentials.password})
-                    .then(onUserSigninSuccess)
-                    .catch(onUserSigninError);
+                UsersService.signin({
+                    username: vm.credentials.usernameOrEmail,
+                    password: vm.credentials.password
+                }, function (response) {
+                    console.log(response);
+                    var token = response.data.token;
+                    var user =Authentication.setToken(token).user;
+                    //set the preferred Language
+                    console.log(user);
+                    I18nManager.setPreferredLanguage(user.preferredLanguage);
+
+                        // And redirect to the previous or home page
+                    $state.go($state.previous.state.name || 'frontend.home', $state.previous.params);
+                })
             }
         }
 
@@ -61,50 +72,5 @@
                 });
             }
         }
-
-        // Authentication Callbacks
-        function onUserSignupSuccess(response) {
-            Notification.success({
-                message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!',
-                positionX: 'right',
-                positionY: 'bottom'
-            });
-            // And redirect to the previous or home page
-            //$state.go('users.signin');
-        }
-
-        function onUserSignupError(response) {
-            Notification.error({
-                message: response.data.message,
-                title: '<i class="glyphicon glyphicon-remove"></i> Signup Error!',
-                delay: 6000
-            });
-        }
-
-        function onUserSigninSuccess(response) {
-            var token = response.data.token;
-            console.log(Authentication);
-            Authentication.setToken(token);
-
-            // If successful we assign the response to the global user model
-            Notification.success({
-                message: '<i class="glyphicon glyphicon-ok"></i> Signin successful!',
-                positionX: 'right',
-                positionY: 'bottom'
-            });
-            console.log($state.previous);
-            // And redirect to the previous or home page
-            $state.go($state.previous.state.name || 'home', $state.previous.params);
-        }
-
-        function onUserSigninError(response) {
-            Notification.error({
-                message: response.data.message,
-                title: '<i class="glyphicon glyphicon-remove"></i> Signin Error!',
-                delay: 6000
-            });
-        }
-
-
     }
 }());

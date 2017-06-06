@@ -43,48 +43,48 @@
          */
 
         function createTranslationModule(data) {
-            return crud.put('/i18n/', data.payload);
+            return crud.post('/i18n/', data.payload);
         }
 
-        function updateTranslationModule(data) {
-            return crud.post('/i18n/' + data.moduleId + '/', data.payload);
+        function updateTranslationModule(data,callback) {
+            return crud.put('/i18n/' + data.moduleId + '/', data.payload,callback);
         }
 
-        function deleteTranslationModule(data) {
-            return crud.delete('/i18n/' + data.moduleId + '/');
+        function deleteTranslationModule(data,callback) {
+            return crud.delete('/i18n/' + data.moduleId + '/',callback);
         }
 
         /**
          * TranslationGroup
          */
 
-        function createTranslationGroup(data) {
-            return crud.put('/i18n/' + data.moduleId + '/groups/', data.payload);
+        function createTranslationGroup(data,callback) {
+            return crud.post('/i18n/' + data.moduleId + '/groups/', data.payload,callback);
         }
 
-        function updateTranslationGroup(data) {
+        function updateTranslationGroup(data,callback) {
             console.log(data);
-            return crud.post('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/', data.payload);
+            return crud.put('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/', data.payload,callback);
         }
 
-        function deleteTranslationGroup(data) {
-            return crud.delete('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/');
+        function deleteTranslationGroup(data,callback) {
+            return crud.delete('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/',callback);
         }
 
         /**
          * Translations
          */
 
-        function createTranslation(data) {
-            return crud.put('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/', data.payload);
+        function createTranslation(data,callback) {
+            return crud.post('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/', data.payload,callback);
         }
 
-        function updateTranslation(data) {
-            return crud.post('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/translations/' + data.payload.id, data.payload);
+        function updateTranslation(data,callback) {
+            return crud.put('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/translations/' + data.payload.id, data.payload,callback);
         }
 
-        function deleteTranslation(data) {
-            return crud.delete('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/translations/' + data.payload.id);
+        function deleteTranslation(data,callback) {
+            return crud.delete('/i18n/' + data.moduleId + '/groups/' + data.groupId + '/translations/' + data.translationId,callback);
         }
     }
 }());

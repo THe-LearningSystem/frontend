@@ -1,0 +1,51 @@
+.margin-top {
+  margin-top: 20px;
+}
+
+.textarea-normal {
+  resize: none;
+  height: 150px !important;
+}
+
+.has-warning > .fr-box {
+  border: 1px solid $state-warning-text;
+}
+
+.has-warning > .fr-box > .fr-wrapper {
+  box-shadow: none !important;
+}
+
+.has-warning > .fr-box > .fr-toolbar {
+  box-shadow: none !important;
+  border-bottom: 1px solid $state-warning-text;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.remove-container{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  height:auto !important;
+  margin-top:50px;
+  margin-left:230px;
+  transition: all 0.5s ease 0s;
+  //margin:-40px -15px -15px;
+}
+#wrapper:not(.sidebar-collapse) .remove-container{
+  margin-left:50px;
+  transition: all 0.5s ease 0s;
+}
+
+@media (max-width: $screen-xs-max) {
+  .remove-container{
+    margin-top:100px;
+    margin-left:0px !important;
+  }
+}

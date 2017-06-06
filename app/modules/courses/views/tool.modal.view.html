@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="vm.cancel()">&times;</button>
+    <h3 class="modal-title" id="modal-title">{{'core.courses.tool' | translate}}</h3>
+</div>
+<form name="inputform">
+    <div class="modal-body" id="modal-body">
+        <div class="form-group">
+            <label>{{'core.courses.toolUrl' | translate}}</label>
+            <input type="text" class="form-control"
+                   placeholder="{{'core.courses.toolUrl' | translate}}"
+                   ng-model="vm.data.url"
+                   required>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" ng-model="vm.data.extern">
+            <label>
+                {{'core.courses.externalTool' | translate}}
+            </label>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <course-primary-language></course-primary-language>
+                <div class="form-group">
+                    <label>{{'core.courses.toolName' | translate}}</label>
+                    <input type="text" class="form-control"
+                           placeholder="{{'core.courses.toolName' | translate}}"
+                           ng-model="vm.data.name[vm.course.primaryLanguage]"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        {{'core.general.description' | translate}}
+                    </label>
+                    <textarea class="form-control textarea-normal"
+                              placeholder="{{'core.general.description' | translate}}"
+                              ng-model="vm.data.description[vm.course.primaryLanguage]"
+                              required>
+                    </textarea>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <course-language-selection></course-language-selection>
+                <div ng-repeat="language in vm.course.secondaryLanguages"
+                     ng-if="vm.selectedLanguage === language">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" placeholder="Name"
+                               ng-model="vm.data.name[language]">
+                    </div>
+                    <div class="form-group">
+                        <label> {{'core.general.description' | translate}}</label>
+                        <textarea class="form-control textarea-normal"
+                                  placeholder="{{'core.general.description' | translate}}"
+                                  ng-model="vm.data.description[language]">
+                            </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <course-form-control-buttons></course-form-control-buttons>
+        <button class="btn btn-warning" type="button"
+                ng-click="vm.cancel()">
+            {{'core.general.cancel' | translate}}
+        </button>
+    </div>
+</form>
+

@@ -9,6 +9,7 @@
 
     function Authentication(localStorageService, jwtHelper) {
         var auth = {
+            user: null,
             username: null,
             rights: null,
             token: null,
@@ -20,6 +21,7 @@
                 }
                 if (auth.token !== null && !auth.isTokenExpired()) {
                     var tokenPayload = jwtHelper.decodeToken(auth.token);
+                    auth.user = tokenPayload.user;
                     auth.username = tokenPayload.username;
                     auth.rights = tokenPayload.rights;
                     auth.expirationDate = jwtHelper.getTokenExpirationDate(auth.token);
@@ -36,9 +38,10 @@
             setToken: function (token) {
                 localStorageService.set("token", token);
                 auth.token = token;
-                auth.init();
+                return auth.init();
             },
             removeToken: function () {
+                auth.user = null;
                 auth.username = null;
                 auth.rights = null;
                 auth.token = null;
@@ -46,8 +49,8 @@
                 auth.isAuthenticated = false;
                 localStorageService.remove("token");
             },
-            hasRight:function(right){
-                return(auth.rights !== null &&_.includes(auth.rights,right));
+            hasRight: function (right) {
+                return (auth.rights !== null && _.includes(auth.rights, right));
             }
         };
 

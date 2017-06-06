@@ -5,41 +5,41 @@
         .module('courses')
         .controller('CourseCreateCtrl', CourseCreateCtrl);
 
-    CourseCreateCtrl.$inject = ['Courses', 'I18nManager','$stateParams'];
+    CourseCreateCtrl.$inject = ['Courses', 'I18nManager', '$stateParams'];
 
-    function CourseCreateCtrl(Courses, i18nManager,$stateParams) {
+    function CourseCreateCtrl(Courses, i18nManager, $stateParams) {
         var vm = this;
         vm.update = false;
-        var urlName = $stateParams.urlName;
-        if(urlName){
+        vm.courseUrl = $stateParams.courseUrl;
+        if (vm.courseUrl) {
             vm.update = true;
-            Courses.courseDisplay(urlName).then(function(response) {
-                vm._id = response.data._id;
-                vm.name = response.data.name;
-                vm.description = response.data.description;
-                console.log(vm._id);
+            Courses.courseDisplay(vm.courseUrl).then(function (response) {
+                vm.data = response.data;
+                console.log(response.data);
+                if (vm.data.secondaryLanguages.length > 0)
+                    vm.selected = vm.data.secondaryLanguages[0];
             });
         }
 
         vm.languages = i18nManager.config.languages;
-        console.log(vm.languages);
-        vm.selected = i18nManager.config.default;
 
-        vm.selectLanguage = function (language) {
-            vm.selected = language;
+
+        vm.create = function () {
+            var data = {
+                payload: vm.data
+            };
+            console.log(data);
+            Courses.createCourse(data);
         };
 
-        vm.createCourse = function () {
-            console.log(vm.name, vm.description);
+        vm.update = function () {
+            console.log("update COurse");
             var data = {
-                payload: {
-                    name: vm.name,
-                    description: vm.description,
-                    urlName: vm.urlName
-                }
+                courseId: vm.data._id,
+                payload: vm.data
             };
-            Courses.createCourse(data)
-            //TODO:redirect to created course display
+            console.log(data);
+            Courses.updateCourse(data);
         }
     }
 }());

@@ -6,38 +6,39 @@
         .module('users.services')
         .factory('UsersService', UsersService);
 
-    UsersService.$inject = ['$rootScope','$http'];
+    UsersService.$inject = ['crud'];
 
-    function UsersService($rootScope,$http) {
+    function UsersService(crud) {
         return {
             signup: signup,
             signin: signin,
             isUsernameUnique: isUsernameUnique,
-            isEmailUnique: isEmailUnique
+            isEmailUnique: isEmailUnique,
+            get:get,
+            update:update
         };
 
-        function signup(credentials) {
-            return $http.post($rootScope.serverUrl+'/auth/signup', credentials);
+        function get(userId){
+            return crud.get('/users/'+userId);
         }
 
-        function signin(credentials) {
-            return $http.post($rootScope.serverUrl+'/auth/signin', credentials);
+        function update(data){
+            return crud.put('/users/'+data.userId,data.payload);
+        }
+        function signup(credentials,callback) {
+            return crud.post('/auth/signup', credentials,callback);
+        }
+
+        function signin(credentials,callback) {
+            return crud.post('/auth/signin', credentials,callback);
         }
 
         function isUsernameUnique(username) {
-            return $http.get($rootScope.serverUrl+'/users/username/' + username);
+            return crud.get('/users/username/' + username);
         }
 
         function isEmailUnique(email) {
-            return $http.get($rootScope.serverUrl+'/users/email/' + email);
-        }
-
-        function complete(response) {
-            return response;
-        }
-
-        function failed(error) {
-            console.log(error.statusText);
+            return crud.get('/users/email/' + email);
         }
     }
 }());

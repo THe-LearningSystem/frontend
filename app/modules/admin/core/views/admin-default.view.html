@@ -1,29 +1,94 @@
-<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-    <a class="navbar-brand" href="/">THe Learning System</a>
-    <div id="user-navigation">
-        <ul class="nav navbar-nav navbar-left">
-            <li><a ui-sref="frontend.home">Frontend</a></li>
-            <li><a ui-sref="backend.dashboard">Dashboard</a></li>
-            <li><a ui-sref="backend.acl">Berechtigungen</a></li>
-            <li><a ui-sref="backend.users">Benutzer</a></li>
-            <li><a ui-sref="backend.i18n.list">Translations</a></li>
-        </ul>
-        <span class="btn-separator"></span>
-        <ul id="top-navbar-right" class="nav navbar-nav navbar-right" ng-controller="AuthenticationCtrl as vm">
-            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="frontend.users.signin">Anmelden</a></li>
-            <li ng-if="!vm.auth.isAuthenticated"><a ui-sref="frontend.users.signup">Registrieren</a></li>
-            <li ng-if="vm.auth.isAuthenticated" id="profile-link"><a ui-sref="frontend.users.profile"><span
-                    class="glyphicon glyphicon-user"></span></a></li>
-            <!--<li ng-if="vm.auth.isAuthenticated" id="profile-navigation">-->
-                <!--<ul>-->
-                    <!--<li><a ui-sref="frontend.users.signout">Sign Out</a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
-        </ul>
-
+<header id="main-header">
+    <div id="logo">
+        <div class="logo-lg">
+            <a ui-sref="frontend.home"> THe Learning System</a>
+        </div>
+        <div class="logo-small">
+            <a ui-sref="frontend.home"> <i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
+        </div>
     </div>
-</nav>
-<div id="content-wrapper" class="container">
-    <div ncy-breadcrumb></div>
-    <section ui-view></section>
+    <nav id="top-nav" class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" ng-click="vm.toggleSidebar()">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </a>
+        <div class="navbar-custom-menu  pull-right">
+            <ul class="nav navbar-nav nav-custom pull-right">
+                <li class="dropdown notification">
+                    <a>
+                        <i class="fa fa-bell" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class=" notification" ng-if="!vm.auth.isAuthenticated">
+                    <a ui-sref="frontend.users.signin">
+                        Login
+                    </a>
+                </li>
+
+                <li class="item dropdown open" uib-dropdown="" ng-if="vm.auth.isAuthenticated">
+                    <a href="#" class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true"
+                       aria-expanded="true">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">
+                            {{vm.auth.username}}
+                        </li>
+                        <li class="divider"></li>
+                        <li class="link">
+                            <a ui-sref="frontend.users.profile">
+                                Profile
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="link">
+                            <a ui-sref="frontend.users.signout">Sign Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+
+<aside id="main-sidebar">
+    <ul class="sidebar-menu">
+        <li>
+            <a ui-sref="frontend.home">
+                <i class="fa fa-desktop" aria-hidden="true"></i>
+                <span>Frontend</span>
+            </a>
+        </li>
+        <li>
+            <a ui-sref="backend.dashboard">
+                <i class="fa fa-tachometer" aria-hidden="true"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a ui-sref="backend.acl">
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <span>Berechtigungen</span>
+            </a>
+        </li>
+        <li>
+            <a ui-sref="backend.users">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span>Benutzer</span>
+            </a>
+        </li>
+        <li>
+            <a ui-sref="backend.i18n.list">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <span>Translations</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+<div id="content-wrapper">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+    </ol>
+    <div ui-view></div>
 </div>

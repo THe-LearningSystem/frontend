@@ -1,8 +1,26 @@
 <div class="page-header">
-    <h1>Course</h1>
+    <h1>{{'core.courses.courses' | translate}}</h1>
 </div>
-<ul ng-repeat="course in vm.courses">
-    <li><a href="/courses/{{course.urlName}}">{{course.name}}</a></li>
-
-
-</ul>
+<div class="row">
+    <div class="col-sm-4" has-permission="courses.create">
+        <div class="panel panel-default panel-course-item align-container create-tool-container cursor-pointer"
+             ui-sref="frontend.courses.create">
+            <div class="align-item panel-course-create">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 " ng-repeat="course in vm.courses">
+        <div class="panel panel-default panel-course-item cursor-pointer"
+             ui-sref="frontend.courses.display.content({courseUrl:course.urlName})">
+            <div class="panel-body">
+                <div class="course-item-header">
+                    <h3>
+                        {{getLocalized(course.name)}}
+                    </h3>
+                </div>
+                {{getLocalized(course.description)}}
+            </div>
+        </div>
+    </div>
+</div>

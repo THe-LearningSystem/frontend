@@ -1,1 +1,38 @@
-Q and a
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-9">
+                <input class="form-control" disabled>
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-default btn-block"
+                        ui-sref="frontend.courses.display.createQuestion({courseUrl:vm.course.urlName})">
+                    {{'core.courses.createQuestion' | translate}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div ng-repeat="questionAndAnswers in vm.course.questionsAndAnswers | orderBy :'-date'">
+    <div class="panel panel-default cursor-pointer panel-question"
+         ui-sref="frontend.courses.display.questionsAndAnswers.display({questionId:questionAndAnswers._id})">
+        <div class="panel-body">
+            <div class="questions-item-user">
+                <i class="fa fa-user fa-4x" aria-hidden="true"></i>
+                {{questionAndAnswers.user.username}}
+            </div>
+            <div class="questions-item-title">
+                <div class="title">{{questionAndAnswers.title}}</div>
+                <span>{{questionAndAnswers.date | timeAgo}}</span>
+            </div>
+            <div class="questions-item-answers pull-right">
+                <h4>{{questionAndAnswers.answers.length}} {{'core.courses.answers' | translate}}</h4>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

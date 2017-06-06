@@ -22,7 +22,7 @@
         vm.editUser = function (userData, roles) {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
-                templateUrl: '/modules/admin/acl/views/userModal.html',
+                templateUrl: '/modules/admin/acl/views/user.modal.view.html',
                 controller: 'UserModalCtrl',
                 controllerAs: 'vm',
                 resolve: {

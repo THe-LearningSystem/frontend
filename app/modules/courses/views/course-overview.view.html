@@ -1,22 +1,31 @@
-<div>
-    <h4>Info zu diesem Kurs</h4>
-    <p> {{vm.course.shortDescription}}</p>
-</div>
-<hr>
-<div>
-    <table>
-        <tr>
-            <td>Lektionanzahl</td>
-            <td>{{vm.courses.lessonCount}}</td>
-        </tr>
-        <tr>
-            <td>Angebotene Sprachen</td>
-            <td>{{vm.course.offeredLanguages}}</td>
-        </tr>
-    </table>
-</div>
-<hr>
-<div>
-    <h4>Beschreibung</h4>
-    <p> {{vm.course.description.de}}</p>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4>{{'core.courses.infosAboutThisCourse' | translate}}</h4>
+        <p> {{getLocalized(vm.course.shortDescription)}}</p>
+        <hr>
+        <div>
+            <table>
+                <tr>
+                    <td><strong>{{'core.courses.lessonNumber' | translate}}</strong></td>
+                    <td>{{vm.lessonCount}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'core.courses.offeredLanguages' | translate}}</strong></td>
+                    <td>
+                <span>
+                    {{"core.languages."+vm.course.primaryLanguage| translate}}
+                </span>
+                        <span ng-show="vm.course.secondaryLanguages.length > 0">, </span>
+                        <span ng-repeat="language in vm.course.secondaryLanguages">
+                    {{"core.languages."+language | translate}}{{$last ? '' : ', '}}
+                </span></td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div>
+            <h4>{{'core.general.description' | translate}}</h4>
+            <p> {{getLocalized(vm.course.description)}}</p>
+        </div>
+    </div>
 </div>

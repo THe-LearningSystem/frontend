@@ -33,11 +33,16 @@
         // };
 
         vm.update = function () {
+
             vm.userData.roles = [];
             _.forEach(vm.selected, function (role) {
                 vm.userData.roles.push(role._id);
             });
-            ACL.updateUser(vm.userData);
+            var data ={
+                userId:vm.userData._id,
+                payload:vm.userData
+            };
+            ACL.updateUser(data);
             $uibModalInstance.close();
         };
 

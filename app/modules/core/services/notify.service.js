@@ -3,13 +3,14 @@
 
     angular
         .module('core.services')
-        .factory('notify', notify);
+        .factory('CustomNotify', CustomNotify);
 
-    notify.$inject = ['Notification', '$state'];
+    CustomNotify.$inject = ['Notification', '$state'];
 
-    function notify(Notification, $state) {
+    function CustomNotify(Notification, $state) {
         return {
             success: success,
+            warning:warning,
             error: error
         };
 
@@ -25,7 +26,18 @@
                 positionY: options.positionY
             });
         }
-
+        function warning(msg, options) {
+            var defaultOptions = {
+                positionX: 'right',
+                positionY: 'bottom'
+            };
+            options = _.merge(defaultOptions, options);
+            Notification.warning({
+                message: '<i class="glyphicon glyphicon-remove"></i>' + msg,
+                positionX: options.positionX,
+                positionY: options.positionY
+            });
+        }
         function error(msg, options) {
             var defaultOptions = {
                 positionX: 'right',

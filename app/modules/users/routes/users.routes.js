@@ -30,7 +30,10 @@
                 url: '/signin',
                 templateUrl: '/modules/users/views/signin.view.html',
                 controller: 'AuthenticationCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                params: {
+                    fromOutside: null
+                }
             })
             .state('frontend.users.signup', {
                 url: '/signup',
@@ -43,7 +46,9 @@
             })
             .state('frontend.users.profile', {
                 url: '/profile',
-                templateUrl: '/modules/users/views/profile.view.html'
+                templateUrl: '/modules/users/views/profile.view.html',
+                controller: 'ProfileCtrl',
+                controllerAs: 'vm'
             });
     }
 }());

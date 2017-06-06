@@ -1,0 +1,86 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <course-lesson-create-header></course-lesson-create-header>
+        <div class="row">
+            <form name="inputform">
+                <div class="col-sm-12">
+                    <course-lesson-type-selection></course-lesson-type-selection>
+                </div>
+                <div class="col-sm-6">
+                    <course-primary-language></course-primary-language>
+                    <div class="form-group">
+                        <label>{{'core.courses.name' | translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'core.courses.name' | translate}}"
+                               ng-model="vm.data.name[vm.course.primaryLanguage]">
+                    </div>
+                    <div class="form-group">
+                        <label>{{'core.general.content' | translate}}</label>
+                        <textarea froala="vm.froalaOptions"
+                                  ng-model=" vm.data.data.question[vm.course.primaryLanguage]"
+                                  required>
+                         </textarea>
+                    </div>
+                    <div class="answers margin-top">
+                        <div class="answer-edit panel panel-default" ng-repeat="answer in vm.data.data.answers"
+                             ng-class="{'panel-right-answer':$index == vm.data.data.rightAnswerIndex}">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
+                                    <textarea froala="vm.froalaOptionsSmall"
+                                              ng-model="answer[vm.course.primaryLanguage]"
+                                              required>
+                                    </textarea>
+                                </div>
+                                <button class="btn btn-default"
+                                        ng-click="vm.data.data.rightAnswerIndex = $index"
+                                        ng-show="$index !== vm.data.data.rightAnswerIndex">
+                                    {{'core.courses.setRightAnswer' | translate}}
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <course-language-selection></course-language-selection>
+                    <div ng-repeat="language in vm.course.secondaryLanguages"
+                         ng-show="vm.selectedLanguage === language">
+                        <div class="form-group">
+                            <label>{{'core.courses.lessonName' | translate}}</label>
+                            <input type="text" class="form-control"
+                                   placeholder="Name"
+                                   ng-model="vm.data.question[language]">
+                        </div>
+                        <div class="form-group">
+                            <label>{{'core.general.content' | translate}}</label>
+                            <textarea froala="vm.froalaOptions"
+                                      ng-model=" vm.data.data.content[language]"></textarea>
+                        </div>
+
+                        <div class="answers margin-top">
+                            <div class="answer-edit panel panel-default" ng-repeat="answer in vm.data.data.answers"
+                                 ng-class="{'panel-right-answer':$index == vm.data.data.rightAnswerIndex}">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
+                                        <textarea froala="vm.froalaOptionsSmall"
+                                                  ng-model="answer[language]">
+                                    </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <course-is-published></course-is-published>
+                </div>
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <course-form-control-buttons></course-form-control-buttons>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

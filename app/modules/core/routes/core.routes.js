@@ -29,18 +29,8 @@
             .state('frontend', {
                 abstract: true,
                 templateUrl: '/modules/core/views/default.view.html',
-                resolve: [
-                    //Load this before u can go further
-                    'Authentication', function (Authentication) {
-                        return Authentication.init();
-                    },
-                    'I18nManager', function (I18nManager) {
-                        return I18nManager.loadData();
-                    },
-                    'I18nManager', function (I18nManager) {
-                        return I18nManager.loadConfig();
-                    }
-                ]
+                controller: 'CoreCtrl',
+                controllerAs: 'vm'
             })
             .state('core', {
                 abstract: true,

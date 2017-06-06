@@ -51,14 +51,11 @@
         };
 
         vm.delete = function () {
+            console.log(vm._id);
             var data = {
                 moduleId: vm.moduleId,
                 groupId: vm.groupId,
-                payload: {
-                    _id: vm._id,
-                    name: vm.name,
-                    values: vm.values
-                }
+                translationId:vm._id
             };
             i18nService.deleteTranslation(data);
             $uibModalInstance.close();

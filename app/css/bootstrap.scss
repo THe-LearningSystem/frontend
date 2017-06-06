@@ -1,7 +1,10 @@
 @import 'bootstrap_variables';
+@import 'variables';
+@import '../modules/courses/tools/tcs/automata/css/own_variables';
 //ALWAYS WRONG ICON PATH
 $icon-font-path: "../lib/bootstrap-sass/assets/fonts/bootstrap/";
 //@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 @import '../lib/bootstrap-sass/assets/stylesheets/_bootstrap';
+@import "../lib/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.scss";
 

@@ -12,6 +12,14 @@ var _ = require('lodash'),
     browserSync = require('browser-sync').create(),
     historyApiFallback = require('connect-history-api-fallback'); // create a browser sync instance.
 
+function swallowError(error) {
+
+    // If you want details of the error in the console
+    console.log(error.toString())
+
+    this.emit('end')
+}
+
 // Sass task
 gulp.task('sass', function () {
     return gulp.src([
@@ -20,9 +28,7 @@ gulp.task('sass', function () {
     ])
         .pipe(plugins.concat('main.css'))
         .pipe(plugins.sass({
-            includePaths: ['./app/css'],
-            errLogToConsole: true
-        }))
+            includePaths: ['./app/css']}).on('error', plugins.sass.logError))
         .pipe(gulp.dest('./app/css/'))
         .pipe(browserSync.stream());
 });
@@ -46,7 +52,8 @@ gulp.task('inject', function () {
 
 // Watch Files For Changes
 gulp.task('watch', function () {
-    gulp.watch([defaultAssets.lib.js, defaultAssets.js, defaultAssets.lib.css, defaultAssets.css], ['inject']);
+    //, defaultAssets.lib.css, defaultAssets.css
+    gulp.watch([defaultAssets.lib.js, defaultAssets.js], ['inject']);
     gulp.watch(defaultAssets.sass, ['sass']);
     gulp.watch([defaultAssets.views, defaultAssets.js], browserSync.reload);
 });

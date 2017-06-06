@@ -1,0 +1,17 @@
+<div class="page-header" ng-if="!vm.update">
+    <h1>Create Course</h1>
+</div>
+<div>
+    <div class="form-group">
+        <label for="data-title">Titel</label>
+        <input type="text" class="form-control" id="data-title" placeholder="Title"
+               ng-model="vm.data.title" required>
+    </div>
+    <div class="form-group">
+        <label for="data-title">Inhalt</label>
+        <textarea id="notification-content" froala="vm.froalaOptions" ng-model="vm.data.content"></textarea>
+    </div>
+    <button class="btn btn-default" ng-click="vm.create()" ng-if="!vm.data._id">Create Course</button>
+    <button class="btn btn-default" ng-click="vm.update()" ng-if="vm.data._id">Update Course</button>
+    </form>
+</div>

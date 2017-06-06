@@ -1,12 +1,345 @@
-#content-wrapper{
-  margin-top:50px;
-}
-
 /*
   Allow angular.js to be loaded in body, hiding cloaked elements until
   templates compile.  The !important is important given that there may be
   other selectors that are more specific or come later and might alter display.
  */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  background-color: $body-bg;
   display: none !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#wrapper {
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #222d32;
+}
+
+#main-header {
+  position: relative;
+  background-color: $blueColor;
+  height: 50px;
+  z-index: 1030;
+}
+
+#logo {
+  padding: 0 15px;
+  font-size: 20px;
+  line-height: 50px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  color: white;
+  background-color: darken($blueColor, 3.5%);
+  height: 50px;
+  width: 230px;
+  float: left;
+  transition: all 0.5s ease 0s;
+  z-index: 900;
+  overflow: hidden;
+
+}
+
+//
+//#logo div {
+//  height: 50px;
+//  width: 230px;
+//}
+
+#logo a {
+  color: white;
+}
+
+#logo a:hover {
+  text-decoration: none;
+}
+
+#wrapper:not(.sidebar-collapse) #logo {
+  width: 50px;
+  transition: all 0.5s ease 0s;
+
+}
+
+#wrapper:not(.sidebar-collapse) .logo-lg {
+  display: none;
+}
+
+#wrapper.sidebar-collapse .logo-small {
+  display: none;
+}
+
+#top-nav {
+  background-color: $blueColor;
+  z-index: 910;
+  margin-left: 230px;
+  transition: all 0.5s ease 0s;
+  border: 0;
+}
+
+#wrapper:not(.sidebar-collapse) #top-nav {
+  margin-left: 50px;
+  transition: all 0.5s ease 0s;
+}
+
+.navbar-custom-menu {
+  float: right;
+}
+
+.nav-custom a, .nav-custom a:active, .nav-custom a:visited, .nav-custom a:focus {
+  padding: 15px;
+  color: white;
+  background-color: $blueColor;
+}
+
+.nav-custom a:hover, .nav-custom .open a {
+  padding: 15px;
+  background-color: darken($blueColor, 3.5%) !important;
+}
+
+.nav-custom > li > a:visited, .nav-custom > li > a:focus {
+  background-color: $blueColor !important;
+
+}
+
+.nav-custom > li.open > a {
+  background-color: darken($brand-primary, 3.5%) !important;
+}
+
+.nav-custom li.link a {
+  padding: 5px 12px;
+  background-color: white !important;
+  color: black;
+}
+
+.nav-custom li.link a:hover {
+  padding: 5px 12px;
+  background-color: $brand-primary !important;
+  color: white;
+}
+
+.nav-custom > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.sidebar-toggle, .sidebar-toggle:visited, .sidebar-toggle:active, .sidebar-toggle:focus {
+  float: left;
+  padding: 15px 15px;
+  color: white;
+}
+
+.sidebar-toggle:hover {
+  color: white;
+  background-color: darken($brand-primary, 3.5%);
+}
+
+#main-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 50px;
+  width: 230px;
+  background-color: #222d32;
+  min-height: 100%;
+  z-index: 810;
+  transition: all 0.5s ease 0s;
+  color: white;
+}
+
+.sidebar-menu {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-menu > li > a {
+  display: block;
+  height: 41px;
+  color: #b8c7ce;
+  font-size: 20px;
+  padding: 8px 5px 12px 15px;
+  overflow: hidden;
+}
+
+.fa-own {
+  vertical-align: middle;
+}
+
+.sidebar-menu > li > a > .fa {
+  margin-right: 10px;
+}
+
+.sidebar-menu > li > a:hover {
+  text-decoration: none;
+  background-color: darken(#222d32, 3%);
+}
+
+.sidebar-menu > li > a > .fa {
+  overflow: hidden;
+}
+
+.sidebar-menu > li > a > span {
+  transition: all 0.6s ease 1s;
+
+}
+
+#wrapper:not(.sidebar-collapse) .sidebar-menu > li > a > span {
+  display: none !important;
+}
+
+#wrapper.sidebar-collapse .sidebar-menu > li > a > span {
+}
+
+#wrapper:not(.sidebar-collapse) #main-sidebar {
+  //margin-left: -180px;
+  width: 50px;
+}
+
+#wrapper.sidebar-collapse #content-wrapper {
+  margin-left: 230px;
+  //width:50px;
+}
+
+#wrapper:not(.sidebar-collapse) #content-wrapper {
+  margin-left: 50px;
+}
+
+#content-wrapper {
+  background-color:#F7F7F7;
+  padding: 15px;
+  transition: margin-left 0.5s ease 0s;
+  min-height:calc(100vh - 50px);
+  padding-top:40px;
+}
+
+.navbar-collapse.collapse {
+  display: block !important;
+}
+
+.navbar-nav > li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right !important;
+}
+
+@media (max-width: 767px) {
+  #main-header {
+    height: auto;
+  }
+  #logo {
+    position: relative;
+    z-index: 1500;
+    text-align: center;
+    width: 100% !important;
+    background-color: darken($brand-primary, 3.5%) !important;
+  }
+
+  #wrapper.sidebar-collapse .logo-lg, #wrapper:not(.sidebar-collapse) .logo-lg {
+    display: block;
+    width: 100%;
+    z-index: 1000;
+    background-color: darken($brand-primary, 3.5%) !important;
+  }
+
+  #wrapper.sidebar-collapse .logo-small, #wrapper:not(.sidebar-collapse) .logo-small {
+    display: none;
+  }
+
+  .navbar{
+    margin-bottom:0 !important;
+  }
+  #top-nav {
+    //margin-top:50px !important;
+    margin-left: 0 !important;
+    height: 100px;
+    position: relative;
+  }
+  #main-sidebar {
+    padding-top: 100px;
+
+  }
+  .navbar-custom-menu .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+  #wrapper:not(.sidebar-collapse) #main-sidebar {
+    margin-left: -230px;
+  }
+
+  #wrapper:not(.sidebar-collapse) #content-wrapper {
+    margin-left: 0;
+  }
+  #wrapper.sidebar-collapse #content-wrapper {
+    margin-left: 230px;
+  }
+
+  #content-wrapper {
+    min-width: 100%;
+  }
+
+  .navbar-nav .open .dropdown-menu {
+    position: absolute;
+    right: 0;
+    float: left;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    //padding: 5px 12px;+
+  }
+  .navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 5px 12px;
+  }
+
+  .dropdown-header {
+    padding: 5px 12px;
+  }
+}
+
+.cursor-pointer{
+  cursor:pointer;
+}
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+@media screen and (min-width: $screen-md-min ) {
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    min-width: 900px;
+  }
 }

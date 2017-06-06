@@ -1,0 +1,29 @@
+.questions-item-user{
+  width:55px;
+  height:100%;
+  margin:0 20px;
+}
+
+.questions-item-title{
+  margin-right:10px;
+}
+
+.questions-item-answers{
+  margin-left: auto;
+  margin-right:20px;
+}
+
+.questions-item-title > .title{
+  font-size:18px;
+  font-weight:600;
+}
+
+.panel-question{
+  //height:60px;
+}
+
+.panel-question >.panel-body{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+}

@@ -12,40 +12,65 @@
         var i18n = {
             config: null,
             data: null,
-            currentLanguage:null,
+            preferredLanguage: null,
+            defaultLanguage: 'de',
             init: function () {
-                // i18n.data = localStorageService.get("i18n.data");
-                if (i18n.data === null) {
-                    i18nService.getAllSimplified().then(function (response) {
+                // // i18n.data = localStorageService.get("i18n.data");
+                // if (i18n.data === null) {
+                //     i18nService.getAllSimplified().then(function (response) {
+                //         localStorageService.set("i18n.data", response.data);
+                //         i18n.data = response.data;
+                //     });
+                // }
+                //
+                // // i18n.config = localStorageService.get("i18n.config");
+                // // i18n.preferredLanguage = i18n.config.default;
+                // if (i18n.config === null) {
+                //     i18nService.getConfig().then(function (response) {
+                //         localStorageService.set("i18n.config", response.data);
+                //         i18n.config = response.data;
+                //     })
+                // }
+                i18n.preferredLanguage = localStorageService.get('i18n.preferredLanguage');
+                if(i18n.preferredLanguage === null){
+                    i18n.preferredLanguage = i18n.defaultLanguage;
+                }
+                return i18n;
+
+            },
+            loadData: function () {
+                return i18nService.getAllSimplified()
+                    .then(function (response) {
                         localStorageService.set("i18n.data", response.data);
                         i18n.data = response.data;
-                    });
-                }
-
-                // i18n.config = localStorageService.get("i18n.config");
-                // i18n.currentLanguage = i18n.config.default;
-                if (i18n.config === null) {
-                    i18nService.getConfig().then(function (response) {
+                        return i18n.data;
+                    })
+            },
+            setData: function (data) {
+                localStorageService.set("i18n.data", data);
+                i18n.data = data;
+            },
+            loadConfig: function () {
+                return i18nService.getConfig()
+                    .then(function (response) {
                         localStorageService.set("i18n.config", response.data);
                         i18n.config = response.data;
-                        i18n.currentLanguage = i18n.config.default;
-                        console.log(i18n);
-                    })
-                }
-            },
-            loadData:function(){
-                return i18nService.getAllSimplified()
-                    .then(function(response){
-                        i18n.data = response.data;
-                       return i18n;
+                        return i18n.config;
                     })
             },
-            loadConfig:function(){
-                return i18nService.getConfig()
-                    .then(function(response){
-                        i18n.config = response.data;
-                        return i18n;
-                    })
+            setConfig: function (config) {
+                localStorageService.set("i18n.config", config);
+                i18n.config = config;
+                // if (localStorageService.get('i18n.preferredLanguage') !== null) {
+                //     i18n.preferredLanguage = i18n.config.default;
+                // }
+            },
+            setPreferredLanguage: function (language) {
+                localStorageService.set('i18n.preferredLanguage', language);
+                i18n.preferredLanguage = localStorageService.get('i18n.preferredLanguage');
+                // if(i18n.preferredLanguage === null){
+                //     i18n.preferredLanguage = i18n.defaultLanguage;
+                // }
             }
         };
         return i18n;

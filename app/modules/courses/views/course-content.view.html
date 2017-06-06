@@ -1,24 +1,89 @@
-<div>
-    <button class="btn btn-default" ng-click="vm.createSection()">Einen neuen Abschnitt hinzufügen.</button>
+<div class="panel panel-default" ng-if="vm.parentVm.isAllowedToEdit()">
+    <div class="panel-body">
+        <!--<button class="btn btn-default" ng-click="vm.editMode = !vm.editMode">Enable Edit</button>-->
+        <div ng-if="vm.editMode">
+            <button class="btn btn-default" ng-click="vm.createSection()">
+                {{'core.courses.createSection' | translate}}
+            </button>
+            <!--<button class="btn btn-default" ng-click="vm.sectionReorder = !vm.sectionReorder">-->
+                <!--allowReorder-->
+            <!--</button>-->
+        </div>
+
+    </div>
 </div>
-<div>
-    <div ng-repeat="section in vm.course.sections track by $index" ng-drop="true"
-         ng-drop-success="vm.onDropComplete($index, $data,$event)">
-        <div ng-drag="true" ng-drag-data="section">
+<div ng-show="true">
+    <div ng-repeat="section in vm.course.sections track by $index" ng-show="section.isPublished || vm.parentVm.isAllowedToEdit()">
+        <div class="section-reorder" ng-show="false">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+        </div>
+        <div>
             <div class="panel panel-default">
-                <div class="panel-body">
-                    <h5>Abschnitt {{$index+1}}</h5>
-                    <p>{{section.name.de}}</p>
-                    <div class="alert alert-warning" role="alert" ng-if="section.lessons.length ===0">
-                        Der Abschnitt enthält noch keine Unterrichtseinheiten.
+                <div class="pull-right section-edit cursor-pointer"
+                     ng-click="vm.updateSection(section)"
+                     ng-show="vm.editMode">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </div>
+                <div class="section-info">
+                    <h4>
+                        {{"core.courses.section" | translate}} {{$index+1}}: {{getLocalized(section.name)}}
+                    </h4>
+                    {{getLocalized(section.description)}}
+                    <div class="alert alert-info margin-top"  ng-show="!section.isPublished">
+                        {{'core.courses.contentNotPublished' | translate}}
                     </div>
-                    <a class="btn btn-default" ui-sref="frontend.courses.lessons.create">Lesson erstellen</a>
+                </div>
+                <div class="lesson-wrapper clearfix" ng-repeat="lesson in section.lessons track by $index"
+                     ng-show="lesson.isPublished || vm.parentVm.isAllowedToEdit()">
+                    <div class="lesson cursor-pointer"
+                         ui-sref="frontend.courses.display.lesson({courseUrl:vm.courseUrl,lessonId:lesson._id})">
+                        <div class="lesson-name pull-left">
+                            {{lesson.position}}.
+                            {{getLocalized(lesson.name)}}
+                        </div>
+                        <div class="lesson-type pull-right cursor-pointer"
+                             ui-sref="frontend.courses.lessons.update.content({
+                                courseUrl:vm.course.urlName, sectionUrl:section.urlName , lessonId:lesson._id})"
+                             ng-click="$event.stopPropagation()"
+                             ng-if="lesson.kind === 'content'"
+                             ng-show="vm.editMode">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+                        <div class="lesson-type pull-right cursor-pointer"
+                             ui-sref="frontend.courses.lessons.update.quiz({
+                                courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
+                             ng-click="$event.stopPropagation()"
+                             ng-if="lesson.kind === 'quiz'"
+                             ng-show="vm.editMode">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </div>
+                        <div class="lesson-type pull-right">
+                            <div class="checkbox checkbox-success abc-checkbox lesson-checkbox">
+                                <input type="checkbox" class="styled cursor-pointer" id="singleCheckbox" value="option1"
+                                       aria-label="Single  One" ng-model="lesson.userPassed"
+                                       ng-click="vm.changePassedLessonToUser(lesson); $event.stopPropagation();">
+                                <label for="singleCheckbox"></label>
+                            </div>
+
+                        </div>
+                        <div class="lesson-type pull-right">
+                            <i class="fa fa-book" aria-hidden="true" ng-if="lesson.kind === 'content'"></i>
+                            <i class="fa fa-check-square-o" aria-hidden="true" ng-if="lesson.kind==='quiz'"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="lesson create-lesson cursor-pointer"
+                     ui-sref="frontend.courses.lessons.create.content({courseUrl:vm.courseUrl,sectionUrl:section.urlName})"
+                     ng-show="vm.editMode">
+                    <div class="text-center">
+                        {{"core.courses.createLesson" | translate}}
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 <div class="alert alert-warning" role="alert" ng-if="vm.courses.sections.length ===0">
-    Der Kurs enthält noch keine Abschnitte
+    {{"core.courses.noSectionFound" | translate}}
 </div>

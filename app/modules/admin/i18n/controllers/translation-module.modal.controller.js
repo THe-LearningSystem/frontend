@@ -10,16 +10,12 @@
     function TranslationModuleModalCtrl($uibModalInstance, i18nService, data) {
         var vm = this;
         if (data !== undefined) {
-            vm._id = data._id;
-            vm.name = data.name;
-            vm.description = data.description;
+            vm.data = data;
+            console.log(data);
         }
         vm.create = function () {
             var translationData = {
-                payload: {
-                    name: vm.name,
-                    description: vm.description
-                }
+                payload: vm.data
             };
             i18nService.createTranslationModule(translationData);
             $uibModalInstance.close();
@@ -27,20 +23,19 @@
 
         vm.update = function () {
             var translationData = {
-                moduleId: vm._id,
-                payload: {
-                    _id: vm._id,
-                    name: vm.name,
-                    description: vm.description
-                }
+                moduleId:  vm.data._id,
+                payload: vm.data
             };
-            i18nService.updateTranslationModule(translationData);
+            console.log(translationData);
+            i18nService.updateTranslationModule(translationData,function(response){
+                console.log(response);
+            });
             $uibModalInstance.close();
         };
 
         vm.delete = function () {
             var translationData = {
-                moduleId: vm._id
+                moduleId: vm.data._id
             };
             i18nService.deleteTranslationModule(translationData);
             $uibModalInstance.close();

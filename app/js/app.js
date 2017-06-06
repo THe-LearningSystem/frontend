@@ -1,3 +1,17 @@
+deferredBootstrapper.bootstrap({
+    element: document.body,
+    module: 'app',
+    resolve: {
+        I18N_DATA: ['$http', function ($http) {
+            return $http.get('http://localhost:3000/api/i18n/?simplified=true');
+        }],
+        I18N_CONFIG: ['$http', function ($http) {
+            return $http.get('http://localhost:3000/api/i18n/config');
+        }]
+    }
+});
+
+
 var config = {
     name: 'app',
     vendorDependencies: [
@@ -9,13 +23,16 @@ var config = {
         'ngSanitize',
         'ui.select',
         'ncy-angular-breadcrumb',
-        'ngDraggable'
+        'dndLists',
+        'bootstrap.angular.validation',
+        'froala',
+        'yaru22.angular-timeago'
     ]
 };
 
 var app = angular.module(config.name, config.vendorDependencies)
-    .config(["$httpProvider", "$locationProvider", "localStorageServiceProvider", "jwtOptionsProvider",
-        function ($httpProvider, $locationProvider, localStorageServiceProvider, jwtOptionsProvider) {
+    .config(["$httpProvider", "$locationProvider", "localStorageServiceProvider", "jwtOptionsProvider","I18N_DATA",'bsValidationConfigProvider',
+        function ($httpProvider, $locationProvider, localStorageServiceProvider, jwtOptionsProvider,I18N_DATA,bsValidationConfigProvider ) {
             localStorageServiceProvider
                 .setPrefix('learningsystem');
             jwtOptionsProvider
@@ -31,79 +48,127 @@ var app = angular.module(config.name, config.vendorDependencies)
             $locationProvider.html5Mode(true);
 
             $httpProvider.interceptors.push('jwtInterceptor');
+
+
+            bsValidationConfigProvider.global.setValidateFieldsOn('submit');
+            bsValidationConfigProvider.global.errorClass = 'has-warning';
+            bsValidationConfigProvider.global.successClass = '';
         }])
 
-    .run(['$rootScope','$state','jwtHelper','localStorageService','Authentication','Notification','I18nManager',
-        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification,I18nManager) {
-        $rootScope.Authentication = Authentication.init();
-        $rootScope.I18nManager = I18nManager.init();
-
-        $rootScope.serverUrl = "http://localhost:3000/api";
-        $rootScope.isAuthenticated = Authentication.isAuthenticated;
-
-
-        //http://stackoverflow.com/questions/8817394/javascript-get-deep-value-from-object-by-passing-path-to-it-as-string
-        //TODO: remove undefined errors and return undefined if no value found
-        var _deep_value = function (obj, path) {
-            for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
-                obj = obj[path[i]];
-            }
-            return obj;
-        };
-
-
-        $rootScope.i18nGet = function (value) {
-            var returnVal = _deep_value(I18nManager.data, value + '.' + I18nManager.currentLanguage);
-            if (returnVal === undefined)
-                return value;
-            else
-                return returnVal;
-        };
+    .run(['$rootScope', '$state', 'jwtHelper', 'localStorageService', 'Authentication', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG",'bsValidationConfig',
+        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, I18nManager, I18N_DATA, I18N_CONFIG,bsValidationConfig) {
+            $rootScope.getDeepValue = function (obj, path) {
+                for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
+                    if (obj !== undefined) {
+                        obj = obj[tmpPath[i]];
+                    } else {
+                        return path.toUpperCase();
+                    }
+                }
+                if (_.has(obj,I18nManager.preferredLanguage)) {
+                    return obj[I18nManager.preferredLanguage];
+                } else {
+                    // console.log(path);
+                    // return obj[I18nManager.preferredLanguage];
+                }
+            };
 
 
-        //Dont show signin or signup page when the user is already logged in
-        //Not the best solution
-        //TODO: find a better solution
-            $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+            $rootScope.Authentication = Authentication.init();
+
+            I18nManager.setData(I18N_DATA);
+            I18nManager.setConfig(I18N_CONFIG);
+            I18nManager.init();
+
+
+            bsValidationConfig.messages.required = $rootScope.getDeepValue(I18N_DATA,"core.general.required");
+
+            $rootScope.serverUrl = "http://localhost:3000/api";
+            $rootScope.isAuthenticated = Authentication.isAuthenticated;
+
+
+            $rootScope.getLocalized = function (obj,defaultLanguage) {
+                if (obj !== undefined) {
+                    if (_.has(obj, I18nManager.preferredLanguage))
+                        return obj[I18nManager.preferredLanguage];
+                    else
+                        return obj[I18nManager.defaultLanguage];
+                } else {
+                }
+
+            };
+
+
+            //Dont show signin or signup page when the user is already logged in
+            //Not the best solution
+            //TODO: find a better solution
+            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
                 event.preventDefault();
                 $state.transitionTo('not-reachable'); // error has data, status and config properties
             });
 
-        $rootScope.$on("$stateChangeStart",
-            function (event, toState, toParams, fromState, fromParams) {
-                $state.previous = {};
-                $state.previous.state = fromState;
-                $state.previous.params = fromParams;
-                Authentication.init();
-                if (Authentication.isAuthenticated && (toState.name === "frontend.users.signin" || toState.name === "frontend.users.signup")) {
-                    event.preventDefault();
-                    $state.transitionTo('frontend.home');
-                }
-                if (toState.name === "frontend.users.signout" && Authentication.isAuthenticated) {
-                    event.preventDefault();
-                    Notification.success({
-                        message: '<i class="glyphicon glyphicon-ok"></i> Signout successfull!',
-                        positionX: 'right',
-                        positionY: 'bottom'
-                    });
-                    Authentication.removeToken();
-                    $state.go('frontend.home');
-                }
-                //if the site is restricted and the user isnt logged in then redirect to login
-                if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
-                    event.preventDefault();
-                    $state.go('frontend.users.signin');
-                    //if the user has not the right then redirect to not-authorized
-                } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
-                    console.log(toState.requiredRight, Authentication.rights);
+            $rootScope.$on("$stateChangeStart",
+                function (event, toState, toParams, fromState, fromParams) {
+                    $state.previous = {};
+                    $state.previous.state = fromState;
+                    $state.previous.params = fromParams;
+                    Authentication.init();
+                    if (Authentication.isAuthenticated && (toState.name === "frontend.users.signin" || toState.name === "frontend.users.signup")) {
+                        event.preventDefault();
+                        $state.transitionTo('frontend.home');
+                    }
+                    if (toState.name === "frontend.users.signout" && Authentication.isAuthenticated) {
+                        event.preventDefault();
+                        Notification.success({
+                            message: '<i class="glyphicon glyphicon-ok"></i> Signout successfull!',
+                            positionX: 'right',
+                            positionY: 'bottom'
+                        });
+                        Authentication.removeToken();
+                        $state.go('frontend.home');
+                    }
+                    //if the site is restricted and the user isnt logged in then redirect to login
+                    if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
+                        event.preventDefault();
+                        $state.go('frontend.users.signin', {fromOutside: true});
+                        //if the user has not the right then redirect to not-authorized
+                    } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
+                        console.log(toState.requiredRight, Authentication.rights);
 
-                    event.preventDefault();
-                    $state.go('not-authorized');
-                }
+                        event.preventDefault();
+                        $state.go('not-authorized');
+                    }
 
+                }
+            );
+        }]);
+
+
+app.filter('translate', ['I18nManager', function (I18nManager) {
+    var _deep_value = function (obj, path) {
+        if(path !== undefined){
+            // console.log(path);
+            for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
+                if(tmpPath === undefined)
+                    console.log(tmpPath);
+                if (obj !== undefined) {
+                    obj = obj[tmpPath[i]];
+                } else {
+                    return path.toUpperCase();
+                }
             }
-        );
-    }]);
+            if (_.has(obj,I18nManager.preferredLanguage)) {
+                return obj[I18nManager.preferredLanguage];
+            } else {
+                // return obj[I18nManager.preferredLanguage];
+            }
+        }
+    };
+
+    return function (input) {
+        return _deep_value(I18nManager.data, input);
+    }
+}]);
 
 /**
  * Registers a new Module to the system (from https://github.com/meanjs/mean/blob/master/modules/core/client/app/config.js#L16)

@@ -62,7 +62,7 @@
         }
 
         function updateUser(data) {
-            return crud.put('/users/' + data.rightId + '/', data.payload);
+            return crud.put('/users/' + data.userId + '/', data.payload);
         }
 
         function getUsers() {

@@ -1,3 +1,9 @@
 <div class="page-header">
     <h1>Profil</h1>
 </div>
+<label>Sprachen</label>
+<select class="form-control" ng-model="vm.user.preferredLanguage" ng-change="vm.update()">
+    <option value ="{{language}}" ng-repeat="language in vm.languages">
+        {{'core.languages.'+language | translate}}
+    </option>
+</select>

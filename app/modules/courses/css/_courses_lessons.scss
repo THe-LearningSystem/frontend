@@ -1,0 +1,42 @@
+/**
+Lessons
+ */
+.lesson {
+  font-size: 18px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.lesson {
+  padding: 5px 15px 5px 15px;
+  color: #333;
+  display: inline-block;
+  width: 100%;
+}
+
+.lesson:hover {
+  background-color: #f4f4f4;
+}
+.lesson-checkbox{
+  margin:0 0 0 15px;
+}
+.lesson-edit{
+  //display:inline-block;
+  padding: 5px 15px;
+}
+.lesson.create-lesson a:hover{
+  text-decoration:none;
+
+}
+.checkbox input[type="checkbox"], .checkbox input[type="radio"]{
+  height:100%;
+  width:100%;
+}
+
+
+.panel-right-answer{
+  background-color:$brand-success;
+}
+
+.answer-edit{
+  height:270px;
+}

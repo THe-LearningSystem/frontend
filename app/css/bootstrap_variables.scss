@@ -15,10 +15,10 @@ $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:         darken(#428bca, 6.5%) !default; // #337ab7
-$brand-success:         #5cb85c !default;
+$brand-primary:         darken(#276FBF, 6.5%) !default; // #337ab7
+$brand-success:         #03CEA4 !default;
 $brand-info:            #5bc0de !default;
-$brand-warning:         #f0ad4e !default;
+$brand-warning:         #ED9461 !default;
 $brand-danger:          #d9534f !default;
 
 
@@ -27,7 +27,7 @@ $brand-danger:          #d9534f !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:               #f3f3f3 !default;
 //** Global text color on `<body>`.
 $text-color:            $gray-dark !default;
 
@@ -107,9 +107,9 @@ $padding-xs-horizontal:     5px !default;
 $line-height-large:         1.3333333 !default; // extra decimals for Win 8.1 Chrome
 $line-height-small:         1.5 !default;
 
-$border-radius-base:        4px !default;
-$border-radius-large:       6px !default;
-$border-radius-small:       3px !default;
+$border-radius-base:        0 !default;
+$border-radius-large:       0 !default;
+$border-radius-small:       0 !default;
 
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    #fff !default;
@@ -311,7 +311,7 @@ $screen-desktop:             $screen-md-min !default;
 
 // Large screen / wide desktop
 //** Deprecated `$screen-lg` as of v3.0.1
-$screen-lg:                  1200px !default;
+$screen-lg:                  1400px !default;
 $screen-lg-min:              $screen-lg !default;
 //** Deprecated `$screen-lg-desktop` as of v3.0.1
 $screen-lg-desktop:          $screen-lg-min !default;
@@ -337,22 +337,18 @@ $grid-float-breakpoint:     $screen-sm-min !default;
 $grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
 
 
-//== Container sizes
-//
-//## Define the maximum width of `.container` for different screen sizes.
-
 // Small screen / tablet
-$container-tablet:             (720px + $grid-gutter-width) !default;
+$container-tablet:             (px + $grid-gutter-width) !default;
 //** For `$screen-sm-min` and up.
 $container-sm:                 $container-tablet !default;
 
 // Medium screen / desktop
-$container-desktop:            (940px + $grid-gutter-width) !default;
+$container-desktop:            (700px + $grid-gutter-width) !default;
 //** For `$screen-md-min` and up.
 $container-md:                 $container-desktop !default;
 
 // Large screen / wide desktop
-$container-large-desktop:      (1140px + $grid-gutter-width) !default;
+$container-large-desktop:      (1100 + $grid-gutter-width) !default;
 //** For `$screen-lg-min` and up.
 $container-lg:                 $container-large-desktop !default;
 
@@ -475,7 +471,7 @@ $pagination-disabled-border:           #ddd !default;
 
 $pager-bg:                             $pagination-bg !default;
 $pager-border:                         $pagination-border !default;
-$pager-border-radius:                  15px !default;
+$pager-border-radius:                 0 !default;
 
 $pager-hover-bg:                       $pagination-hover-bg !default;
 
@@ -509,7 +505,7 @@ $state-info-text:                #31708f !default;
 $state-info-bg:                  #d9edf7 !default;
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
-$state-warning-text:             #8a6d3b !default;
+$state-warning-text:             #a94442 !default;
 $state-warning-bg:               #fcf8e3 !default;
 $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
@@ -785,7 +781,7 @@ $badge-active-bg:             #fff !default;
 
 $badge-font-weight:           bold !default;
 $badge-line-height:           1 !default;
-$badge-border-radius:         10px !default;
+$badge-border-radius:         0 !default;
 
 
 //== Breadcrumbs

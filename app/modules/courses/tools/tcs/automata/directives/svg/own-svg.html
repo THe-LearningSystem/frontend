@@ -1,0 +1,44 @@
+<div class="container-wrapper">
+    <div class="title">{{"as.core.diagram" | translate}}</div>
+    <div class="svg-controls">
+        <div class="button-group">
+            <zoom-tooltip></zoom-tooltip>
+        </div>
+        <div class="button-group">
+            <menubutton icon="search-plus" action="statediagram.zoom.zoomIn()"
+                        tttext="as.core.zoomIn"></menubutton>
+            <menubutton icon="search-minus" action="statediagram.zoom.zoomOut()"
+                        tttext="as.core.zoomOut"></menubutton>
+        </div>
+        <div class="button-group">
+            <menubutton icon="plus-circle" action="statediagram.createState()" ng-disabled="simulator.isInPlay"
+                        tttext="as.core.addState"></menubutton>
+            <menubutton icon=" long-arrow-right" action="statediagram.createTransition()"
+                        ng-disabled="simulator.isInPlay"
+                        tttext="as.core.addTransition"></menubutton>
+        </div>
+    </div>
+    <div class="container-wrapper diagram-container">
+        <svg id="diagram-svg" class="noselect" xmlns="http://www.w3.org/2000/svg"
+             style="font-family:'Roboto', sans-serif; font-weight:100">
+            <svg-grid></svg-grid>
+            <svg-definitions></svg-definitions>
+            <svg-outer>
+                <g id="transitions">
+                    <svg-transition ng-repeat="data in transitions"
+                                    transition-group="data"></svg-transition>
+                </g>
+                <svg-tmp-transition></svg-tmp-transition>
+
+                <g id="states">
+                    <svg-state ng-repeat="state in states" state="state"></svg-state>
+                </g>
+
+            </svg-outer>
+            <g id="zoom"></g>
+            <svg-pda-stack ng-show="automatonData.type=== 'PDA' || automatonData.type ==='NPDA'"></svg-pda-stack>
+        </svg>
+        <context-menu></context-menu>
+
+    </div>
+</div>

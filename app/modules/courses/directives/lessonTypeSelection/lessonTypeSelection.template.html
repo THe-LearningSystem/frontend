@@ -1,0 +1,13 @@
+<div class="lesys-selection" ng-show="!vm.editMode">
+    <span class="lesys-select"
+          ui-sref="frontend.courses.lessons.create.content({courseUrl:vm.courseUrl,sectionUrl:vm.sectionUrl})"
+          ng-class="{'selected':vm.currentStateName==='frontend.courses.lessons.create.content'}">
+        {{'core.courses.content' | translate}}
+    </span>
+    <span class="lesys-select"
+          ui-sref="frontend.courses.lessons.create.quiz({courseUrl:vm.courseUrl,sectionUrl:vm.sectionUrl})"
+          ng-class="{'selected':vm.currentStateName==='frontend.courses.lessons.create.quiz'}">
+        {{'core.courses.lessonTypeQuiz' | translate}}
+            </span>
+    <hr>
+</div>
