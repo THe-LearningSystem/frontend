@@ -30,7 +30,7 @@ angular.module('courses.tcs').directive("ownSvg", function () {
                 scope.statediagram.updateWidthAndHeight();
             });
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/own-svg.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/own-svg.html'
     };
 });
 
@@ -39,7 +39,7 @@ angular.module('courses.tcs').directive("svgDefinitions", function () {
         restrict: 'E',
         replace: true,
         templateNamespace: 'svg',
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-definitions.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-definitions.html'
     };
 });
 
@@ -55,7 +55,7 @@ angular.module('courses.tcs').directive("svgOuter", function () {
             d3.select("#diagram-svg").call(scope.statediagram.zoom.behaviour);
 
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-outer.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-outer.html'
     };
 });
 angular.module('courses.tcs').directive("svgState", function () {
@@ -152,7 +152,7 @@ angular.module('courses.tcs').directive("svgState", function () {
         }
 
         ,
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-state.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-state.html'
     };
 });
 angular.module('courses.tcs').directive("svgTransition", function () {
@@ -191,7 +191,7 @@ angular.module('courses.tcs').directive("svgTransition", function () {
 
             d3.selectAll('.transition').on('click', scope.transitions.menu.edit.open);
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-transition.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-transition.html'
     }
         ;
 });
@@ -203,7 +203,7 @@ angular.module('courses.tcs').directive("svgTmpTransition", function () {
         link: function (scope, elm, attrs) {
 
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-tmp-transition.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-tmp-transition.html'
     };
 });
 angular.module('courses.tcs').directive("svgGrid", function () {
@@ -216,7 +216,7 @@ angular.module('courses.tcs').directive("svgGrid", function () {
             scope.statediagram.grid.draw();
 
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-grid.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-grid.html'
     };
 });
 angular.module('courses.tcs').directive("svgSaveAsPng", function () {
@@ -286,6 +286,32 @@ angular.module('courses.tcs').directive("svgPdaStack", function () {
             scope.stackItemHeight = 20;
             scope.stackPaddingToBorder = 20;
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/svg/svg-pda-stack.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-pda-stack.html'
     };
 });
+
+angular.module('courses.tcs').directive("svgTmTape", function () {
+    return {
+        replace: true,
+        restrict: 'E',
+        templateNamespace: 'svg',
+        scope: {},
+        link: function (scope, elm, attrs) {
+            scope.statediagram = scope.$parent.statediagram;
+            scope.simulator = scope.$parent.simulator;
+            scope.statediagram.updateWidthAndHeight();
+
+            scope.diagramWidth = scope.statediagram.getSvgWidth();
+            scope.diagramHeight = scope.statediagram.getSvgHeight();
+            //tapeWidth = tapeItemWidth * scope.simulator.tape.tapeArray.length
+            scope.tapeWidth = 750;
+            scope.tapeHeight = 30;
+            scope.tapeItemWidth = 30;
+            scope.tapeItemHeight = 26;
+            scope.tapePaddingToTop = 35;
+            scope.pointerLength = 35;
+        },
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/svg/svg-tm-tape.html'
+    };
+});
+
