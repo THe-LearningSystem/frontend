@@ -22,7 +22,8 @@
     "angular-deferred-bootstrap": "^0.1.9",
     "angular-translate": "^2.15.1",
     "angular-drag-and-drop-lists": "^2.1.0",
-    "bootstrap-angular-validation": "^1.0.7"
+    "bootstrap-angular-validation": "^1.0.7",
+    "d3": "^4.9.1"
   },
   "resolutions": {
     "angular": "1.6.4"
