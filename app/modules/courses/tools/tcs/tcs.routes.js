@@ -67,7 +67,7 @@
                 parent: 'frontend',
                 controller: 'CellularCtrl',
                 controllerAs: 'vm',
-                templateUrl: '/modules/courses/tools/tcs/automata/cellular/views/cellular.html'
+                templateUrl: '/modules/courses/tools/tcs/automata/cellular/views/cellular.view.html'
             });
 
     }

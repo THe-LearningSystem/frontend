@@ -35,7 +35,8 @@ module.exports = {
             'app/js/lib.js',
             'app/js/mathHelper.js',
             'app/lib/angular-froala/src/angular-froala.js',
-            'app/lib/angular-timeago/dist/angular-timeago.js'
+            'app/lib/angular-timeago/dist/angular-timeago.js',
+            'app/lib/EaselJS/lib/easeljs-0.8.2.combined.js'
         ],
         tests: []
     },
