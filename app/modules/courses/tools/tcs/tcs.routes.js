@@ -61,6 +61,13 @@
                 controller: 'TMCtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.html'
+            })
+            .state('tcs.cellular', {
+                url: '/courses/tcs/tools/cellular',
+                parent: 'frontend',
+                controller: 'CellularCtrl',
+                controllerAs: 'vm',
+                templateUrl: '/modules/courses/tools/tcs/automata/cellular/views/cellular.html'
             });
 
     }

@@ -66,7 +66,6 @@
         }
 
         function updateSection(data, callback) {
-            console.log("du hurensohn",data);
             return crud.put('/courses/' + data.courseId + '/sections/' + data.sectionId + '/', data.payload, callback);
         }
 
