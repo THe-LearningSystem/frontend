@@ -36,12 +36,15 @@ module.exports = {
             'app/js/mathHelper.js',
             'app/lib/angular-froala/src/angular-froala.js',
             'app/lib/angular-timeago/dist/angular-timeago.js',
-            'app/lib/EaselJS/lib/easeljs-0.8.2.combined.js'
+            'app/lib/EaselJS/lib/easeljs-0.8.2.combined.js',
+            'app/lib/extend.js/bin/extend.min.js',
+            'app/lib/jquery-slimscroll/jquery.slimscroll.js'
         ],
         tests: []
     },
     css: [
-        'app/css/main.css'
+        'app/css/main.css',
+        'app/modules/**/directives/**/*.css'
     ],
     sass: [
 

@@ -1,0 +1,6 @@
+<div ng-class="{'boolKVBlockInput': true, 'resultInfoContainer': true, 'is-wrong': layer.resultState < 0, 'is-right': layer.resultState > 0}">
+    <bool-expr bool-symbol="{{layer.color}}" bind-expression="expression" layer="layer"></bool-expr>
+    <div ng-class="{'result-input':true, 'showInput': showSolution}">
+        <label><span translate="KV.SOLUTION">Lösung</span><span>:</span></label><div class="input" readonly></div>
+    </div>
+</div>

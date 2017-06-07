@@ -68,7 +68,15 @@
                 controller: 'CellularCtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/cellular/views/cellular.view.html'
-            });
+            })
+            .state('tcs.boolean-algebra', {
+                url: '/courses/tcs/tools/boolean-algebra',
+                parent: 'frontend',
+                controller: 'BACtrl',
+                controllerAs: 'vm',
+                templateUrl: '/modules/courses/tools/tcs/boolean-algebra/views/boolalg.html'
+            })
+        ;
 
     }
 }());

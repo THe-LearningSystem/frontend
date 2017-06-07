@@ -1,0 +1,34 @@
+.boolKVBlockInput {
+    position:relative;
+}
+.boolKVBlockInput .boolExpr button.removeKvTermButton {
+    position: relative;
+    top: -3px;
+    display: block;
+}
+.boolKVBlockInput .boolExpr:hover button.removeKvTermButton {
+    opacity:1;
+    visibility: visible;
+}
+.boolKVBlockInput .boolExpr .input {
+    width: -moz-calc(100% - 72px);
+    width: -webkit-calc(100% - 72px);
+    width: calc(100% - 72px);
+}
+.resultInfoContainer .resultInfo.fa-close {
+    color:#CF2A28;
+}
+.resultInfoContainer .resultInfo.fa-check {
+    color:#30C12E;
+}
+.resultInfoContainer.is-wrong .resultInfo.fa-close {
+    display:inline-block;
+}
+.resultInfoContainer.is-right .resultInfo.fa-check {
+    display:inline-block;
+}
+.resultInfoContainer .layerResultInfo .resultInfo {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}

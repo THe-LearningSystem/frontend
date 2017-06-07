@@ -1,0 +1,26 @@
+<div class="boolKVBlockMin">
+    <div class="colorExprWrapper">
+        <h3 class="diagram-title" translate="KV.BLOCKS.TITLE">Blöcke</h3>
+        <div class="colorExprContainer">
+            <bool-kv-block-input class="notFoundItem" ng-repeat="layer in customLayers" bind-layer="layer">{{layer.color}}</bool-kv-block-input>
+            <div class="createInfo notFoundMessage">
+                <p translate="KV.BLOCKS.NO_BLOCKS">Hier erscheinen Eingabefelder für die gewählten Farbblocke.</p>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="diagram-title" translate="KV.MIN.TITLE">Minimierter Term</h3>
+    <div ng-class="{'boolDnf': true, 'resultInfoContainer': true, 'is-wrong': dnfResultState < 0, 'is-right': dnfResultState > 0}">
+        <bool-expr bool-symbol="DNF" bind-expression="dnf"></bool-expr>
+    </div>
+    <div ng-class="{'result-input':true, 'showInput': dnfResolution == true}">
+        <label><span translate="KV.SOLUTION">Lösung</span><span>:</span></label><div class="input dnfInput" readonly></div>
+    </div>
+    <div style="border-top: 1px solid #ccc;"></div>
+    <div ng-class="{'boolKnf': true, 'resultInfoContainer': true, 'is-wrong': knfResultState < 0, 'is-right': knfResultState > 0}">
+        <bool-expr bool-symbol="KNF" bind-expression="knf"></bool-expr>
+    </div>
+    <div ng-class="{'result-input':true, 'showInput': knfResolution == true}">
+        <label><span translate="KV.SOLUTION">Lösung</span><span>:</span></label><div class="input knfInput" readonly></div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+
+input {
+  border: 1px solid #ccc;
+}
+.box {
+  position:relative;
+  background-color:#F5F5F5;
+  border: 1px solid #ccc;
+  display:inline-block;
+  float:left;
+  margin-top:0.5em;
+  margin-bottom:0.5em;
+  width:100%;
+}
+.box .boxTitle {
+  background-color:#CEDDE9;
+}
+.diagram-title {
+  height: 30px;
+  padding-top: 8px;
+  background-color: #cedde9;
+  margin: 0px 0px 0px 0px;
+  font-size: 14px;
+  color: #505050;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+h1.diagram-title {
+  height:auto;
+  text-align:left;
+  font-size:28px;
+  padding: 0.5em 0.2em;
+}
+.createInfo {
+  font-size:12px;
+  text-align:center;
+  margin:1em;
+}
+.createInfo p {
+  margin: 1em;
+  padding: 1em;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.box button.btn {
+  display:inline-block;
+  color: #333;
+  border:1px solid transparent;
+  font-weight:bold;
+  background:transparent;
+  padding: 1em 0.6em;
+}
+.box button.btn:hover {
+  border-color: #e0e0e0;
+}
+.box button.btn:active,
+.box button.btn:focus {
+  border-color:#0267FF;
+}
+footer {
+  font-size: 0.8em;
+  color:#aaa;
+}
+.notFoundItem ~ .notFoundMessage {
+  display:none;
+}
+#languageBox {
+  margin-top:0.5em;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.lang-button {
+  padding:0;
+  display:inline-block;
+  border: 1px solid transparent;
+  background: white;
+  outline:0;
+}
+.lang-button.active {
+  border-color: #cedde9;
+}
+button[disabled] {
+  position:relative;
+}
+button[disabled]:after {
+  content:'';
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  opacity:0.5;
+  background:gray;
+  cursor: not-allowed;
+}
+
+.button-group {
+  padding: 0 5px;
+  float: left;
+  border-right: 1px solid #e0e0e0;
+  height: 40px;
+}
+
+.button-group a {
+  color: #000;
+}
+
+.button-group:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+button {
+  border: 1px solid whitesmoke;
+  display:inline-block;
+  color:#333333;
+  background:transparent;
+  margin: 0;
+  margin-right:5px;
+  font-weight:bold;
+  outline:0;
+}
+button:hover {
+  border-color: #e0e0e0;
+}
+body {
+  font-size:18px;
+}
+section {
+
+}
+input {
+  border: 1px solid #ccc;
+}
+
+@media (max-width:768px) {
+  footer {
+    font-size:0.5em;
+  }
+}

@@ -1,0 +1,25 @@
+<div ng-class="{boolTable: true, isLoading: table.isLoading}">
+    <table class="fixed_headers">
+        <thead>
+            <tr>
+                <th ng-repeat="letter in table.letters" class="letter">{{letter}}</th>
+                <th ng-repeat="group in table.groups" class="group">{{group.key}}</th>
+                <th class="result">F</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="bitLine in table.bits" class="bitLine" on-finish-render="ngRepeatFinished">
+                <td ng-repeat="bit in bitLine.letters" class="bit letters">{{bit.value}}</td>
+                <td ng-repeat="group in table.groups" class="bit groups">
+                    <bool-table-select bind-param="bitLine.param" bind-expression="group.expression"></bool-table-select>
+                </td>
+                <td class="bit result" >
+                    <bool-table-select bind-param="bitLine.param" bind-expression="expression"></bool-table-select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="buttonWrapper text-center">
+        <button class="btn" ng-click="checkResult()">Ergebnis prüfen</button>
+    </div>
+</div>

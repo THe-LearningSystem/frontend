@@ -1,0 +1,188 @@
+.boolExpr {
+    position:relative;
+    display:inline-block;
+    padding:0.25em;
+    border-radius:5px;
+    width:100%;
+}
+.boolExpr .input {
+    display:inline-block;
+    float:left;
+    background-color:white;
+    white-space:nowrap;
+    overflow:hidden;
+    width:80%;
+    width:-moz-calc(100% - 70px);
+    width:-webkit-calc(100% - 70px);
+    width:calc(100% - 70px);
+    vertical-align: middle;
+    border: 1px solid #ccc;
+
+    min-height:27px;
+
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    text-transform: uppercase;
+}
+.boolExpr button.groupButton {
+    display:none;
+}
+.boolExpr .input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    text-transform: none;
+}
+.boolExpr .input::-moz-placeholder { /* Firefox 19+ */
+    text-transform: none;
+}
+.boolExpr .input:-ms-input-placeholder { /* IE 10+ */
+    text-transform: none;
+}
+.boolExpr .input:-moz-placeholder { /* Firefox 18- */
+    text-transform: none;
+}
+.boolExpr button {
+    width:32px;
+    height:32px;
+    float:left;
+}
+.boolExpr button.groupButton {
+    float:right;
+}
+.boolExpr .boolInputOptions {
+    display:inline-block;
+    width:100%;
+}
+.boolExpr .f {
+    padding-right:5px;
+}
+.boolExpr .op {
+    color:#969696;
+}
+.boolExpr .expr {
+    color:#2699ff;
+}
+.boolExpr .neg {
+    color:#333;
+}
+.boolExpr .error {
+    color:red;
+}
+.boolExpr .expr.group {
+    color:#015BB5;
+}
+.boolExpr .clips {
+    color: #969696;
+}
+.boolExpr span {
+    position:relative;
+    display:inline-block;
+}
+.boolExpr button.clearText {
+    position:absolute;
+    right:-10px;
+    background:transparent;
+    border:0;
+    font-size:16px;
+    top:-2px;
+    color:#ccc;
+    opacity:0.5;
+    visibility: hidden;
+    outline:0;
+}
+.boolExpr:hover button.clearText {
+    visibility: visible;
+}
+.boolExpr .boolInputBody {
+    width:100%;
+    position:relative;
+    display:inline-block;
+}
+.boolExpr .boolInputBody label {
+    margin:0;
+    display:inline-block;
+    vertical-align: middle;
+    width:70px;
+    float:left;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    position:relative;
+    font-size: 16px;
+    min-height: 27px;
+    padding-top: 3px;
+}
+.boolExpr .boolInputBody label.colorBoxF {
+    width: 40px;
+}
+.boolExpr .boolInputBody label.colorBoxF .colorBox {
+    position:relative;
+    top:2px;
+}
+.boolExpr .boolInputBody label.colorBoxF ~ button.clearText {
+    right: 21px;
+}
+.boolExpr .boolInputBody:not(.isValid) .input {
+    color: #999;
+}
+.group.boolExpr:not(:first-child) {
+    border-top: 1px solid #ccc;
+}
+.group.boolExpr ~ .noGroupsMsg {
+    display:none;
+}
+.noGroupsMsg {
+    font-size:12px;
+    text-align:center;
+    padding:1em 0;
+}
+button.removeGroupButton,
+button.removeKvTermButton {
+    color: #CF2A28;
+    opacity:0;
+    visibility: hidden;
+    border:0;
+    outline:0;
+    -o-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+    margin:0;
+}
+.group:hover button.removeGroupButton {
+    opacity:1;
+    visibility: visible;
+}
+
+.boolExpr:not(.group) button.removeGroupButton,
+button.removeKvTermButton {
+    display:none;
+}
+.boolExpr .inputRel {
+    position:relative;
+}
+
+.fa-exclamation {
+    color:red;
+}
+.boolExpr .fa-exclamation {
+    position:absolute;
+    top:4px;
+    right:5px;
+}
+.boolExpr .boolInputBody.isValid .fa-exclamation {
+    display:none;
+}
+.boolExpr .boolInputBody:not(.isValid) .input {
+    border: 1px solid red;
+    outline: 1px solid red;
+}
+.boolExpr .boolInputBody:not(.isValid) label {
+    border-right:1px solid red;
+}
+.boolExpr .colorBox {
+    width:16px;
+    height:16px;
+}
+.boolExpr .resultInfo {
+    display:none;
+}

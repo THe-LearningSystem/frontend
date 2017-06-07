@@ -1,0 +1,74 @@
+.boolKV,
+.boolKV .boolKvBody {
+    position:relative;
+    display:inline-block;
+    width: 100%;
+}
+.boolKvBody {
+    overflow: auto;
+}
+.boolKV .kvColor {
+    display:inline-block;
+    margin-right:5px;
+    width:16px;
+    height:16px;
+    position:relative;
+    background:transparent;
+    outline:0;
+
+    overflow:hidden;
+    border: 2px solid transparent;
+
+    -o-transition: opacity .25s linear;
+    -moz-transition: opacity .25s linear;
+    -webkit-transition: opacity .25s linear;
+    transition: opacity .25s linear;
+}
+.boolKV .kvColor:hover {
+    opacity:0.75;
+}
+.boolKV .kvColor.active {
+    border-color: black;
+}
+.boolKV .kvColorReset {
+    border-color: black;
+}
+.kvColorReset:before,
+.kvColorReset:after {
+    background-color: red;
+    height:1px;
+    width:23px;
+    content:'';
+    left: -5px;
+    top: 6px;
+    position:absolute;
+    -o-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.kvColorReset:after  {
+    -o-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: -4px;
+}
+
+.boolKV .debug {
+    font-size:9px;
+}
+.boolKV .debug td {
+    border: 1px solid black;
+}
+.boolKV canvas {
+    cursor:pointer;
+    position:relative;
+}
+.boolKV .boolKvSolution {
+    position:relative;
+    display:none;
+}
+.boolKV .boolKvSolution.showSolution {
+    display:block;
+}

@@ -1,0 +1,38 @@
+<div class="boolKV">
+    <div style="padding-top:1em"></div>
+    <div class="text-center noselect">
+        <div class="boolKvOptions">
+            <!--<button class="kvColor kvColorReset active" data-color="reset"></button>-->
+            <button class="kvColor active" data-color="#FF9900"></button>
+            <button class="kvColor" data-color="#FFFF00"></button>
+            <button class="kvColor" data-color="#00FF15"></button>
+            <button class="kvColor" data-color="#FF3330"></button>
+            <button class="kvColor" data-color="#3086FF"></button>
+            <button class="kvColor" data-color="#9900FF"></button>
+            <button class="kvColor" data-color="#C5EAE3"></button>
+            <button class="kvColor" data-color="#FF00A1"></button>
+        </div>
+        <div class="boolKvOptions">
+            <button class="kvColor" data-color="#B56C00"></button>
+            <button class="kvColor" data-color="#B2B200"></button>
+            <button class="kvColor" data-color="#009E0F"></button>
+            <button class="kvColor" data-color="#B22121"></button>
+            <button class="kvColor" data-color="#215EB2"></button>
+            <button class="kvColor" data-color="#6B00B2"></button>
+            <button class="kvColor" data-color="#95B2AD"></button>
+            <button class="kvColor" data-color="#B20071"></button>
+        </div>
+        <div class="boolKvBody" id="kvCanvasContainer"></div>
+        <div ng-class="{boolKvSolution: true, showSolution: showSolution}">
+            <label><span translate="KV.SOLUTION">Lösung</span><span>:</span></label>
+            <div class="boolKvBody" id="kvCanvasSolution"></div>
+        </div>
+    </div>
+
+    <bool-kv-block-min bind-kv="kv"></bool-kv-block-min>
+
+    <div class="buttonWrapper text-center">
+        <button class="btn" ng-click="checkResult()" translate="KV.CHECK_RESULT">Ergebnis überprüfen</button>
+        <button class="btn" ng-click="showResult()" translate="KV.SHOW_RESULT">Lösung anzeigen</button>
+    </div>
+</div>

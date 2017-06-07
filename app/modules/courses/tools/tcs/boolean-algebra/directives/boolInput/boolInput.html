@@ -1,0 +1,14 @@
+<div class="boolInput">
+    <bool-expr bool-domain="{{boolDomain}}" bool-symbol="{{symbol}}" bool-symbol-small="{{symbolSmall}}" bool-value="{{expression.text}}" bind-expression="expression"></bool-expr>
+    <div class="boolInputGroups">
+        <h3 class="diagram-title" translate="GROUPS.TITLE">Gruppen</h3>
+        <bool-expr ng-repeat="group in groups" class="group" group="group" group-key="{{group.key}}" bool-domain="{{boolDomain}}" bool-symbol="{{group.key}}" bind-expression="group.expression"></bool-expr>
+        <div class="noGroupsMsg">
+            <span translate="GROUPS.INFO.S1">Es wurden keine Gruppen angelegt.</span>
+            <br>
+            <span translate="GROUPS.INFO.BEFORE">Markieren Sie einen gültigen Bereich im Ausdruck und klicken Sie </span>
+            <strong>[G<sub>x</sub>]</strong>
+            <span translate="GROUPS.INFO.AFTER">, um Gruppen anzulegen.</span>
+        </div>
+    </div>
+</div>
