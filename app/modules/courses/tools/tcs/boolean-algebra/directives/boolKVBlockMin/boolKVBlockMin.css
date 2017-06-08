@@ -1,0 +1,65 @@
+.boolKVBlockMin {
+    padding: 0.25em;
+}
+.boolKVBlockMin .colorExprContainer {
+    position:relative;
+}
+.boolKVBlockMin .colorExprContainer .boolKVBlockInput~.notFoundMessage {
+
+}
+.boolKnf .boolExpr .input,
+.boolDnf .boolExpr .input {
+    width: -moz-calc(100% - 100px);
+    width: -webkit-calc(100% - 100px);
+    width: calc(100% - 100px);
+}
+.boolKnf .boolExpr button.clearText,
+.boolDnf .boolExpr button.clearText {
+    right: 20px;
+}
+.boolKVBlockMin .colorExprContainer .boolKVBlockInput:not(:first-child) {
+    border-top: 1px solid #ccc;
+}
+.result-input {
+    display:none;
+    padding: 0 5px;
+    font-size:13px;
+}
+.result-input.showInput {
+    display:inline-block;
+}
+.result-input label {
+    width:70px;
+    float:left;
+    display:inline-block;
+    height:15px;
+    text-align:right;
+}
+.result-input .input {
+    float:left;
+    display:inline-block;
+    height:15px;
+    margin-left:5px;
+    width:-webkit-calc(100% - 75px);
+    width:-moz-calc(100% - 75px);
+    width:calc(100% - 75px);
+}
+
+.result-input .op {
+    color:#969696;
+}
+.result-input .expr {
+    color:#2699ff;
+}
+.result-input .neg {
+    color:#333;
+}
+.result-input .error {
+    color:red;
+}
+.result-input.expr.group {
+    color:#015BB5;
+}
+.result-input .clips {
+    color: #969696;
+}

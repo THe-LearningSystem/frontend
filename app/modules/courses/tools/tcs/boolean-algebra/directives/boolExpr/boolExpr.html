@@ -1,0 +1,25 @@
+<div class="boolExpr">
+    <div class="boolInputOptions">
+        <button class="negButton" ng-click="addChar('¬')">¬</button>
+        <button class="andButton" ng-click="addChar('∧')">∧</button>
+        <button class="orButton" ng-click="addChar('∨')">∨</button>
+        <button class="equalButton" ng-click="addChar('⇔')">⇔</button>
+        <button class="implButton" ng-click="addChar('⇒')">⇒</button>
+        <!--<button class="implButton" ng-click="addChar('()')">(x)</button>-->
+        <button class="groupButton" ng-click="groupButton()">G<sub>x</sub></button>
+    </div>
+    <div ng-class="{ 'boolInputBody' : true, 'isValid': expression.isValid()}">
+        <div class="inputRel">
+            <label class="f" ng-if="isColorBox == false">{{symbol}}<sub>{{symbolSmall}}</sub><span>&nbsp;:=&nbsp;</span><span class="fa fa-exclamation"></span></label>
+            <label class="colorBoxF f" ng-if="isColorBox == true"><span class="colorBox"></span> <span class="fa fa-exclamation"></span></label>
+            <div class="input" placeholder="Boolescher Ausdruck" contentEditable spellcheck="false" autocomplete="off" bind-expression="expression" layer="layer"></div>
+            <button class="clearText" ng-click="clearText()"><span class="fa fa-close"></span></button>
+        </div>
+        <button class="removeGroupButton" ng-click="removeGroup(group)"><span class="fa fa-close"></span></button>
+        <!--<button class="removeKvTermButton" ng-click="removeColorLayer(layer)"><span class="fa fa-close"></span></button>-->
+        <div class="layerResultInfo">
+            <span class="resultInfo fa fa-check"></span>
+            <span class="resultInfo fa fa-close"></span>
+        </div>
+    </div>
+</div>

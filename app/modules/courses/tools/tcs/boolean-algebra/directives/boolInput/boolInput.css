@@ -1,0 +1,18 @@
+.boolInput {
+    position:relative;
+    display:inline-block;
+    padding:0.25em;
+    border-radius:5px;
+    width:100%;
+}
+.boolInput .group .inputRel {
+    width:-moz-calc(100% - 32px);
+    width:-webkit-calc(100% - 32px);
+    width:calc(100% - 32px);
+}
+.group .input {
+
+}
+.boolInput .boolExpr button.groupButton {
+    display:block;
+}

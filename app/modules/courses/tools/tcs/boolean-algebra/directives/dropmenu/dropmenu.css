@@ -1,0 +1,40 @@
+[dropmenu] {
+    position:relative;
+    display:inline-block;
+    cursor:pointer;
+    border:1px solid #ccc;
+}
+[dropmenu] ul {
+    list-style: none;
+    padding:0;
+
+    visibility: hidden;
+    position:absolute;
+    z-index:1;
+    width:100%;
+    background:white;
+    border:1px solid #ccc;
+}
+[dropmenu].open ul {
+    visibility: visible;
+}
+[dropmenu] li[disabled] {
+    display:none;
+}
+[dropmenu] li {
+    padding:1px 10px;
+}
+[dropmenu] li:hover {
+    background: #ccc;
+}
+[dropmenu] .preview {
+    position:relative;
+    padding:5px 10px;
+}
+[dropmenu] .preview .glyphicon {
+    font-size:12px;
+    margin-left:5px;
+    position:absolute;
+    right:5px;
+    top:12px;
+}
