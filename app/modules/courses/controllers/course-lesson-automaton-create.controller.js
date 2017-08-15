@@ -3,11 +3,11 @@
 
     angular
         .module('courses')
-        .controller('CourseLessonQuizCreateCtrl', CourseLessonQuizCreateCtrl);
+        .controller('CourseLessonAutomatonCreateCtrl', CourseLessonAutomatonCreateCtrl);
 
-    CourseLessonQuizCreateCtrl.$inject = ['$rootScope', '$scope', '$state', 'Courses', 'I18nManager', '$stateParams'];
+    CourseLessonAutomatonCreateCtrl.$inject = ['$rootScope','$scope', '$state', 'Courses', 'I18nManager', '$stateParams','$uibModal'];
 
-    function CourseLessonQuizCreateCtrl($rootScope, $scope, $state, Courses, I18nManager, $stateParams) {
+    function CourseLessonAutomatonCreateCtrl($rootScope,$scope, $state, Courses, I18nManager, $stateParams,$uibModal) {
         var vm = this;
 
         vm.data = {};
@@ -21,13 +21,13 @@
         vm.section = null;
 
 
-        vm.languages = I18nManager.config.languages;
+        // vm.languages = I18nManager.config.languages;
         vm.currentStateName = $state.current.name;
 
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
-            if (vm.course.secondaryLanguages.length > 0)
+            if(vm.course.secondaryLanguages.length > 0)
                 vm.selectedLanguage = vm.course.secondaryLanguages[0];
             vm.section = _.find(vm.course.sections, {urlName: vm.sectionUrl});
         });
@@ -37,19 +37,37 @@
                 vm.editMode = true;
                 vm.data = response.data;
             });
-        } else {
+        }else{
             vm.data = {};
-            vm.data.data = {};
-            vm.data.data.answers = [{}, {}];
-            vm.data.type = "quiz";
+            vm.data.type = "automaton";
+            vm.data.data ={};
+            vm.data.data.questionType = 1;
+            vm.data.isPublished = false;
+
+
         }
 
+        vm.automatonType = "DFA";
 
-        $scope.$parent.$watch('vm.data', function (data) {
-            if (data) {
-                vm.data.data = data.data;
-            }
-        });
+        vm.openDFA = function(){
+            $uibModal.open({
+                openedClass: 'full-modal',
+                ariaLabelledBy: 'modal-title',
+                templateUrl: '/modules/courses/tools/tcs/automata/dfa/views/dfaModal.html',
+                controller: 'DFACtrl',
+                controllerAs: 'vm',
+                resolve: {
+                    data: function () {
+                        return {
+                            parentController: vm,
+                            automaton:vm.data.data.data
+                        };
+                    }
+                }
+            });
+        };
+
+
 
         vm.froalaOptions = {
             toolbarButtons: ['bold', 'italic', 'underline', 'insertHR', '|', 'undo', 'redo'],
@@ -58,23 +76,11 @@
             placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.general.question')+' ...'
         };
 
-        vm.froalaOptionsSmall = {
-            toolbarButtons: ['bold', 'italic', 'underline', 'insertHR', '|', 'undo', 'redo'],
-            // toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline','|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-            height: 120,
-            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.courses.answer')+' ...'
-        };
-
-        vm.addAnswer = function () {
-            if (vm.data.data.answers.length < 4)
-                vm.data.data.answers.push({});
-        };
-
-
         vm.create = function () {
             var data = {
                 payload: vm.data
             };
+            console.log(data);
             Courses.createLesson(data, function (response) {
                 console.log(response);
                 vm.section.lessons.push(response.data.obj._id);

@@ -6,9 +6,9 @@
         .module('core')
         .factory('I18nManager', I18nManager);
 
-    I18nManager.$inject = ['localStorageService', 'i18nService'];
+    I18nManager.$inject = ['localStorageService','$rootScope', 'i18nService'];
 
-    function I18nManager(localStorageService, i18nService) {
+    function I18nManager(localStorageService, $rootScope,i18nService) {
         var i18n = {
             config: null,
             data: null,
@@ -33,7 +33,10 @@
                 // }
                 i18n.preferredLanguage = localStorageService.get('i18n.preferredLanguage');
                 if(i18n.preferredLanguage === null){
+                    console.log(i18n.defaultLanguage);
+
                     i18n.preferredLanguage = i18n.defaultLanguage;
+                    $rootScope.preferredLanguage =  i18n.defaultLanguage;
                 }
                 return i18n;
 
@@ -68,6 +71,7 @@
             setPreferredLanguage: function (language) {
                 localStorageService.set('i18n.preferredLanguage', language);
                 i18n.preferredLanguage = localStorageService.get('i18n.preferredLanguage');
+                $rootScope.preferredLanguage = language;
                 // if(i18n.preferredLanguage === null){
                 //     i18n.preferredLanguage = i18n.defaultLanguage;
                 // }

@@ -8,6 +8,22 @@
   background-color: #fff;
   border: solid 1px #dfdfdf;
   box-shadow: 1px 1px 2px #cfcfcf;
+  margin-top: -55px;
+  margin-left: -230px;
+}
+
+#wrapper:not(.sidebar-collapse) .context-menu {
+  margin-left: -50px !important;
+}
+
+@media (max-width: $screen-xs-max) {
+  .context-menu {
+    margin-top: -100px !important;
+  }
+  #wrapper:not(.sidebar-collapse) .context-menu {
+    margin-left: 0 !important;
+  }
+
 }
 
 .context-menu--active {

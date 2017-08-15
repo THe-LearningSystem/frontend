@@ -13,7 +13,6 @@ autoSim.StateMenus = function ($scope) {
     };
 
     self.edit.open = function (state) {
-        console.log("asd");
         $scope.core.closeMenus();
         if (d3.event !== null && d3.event.stopPropagation !== undefined)
             d3.event.stopPropagation();
@@ -60,7 +59,6 @@ autoSim.StateMenus = function ($scope) {
             d3.event.stopPropagation();
 
         $scope.states.selected = state;
-        console.log(event);
         self.context.position.x = event.pageX;
         self.context.position.y = event.pageY;
         self.context.isOpen = true;

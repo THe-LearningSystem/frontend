@@ -6,16 +6,25 @@
         </div>
         <div class="button-group">
             <menubutton icon="search-plus" action="statediagram.zoom.zoomIn()"
-                        tttext="NAVBAR.TTTEXT_ZOOM_IN"></menubutton>
+                        tttext="as.core.zoomIn">
+            </menubutton>
             <menubutton icon="search-minus" action="statediagram.zoom.zoomOut()"
-                        tttext="NAVBAR.TTTEXT_ZOOM_OUT"></menubutton>
+                        tttext="as.core.zoomOut">
+            </menubutton>
         </div>
         <div class="button-group">
-            <menubutton icon="plus-circle" action="statediagram.createState()" ng-disabled="simulator.isInPlay"
-                        tttext="NAVBAR.TTTEXT_ADDSTATE"></menubutton>
-            <menubutton icon=" long-arrow-right" action="statediagram.createTransition()"
+            <menubutton icon="plus-circle" action="statediagram.createState()"
                         ng-disabled="simulator.isInPlay"
-                        tttext="NAVBAR.TTTEXT_ADDTRANS"></menubutton>
+                        tttext="as.core.addState">
+            </menubutton>
+            <menubutton icon="long-arrow-right" action="statediagram.createTransition()"
+                        ng-disabled="simulator.isInPlay"
+                        tttext="as.core.addTransition">
+            </menubutton>
+            <menubutton icon="trash" action="core.resetAutomaton()"
+                        ng-disabled="simulator.isInPlay"
+                        tttext="as.core.deleteAutomaton">
+            </menubutton>
         </div>
     </div>
     <div id="diagram-container" class="container-wrapper diagram-container">

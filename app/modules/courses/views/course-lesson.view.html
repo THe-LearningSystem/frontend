@@ -1,4 +1,3 @@
-
 <div class="panel panel-default" ng-show="vm.lesson && (vm.lesson.isPublished || vm.isAllowedToEdit())">
     <div class="panel-body">
         <div class="alert alert-info ng-hide" ng-show="!vm.lesson.isPublished">
@@ -43,16 +42,22 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="pull-right">
-            <button class="btn btn-default"
-                    ng-click="vm.goToNextLesson()">
-                {{'core.courses.finishLesson' | translate}}
-            </button>
-        </div>
+            <div ng-if="vm.lesson.kind === 'automaton'">
+                <div ng-bind-html="getLocalized(vm.lesson.data.question)">
+                </div>
+                <div ng-controller="DFACtrl">
+                    <div ng-include="'/modules/courses/tools/tcs/automata/dfa/views/dfa.html'"></div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-default"
+                        ng-click="vm.goToNextLesson()">
+                    {{'core.courses.finishLesson' | translate}}
+                </button>
+            </div>
 
+        </div>
     </div>
-</div>
-<div class="alert alert-warning" ng-show="!vm.lesson.isPublished && !vm.isAllowedToEdit()">
-{{'core.courses.accessToNotPublishedLesson' | translate}}
-</div>
+    <div class="alert alert-warning" ng-show="!vm.lesson.isPublished && !vm.isAllowedToEdit()">
+        {{'core.courses.accessToNotPublishedLesson' | translate}}
+    </div>

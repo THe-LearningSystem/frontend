@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_editor.css">
     <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_style.css">
+    <link rel="stylesheet" href="/lib/json-formatter/dist/json-formatter.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolCircuit/boolCircuit.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolExpr/boolExpr.css">
@@ -51,20 +52,24 @@
 <script src="/lib/EaselJS/lib/easeljs-0.8.2.combined.js"></script>
 <script src="/lib/extend.js/bin/extend.min.js"></script>
 <script src="/lib/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="/lib/json-formatter/dist/json-formatter.js"></script>
 <script src="/js/app.js"></script>
 <script src="/modules/admin/admin.module.js"></script>
 <script src="/modules/core/core.module.js"></script>
-<script src="/modules/courses/courses.module.js"></script>
 <script src="/modules/users/users.module.js"></script>
+<script src="/modules/courses/courses.module.js"></script>
 <script src="/modules/admin/acl/acl.module.js"></script>
-<script src="/modules/admin/core/admin.core.module.js"></script>
 <script src="/modules/admin/i18n/admin.i18n.module.js"></script>
+<script src="/modules/admin/core/admin.core.module.js"></script>
 <script src="/modules/courses/tools/tcs/courses.tcs.module.js"></script>
 <script src="/modules/core/controllers/core.controller.js"></script>
+<script src="/modules/users/controllers/authentication.controller.js"></script>
+<script src="/modules/users/controllers/profile.controller.js"></script>
 <script src="/modules/courses/controllers/course-content.controller.js"></script>
 <script src="/modules/courses/controllers/course-create-notification.controller.js"></script>
 <script src="/modules/courses/controllers/course-create-question.controller.js"></script>
 <script src="/modules/courses/controllers/course-create.controller.js"></script>
+<script src="/modules/courses/controllers/course-lesson-automaton-create.controller.js"></script>
 <script src="/modules/courses/controllers/course-lesson-content-create.controller.js"></script>
 <script src="/modules/courses/controllers/course-lesson-quiz-create.controller.js"></script>
 <script src="/modules/courses/controllers/course-lesson.controller.js"></script>
@@ -75,20 +80,19 @@
 <script src="/modules/courses/controllers/courses-list.controller.js"></script>
 <script src="/modules/courses/controllers/section.modal.controller.js"></script>
 <script src="/modules/courses/controllers/tool.modal.controller.js"></script>
-<script src="/modules/users/controllers/authentication.controller.js"></script>
-<script src="/modules/users/controllers/profile.controller.js"></script>
 <script src="/modules/admin/acl/controllers/acl.controller.js"></script>
 <script src="/modules/admin/acl/controllers/list-users.controller.js"></script>
 <script src="/modules/admin/acl/controllers/right.modal.controller.js"></script>
 <script src="/modules/admin/acl/controllers/role.modal.controller.js"></script>
 <script src="/modules/admin/acl/controllers/user.modal.controller.js"></script>
-<script src="/modules/admin/core/controllers/dashboard.controller.js"></script>
 <script src="/modules/admin/i18n/controllers/i18n-group.controller.js"></script>
 <script src="/modules/admin/i18n/controllers/i18n-module.controller.js"></script>
 <script src="/modules/admin/i18n/controllers/i18n.controller.js"></script>
 <script src="/modules/admin/i18n/controllers/translation-group.modal.controller.js"></script>
 <script src="/modules/admin/i18n/controllers/translation-module.modal.controller.js"></script>
 <script src="/modules/admin/i18n/controllers/translation.modal.controller.js"></script>
+<script src="/modules/admin/core/controllers/dashboard.controller.js"></script>
+<script src="/modules/courses/tools/tcs/automata/course-lesson-automaton.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/cellular/controllers/cellular.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/controllers/dfa.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/nfa/controllers/nfa.controller.js"></script>
@@ -98,17 +102,17 @@
 <script src="/modules/core/services/crud.service.js"></script>
 <script src="/modules/core/services/i18n-manage.service.js"></script>
 <script src="/modules/core/services/notify.service.js"></script>
-<script src="/modules/courses/services/courses.service.js"></script>
 <script src="/modules/users/services/authentication.service.js"></script>
 <script src="/modules/users/services/users-api.service.js"></script>
+<script src="/modules/courses/services/courses.service.js"></script>
 <script src="/modules/admin/acl/services/acl.service.js"></script>
 <script src="/modules/admin/i18n/services/i18n.service.js"></script>
 <script src="/modules/core/routes/core.routes.js"></script>
-<script src="/modules/courses/routes/courses.routes.js"></script>
 <script src="/modules/users/routes/users.routes.js"></script>
+<script src="/modules/courses/routes/courses.routes.js"></script>
 <script src="/modules/admin/acl/routes/users-admin.routes.js"></script>
-<script src="/modules/admin/core/routes/core-admin.routes.js"></script>
 <script src="/modules/admin/i18n/routes/i18n.routes.js"></script>
+<script src="/modules/admin/core/routes/core-admin.routes.js"></script>
 <script src="/modules/courses/tools/tcs/tcs.routes.js"></script>
 <script src="/modules/core/directives/lowercase.directive.js"></script>
 <script src="/modules/users/directives/hasPermission.directive.js"></script>
@@ -118,9 +122,9 @@
 <script src="/modules/core/directives/mainSidebar/mainSidebar.directive.js"></script>
 <script src="/modules/courses/directives/formControlButtons/formControlButtons.directive.js"></script>
 <script src="/modules/courses/directives/isPublished/isPublished.directive.js"></script>
+<script src="/modules/courses/directives/lessonCreateHeader/lessonCreateHeader.directive.js"></script>
 <script src="/modules/courses/directives/languageSelection/languageSelection.directive.js"></script>
 <script src="/modules/courses/directives/languageSelection/primaryLanguage.directive.js"></script>
-<script src="/modules/courses/directives/lessonCreateHeader/lessonCreateHeader.directive.js"></script>
 <script src="/modules/courses/directives/lessonTypeSelection/lessonTypeSelection.directive.js"></script>
 <script src="/modules/courses/tools/tcs/automata/TestData.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/ngRepeatFinish.js"></script>
@@ -178,9 +182,12 @@
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BAGroup.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BANode.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BATable.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/Circuit/BACircuit.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/Canvas/CanvasInterface.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/Canvas/EaselInterface.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/Circuit/BACircuit.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/controllers/BACtrl.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/controllers/LangCtrl.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/BAKV.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/ColorPathLayer.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/ColorPathMap.js"></script>

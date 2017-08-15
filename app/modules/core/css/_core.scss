@@ -80,6 +80,7 @@ body {
 }
 
 #top-nav {
+  height:50px;
   background-color: $blueColor;
   z-index: 910;
   margin-left: 230px;
@@ -342,4 +343,20 @@ body {
     vertical-align: middle;
     min-width: 900px;
   }
+}
+
+
+.full-modal .modal-dialog {
+  width: calc(100% - 100px);
+  //margin:0 50px;
+}
+
+.full-modal .modal-body{
+  height: calc(100vh - 100px) !important;
+
+}
+.full-modal .inner-wrapper{
+  height: calc(100vh - 180px) !important;
+  overflow-x:hidden;
+  overflow-y:scroll;
 }

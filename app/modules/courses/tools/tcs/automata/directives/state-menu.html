@@ -34,7 +34,7 @@
              ng-show="states.existsWithName(states.menu.edit.state.name,states.menu.edit.state.id)">
             {{"as.core.stateNameAlreadyExists"| translate}}
         </div>
-        <button class="btn btn-danger" ng-click="removeState(statediagram.input.state.id)"
+        <button class="btn btn-danger" ng-click="states.remove(states.menu.edit.state);states.menu.close()"
                 ng-disabled="simulator.isInPlay">
             {{"core.general.delete" | translate}}
         </button>

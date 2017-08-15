@@ -36,8 +36,7 @@ autoSim.StateDiagramZoom = function ($scope) {
      * This method updates the d3 zoomBehaviour (fixes weird bugs)
      */
     self.updateZoomBehaviour = function () {
-        console.log($scope.automatonData.diagram);
-        //self.behaviour.scaleTo($scope.statediagram.svgOuter, $scope.automatonData.diagram.scale);
+        self.behaviour.scaleTo($scope.statediagram.svgOuter, $scope.automatonData.diagram.scale);
         $scope.saveApply();
 
     };
