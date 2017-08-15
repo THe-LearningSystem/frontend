@@ -384,9 +384,10 @@ autoSim.TMTape = function($scope) {
     self.pointerStartRight = false;
 
 
-    self.setPointer = function() {
-        var x = $scope.automatonData.inputWord.length;
-        var y = $scope.automatonData.inputWord.length;
+    self.setPointer = function(inputWord) {
+        // console.log(inputWord.length);
+        var x = inputWord.length;
+        var y = inputWord.length;
 
         if (x % 2 === 0 && x !== 0) {
             x = x - 1;
@@ -403,6 +404,14 @@ autoSim.TMTape = function($scope) {
         }
     };
 
+    self.searchPointerStart = function() {
+      var i = 0;
+      while (tapeArray[i] === '☐') {
+        i++
+      }
+      return i;
+    };
+
     self.fillTape = function(inputWord) {
         var j = 0;
         self.numOfChar = 0;
@@ -411,7 +420,7 @@ autoSim.TMTape = function($scope) {
             self.numOfChar++;
             j++;
         }
-        self.setPointer();
+        self.setPointer(inputWord);
     };
 
     self.refillTape = function() {

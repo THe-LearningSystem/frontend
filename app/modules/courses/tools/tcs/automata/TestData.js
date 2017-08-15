@@ -28,21 +28,21 @@ function TestData($scope) {
       $scope.automatonData.inputWord = "";
 
       // TestData1
-      // var state1 = $scope.states.createWithPresets(100, 200);
-      // var state2 = $scope.states.createWithPresets(300, 200);
-      // var state3 = $scope.states.createWithPresets(500, 200);
-      // var state4 = $scope.states.createWithPresets(700, 200);
-      // // var state5 = $scope.states.createWithPresets(700, 100);
-      //
-      // $scope.states.final.create(state4);
-      //
-      // $scope.transitions.create(state1, state2, "a", "c", "→");
-      // $scope.transitions.create(state2, state3, "b", "c", "→");
-      // $scope.transitions.create(state3, state4, "c", "d", "→");
-      // // $scope.transitions.create(state4, state5, "d", "e", "←");
+      var state1 = $scope.states.createWithPresets(100, 200);
+      var state2 = $scope.states.createWithPresets(300, 200);
+      var state3 = $scope.states.createWithPresets(500, 200);
+      var state4 = $scope.states.createWithPresets(700, 200);
+      // var state5 = $scope.states.createWithPresets(700, 100);
+
+      $scope.states.final.create(state4);
+
+      $scope.transitions.create(state1, state2, "a", "c", "→");
+      $scope.transitions.create(state2, state3, "b", "c", "→");
+      $scope.transitions.create(state3, state4, "c", "d", "→");
+      // $scope.transitions.create(state4, state5, "d", "e", "←");
 
 
-      // TestData2 (Subtrahieren von zwei unären Zahlen getrennt durch eine 0)
+      // // TestData2 (Subtrahieren von zwei unären Zahlen getrennt durch eine 0)
       // var state0 = $scope.states.createWithPresets(100,200);
       // var state1 = $scope.states.createWithPresets(300,200);
       // var state2 = $scope.states.createWithPresets(300,400);
@@ -63,7 +63,7 @@ function TestData($scope) {
       // $scope.transitions.create(state3, state4, "☐", "☐", "→");
 
 
-      //TestData3 (binäre Ganzahl um 1 erhöhen)
+      // //TestData3 (binäre Ganzahl um 1 erhöhen)
       // var state0 = $scope.states.createWithPresets(100,200);
       // var state1 = $scope.states.createWithPresets(300,200);
       // var state2 = $scope.states.createWithPresets(300,400);
@@ -84,19 +84,19 @@ function TestData($scope) {
       // $scope.transitions.create(state2, state3, "☐", "☐", "→");
 
       //TestData4 (erhöht eine Dualzahl um 1; muss von rechts starten)
-      var state0 = $scope.states.createWithPresets(100,200);
-      var state1 = $scope.states.createWithPresets(500,200);
-      var state2 = $scope.states.createWithPresets(300,400);
-
-      $scope.states.final.create(state2);
-
-      $scope.transitions.create(state0, state1, "0", "1", "←");
-      $scope.transitions.create(state0, state0, "1", "0", "←");
-      $scope.transitions.create(state0, state1, "0", "1", "←");
-      $scope.transitions.create(state0, state2, "☐", "1", "↺");
-      $scope.transitions.create(state1, state1, "0", "0", "←");
-      $scope.transitions.create(state1, state1, "1", "1", "←");
-      $scope.transitions.create(state1, state2, "☐", "☐", "→");
+      // var state0 = $scope.states.createWithPresets(100,200);
+      // var state1 = $scope.states.createWithPresets(500,200);
+      // var state2 = $scope.states.createWithPresets(300,400);
+      //
+      // $scope.states.final.create(state2);
+      //
+      // $scope.transitions.create(state0, state1, "0", "1", "←");
+      // $scope.transitions.create(state0, state0, "1", "0", "←");
+      // $scope.transitions.create(state0, state1, "0", "1", "←");
+      // $scope.transitions.create(state0, state2, "☐", "1", "↺");
+      // $scope.transitions.create(state1, state1, "0", "0", "←");
+      // $scope.transitions.create(state1, state1, "1", "1", "←");
+      // $scope.transitions.create(state1, state2, "☐", "☐", "→");
       //
       // $scope.automatonData.acceptedInputRaw = "11";
 

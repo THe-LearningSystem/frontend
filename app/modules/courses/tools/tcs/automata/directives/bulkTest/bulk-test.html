@@ -18,10 +18,10 @@
        <hr style="margin:7px">
         <div>
             <label>{{'core.general.accepted' | translate}}:</label>
-
+            <div>{{'core.general.inputWord' | translate}} - {{'core.general.outputWord' | translate}}</div>
             <div ng-repeat="value in acceptedInput" class="bulk-result"
                  ng-class="value.possible ? 'pass-class' : 'fail-class'">
-                {{value.word}}
+                {{value.word}} - {{value.outputWord}}
                 <!--&#45;&#45;{{value.possible === true ? "PASS" : "FAIL"}}-->
                 <div class="pull-right animate-sequence-wrapper" ng-repeat="sequence in value.sequences">
                     <button class="btn btn-default btn-bulk-animate-sequence"

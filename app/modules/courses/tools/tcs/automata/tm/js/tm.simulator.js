@@ -8,9 +8,9 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
     self.virtualTape = new autoSim.TMTape($scope);
 
     self.tape.refillTape();
-    self.tape.setPointer();
+    self.tape.setPointer($scope.automatonData.inputWord);
     self.virtualTape.refillTape();
-    self.virtualTape.setPointer();
+    self.virtualTape.setPointer($scope.automatonData.inputWord);
 
 
     //save the reference
@@ -179,7 +179,9 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
      * @returns {{}}
      */
     self.getSequences = function(tapeWord) {
+        // self.virtualTape.refillTape();
         self.virtualTape.fillTape(tapeWord);
+        // console.log(self.virtualTape);
         tapeWord = self.virtualTape.tapeArray;
         var tmpObj = {};
         if (self.tape.isEmpty() && $scope.states.final.isFinalState($scope.states.startState)) {
@@ -198,15 +200,28 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
         //         return tmpObj;
         //     }
         // }
-        var possibleSequences = self.getAllPossibleSequences(tapeWord);
-        if (possibleSequences.length !== 0) {
-            tmpObj.possible = true;
-            tmpObj.sequences = possibleSequences;
-            return tmpObj;
+        // var possibleSequences = self.getAllPossibleSequences(tapeWord);
+        // if (possibleSequences.length !== 0) {
+        //     tmpObj.possible = true;
+        //     tmpObj.sequences = possibleSequences;
+        //     return tmpObj;
+        // } else {
+        //     tmpObj.possible = false;
+        //     tmpObj.sequences = self.getFarthestPossibleSequences(tapeWord);
+        //     return tmpObj;
+        // }
+        var tmpObj2 = self.getAllPossibleSequences(tapeWord);
+        // console.log(tmpObj2);
+        if (tmpObj2.completeSequence === true && tmpObj2.possibleSequences.length !== 0) {
+          tmpObj.possible = true;
+          tmpObj.sequences = tmpObj2.possibleSequences;
+          tmpObj.outputWord = tmpObj2.outputWord;
+          // console.log("tmpObj");
+          return tmpObj;
         } else {
-            tmpObj.possible = false;
-            tmpObj.sequences = self.getFarthestPossibleSequences(tapeWord);
-            return tmpObj;
+          tmpObj.possible = false;
+          tmpObj.sequences = tmpObj2.possibleSequences
+          return tmpObj
         }
     };
 
@@ -234,14 +249,17 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
      * @param inputWord
      * @returns {Array}
      */
-    self.getAllPossibleSequences = function(tapeWord) {
-        var possibleSequences = [];
+    self.getAllPossibleSequences = function(tape) {
+        var tmpObj = {};
+        tmpObj.completeSequence = false;
+        tmpObj.possibleSequences = [];
         var state = $scope.states.startState;
         var possibleSequence = [];
 
+        self.virtualTape.pointer = self.virtualTape.searchPointerStart();
         while (self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]).length !== 0) {
             var possibleTransition = self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]);
-            if (possibleTransition[0][0].inputSymbol === tapeWord[self.virtualTape.pointer]) {
+            if (possibleTransition[0][0].inputSymbol === tape[self.virtualTape.pointer]) {
                 self.virtualTape.writeOnTape(possibleTransition[0][0].outputSymbol);
                 if (possibleTransition[0][0].movingDirection === "→") {
                     self.virtualTape.pointerGoRight();
@@ -264,12 +282,15 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
             // }
             state = possibleTransition[0][0].toState;
         }
+        tmpObj.possibleSequences.push(possibleSequence);
+        tmpObj.outputWord = self.getOutputWord(self.virtualTape.tapeArray);
+        self.virtualTape.refillTape();
         if ($scope.states.final.isFinalState(state)) {
-            possibleSequences.push(possibleSequence);
-            return possibleSequences;
+            tmpObj.completeSequence = true;
+            return tmpObj;
         }
-        self.virtualTape.tapeSetup($scope.automatonData.inputWord);
-        return possibleSequences;
+        // self.virtualTape.tapeSetup($scope.automatonData.inputWord);
+        return tmpObj;
 
 
         // //as long as there are possibleSequences do
@@ -355,6 +376,16 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
         }
         farthestSequences.push(farthestSequence);
         return farthestSequences;
+    };
+
+    self.getOutputWord = function(tape) {
+      var outputWord = '';
+      for (var i = 0; i < tape.length; i++) {
+        if (tape[i] !== '☐') {
+          outputWord += tape[i];
+        }
+      }
+      return outputWord;
     };
 
     /**

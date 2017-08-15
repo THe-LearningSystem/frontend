@@ -45,34 +45,34 @@
 
             <div ng-show="automatonData.type ==='TM'">
                 <div class="input-group" ng-class="transition.inputSymbol.error === true ? 'has-error':''">
-                    <span class="input-group-addon">{{"TRANS_MENU.NAME" | translate}}</span>
+                    <span class="input-group-addon">{{"as.trans_menu.name" | translate}}</span>
                     <input id="transition-read-symbol-{{transition.id}}" class="form-control" type="text" ng-model="transition.inputSymbol.value" maxlength="1"
                            ng-attr-show-focus="true" ng-disabled="simulator.isInPlay">
                 </div>
-                <div class="alert alert-danger alert-transition"
+                <div class="alert alert-danger alert-transition alertTM"
                      ng-show="transition.inputSymbol.error && transition.isUnique">
-                    {{"TRANS_MENU.NAME_TOO_SHORT"| translate}}
+                    {{"as.trans_menu.name_too_short"| translate}}
                 </div>
                 <div class="input-group" ng-class="transition.outputSymbol.error === true ? 'has-error':''">
-                    <span class="input-group-addon">{{"TRANS_MENU.TM_WRITE_SYMBOL"| translate}}</span>
+                    <span class="input-group-addon">{{"as.tm.write_symbol"| translate}}</span>
                     <input id="transition-write-symbol-{{transition.id}}" type="text" class="form-control"
                            ng-model="transition.outputSymbol.value" maxlength="1"
                            ng-disabled="simulator.isInPlay">
                 </div>
                 <div class="alert alert-danger alert-transition"
                      ng-show="transition.outputSymbol.error && transition.isUnique">
-                    {{"TRANS_MENU.NAME_TOO_SHORT"| translate}}
+                    {{"as.trans_menu.name_too_short"| translate}}
                 </div>
                 <div class="input-group"
                      ng-class="transition.movingDirection.error ===true ? 'has-error':''">
-                    <span class="input-group-addon">{{"TRANS_MENU.TM_MOVING_DIRECTION"| translate}}</span>
+                    <span class="input-group-addon">{{"as.tm.moving_direction"| translate}}</span>
                     <input id="transition-moving-direction-{{transition.id}}" class="form-control" type="text"
                            ng-model="transition.movingDirection.value" maxlength="1"
                            ng-disabled="simulator.isInPlay">
                 </div>
                 <div class="alert alert-danger alert-transition"
                      ng-show="transition.movingDirection.error && transition.isUnique">
-                    {{"TRANS_MENU.NAME_TOO_SHORT"| translate}}
+                    {{"as.trans_menu.name_too_short"| translate}}
                 </div>
                 <span class="input-group-addon btn btn-danger transbutton"
                       ng-click="simulator.isInPlay ? pseudoFunction() : transitions.remove(transitions.getById(transition.id)); transitions.menu.edit.open(transitions.selected)"
