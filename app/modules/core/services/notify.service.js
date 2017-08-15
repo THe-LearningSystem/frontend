@@ -5,9 +5,9 @@
         .module('core.services')
         .factory('CustomNotify', CustomNotify);
 
-    CustomNotify.$inject = ['Notification', '$state'];
+    CustomNotify.$inject = ['$rootScope','Notification', '$state'];
 
-    function CustomNotify(Notification, $state) {
+    function CustomNotify($rootScope,Notification, $state) {
         return {
             success: success,
             warning:warning,
@@ -21,7 +21,7 @@
             };
             options = _.merge(defaultOptions, options);
             Notification.success({
-                message: '<i class="glyphicon glyphicon-ok"></i>' + msg,
+                message: '<i class="glyphicon glyphicon-ok"></i>' + msg[$rootScope.preferredLanguage],
                 positionX: options.positionX,
                 positionY: options.positionY
             });
@@ -33,7 +33,7 @@
             };
             options = _.merge(defaultOptions, options);
             Notification.warning({
-                message: '<i class="glyphicon glyphicon-remove"></i>' + msg,
+                message: '<i class="glyphicon glyphicon-remove"></i>' + msg[$rootScope.preferredLanguage],
                 positionX: options.positionX,
                 positionY: options.positionY
             });
@@ -45,7 +45,7 @@
             };
             options = _.merge(defaultOptions, options);
             Notification.error({
-                message: '<i class="glyphicon glyphicon-remove"></i>' + msg,
+                message: '<i class="glyphicon glyphicon-remove"></i>' + msg[$rootScope.preferredLanguage],
                 positionX: options.positionX,
                 positionY: options.positionY
             });

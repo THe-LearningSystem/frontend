@@ -166,6 +166,8 @@ autoSim.States = function ($scope) {
      * @returns {Boolean}
      */
     self.remove = function (state) {
+        console.log(state);
+        console.log(self.hasTransitions(state));
         if (self.hasTransitions(state)) {
             $scope.showModalWithMessage('STATE_MENU.DELETE_MODAL_TITLE', 'STATE_MENU.DELETE_MODAL_DESC', 'states.forcedRemoveWithId(' + state.id + ')', 'MODAL_BUTTON.DELETE');
             return false;
@@ -300,6 +302,7 @@ autoSim.States = function ($scope) {
      * Clear the stateArray
      */
     self.clear = function () {
+        self.final.clear();
         _.forEach(self, function () {
             self.pop();
         });

@@ -20,26 +20,7 @@
                                   required>
                          </textarea>
                     </div>
-                    <div class="answers margin-top">
-                        <div class="answer-edit panel panel-default" ng-repeat="answer in vm.data.data.answers"
-                             ng-class="{'panel-right-answer':$index == vm.data.data.rightAnswerIndex}">
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
-                                    <textarea froala="vm.froalaOptionsSmall"
-                                              ng-model="answer[vm.course.primaryLanguage]"
-                                              required>
-                                    </textarea>
-                                </div>
-                                <button class="btn btn-default"
-                                        ng-click="vm.data.data.rightAnswerIndex = $index"
-                                        ng-show="$index !== vm.data.data.rightAnswerIndex">
-                                    {{'core.courses.setRightAnswer' | translate}}
-                                </button>
-                            </div>
 
-                        </div>
-                    </div>
                 </div>
                 <div class="col-sm-6">
                     <course-language-selection></course-language-selection>
@@ -57,23 +38,48 @@
                                       ng-model=" vm.data.data.content[language]"></textarea>
                         </div>
 
-                        <div class="answers margin-top">
-                            <div class="answer-edit panel panel-default" ng-repeat="answer in vm.data.data.answers"
-                                 ng-class="{'panel-right-answer':$index == vm.data.data.rightAnswerIndex}">
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
-                                        <textarea froala="vm.froalaOptionsSmall"
-                                                  ng-model="answer[language]">
-                                    </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+
                 <div class="col-sm-12">
+                    <div class="lesys-selection">
+                        <span class="lesys-select" ng-click="vm.automatonType ='DFA'"
+                              ng-class="{'selected':vm.automatonType=== 'DFA'}">
+                           DFA
+                        </span>
+                        <span class="lesys-select" ng-click="vm.automatonType ='NFA'"
+                              ng-class="{'selected':vm.automatonType=== 'NFA'}">
+                           NFA
+                        </span>
+                        <span class="lesys-select" ng-click="vm.automatonType ='PDA'"
+                              ng-class="{'selected':vm.automatonType=== 'PDA'}">
+                           PDA
+                        </span>
+                        <span class="lesys-select" ng-click="vm.automatonType ='NPDA'"
+                              ng-class="{'selected':vm.automatonType=== 'NPDA'}">
+                           NPDA
+                        </span>
+                    </div>
+                    <div class="lesys-selection">
+                        <span class="lesys-select" ng-click="vm.data.data.questionType =1"
+                              ng-class="{'selected':vm.data.data.questionType=== 1}">
+                           Überprüfe auf korrekten Automaten
+                        </span>
+                        <span class="lesys-select" ng-click="vm.data.data.questionType =2"
+                              ng-class="{'selected':vm.data.data.questionType=== 2}">
+                            TYP 2
+                        </span>
+                    </div>
+                    <div ng-show="vm.automatonType=== 'DFA'">
+                        <div class="btn btn-default" button="button"
+                             ng-click="vm.openDFA()">
+                            Open DFA Automata Modal
+                        </div>
+                    </div>
+                    <json-formatter json="vm.data.data.data" open="1"></json-formatter>
+
                     <course-is-published></course-is-published>
+
                 </div>
                 <div class="col-sm-12">
                     <div class="pull-right">

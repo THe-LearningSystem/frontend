@@ -8,6 +8,8 @@ module.exports = {
             'app/lib/font-awesome/css/font-awesome.css',
             'app/lib/froala-wysiwyg-editor/css/froala_editor.css',
             'app/lib/froala-wysiwyg-editor/css/froala_style.css',
+            'app/lib/json-formatter/dist/json-formatter.css'
+
 
         ],
         js: [
@@ -38,7 +40,8 @@ module.exports = {
             'app/lib/angular-timeago/dist/angular-timeago.js',
             'app/lib/EaselJS/lib/easeljs-0.8.2.combined.js',
             'app/lib/extend.js/bin/extend.min.js',
-            'app/lib/jquery-slimscroll/jquery.slimscroll.js'
+            'app/lib/jquery-slimscroll/jquery.slimscroll.js',
+            'app/lib/json-formatter/dist/json-formatter.js'
         ],
         tests: []
     },

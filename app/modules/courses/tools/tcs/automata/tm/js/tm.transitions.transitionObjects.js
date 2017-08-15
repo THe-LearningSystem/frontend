@@ -124,7 +124,7 @@ autoSim.TransitionAlphabet.prototype = Array.prototype;
  * @param $scope
  * @constructor
  */
-autoSim.TransitionInputAlphabet = function($scope) {
+autoSim.TransitionInputAlphabetTM = function($scope) {
     var self = this;
     $scope.core.updateListeners.push(self);
 
@@ -211,7 +211,7 @@ autoSim.TransitionInputAlphabet = function($scope) {
     });
 };
 
-autoSim.TransitionInputAlphabet.prototype = Array.prototype;
+autoSim.TransitionInputAlphabetTM.prototype = Array.prototype;
 
 /**
  * Constructor for a transitionInputAlphabet

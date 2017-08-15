@@ -128,6 +128,7 @@ angular.module('courses.tcs').directive("stateTransitionFunction", function () {
 });
 angular.module('courses.tcs').directive("stateMenu", function () {
     return {
+        scope:false,
         templateUrl: 'modules/courses/tools/tcs//automata/directives/state-menu.html'
     };
 });

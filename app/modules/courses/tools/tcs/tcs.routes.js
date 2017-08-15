@@ -28,7 +28,7 @@
 
             })
             .state('tcs.dfa', {
-                url: '/courses/tcs/tools/dfa',
+                url: '/courses/:courseUrl/tools/dfa',
                 parent: 'frontend',
                 controller: 'DFACtrl',
                 controllerAs: 'vm',

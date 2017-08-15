@@ -26,7 +26,8 @@ var config = {
         'dndLists',
         'bootstrap.angular.validation',
         'froala',
-        'yaru22.angular-timeago'
+        'yaru22.angular-timeago',
+        'jsonFormatter'
     ]
 };
 
@@ -79,7 +80,7 @@ var app = angular.module(config.name, config.vendorDependencies)
             I18nManager.setData(I18N_DATA);
             I18nManager.setConfig(I18N_CONFIG);
             I18nManager.init();
-
+            $rootScope.preferredLanguage = I18nManager.preferredLanguage;
 
             bsValidationConfig.messages.required = $rootScope.getDeepValue(I18N_DATA,"core.general.required");
 

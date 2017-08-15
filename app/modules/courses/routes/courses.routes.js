@@ -65,6 +65,13 @@
                 controllerAs: 'vm',
                 parent: 'frontend'
             })
+            .state('frontend.courses.lessons.create.automaton', {
+                url: '/courses/:courseUrl/sections/:sectionUrl/lessons/create/automaton',
+                templateUrl: '/modules/courses/views/course-lesson-create-automaton.view.html',
+                controller: 'CourseLessonAutomatonCreateCtrl',
+                controllerAs: 'vm',
+                parent: 'frontend'
+            })
             .state('frontend.courses.list', {
                 url: '',
                 templateUrl: '/modules/courses/views/list-courses.view.html',
