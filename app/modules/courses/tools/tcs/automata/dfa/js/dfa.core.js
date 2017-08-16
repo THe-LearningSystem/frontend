@@ -16,6 +16,7 @@ autoSim.DFACore = function ($scope) {
      * Removes the current automata and the inputWord
      */
     self.resetAutomaton = function () {
+
         self.closeMenus();
         $scope.simulator.reset();
         $scope.states.clear();
@@ -26,6 +27,22 @@ autoSim.DFACore = function ($scope) {
         $scope.automatonData.unSavedChanges = false;
         $scope.saveApply();
     };
+
+    self.resetAutomatonRequest = function(){
+        $scope.$uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            templateUrl: '/modules/courses/tools/tcs/automata/directives/modal/resetAutomaton/resetAutomaton.modal.view.html',
+            controller: 'ResetAutomatonModalCtrl',
+            controllerAs: 'vm',
+            resolve: {
+                data: function () {
+                    return {
+                        parentScope:$scope
+                    };
+                }
+            }
+        });
+    }
 
     /**
      * This function calls the method updateFunction of every element in $scope.core.updateListeners

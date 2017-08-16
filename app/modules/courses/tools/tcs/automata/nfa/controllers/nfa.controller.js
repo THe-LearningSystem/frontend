@@ -12,7 +12,6 @@
         prepareScope($scope);
 
 
-
         //Config Object
         $scope.automatonData = new autoSim.AutomatonData('NFA', true);
         $scope.core = new autoSim.DFACore($scope);
@@ -31,6 +30,5 @@
         $scope.testAgent = new TestData($scope);
 
 
-        $scope.testAgent.testNFA();
     }
 }());

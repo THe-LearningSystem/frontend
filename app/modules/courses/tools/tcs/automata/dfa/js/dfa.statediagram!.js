@@ -42,7 +42,6 @@ autoSim.StateDiagram = function ($scope) {
         //create a new selectedState in a position not viewable
         $scope.states.selected = $scope.states.createWithPresets(-10000, -10000);
         $scope.states.isInCreation = true;
-        console.log($scope.states.selected);
         $scope.saveApply();
     };
 

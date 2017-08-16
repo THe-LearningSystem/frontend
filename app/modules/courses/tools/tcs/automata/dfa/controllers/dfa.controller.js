@@ -5,9 +5,9 @@
         .module('courses.tcs')
         .controller('DFACtrl', DFACtrl);
 
-    DFACtrl.$inject = ['$scope','$state','Courses', '$stateParams','Authentication'];
+    DFACtrl.$inject = ['$scope','$state','Courses', '$stateParams','Authentication','$uibModal'];
 
-    function DFACtrl($scope,$state,Courses, $stateParams,Authentication) {
+    function DFACtrl($scope,$state,Courses, $stateParams,Authentication,$uibModal) {
         window.rootScope = $scope;
         $scope.saveApply = scopeSaveApply;
         $scope.debug = true;
@@ -28,9 +28,8 @@
         $scope.table = new autoSim.Table($scope);
 
         $scope.testAgent = new TestData($scope);
+        $scope.$uibModal = $uibModal;
 
-
-        // $scope.testAgent.testDFA();
 
 
         if(false){
