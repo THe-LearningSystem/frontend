@@ -155,7 +155,7 @@ body {
   left: 0;
   padding-top: 50px;
   width: 230px;
-  background-color: #222d32;
+  background-color: $greyColor;
   min-height: 100%;
   z-index: 810;
   transition: all 0.5s ease 0s;
@@ -278,7 +278,6 @@ body {
   }
   #main-sidebar {
     padding-top: 100px;
-
   }
   .navbar-custom-menu .navbar-nav {
     float: left;
@@ -322,6 +321,30 @@ body {
 
 .cursor-pointer{
   cursor:pointer;
+}
+
+.bottom-toolbar{
+  height:50px;
+  width:100%;
+  background-color:darken($greyColor,5%);
+  color:white;
+  font-size:18px;
+  position:absolute;
+  bottom:0;
+}
+
+.bottom-toolbar .element{
+  padding:15px;
+  display:inline-block
+}
+.bottom-toolbar .element:hover{
+  background-color:lighten($greyColor,5%);
+}
+.bottom-toolbar a{
+  color:white;
+}
+.bottom-toolbar a:hover{
+  text-decoration:none;
 }
 
 .modal {

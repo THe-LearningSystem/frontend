@@ -46,7 +46,7 @@
                 <div ng-bind-html="getLocalized(vm.lesson.data.question)">
                 </div>
                 <div ng-controller="DFACtrl">
-                    <div ng-include="'/modules/courses/tools/tcs/automata/dfa/views/dfa.html'"></div>
+                    <!--<div ng-include="'/modules/courses/tools/tcs/automata/dfa/views/dfa.html'"></div>-->
                 </div>
             </div>
             <div class="pull-right">
@@ -61,3 +61,4 @@
     <div class="alert alert-warning" ng-show="!vm.lesson.isPublished && !vm.isAllowedToEdit()">
         {{'core.courses.accessToNotPublishedLesson' | translate}}
     </div>
+</div>

@@ -11,6 +11,7 @@
         window.rootScope = $scope;
         $scope.saveApply = scopeSaveApply;
         $scope.debug = true;
+        console.log($scope);
 
         //Config Object
         $scope.automatonData = new autoSim.AutomatonData('DFA');

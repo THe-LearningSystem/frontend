@@ -22,56 +22,50 @@
 
         $stateProvider
             .state('tcs', {
-                url: '/courses/tcs/tools/',
+                url: '/courses/:courseUrl/tools/',
                 parent: 'frontend',
-                abstract: true
-
+                abstract:true,
+                templateUrl: '/modules/courses/tools/tools-template.view.html',
+                controller: 'CoursesToolsCtrl'
             })
             .state('tcs.dfa', {
-                url: '/courses/:courseUrl/tools/dfa',
-                parent: 'frontend',
+                url: 'dfa',
                 controller: 'DFACtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/dfa/views/dfa.html'
             })
             .state('tcs.nfa', {
-                url: '/courses/tcs/tools/nfa',
-                parent: 'frontend',
+                url: 'nfa',
                 controller: 'NFACtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/nfa/views/nfa.html'
             })
             .state('tcs.pda', {
-                url: '/courses/tcs/tools/pda',
-                parent: 'frontend',
+                url: 'pda',
                 controller: 'PDACtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/pda/views/pda.html'
             })
             .state('tcs.npda', {
-                url: '/courses/tcs/tools/npda',
-                parent: 'frontend',
+                url: 'npda',
                 controller: 'NPDACtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/npda/views/npda.html'
             })
             .state('tcs.tm', {
-                url: '/courses/tcs/tools/tm',
-                parent: 'frontend',
+                url: 'tm',
                 controller: 'TMCtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.html'
             })
             .state('tcs.cellular', {
-                url: '/courses/tcs/tools/cellular',
-                parent: 'frontend',
+                url: 'cellular',
                 controller: 'CellularCtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/cellular/views/cellular.view.html'
             })
             .state('tcs.boolean-algebra', {
-                url: '/courses/tcs/tools/boolean-algebra',
-                parent: 'frontend',
+                url: 'boolean-algebra',
                 controller: 'BACtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/boolean-algebra/views/boolalg.html'

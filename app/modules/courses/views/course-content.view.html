@@ -75,7 +75,8 @@
 
                         </div>
                         <div class="lesson-type pull-right">
-                            <i class="fa fa-check" aria-hidden="true" ng-if="lesson.isPublished && vm.parentVm.isAllowedToEdit()"></i>
+                            <i class="fa fa-eye-slash" aria-hidden="true"
+                               ng-if="!lesson.isPublished && vm.parentVm.isAllowedToEdit()"></i>
                             <i class="fa fa-book" aria-hidden="true" ng-if="lesson.kind === 'content'"></i>
                             <i class="fa fa-check-square-o" aria-hidden="true" ng-if="lesson.kind==='quiz'"></i>
                             <i class="fa fa-cogs" aria-hidden="true" ng-if="lesson.kind==='automaton'"></i>
