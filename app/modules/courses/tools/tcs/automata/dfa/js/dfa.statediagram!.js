@@ -41,11 +41,9 @@ autoSim.StateDiagram = function ($scope) {
         });
         //create a new selectedState in a position not viewable
         $scope.states.selected = $scope.states.createWithPresets(-10000, -10000);
+        $scope.states.isInCreation = true;
         console.log($scope.states.selected);
-        self.svgOuter.on("click", function () {
-            self.svgOuter.on("mousemove", null);
-            $scope.saveApply();
-        });
+        $scope.saveApply();
     };
 
 
@@ -63,6 +61,7 @@ autoSim.StateDiagram = function ($scope) {
                 var fromState = $scope.states.getById(parseInt(d3.select(this).attr("object-id")));
                 self.createTransition(fromState);
             });
+
         } else {
             d3.selectAll('.state').on('click', null);
             d3.selectAll(".state").on("click", function () {
@@ -71,6 +70,7 @@ autoSim.StateDiagram = function ($scope) {
                 $scope.transitions.menu.edit.open($scope.transitions.getTransitionGroup(self.tmpTransition.fromState, toState));
                 self.removeTmpTransition();
                 $scope.$apply();
+                d3.selectAll(".state").on("click", $scope.states.menu.edit.openHandler);
             }).on("mouseover", function () {
                 mouseInState = true;
                 var toState = $scope.states.getById(parseInt(d3.select(this).attr("object-id")));

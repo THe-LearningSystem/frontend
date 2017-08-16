@@ -10,6 +10,7 @@ autoSim.States = function ($scope) {
     self.startState = null;
     self.final = new autoSim.FinalStates($scope);
     self.selected = null;
+    self.isInCreation = false;
     self.statesId = 0;
     self.radius = 25;
 
