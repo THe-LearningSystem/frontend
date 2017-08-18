@@ -2,7 +2,7 @@ deferredBootstrapper.bootstrap({
     element: document.body,
     module: 'app',
     resolve: {
-        I18N_DATA: ['$http', function ($http) {
+        I18N_DATA: ['$http',  function ($http) {
             return $http.get('http://localhost:3000/api/i18n/?simplified=true');
         }],
         I18N_CONFIG: ['$http', function ($http) {

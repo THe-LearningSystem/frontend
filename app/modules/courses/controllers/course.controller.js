@@ -46,13 +46,20 @@
                 _.forEach(section.lessons, function (lesson) {
                     if (vm.firstLesson === null)
                         vm.firstLesson = lesson;
-                    if (!_.includes(vm.userEnrolledCourseData.passedLessons, lesson._id) && vm.nextLesson === null) {
+                    var foundLesson = false;
+                    _.forEach(vm.userEnrolledCourseData.lessonData,function(lessonData){
+                        if(lessonData._id === lesson._id){
+                            foundLesson = true;
+                            return false;
+                        }
+                    });
+                    if(!foundLesson){
                         vm.nextLesson = lesson;
-                        return false;
                     }
+                    if (vm.nextLesson !== null)
+                        return false;
                 });
-                if (vm.nextLesson !== null)
-                    return false;
+
             });
         };
 

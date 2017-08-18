@@ -44,9 +44,14 @@
         };
 
         var _passCallback = function (data, passed) {
+            var tmpLesson = data.payload;
             if (passed) {
+                data.payload = {
+                    _id: tmpLesson._id,
+                    passed: true
+                };
                 Courses.addPassedLessonToUser(data, function (response) {
-                    console.log("fuck you", response);
+                    console.log(response);
                 }, false);
                 if (vm.nextLesson !== null) {
                     $state.go('frontend.courses.display.lesson', {
@@ -57,6 +62,12 @@
                     $state.go('frontend.courses.display.content', {courseUrl: vm.course.urlName});
                 }
             } else {
+                data.payload = {
+                    _id: tmpLesson._id,
+                    passed: false
+                };
+                Courses.addPassedLessonToUser(data, function (response) {
+                }, false);
                 CustomNotify.warning("Wrong answer");
             }
         };
@@ -70,7 +81,6 @@
                 payload: vm.lesson
             };
             if (vm.lesson.kind === 'quiz') {
-                console.log(data);
                 Courses.verifyLessonResult(data, function (response) {
                     console.log(response);
                     _passCallback(data, response.data.passedLesson);

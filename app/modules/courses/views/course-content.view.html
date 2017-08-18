@@ -6,14 +6,15 @@
                 {{'core.courses.createSection' | translate}}
             </button>
             <!--<button class="btn btn-default" ng-click="vm.sectionReorder = !vm.sectionReorder">-->
-                <!--allowReorder-->
+            <!--allowReorder-->
             <!--</button>-->
         </div>
 
     </div>
 </div>
 <div ng-show="true">
-    <div ng-repeat="section in vm.course.sections track by $index" ng-show="section.isPublished || vm.parentVm.isAllowedToEdit()">
+    <div ng-repeat="section in vm.course.sections track by $index"
+         ng-show="section.isPublished || vm.parentVm.isAllowedToEdit()">
         <div class="section-reorder" ng-show="false">
             <i class="fa fa-sort" aria-hidden="true"></i>
         </div>
@@ -29,7 +30,7 @@
                         {{"core.courses.section" | translate}} {{$index+1}}: {{getLocalized(section.name)}}
                     </h4>
                     {{getLocalized(section.description)}}
-                    <div class="alert alert-info margin-top"  ng-show="!section.isPublished">
+                    <div class="alert alert-info margin-top" ng-show="!section.isPublished">
                         {{'core.courses.contentNotPublished' | translate}}
                     </div>
                 </div>
@@ -66,13 +67,13 @@
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </div>
                         <div class="lesson-type pull-right">
-                            <div class="checkbox checkbox-success abc-checkbox lesson-checkbox">
-                                <input type="checkbox" class="styled cursor-pointer" id="singleCheckbox" value="option1"
-                                       aria-label="Single  One" ng-model="lesson.userPassed"
-                                       ng-click="vm.changePassedLessonToUser(lesson); $event.stopPropagation();">
-                                <label for="singleCheckbox"></label>
+                            <div ng-class="{'checkbox-success': lesson.userPassed === true,'checkbox-danger':lesson.userPassed === false}"
+                                 class="checkbox lesson-checkbox">
+                                <input type="checkbox"
+                                      ng-checked="lesson.userPassed === true || lesson.userPassed ===false" disabled>
+                                <!--ng-click="vm.changePassedLessonToUser(lesson); $event.stopPropagation();"-->
+                                <label></label>
                             </div>
-
                         </div>
                         <div class="lesson-type pull-right">
                             <i class="fa fa-eye-slash" aria-hidden="true"
