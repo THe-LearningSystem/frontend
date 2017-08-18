@@ -19,7 +19,7 @@
                 $location.replace().path(newPath);
             }
         });
-
+        //automata
         $stateProvider
             .state('tcs', {
                 url: '/courses/:courseUrl/tools/',
@@ -58,17 +58,26 @@
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.html'
             })
+            //cellular automata
             .state('tcs.cellular', {
                 url: 'cellular',
                 controller: 'CellularCtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/cellular/views/cellular.view.html'
             })
+            //boolean Algebra
             .state('tcs.boolean-algebra', {
                 url: 'boolean-algebra',
                 controller: 'BACtrl',
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/boolean-algebra/views/boolalg.html'
+            })
+            //boolean Algebra
+            .state('tcs.languages-type-lll', {
+                url: 'languages/type-lll',
+                controller: 'LANGController',
+                controllerAs: 'vm',
+                templateUrl: '/modules/courses/tools/tcs/languages/type-lll/views/type-lll.view.html'
             })
         ;
 
