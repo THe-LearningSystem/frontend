@@ -40,3 +40,13 @@ Lessons
 .answer-edit{
   height:270px;
 }
+
+
+.quiz-answer{
+  padding:5px 25px 0 40px;
+
+}
+.quiz-right-answer{
+  background-color:$greenColor;
+  border: 1px solid darken($greenColor,15%);
+}

@@ -23,6 +23,7 @@
                 <div>
                     <h2>{{vm.lesson.position}}. {{getLocalized(vm.lesson.name)}}</h2>
                 </div>
+                <passed-lesson></passed-lesson>
                 <div ng-bind-html="getLocalized(vm.lesson.data.content)">
                 </div>
             </div>
@@ -30,13 +31,15 @@
                 <div>
                     <h2>{{vm.lesson.position}}. {{getLocalized(vm.lesson.name)}}</h2>
                 </div>
+                <passed-lesson></passed-lesson>
                 <div ng-bind-html="getLocalized(vm.lesson.data.question)">
                 </div>
                 <div class="row">
                     <div class="col-sm-6" ng-repeat="answer in vm.lesson.data.answers">
-                        <div class="radio abc-radio abc-radio-info radio-inline quiz-answer">
+                        <div class="radio abc-radio abc-radio-info radio-inline quiz-answer"
+                             ng-class="{'quiz-right-answer':$index === vm.rightAnswerData.rightAnswerIndex}">
                             <input type="radio" id="answer-{{$index}}" value="{{$index}}" name="answers"
-                                   ng-model="vm.lesson.data.selectedAnswer">
+                                   ng-model="vm.lesson.data.selectedAnswer" ng-disabled="!vm.isLessonEditable">
                             <label for="answer-{{$index}}" ng-bind-html="getLocalized(answer)"> </label>
                         </div>
                     </div>
@@ -54,6 +57,7 @@
                         ng-click="vm.goToNextLesson()">
                     {{'core.courses.finishLesson' | translate}}
                 </button>
+
             </div>
 
         </div>

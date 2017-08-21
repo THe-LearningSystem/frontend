@@ -32,10 +32,12 @@
                                     </textarea>
                                 </div>
                                 <button class="btn btn-default"
+                                        type="button"
                                         ng-click="vm.data.data.rightAnswerIndex = $index"
                                         ng-show="$index !== vm.data.data.rightAnswerIndex">
                                     {{'core.courses.setRightAnswer' | translate}}
                                 </button>
+
                             </div>
 
                         </div>
@@ -71,6 +73,19 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-12">
+                   <button class="btn btn-default" ng-click="vm.addAnswer()"
+                           type="button"
+                           ng-show="vm.data.data.answers.length < 4">
+                       {{'core.courses.addAnswer' | translate}}
+                   </button>
+                    <button class="btn btn-default"
+                            ng-click="vm.removeAnswer()"
+                            type="button"
+                            ng-show="vm.data.data.answers.length > 2">
+                        {{'core.courses.removeAnswer' | translate}}
+                    </button>
                 </div>
                 <div class="col-sm-12">
                     <course-is-published></course-is-published>

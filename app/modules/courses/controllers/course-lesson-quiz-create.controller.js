@@ -39,6 +39,7 @@
             });
         } else {
             vm.data = {};
+            vm.data.isPublished = false;
             vm.data.data = {};
             vm.data.data.answers = [{}, {}];
             vm.data.type = "quiz";
@@ -68,6 +69,11 @@
         vm.addAnswer = function () {
             if (vm.data.data.answers.length < 4)
                 vm.data.data.answers.push({});
+        };
+
+        vm.removeAnswer = function () {
+            if (vm.data.data.answers.length > 2)
+                vm.data.data.answers.pop();
         };
 
 

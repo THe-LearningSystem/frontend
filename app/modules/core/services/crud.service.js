@@ -51,7 +51,7 @@
 
         function success(response, callback, notify) {
             if (response.data.msg !== null &&(notify || notify === undefined))
-                CustomNotify.success(response.data.msg);
+                CustomNotify.serversuccess(response.data.msg);
             if (callback !== undefined) {
                 callback(response);
             } else {
@@ -62,7 +62,7 @@
         function error(response, callback, notify) {
                       console.log(response);
             if (response.data !== null && response.data.msg !== null && (notify || notify === undefined))
-                CustomNotify.error(response.data.msg);
+                CustomNotify.servererror(response.data.msg);
             if (callback !== undefined) {
                 callback(response);
             } else {
