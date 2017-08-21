@@ -59,14 +59,13 @@ angular.module('courses.tcs').directive("bulkTest", function () {
                 scope.bulkTest();
             };
 
-            if (scope.parent.automatonData.acceptedInputRaw !== "" || scope.parent.automatonData.rejectedInputRaw != "")
+            if (scope.parent.automatonData.acceptedInputRaw !== "" || scope.parent.automatonData.rejectedInputRaw !== "")
                 scope.bulkTest();
 
-
-            scope.$watch('automatonData.acceptedInputRaw', function () {
+            scope.$watch('parent.automatonData.acceptedInputRaw', function () {
                 scope.bulkTest();
             });
-            scope.$watch('automatonData.rejectedInputRaw', function () {
+            scope.$watch('parent.automatonData.rejectedInputRaw', function () {
                 scope.bulkTest();
             });
 

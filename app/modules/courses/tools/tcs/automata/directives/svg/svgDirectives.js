@@ -14,7 +14,7 @@ angular.module('courses.tcs').directive("ownSvg", function () {
                 }
                 scope.statediagram.menu.preventSvgContextClick = false;
             }).on('click', function () {
-                console.log('click');
+                console.log('click svgouter');
                 event.preventDefault();
                 if (!scope.statediagram.menu.preventSvgOuterClick && !scope.statediagram.inCreateTransition) {
                     scope.transitions.menu.close();

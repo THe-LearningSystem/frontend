@@ -39,6 +39,7 @@
             });
         } else {
             vm.data = {};
+            vm.data.isPublished = false;
             vm.data.data = {};
             vm.data.data.answers = [{}, {}];
             vm.data.type = "quiz";
@@ -55,7 +56,7 @@
             toolbarButtons: ['bold', 'italic', 'underline', 'insertHR', '|', 'undo', 'redo'],
             // toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline','|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
             height: 200,
-            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.courses.content')
+            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.general.question')+' ...'
         };
 
         vm.froalaOptionsSmall = {
@@ -68,6 +69,11 @@
         vm.addAnswer = function () {
             if (vm.data.data.answers.length < 4)
                 vm.data.data.answers.push({});
+        };
+
+        vm.removeAnswer = function () {
+            if (vm.data.data.answers.length > 2)
+                vm.data.data.answers.pop();
         };
 
 

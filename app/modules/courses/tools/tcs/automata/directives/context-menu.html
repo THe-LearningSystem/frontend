@@ -4,7 +4,7 @@
         <li class="context-add-state"
             ng-click="states.menu.edit.open(states.createWithPresets(statediagram.menu.context.addStateX,statediagram.menu.context.addStateY )); statediagram.menu.context.close()">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-plus-circle"></span>
+                <!--<span class="context-menu-icon icon icon-plus-circle"></span>-->
                 <span class="context-menu-text">{{"as.core.addState"| translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>
@@ -18,7 +18,7 @@
         <li class="context-add-state"
             ng-click="states.remove(states.selected); states.menu.context.close()">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-minus-circle"></span>
+                <!--<span class="context-menu-icon icon icon-minus-circle"></span>-->
                 <span class="context-menu-text"> {{"as.core.removeState" | translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>
@@ -27,8 +27,8 @@
             ng-click="states.changeStartState(states.selected); states.menu.context.close()"
             ng-show="states.startState !== states.selected">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-minus-circle"></span>
-                <span class="context-menu-text">{{"as.core.removeStartState" | translate}}</span>
+                <!--<span class="context-menu-icon icon icon-minus-circle"></span>-->
+                <span class="context-menu-text">{{"as.core.addStartState" | translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>
         </li>
@@ -36,8 +36,8 @@
             ng-click="states.removeStartState(); states.menu.context.close()"
             ng-show="states.startState === states.selected">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-minus-circle"></span>
-                <span class="context-menu-text">{{"as.core.addStartState" | translate}}</span>
+                <!--<span class="context-menu-icon icon icon-minus-circle"></span>-->
+                <span class="context-menu-text">{{"as.core.removeStartState" | translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>
         </li>
@@ -45,7 +45,7 @@
             ng-click="states.final.create(states.selected); states.menu.context.close()"
             ng-show="!states.final.isFinalState(states.selected)">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-minus-circle"></span>
+                <!--<span class="context-menu-icon icon icon-minus-circle"></span>-->
                 <span class="context-menu-text">{{"as.core.addToFinalStates" | translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>
@@ -54,7 +54,7 @@
             ng-click="states.final.remove(states.selected); states.menu.context.close()"
             ng-show="states.final.isFinalState(states.selected)">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-minus-circle"></span>
+                <!--<span class="context-menu-icon icon icon-minus-circle"></span>-->
                 <span class="context-menu-text">{{"as.core.removeFromFinalStates" | translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>
@@ -62,7 +62,7 @@
         <li class="context-add-state"
             ng-click="statediagram.createTransition(states.selected) ; states.menu.context.close(true)">
             <span class="context-menu__link">
-                <span class="context-menu-icon icon icon-plus-circle"></span>
+                <!--<span class="context-menu-icon icon icon-plus-circle"></span>-->
                 <span class="context-menu-text">{{"as.core.addTransition" | translate}}</span>
                 <span class="context-menu-shortcut"></span>
             </span>

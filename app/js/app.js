@@ -2,7 +2,7 @@ deferredBootstrapper.bootstrap({
     element: document.body,
     module: 'app',
     resolve: {
-        I18N_DATA: ['$http', function ($http) {
+        I18N_DATA: ['$http',  function ($http) {
             return $http.get('http://localhost:3000/api/i18n/?simplified=true');
         }],
         I18N_CONFIG: ['$http', function ($http) {
@@ -26,7 +26,8 @@ var config = {
         'dndLists',
         'bootstrap.angular.validation',
         'froala',
-        'yaru22.angular-timeago'
+        'yaru22.angular-timeago',
+        'jsonFormatter'
     ]
 };
 
@@ -68,8 +69,8 @@ var app = angular.module(config.name, config.vendorDependencies)
                 if (_.has(obj,I18nManager.preferredLanguage)) {
                     return obj[I18nManager.preferredLanguage];
                 } else {
-                    // console.log(path);
-                    // return obj[I18nManager.preferredLanguage];
+                    console.log('path not found',path);
+                    return path;
                 }
             };
 
@@ -78,8 +79,13 @@ var app = angular.module(config.name, config.vendorDependencies)
 
             I18nManager.setData(I18N_DATA);
             I18nManager.setConfig(I18N_CONFIG);
-            I18nManager.init();
+            $rootScope.i18nj = I18nManager.init();
+            $rootScope.preferredLanguage = I18nManager.preferredLanguage;
 
+
+            $rootScope.getTranslation = function(input){
+                return $rootScope.getDeepValue(I18nManager.data, input);
+            };
 
             bsValidationConfig.messages.required = $rootScope.getDeepValue(I18N_DATA,"core.general.required");
 
@@ -142,6 +148,8 @@ var app = angular.module(config.name, config.vendorDependencies)
                 }
             );
         }]);
+
+
 
 
 app.filter('translate', ['I18nManager', function (I18nManager) {

@@ -1,0 +1,21 @@
+<div class="lang-derivation-sequence">
+
+    <div class="title">Ableitungssequenz</div>
+    <div class="content">
+        <span ng-show="langWordChecker.inputAccepted">
+            {{langProductionRules.getStartRule().left}}
+        </span>
+        <span class="sequenceA" ng-show="langWordChecker.inputAccepted">
+        &#10233;
+        </span>
+        <span ng-repeat="next in langDerivationSequence">
+            <span ng-class="{'lang-simulator-derivationsequence': next.sequence === langSimulator.animated.currentDerivationSequence}">
+                {{next.sequence}}
+                <br>
+            </span>
+                <span class="sequenceB" >
+                    {{$last ? '' : '&#10233;'}}
+                </span>
+        </span>
+    </div>
+</div>

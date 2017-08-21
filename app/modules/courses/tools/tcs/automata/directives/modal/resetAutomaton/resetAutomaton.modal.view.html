@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="vm.cancel()">&times;</button>
+    <h3 class="modal-title" id="modal-title">{{'as.core.deleteAutomatonTitle' | translate}}</h3>
+</div>
+<div class="modal-body">
+  {{'as.core.deleteAutomatonDescription' | translate}}
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" type="button"
+            ng-click="vm.delete()">
+        {{'core.general.delete' | translate}}
+    </button>
+    <button class="btn btn-warning" type="button"
+            ng-click="vm.cancel()">
+        {{'core.general.cancel' | translate}}
+    </button>
+</div>

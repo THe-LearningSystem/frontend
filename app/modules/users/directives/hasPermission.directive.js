@@ -14,8 +14,6 @@
 
         return {
             link: function (scope, element, attrs) {
-                console.log(Authentication.rights);
-                console.log(isFunctionA(attrs.hasPersmission));
                 var hasPermission =Authentication.hasRight(attrs.hasPermission);
                 //TODO: or better even remove that element from the DOM?
                 if(hasPermission){

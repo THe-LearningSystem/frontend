@@ -22,11 +22,12 @@
                     vm.userEnrolledCourseData = response.data;
                     _.forEach(vm.course.sections, function (section) {
                         _.forEach(section.lessons, function (lesson) {
-                            if (_.includes(vm.userEnrolledCourseData.passedLessons, lesson._id)) {
-                                lesson.userPassed = true;
-                            } else {
-                                lesson.userPassed = false;
-                            }
+                            lesson.userPassed = null;
+                            _.forEach(vm.userEnrolledCourseData.lessonData,function(userLessonData){
+                                if(userLessonData._id === lesson._id){
+                                    lesson.userPassed = userLessonData.passed;
+                                }
+                            });
                         })
                     })
                 });

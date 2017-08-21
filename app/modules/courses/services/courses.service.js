@@ -35,8 +35,8 @@
             deleteAnswer: deleteAnswer,
             enrolledCourses: enrolledCourses,
             enrollCourse: enrollCourse,
-            addPassedLessonToUser: addPassedLessonToUser,
-            removePassedLessonFromUser: removePassedLessonFromUser
+            addPassedLessonToUser: addPassedLessonToUser
+            // removePassedLessonFromUser: removePassedLessonFromUser
         };
 
         function courseList() {
@@ -165,11 +165,11 @@
         }
 
         function addPassedLessonToUser(data, callback, notify) {
-            return crud.post('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, {}, callback, notify);
+            return crud.post('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, data.payload, callback, notify);
         }
 
-        function removePassedLessonFromUser(data, callback, notify) {
-            return crud.delete('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, callback, notify);
-        }
+        // function removePassedLessonFromUser(data, callback, notify) {
+        //     return crud.delete('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, callback, notify);
+        // }
     }
 }());

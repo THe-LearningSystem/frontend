@@ -5,10 +5,10 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-6 course-logo">
-                    <img src="#" class="img-responsive thumbnail">
-                </div>
-                <div class="col-sm-6">
+                <!--<div class="col-sm-6 course-logo">-->
+                    <!--&lt;!&ndash;<img src="#" class="img-responsive thumbnail">&ndash;&gt;-->
+                <!--</div>-->
+                <div class="col-sm-12">
                     <h3>{{getLocalized(vm.course.name)}}</h3>
                     <button class="btn btn-default"
                             ui-sref="frontend.courses.display.lesson({courseUrl:vm.courseUrl,lessonId:vm.nextLesson._id})"
@@ -16,13 +16,13 @@
                         {{'core.courses.continueWithNextLesson' | translate}}
                     </button>
                     <div class="user-course-progress">
-                        <div>{{vm.userEnrolledCourseData.passedLessons.length}} von {{vm.lessonCount}}</div>
+                        <div>{{vm.userEnrolledCourseData.lessonData.length}} von {{vm.lessonCount}}</div>
                         <div class="progress">
                             <div class="progress-bar progress-bar-success" role="progressbar"
-                                 aria-valuenow="{{Math.floor((vm.userEnrolledCourseData.passedLessons.length/vm.lessonCount)*100)}}"
+                                 aria-valuenow="{{Math.floor((vm.userEnrolledCourseData.lessonData.length/vm.lessonCount)*100)}}"
                                  aria-valuemin="0" aria-valuemax="100"
-                                 style="width: {{Math.floor((vm.userEnrolledCourseData.passedLessons.length/vm.lessonCount)*100)}}%;">
-                                <span class="sr-only">{{Math.floor((vm.userEnrolledCourseData.passedLessons.length/vm.lessonCount)*100)}}% Complete</span>
+                                 style="width: {{Math.floor((vm.userEnrolledCourseData.lessonData.length/vm.lessonCount)*100)}}%;">
+                                <span class="sr-only">{{Math.floor((vm.userEnrolledCourseData.lessonData.length/vm.lessonCount)*100)}}% Complete</span>
                             </div>
                         </div>
                     </div>
@@ -54,10 +54,10 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-6 course-logo">
-                    <img src="#" class="img-responsive thumbnail">
-                </div>
-                <div class="col-sm-6">
+                <!--<div class="col-sm-6 course-logo">-->
+                    <!--<img src="#" class="img-responsive thumbnail">-->
+                <!--</div>-->
+                <div class="col-sm-12">
                     <h3>{{getLocalized(vm.course.name)}}</h3>
                     <button class="btn btn-default" ng-click="vm.enrollCourse()">{{'core.courses.enrollToCourse' |
                         translate}}

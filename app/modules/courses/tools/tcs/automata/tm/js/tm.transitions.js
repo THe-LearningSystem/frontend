@@ -6,7 +6,7 @@
 autoSim.TransitionsTM = function($scope) {
     var self = this;
     autoSim.Transitions.apply(this, arguments);
-    self.inputSymbolAlphabet = new autoSim.TransitionInputAlphabet($scope);
+    self.inputSymbolAlphabet = new autoSim.TransitionInputAlphabetTM($scope);
     self.tapeAlphabet = new autoSim.TransitionTapeAlphabet($scope);
     self.transitionAlphabet = new autoSim.TransitionAlphabet($scope);
     self.textLength = 40;
