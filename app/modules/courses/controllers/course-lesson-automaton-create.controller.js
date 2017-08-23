@@ -54,13 +54,13 @@
                 openedClass: 'full-modal',
                 ariaLabelledBy: 'modal-title',
                 templateUrl: '/modules/courses/tools/tcs/automata/dfa/views/dfaModal.html',
-                controller: 'DFACtrl',
+                controller: 'DFAModalCtrl',
                 controllerAs: 'vm',
                 resolve: {
                     data: function () {
                         return {
                             parentController: vm,
-                            automaton:vm.data.data.data
+                            automaton:vm.data.data.automaton
                         };
                     }
                 }

@@ -9,12 +9,15 @@
 
     function LessonCtrl($rootScope, $scope, $state, $stateParams, Courses, Authentication, CustomNotify) {
         var vm = this;
+
+        console.log($scope.$id);
         vm.courseUrl = $stateParams.courseUrl;
         vm.lessonId = $stateParams.lessonId;
         vm.nextLesson = null;
         vm.rightAnswerData = null;
         vm.isLessonEditable = true;
         vm.passedLesson = null;
+        vm.failedLesson = false;
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
@@ -70,21 +73,25 @@
                 };
                 Courses.addPassedLessonToUser(data, function (response) {
                     CustomNotify.success($rootScope.getTranslation('core.courses.passedLesson'));
+                    if (vm.nextLesson !== null) {
+                        setTimeout(function(){
+                            $state.go('frontend.courses.display.lesson', {
+                                courseUrl: vm.course.urlName,
+                                lessonId: vm.nextLesson._id
+                            });
+                        },500);
+
+                    } else {
+                        $state.go('frontend.courses.display.content', {courseUrl: vm.course.urlName});
+                    }
                 }, false);
-                if (vm.nextLesson !== null) {
-                    $state.go('frontend.courses.display.lesson', {
-                        courseUrl: vm.course.urlName,
-                        lessonId: vm.nextLesson._id
-                    });
-                } else {
-                    $state.go('frontend.courses.display.content', {courseUrl: vm.course.urlName});
-                }
             } else {
                 data.payload = {
                     _id: tmpLesson._id,
                     passed: false
                 };
                 Courses.addPassedLessonToUser(data, function (response) {
+                    vm.failedLesson = true;
                 }, false);
                 CustomNotify.error($rootScope.getTranslation('core.courses.notPassedLesson'));
                 if (vm.lesson.kind === 'quiz') {
@@ -94,6 +101,13 @@
         };
 
         vm.goToNextLesson = function () {
+            $state.go('frontend.courses.display.lesson', {
+                courseUrl: vm.course.urlName,
+                lessonId: vm.nextLesson._id
+            });
+        };
+
+        vm.checkLessonAndGoToNextLesson = function(){
             //set the current lesson to passed
             var data = {
                 courseId: vm.course._id,
@@ -118,6 +132,6 @@
             } else if (vm.lesson.kind === 'content') {
                 _passCallback(data, true);
             }
-        }
+        };
     }
 }());

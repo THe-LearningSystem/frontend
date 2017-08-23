@@ -60,7 +60,6 @@
         }
 
         function error(response, callback, notify) {
-                      console.log(response);
             if (response.data !== null && response.data.msg !== null && (notify || notify === undefined))
                 CustomNotify.servererror(response.data.msg);
             if (callback !== undefined) {

@@ -34,9 +34,12 @@
                     vm.findNextLesson();
                 }
             });
-            //count the coursenumber
+            //count the lessons
             _.forEach(vm.course.sections, function (section) {
-                vm.lessonCount += section.lessons.length;
+                _.forEach(section.lessons, function (lesson) {
+                    if (lesson.isPublished)
+                        vm.lessonCount += 1;
+                });
             });
         });
 
@@ -47,13 +50,13 @@
                     if (vm.firstLesson === null)
                         vm.firstLesson = lesson;
                     var foundLesson = false;
-                    _.forEach(vm.userEnrolledCourseData.lessonData,function(lessonData){
-                        if(lessonData._id === lesson._id){
+                    _.forEach(vm.userEnrolledCourseData.lessonData, function (lessonData) {
+                        if (lessonData._id === lesson._id) {
                             foundLesson = true;
                             return false;
                         }
                     });
-                    if(!foundLesson){
+                    if (!foundLesson) {
                         vm.nextLesson = lesson;
                     }
                     if (vm.nextLesson !== null)

@@ -27,3 +27,33 @@
   flex-direction:row;
   align-items:center;
 }
+
+.panel-question-answers{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  flex-flow: row wrap;
+  flex-wrap:wrap;
+}
+
+.question-answers-title{
+  border-bottom:1px solid lighten($greyColor,60%);
+  padding-left:10px;
+  flex: 1 100%;
+  margin-bottom:15px;
+}
+
+.question-answers-left{
+  width:80px;
+  height:100%;
+  margin-right:10px;
+  text-align:center;
+}
+
+.question-answers-left > .user-image{
+  text-align:center;
+}
+
+.question-answers-content{
+  flex: 2 0px;
+}

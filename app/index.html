@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolInput/boolInput.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKV/boolKV.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.css">
-    <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTable.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/dropmenu/dropmenu.css">
+    <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTable.css">
     <!-- endinject -->
     <link href="https://file.myfontastic.com/7CZ8hX584jz7dFx7nc4HnM/icons.css" rel="stylesheet">
     <base href="/">
@@ -97,8 +97,8 @@
 <script src="/modules/courses/tools/tcs/automata/course-lesson-automaton.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/cellular/controllers/cellular.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/controllers/dfa.controller.js"></script>
-<script src="/modules/courses/tools/tcs/automata/nfa/controllers/nfa.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/npda/controllers/npda.controller.js"></script>
+<script src="/modules/courses/tools/tcs/automata/nfa/controllers/nfa.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/pda/controllers/pda.controller.js"></script>
 <script src="/modules/courses/tools/tcs/automata/tm/controllers/tm.controller.js"></script>
 <script src="/modules/courses/tools/tcs/languages/type-lll/controllers/lang.controller.js"></script>
@@ -134,26 +134,26 @@
 <script src="/modules/courses/directives/passedLesson/passedLesson.directive.js"></script>
 <script src="/modules/courses/directives/toolsBottomToolbar/toolsBottomToolbar.directive.js"></script>
 <script src="/modules/courses/tools/tcs/automata/TestData.js"></script>
-<script src="/modules/courses/tools/tcs/automata/directives/directives.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/ngRepeatFinish.js"></script>
+<script src="/modules/courses/tools/tcs/automata/directives/directives.js"></script>
 <script src="/modules/courses/tools/tcs/languages/directives/lang-directives.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/ColorGenerator.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/constants.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/ext.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/utils.js"></script>
 <script src="/modules/courses/tools/tcs/languages/type-lll/TestLangData.js"></script>
-<script src="/modules/courses/tools/tcs/automata/directives/bulkTest/bulkTest.js"></script>
-<script src="/modules/courses/tools/tcs/automata/directives/portation/portation.js"></script>
-<script src="/modules/courses/tools/tcs/automata/directives/svg/svgDirectives.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolCircuit/boolCircuit.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolExpr/boolExpr.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolInput/boolInput.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolKV/boolKV.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTable.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTableSelect.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/dropmenu/dropmenu.js"></script>
+<script src="/modules/courses/tools/tcs/automata/directives/bulkTest/bulkTest.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTable.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTableSelect.js"></script>
+<script src="/modules/courses/tools/tcs/automata/directives/portation/portation.js"></script>
+<script src="/modules/courses/tools/tcs/automata/directives/svg/svgDirectives.js"></script>
 <script src="/modules/courses/tools/tcs/languages/directives/svg/svg-Lang-Directives.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BADomain.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BAExpression.js"></script>
@@ -180,6 +180,7 @@
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.automatonData.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.core.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.hotkeysGenerator.js"></script>
+<script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.lessonTester.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.simulator.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.statediagram!.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.statediagram.grid.js"></script>
@@ -194,8 +195,8 @@
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.transitions.menu.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.transitions.transitionObjects.js"></script>
-<script src="/modules/courses/tools/tcs/automata/nfa/js/nfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/npda/js/nfa.transitions.js"></script>
+<script src="/modules/courses/tools/tcs/automata/nfa/js/nfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/pda/js/pda.simulator.js"></script>
 <script src="/modules/courses/tools/tcs/automata/pda/js/pda.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/pda/js/pda.transitions.menu.js"></script>

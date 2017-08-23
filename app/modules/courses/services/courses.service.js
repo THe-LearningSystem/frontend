@@ -122,8 +122,8 @@
             return crud.put('/courses/' + data.courseId + '/notifications/' + data.notificationId + '/', data.payload, callback);
         }
 
-        function deleteNotification(data) {
-            return crud.delete('/courses/' + data.courseId + '/notifications/' + data.notificationId + '/');
+        function deleteNotification(data,callback) {
+            return crud.delete('/courses/' + data.courseId + '/notifications/' + data.notificationId + '/',callback);
         }
 
         /**

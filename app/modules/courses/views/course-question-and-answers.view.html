@@ -1,20 +1,27 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        <!--<div class="pull-right">-->
-            <!--<button class="btn btn-default"-->
-                    <!--ui-sref="frontend.courses.display.questionsAndAnswers({courseUrl:vm.courseUrl})">-->
-                <!--Zurück zu allen Fragen-->
-            <!--</button>-->
-        <!--</div>-->
-        <div>
-            <h4 class="notification-header">{{vm.data.title}}</h4>
-            <div>
-                 {{vm.data.date | timeAgo}} von {{vm.data.user.username}}
-            </div>
+        <div class="pull-right">
+            <button class="btn btn-default"
+                    ui-sref="frontend.courses.display.questionsAndAnswers({courseUrl:vm.courseUrl})">
+             {{'core.courses.backToAllQuestions' | translate }}
+            </button>
         </div>
-        <div ng-bind-html="vm.data.content"></div>
-        <div>
+    </div>
+</div>
 
+<div class="panel panel-default">
+    <div class="panel-body panel-question-answers">
+        <div class="question-answers-title">
+            <h4>{{vm.data.title}}</h4>
+        </div>
+        <div class="question-answers-left">
+           <div class="user-image">
+               <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+           </div>
+            {{vm.data.date | timeAgo}} {{'core.general.from' | translate}} {{vm.data.user.username}}
+        </div>
+        <div class="question-answers-content" ng-bind-html="vm.data.content"></div>
+        <div>
         </div>
 
     </div>
@@ -23,18 +30,22 @@
 </div>
 
 <div class="panel panel-default" ng-repeat="answer in vm.data.answers">
-    <div class="panel-body">
-        <h4 class="notification-header">{{answer.user.username}}</h4>
-        <span class="pull-left">
-        am {{answer.date | date : "dd.mm.yyyy"}}
-        </span>
-        <div ng-bind-html="answer.content"></div>
+    <div class="panel-body panel-question-answers">
+        <div class="question-answers-left">
+            <div class="user-image">
+                <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+            </div>
+            {{vm.data.date | timeAgo}} {{'core.general.from' | translate}} {{vm.data.user.username}}
+        </div>
+        <div class="question-answers-content" ng-bind-html="vm.data.content"></div>
+        <div>
+        </div>
     </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group">
-            <label>Kommentar</label>
+            <label>{{'core.general.comment' | translate}}</label>
             <textarea id="notification-content" froala="vm.froalaOptions" ng-model="vm.answer.content"></textarea>
         </div>
         <button class="btn btn-default" ng-click="vm.createAnswer()">Create Comment</button>

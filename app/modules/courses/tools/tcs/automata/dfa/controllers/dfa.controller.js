@@ -1,17 +1,10 @@
 (function () {
     'use strict';
 
-    angular
-        .module('courses.tcs')
-        .controller('DFACtrl', DFACtrl);
-
-    DFACtrl.$inject = ['$scope','$state','Courses', '$stateParams','Authentication','$uibModal'];
-
-    function DFACtrl($scope,$state,Courses, $stateParams,Authentication,$uibModal) {
+    function _initAutomaton($scope) {
         window.rootScope = $scope;
         $scope.saveApply = scopeSaveApply;
         $scope.debug = true;
-        console.log($scope);
 
         //Config Object
         $scope.automatonData = new autoSim.AutomatonData('DFA');
@@ -28,23 +21,41 @@
         $scope.table = new autoSim.Table($scope);
 
         $scope.testAgent = new TestData($scope);
+    }
+
+    angular
+        .module('courses.tcs')
+        .controller('DFACtrl', DFACtrl);
+
+    DFACtrl.$inject = ['$scope'];
+
+    function DFACtrl($scope) {
+        _initAutomaton($scope);
+    }
+
+    angular
+        .module('courses.tcs')
+        .controller('DFAModalCtrl', DFAModalCtrl);
+
+    DFAModalCtrl.$inject = ['$scope', '$state', 'Courses', '$stateParams', 'Authentication', '$uibModal', 'data', '$uibModalInstance'];
+
+    function DFAModalCtrl($scope, $state, Courses, $stateParams, Authentication, $uibModal, data, $uibModalInstance) {
+        _initAutomaton($scope);
+
         $scope.$uibModal = $uibModal;
 
 
-
-        if(false){
-            $scope.save = function(){
+        if (data !== undefined) {
+            $scope.save = function () {
                 var exportData = {};
                 exportData.automatonData = _.cloneDeep($scope.automatonData);
                 exportData.states = $scope.states.export();
                 exportData.transitions = $scope.transitions.export();
                 exportData.type = $scope.automatonData.type.toLowerCase();
-                console.log(exportData);
                 data.parentController.data.data.automaton = exportData;
                 $uibModalInstance.close();
             };
-            console.log(data.automaton);
-            if(!_.isEmpty(data.automaton)){
+            if (!_.isEmpty(data.automaton)) {
                 var tmpObject = _.cloneDeep(data.automaton);
                 if (tmpObject.automatonData.type === $scope.automatonData.type) {
                     $scope.automatonData = tmpObject.automatonData;
@@ -58,5 +69,33 @@
                 }
             }
         }
+    }
+
+    angular
+        .module('courses.tcs')
+        .controller('DFALessonCtrl', DFALessonCtrl);
+
+    DFALessonCtrl.$inject = ['$rootScope','$scope','Courses','CustomNotify','Authentication'];
+
+    function DFALessonCtrl($rootScope,$scope, Courses,CustomNotify,Authentication) {
+        _initAutomaton($scope);
+        $scope.isLesson = true;
+        $scope.lessonTester = new autoSim.lessonTester($scope,$rootScope, Courses,CustomNotify,Authentication);
+
+        $scope.init = function (data, parentScope) {
+            console.log($scope);
+            console.log(data);
+            $scope.parentScope = parentScope;
+            $scope.lessonData = data;
+            if (!_.isEmpty(data)) {
+                var tmpObject = _.cloneDeep(data.data.automaton);
+                if (tmpObject.automatonData.type === $scope.automatonData.type) {
+                    $scope.automatonData = tmpObject.automatonData;
+                    $scope.states.import(tmpObject.states);
+                    $scope.transitions.import(tmpObject.transitions);
+                }
+            }
+        };
+
     }
 }());

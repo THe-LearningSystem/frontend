@@ -47,6 +47,13 @@
                 controllerAs: 'vm',
                 parent: 'frontend'
             })
+            .state('frontend.courses.lessons.update.automaton', {
+                url: '/courses/:courseUrl/sections/:sectionUrl/lessons/:lessonId/update/automaton',
+                templateUrl: '/modules/courses/views/course-lesson-create-automaton.view.html',
+                controller: 'CourseLessonAutomatonCreateCtrl',
+                controllerAs: 'vm',
+                parent: 'frontend'
+            })
             .state('frontend.courses.lessons.create', {
                 abstract: true
             })
@@ -142,18 +149,21 @@
             .state('frontend.courses.display.notifications', {
                 url: '/notifications',
                 templateUrl: '/modules/courses/views/course-notifications.view.html',
+                parent:'frontend.courses.display'
             })
             .state('frontend.courses.display.createNotification', {
                 url: '/notifications/create',
                 templateUrl: '/modules/courses/views/course-create-notification.html',
                 controller: 'NotificationCreateCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                parent:'frontend.courses.display'
             })
             .state('frontend.courses.display.updateNotifications', {
                 url: '/notifications/:notificationId',
                 templateUrl: '/modules/courses/views/course-create-notification.html',
                 controller: 'NotificationCreateCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                parent:'frontend.courses.display'
             })
             .state('frontend.courses.display.edit', {
                 url: '/edit',

@@ -22,7 +22,7 @@
             <div class="panel panel-default">
                 <div class="pull-right section-edit cursor-pointer"
                      ng-click="vm.updateSection(section)"
-                     ng-show="vm.editMode">
+                     ng-show="vm.parentVm.isAllowedToEdit()">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </div>
                 <div class="section-info">
@@ -30,7 +30,7 @@
                         {{"core.courses.section" | translate}} {{$index+1}}: {{getLocalized(section.name)}}
                     </h4>
                     {{getLocalized(section.description)}}
-                    <div class="alert alert-info margin-top" ng-show="!section.isPublished">
+                    <div class="alert alert-info margin-top" ng-show="!section.isPublished && vm.parentVm.isAllowedToEdit()">
                         {{'core.courses.contentNotPublished' | translate}}
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                                 courseUrl:vm.course.urlName, sectionUrl:section.urlName , lessonId:lesson._id})"
                              ng-click="$event.stopPropagation()"
                              ng-if="lesson.kind === 'content'"
-                             ng-show="vm.editMode">
+                             ng-show="vm.parentVm.isAllowedToEdit()">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </div>
                         <div class="lesson-type pull-right cursor-pointer"
@@ -55,7 +55,7 @@
                                 courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
                              ng-click="$event.stopPropagation()"
                              ng-if="lesson.kind === 'quiz'"
-                             ng-show="vm.editMode">
+                             ng-show="vm.parentVm.isAllowedToEdit()">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </div>
                         <div class="lesson-type pull-right cursor-pointer"
@@ -63,7 +63,7 @@
                                 courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
                              ng-click="$event.stopPropagation()"
                              ng-if="lesson.kind === 'automaton'"
-                             ng-show="vm.editMode">
+                             ng-show="vm.parentVm.isAllowedToEdit()">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </div>
                         <div class="lesson-type pull-right">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="lesson create-lesson cursor-pointer"
                      ui-sref="frontend.courses.lessons.create.content({courseUrl:vm.courseUrl,sectionUrl:section.urlName})"
-                     ng-show="vm.editMode">
+                     ng-show="vm.parentVm.isAllowedToEdit()">
                     <div class="text-center">
                         {{"core.courses.createLesson" | translate}}
                     </div>

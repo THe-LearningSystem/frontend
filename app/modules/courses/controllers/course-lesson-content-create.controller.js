@@ -39,6 +39,7 @@
             });
         }else{
             vm.data = {};
+            vm.data.isPublished = false;
             vm.data.type = "content";
             vm.data.data ={};
         }

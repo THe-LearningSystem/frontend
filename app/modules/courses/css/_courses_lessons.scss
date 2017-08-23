@@ -50,3 +50,13 @@ Lessons
   background-color:$greenColor;
   border: 1px solid darken($greenColor,15%);
 }
+
+
+.lesson-question-box{
+  margin:15px 15px 0 15px;
+
+}
+
+.lesson-question-box .content {
+  padding:10px;
+}
