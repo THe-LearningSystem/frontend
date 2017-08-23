@@ -33,6 +33,7 @@
                 questionId:vm.data._id,
                 payload:vm.answer
             };
+            console.log(data);
             Courses.createAnswer(data,function(response){
                 console.log(response);
                 // $state.reload();

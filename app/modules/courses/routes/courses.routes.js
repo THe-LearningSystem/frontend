@@ -24,7 +24,8 @@
             .state('frontend.courses', {
                 abstract: true,
                 url: '/courses',
-                template: '<ui-view/>'
+                template: '<ui-view/>',
+                requiredRight: 'courses.view'
 
             })
             .state('frontend.courses.lessons', {
@@ -91,14 +92,16 @@
                 templateUrl: '/modules/courses/views/course-create.html',
                 controller: 'CourseCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
+                parent: 'frontend',
+                requiredRight: 'courses.create'
             })
             .state('frontend.courses.display', {
                 abstract: true,
                 url: '/:courseUrl',
                 templateUrl: '/modules/courses/views/course.template.view.html',
                 controller: 'CourseCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                requiredRight: 'courses.view'
             })
             .state('frontend.courses.display.overview', {
                 url: '',
@@ -110,7 +113,8 @@
                 url: '/content',
                 templateUrl: '/modules/courses/views/course-content.view.html',
                 controller: 'CourseContentCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                requiredRight: 'courses.view'
             })
             .state('frontend.courses.display.lesson', {
                 url: '/courses/:courseUrl/lessons/:lessonId',

@@ -35,19 +35,23 @@
             <div class="user-image">
                 <i class="fa fa-user fa-3x" aria-hidden="true"></i>
             </div>
-            {{vm.data.date | timeAgo}} {{'core.general.from' | translate}} {{vm.data.user.username}}
+            {{answer.date | timeAgo}} {{'core.general.from' | translate}} {{answer.user.username}}
         </div>
-        <div class="question-answers-content" ng-bind-html="vm.data.content"></div>
+        <div class="question-answers-content" ng-bind-html="answer.content"></div>
         <div>
         </div>
     </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">
+        <form name="inputform">
         <div class="form-group">
             <label>{{'core.general.comment' | translate}}</label>
-            <textarea id="notification-content" froala="vm.froalaOptions" ng-model="vm.answer.content"></textarea>
+            <textarea id="notification-content" froala="vm.froalaOptions" ng-model="vm.answer.content"
+                      required></textarea>
         </div>
-        <button class="btn btn-default" ng-click="vm.createAnswer()">Create Comment</button>
+        <button class="btn btn-default" type="submit" ng-click="inputform.$valid &&  vm.createAnswer()">Create
+            Comment</button>
+        </form>
     </div>
 </div>
