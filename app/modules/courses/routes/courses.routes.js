@@ -39,21 +39,24 @@
                 templateUrl: '/modules/courses/views/course-lesson-create-content.view.html',
                 controller: 'CourseLessonContentCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
+                parent: 'frontend',
+                needCourseRights:true
             })
             .state('frontend.courses.lessons.update.quiz', {
                 url: '/courses/:courseUrl/sections/:sectionUrl/lessons/:lessonId/update/quiz',
                 templateUrl: '/modules/courses/views/course-lesson-create-quiz.view.html',
                 controller: 'CourseLessonQuizCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
+                parent: 'frontend',
+                needCourseRights:true
             })
             .state('frontend.courses.lessons.update.automaton', {
                 url: '/courses/:courseUrl/sections/:sectionUrl/lessons/:lessonId/update/automaton',
                 templateUrl: '/modules/courses/views/course-lesson-create-automaton.view.html',
                 controller: 'CourseLessonAutomatonCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
+                parent: 'frontend',
+                needCourseRights:true
             })
             .state('frontend.courses.lessons.create', {
                 abstract: true
@@ -63,29 +66,31 @@
                 templateUrl: '/modules/courses/views/course-lesson-create-content.view.html',
                 controller: 'CourseLessonContentCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
-
+                parent: 'frontend',
+                needCourseRights:true
             })
             .state('frontend.courses.lessons.create.quiz', {
                 url: '/courses/:courseUrl/sections/:sectionUrl/lessons/create/quiz',
                 templateUrl: '/modules/courses/views/course-lesson-create-quiz.view.html',
                 controller: 'CourseLessonQuizCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
+                parent: 'frontend',
+                needCourseRights:true
             })
             .state('frontend.courses.lessons.create.automaton', {
                 url: '/courses/:courseUrl/sections/:sectionUrl/lessons/create/automaton',
                 templateUrl: '/modules/courses/views/course-lesson-create-automaton.view.html',
                 controller: 'CourseLessonAutomatonCreateCtrl',
                 controllerAs: 'vm',
-                parent: 'frontend'
+                parent: 'frontend',
+                needCourseRights:true
             })
             .state('frontend.courses.list', {
                 url: '',
                 templateUrl: '/modules/courses/views/list-courses.view.html',
                 controller: 'CoursesCtrl',
                 controllerAs: 'vm',
-                requiredRight: 'courses.view'
+                requiredRight: ['courses.view']
             })
             .state('frontend.courses.create', {
                 url: '/courses/create',
@@ -93,7 +98,7 @@
                 controller: 'CourseCreateCtrl',
                 controllerAs: 'vm',
                 parent: 'frontend',
-                requiredRight: 'courses.create'
+                requiredRight: ['courses.create']
             })
             .state('frontend.courses.display', {
                 abstract: true,
@@ -101,27 +106,28 @@
                 templateUrl: '/modules/courses/views/course.template.view.html',
                 controller: 'CourseCtrl',
                 controllerAs: 'vm',
-                requiredRight: 'courses.view'
+                requiredRight: ['courses.view']
             })
             .state('frontend.courses.display.overview', {
                 url: '',
                 templateUrl: '/modules/courses/views/course-overview.view.html',
                 controller: 'CourseCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                requiredRight: ['courses.view']
             })
             .state('frontend.courses.display.content', {
                 url: '/content',
                 templateUrl: '/modules/courses/views/course-content.view.html',
                 controller: 'CourseContentCtrl',
                 controllerAs: 'vm',
-                requiredRight: 'courses.view'
+                requiredRight: ['courses.view']
             })
             .state('frontend.courses.display.lesson', {
                 url: '/courses/:courseUrl/lessons/:lessonId',
                 templateUrl: '/modules/courses/views/course-lesson.view.html',
                 controller: 'LessonCtrl',
                 controllerAs: 'vm',
-                parent:'frontend'
+                parent: 'frontend'
             })
             .state('frontend.courses.display.tools', {
                 url: '/tools',
@@ -134,7 +140,7 @@
                 templateUrl: '/modules/courses/views/course-create-question.html',
                 controller: 'QuestionCreateCtrl',
                 controllerAs: 'vm',
-                parent:'frontend.courses.display'
+                parent: 'frontend.courses.display'
             })
             .state('frontend.courses.display.questionsAndAnswers', {
                 url: '/questions-and-answers',
@@ -147,33 +153,36 @@
                 templateUrl: '/modules/courses/views/course-question-and-answers.view.html',
                 controller: 'QuestionAndAnswersCtrl',
                 controllerAs: 'vm',
-                parent:'frontend.courses.display'
+                parent: 'frontend.courses.display'
             })
 
             .state('frontend.courses.display.notifications', {
                 url: '/notifications',
                 templateUrl: '/modules/courses/views/course-notifications.view.html',
-                parent:'frontend.courses.display'
+                parent: 'frontend.courses.display'
             })
             .state('frontend.courses.display.createNotification', {
                 url: '/notifications/create',
                 templateUrl: '/modules/courses/views/course-create-notification.html',
                 controller: 'NotificationCreateCtrl',
                 controllerAs: 'vm',
-                parent:'frontend.courses.display'
+                parent: 'frontend.courses.display',
+                needCourseRights:true
             })
             .state('frontend.courses.display.updateNotifications', {
                 url: '/notifications/:notificationId',
                 templateUrl: '/modules/courses/views/course-create-notification.html',
                 controller: 'NotificationCreateCtrl',
                 controllerAs: 'vm',
-                parent:'frontend.courses.display'
+                parent: 'frontend.courses.display',
+                needCourseRights:true
             })
             .state('frontend.courses.display.edit', {
                 url: '/edit',
                 templateUrl: '/modules/courses/views/course-create.html',
                 controller: 'CourseCreateCtrl',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                needCourseRights:true
             });
     }
 }());

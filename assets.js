@@ -23,7 +23,6 @@ module.exports = {
             'app/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'app/lib/angular-messages/angular-messages.js',
             'app/lib/angular-mocks/angular-mocks.js',
-            'app/lib/angular-resource/angular-resource.js',
             'app/lib/angular-ui-notification/dist/angular-ui-notification.js',
             'app/lib/angular-ui-router/release/angular-ui-router.js',
             'app/lib/angular-jwt/dist/angular-jwt.js',
@@ -56,7 +55,8 @@ module.exports = {
         'app/css/variables.scss',
         'app/modules/**/css/*.scss'
     ],
-    js: [
+js: [
+        'app/js/config.js',
         'app/js/*.js',
         'app/modules/**/*.module.js',
         'app/modules/**/*.controller.js',

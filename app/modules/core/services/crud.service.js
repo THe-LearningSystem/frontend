@@ -5,12 +5,12 @@
         .module('core.services')
         .factory('crud', crud);
 
-    crud.$inject = ['CustomNotify', '$http', '$state'];
-
-    var _serverUrl = "http://localhost:3000/api";
+    crud.$inject = ['$rootScope', 'CustomNotify', '$http', '$state'];
 
 
-    function crud(CustomNotify, $http, $state) {
+    function crud($rootScope, CustomNotify, $http, $state) {
+
+
         return {
             get: get, //GetAll or GetOne depends on the url
             post: post, //Create
@@ -19,11 +19,11 @@
         };
 
         function get(url) {
-            return $http.get(_serverUrl + url);
+            return $http.get($rootScope.serverUrl + url);
         }
 
         function post(url, payload, callback, notify) {
-            return $http.post(_serverUrl + url, payload)
+            return $http.post($rootScope.serverUrl + url, payload)
                 .then(function (response) {
                     success(response, callback, notify)
                 }).catch(function (response) {
@@ -32,7 +32,7 @@
         }
 
         function put(url, payload, callback, notify) {
-            return $http.put(_serverUrl + url, payload)
+            return $http.put($rootScope.serverUrl + url, payload)
                 .then(function (response) {
                     success(response, callback, notify)
                 }).catch(function (response) {
@@ -41,7 +41,7 @@
         }
 
         function deleteItem(url, callback, notify) {
-            return $http.delete(_serverUrl + url)
+            return $http.delete($rootScope.serverUrl + url)
                 .then(function (response) {
                     success(response, callback, notify)
                 }).catch(function (response) {
@@ -50,7 +50,7 @@
         }
 
         function success(response, callback, notify) {
-            if (response.data.msg !== null &&(notify || notify === undefined))
+            if (response.data.msg !== null && (notify || notify === undefined))
                 CustomNotify.serversuccess(response.data.msg);
             if (callback !== undefined) {
                 callback(response);

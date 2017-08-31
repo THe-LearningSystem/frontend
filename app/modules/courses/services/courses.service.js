@@ -13,6 +13,7 @@
             courseDisplay: courseDisplay,
             createCourse: createCourse,
             updateCourse: updateCourse,
+            getCourseModerators:getCourseModerators,
             createSection: createSection,
             updateSection: updateSection,
             deleteSection: deleteSection,
@@ -56,6 +57,10 @@
 
         function updateCourse(data, callback) {
             return crud.put('/courses/' + data.courseId + '/', data.payload, callback);
+        }
+
+        function getCourseModerators(data){
+            return crud.get('/courses/'+data.courseId+'/moderators')
         }
 
         /**

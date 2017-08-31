@@ -23,17 +23,18 @@
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
-            console.log(vm.course);
             //getEnrolledCourseData
-            Courses.enrolledCourses(
-                {userId: Authentication.user._id, courseId: vm.course._id}
-            ).then(function (response) {
-                console.log(response);
-                if (response.data !== null) {
-                    vm.userEnrolledCourseData = response.data;
-                    vm.findNextLesson();
-                }
-            });
+            if(Authentication.user !== null){
+                Courses.enrolledCourses(
+                    {userId: Authentication.user._id, courseId: vm.course._id}
+                ).then(function (response) {
+                    console.log(response);
+                    if (response.data !== null) {
+                        vm.userEnrolledCourseData = response.data;
+                        vm.findNextLesson();
+                    }
+                });
+            }
             //count the lessons
             _.forEach(vm.course.sections, function (section) {
                 _.forEach(section.lessons, function (lesson) {
@@ -94,7 +95,7 @@
 
         vm.isAllowedToEdit = function (string) {
             var isAllowedToEdit = true;
-            if (vm.course)
+            if (vm.course && Authentication.user)
                 isAllowedToEdit = vm.course.author === Authentication.user._id;
             return isAllowedToEdit;
         };
@@ -105,7 +106,6 @@
                 courseId: vm.course._id
             };
             Courses.enrollCourse(data, function (response) {
-                // console.log(response);
                 Courses.enrolledCourses(
                     {userId: Authentication.user._id, courseId: vm.course._id}
                 ).then(function (response) {
