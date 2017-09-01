@@ -28,7 +28,6 @@
                 Courses.enrolledCourses(
                     {userId: Authentication.user._id, courseId: vm.course._id}
                 ).then(function (response) {
-                    console.log(response);
                     if (response.data !== null) {
                         vm.userEnrolledCourseData = response.data;
                         vm.findNextLesson();
@@ -57,7 +56,8 @@
                             return false;
                         }
                     });
-                    if (!foundLesson) {
+                    if (!foundLesson && lesson.isPublished) {
+                        console.log(lesson);
                         vm.nextLesson = lesson;
                     }
                     if (vm.nextLesson !== null)
