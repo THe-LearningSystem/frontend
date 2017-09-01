@@ -15,10 +15,7 @@
                     </div>
                     <div class="form-group">
                         <label>{{'core.general.question' | translate}}</label>
-                        <textarea froala="vm.froalaOptions"
-                                  ng-model=" vm.data.data.question[vm.course.primaryLanguage]"
-                                  required>
-                         </textarea>
+                        <own-editor data="vm.data.data.question[vm.course.primaryLanguage]" is-required="true"></own-editor>
                     </div>
                     <div class="answers margin-top">
                         <div class="answer-edit panel panel-default" ng-repeat="answer in vm.data.data.answers"
@@ -26,10 +23,8 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
-                                    <textarea froala="vm.froalaOptionsSmall"
-                                              ng-model="answer[vm.course.primaryLanguage]"
-                                              required>
-                                    </textarea>
+                                    <own-editor data="answer[vm.course.primaryLanguage]" is-required="true"></own-editor>
+
                                 </div>
                                 <button class="btn btn-default"
                                         type="button"
@@ -55,8 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{'core.general.question' | translate}}</label>
-                            <textarea froala="vm.froalaOptions"
-                                      ng-model=" vm.data.data.content[language]"></textarea>
+                            <own-editor data="vm.data.data.content[language]"></own-editor>
                         </div>
 
                         <div class="answers margin-top">
@@ -65,9 +59,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
-                                        <textarea froala="vm.froalaOptionsSmall"
-                                                  ng-model="answer[language]">
-                                    </textarea>
+                                        <own-editor data="answer[language]"></own-editor>
                                     </div>
                                 </div>
                             </div>

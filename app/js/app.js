@@ -22,12 +22,11 @@ var config = {
         'LocalStorageModule',
         'ngSanitize',
         'ui.select',
-        'ncy-angular-breadcrumb',
         'dndLists',
         'bootstrap.angular.validation',
-        'froala',
         'yaru22.angular-timeago',
-        'jsonFormatter'
+        'jsonFormatter',
+        'ngQuill'
     ]
 };
 

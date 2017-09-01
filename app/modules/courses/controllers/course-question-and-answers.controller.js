@@ -12,11 +12,6 @@
         vm.courseUrl = $stateParams.courseUrl;
         vm.questionAndAnswerId = $stateParams.questionId;
 
-        vm.froalaOptions = {
-            toolbarButtons: ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
-            height: 300
-        };
-
 
         $scope.$parent.$watch('vm.course',function(data){
             if(data){

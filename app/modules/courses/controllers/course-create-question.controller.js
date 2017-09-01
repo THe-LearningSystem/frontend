@@ -20,12 +20,6 @@
                 }
             });
         }
-        vm.froalaOptions = {
-            toolbarButtons: ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
-            height: 300,
-            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.courses.content')
-
-        };
 
         vm.create = function () {
             var data = {

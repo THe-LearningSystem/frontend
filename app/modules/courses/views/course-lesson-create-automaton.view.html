@@ -15,10 +15,7 @@
                     </div>
                     <div class="form-group">
                         <label>{{'core.general.question' | translate}}</label>
-                        <textarea froala="vm.froalaOptions"
-                                  ng-model=" vm.data.data.question[vm.course.primaryLanguage]"
-                                  required>
-                         </textarea>
+                        <own-editor data="vm.data.data.question[vm.course.primaryLanguage]" is-required="true"></own-editor>
                     </div>
 
                 </div>
@@ -34,8 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{'core.general.question' | translate}}</label>
-                            <textarea froala="vm.froalaOptions"
-                                      ng-model=" vm.data.data.content[language]"></textarea>
+                            <own-editor data="vm.data.data.content[language]"></own-editor>
                         </div>
 
                     </div>
