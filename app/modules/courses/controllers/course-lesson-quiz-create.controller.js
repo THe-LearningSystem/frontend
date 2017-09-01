@@ -89,8 +89,7 @@
                     sectionId: vm.section._id,
                     payload: vm.section
                 };
-                Courses.updateSection(sectionData, function (response) {
-                    console.log("updated section", response);
+                Courses.updateSection(sectionData, function () {
                     $state.go('frontend.courses.display.content', {courseUrl: vm.courseUrl});
                 })
             })
@@ -102,8 +101,7 @@
                 lessonId: vm.lessonId,
                 payload: vm.data
             };
-            Courses.updateLesson(data, function (response) {
-                console.log(response);
+            Courses.updateLesson(data, function () {
                 $state.go('frontend.courses.display.lesson', {courseUrl: vm.courseUrl, lessonId: vm.lessonId});
 
             });
@@ -121,10 +119,8 @@
                 sectionId: vm.section._id,
                 payload: vm.section
             };
-            Courses.updateSection(sectionData, function (response) {
-                console.log("updated section", response);
-                Courses.deleteLesson(data, function (response) {
-                    console.log("deleted lesson", response);
+            Courses.updateSection(sectionData, function () {
+                Courses.deleteLesson(data, function () {
                     $state.go('frontend.courses.display.content', {courseUrl: vm.courseUrl});
                 });
             });

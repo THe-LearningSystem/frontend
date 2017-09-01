@@ -109,7 +109,6 @@ var app = angular.module(config.name, config.vendorDependencies)
             //TODO: find a better solution
             // $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
             //     event.preventDefault();
-            //     console.log(event,error);
             //     $state.transitionTo('not-reachable'); // error has data, status and config properties
             // });
 
@@ -165,10 +164,7 @@ var app = angular.module(config.name, config.vendorDependencies)
 app.filter('translate', ['I18nManager', function (I18nManager) {
     var _deep_value = function (obj, path) {
         if (path !== undefined) {
-            // console.log(path);
             for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
-                if (tmpPath === undefined)
-                    console.log(tmpPath);
                 if (obj !== undefined) {
                     obj = obj[tmpPath[i]];
                 } else {
@@ -178,7 +174,7 @@ app.filter('translate', ['I18nManager', function (I18nManager) {
             if (_.has(obj, I18nManager.preferredLanguage)) {
                 return obj[I18nManager.preferredLanguage];
             } else {
-                // return obj[I18nManager.preferredLanguage];
+                return path;
             }
         }
     };

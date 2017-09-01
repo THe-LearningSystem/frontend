@@ -15,7 +15,6 @@
             vm.update = true;
             Courses.courseDisplay(vm.courseUrl).then(function (response) {
                 vm.data = response.data;
-                console.log(response.data);
                 if (vm.data.secondaryLanguages.length > 0)
                     vm.selected = vm.data.secondaryLanguages[0];
             });
@@ -28,17 +27,14 @@
             var data = {
                 payload: vm.data
             };
-            console.log(data);
             Courses.createCourse(data);
         };
 
         vm.update = function () {
-            console.log("update COurse");
             var data = {
                 courseId: vm.data._id,
                 payload: vm.data
             };
-            console.log(data);
             Courses.updateCourse(data);
         }
     }

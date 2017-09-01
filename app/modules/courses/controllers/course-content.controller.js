@@ -38,7 +38,6 @@
         vm.editMode = true;
         vm.languages = i18nManager.config.languages;
         vm.selected = i18nManager.config.default;
-
         vm.reorderSection = false;
 
         vm.isEditEnabled = function (string) {

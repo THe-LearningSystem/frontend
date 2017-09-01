@@ -5,9 +5,9 @@
         .module('courses')
         .controller('CourseLessonContentCreateCtrl', CourseLessonContentCreateCtrl);
 
-    CourseLessonContentCreateCtrl.$inject = ['$rootScope','$scope', '$state', 'Courses', 'I18nManager', '$stateParams'];
+    CourseLessonContentCreateCtrl.$inject = ['$rootScope', '$state', 'Courses', 'I18nManager', '$stateParams'];
 
-    function CourseLessonContentCreateCtrl($rootScope,$scope, $state, Courses, I18nManager, $stateParams) {
+    function CourseLessonContentCreateCtrl($rootScope, $state, Courses, I18nManager, $stateParams) {
         var vm = this;
 
         vm.data = {};
@@ -60,15 +60,13 @@
                 payload: vm.data
             };
             Courses.createLesson(data, function (response) {
-                console.log(response);
                 vm.section.lessons.push(response.data.obj._id);
                 var sectionData = {
                     courseId: vm.course._id,
                     sectionId: vm.section._id,
                     payload: vm.section
                 };
-                Courses.updateSection(sectionData, function (response) {
-                    console.log("updated section", response);
+                Courses.updateSection(sectionData, function () {
                     $state.go('frontend.courses.display.content', {courseUrl: vm.courseUrl});
                 })
             })
@@ -80,8 +78,7 @@
                 lessonId: vm.lessonId,
                 payload: vm.data
             };
-            Courses.updateLesson(data, function (response) {
-                console.log(response);
+            Courses.updateLesson(data, function () {
                 $state.go('frontend.courses.display.lesson', {courseUrl: vm.courseUrl, lessonId: vm.lessonId});
 
             });
@@ -99,10 +96,8 @@
                 sectionId: vm.section._id,
                 payload: vm.section
             };
-            Courses.updateSection(sectionData, function (response) {
-                console.log("updated section", response);
-                Courses.deleteLesson(data, function (response) {
-                    console.log("deleted lesson", response);
+            Courses.updateSection(sectionData, function () {
+                Courses.deleteLesson(data, function () {
                     $state.go('frontend.courses.display.content', {courseUrl: vm.courseUrl});
                 });
             });

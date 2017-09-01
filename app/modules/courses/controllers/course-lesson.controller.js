@@ -10,7 +10,6 @@
     function LessonCtrl($rootScope, $scope, $state, $stateParams, Courses, Authentication, CustomNotify) {
         var vm = this;
 
-        console.log($scope.$id);
         vm.courseUrl = $stateParams.courseUrl;
         vm.lessonId = $stateParams.lessonId;
         vm.nextLesson = null;
@@ -29,8 +28,6 @@
                     userId: Authentication.user._id,
                     courseId: vm.course._id
                 }).then(function (response) {
-                    console.log(response);
-
                     _.forEach(response.data.lessonData,function(passedLessonData){
                         if(passedLessonData._id ===vm.lessonId){
                             vm.passedLesson = passedLessonData.passed;
@@ -124,7 +121,6 @@
             }
             if (vm.lesson.kind === 'quiz') {
                 Courses.verifyLessonResult(data, function (response) {
-                    console.log(response);
                     vm.rightAnswerData = response.data;
                     _passCallback(data, response.data.passedLesson);
                 }, false);

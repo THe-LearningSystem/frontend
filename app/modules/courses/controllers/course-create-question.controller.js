@@ -33,9 +33,7 @@
                 payload: vm.data
             };
             Courses.createQuestion(data, function (response) {
-                console.log(response);
                 $scope.$parent.vm.course = response.data.obj;
-                console.log(_.last(response.data.obj.questionsAndAnswers)._id);
                 $state.go('frontend.courses.display.questionsAndAnswers.display', {
                     courseUrl: vm.courseUrl,
                     questionId: _.last(response.data.obj.questionsAndAnswers)._id
@@ -43,7 +41,6 @@
             });
         };
         vm.update = function () {
-            console.log(vm.course);
             var data = {
                 courseId: vm.course._id,
                 notificationId: vm.data._id,
