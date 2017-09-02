@@ -30,9 +30,6 @@ autoSim.lessonTester = function ($scope, $rootScope, Courses, CustomNotify, Auth
             }
         });
 
-
-        console.log(self.acceptedInput);
-
         // $scope.rejectedInput = [];
         // var rejectedInputString = $scope.automatonData.rejectedInputRaw;
         // var rejectedInputArray = rejectedInputString.split("\n");
@@ -64,13 +61,13 @@ autoSim.lessonTester = function ($scope, $rootScope, Courses, CustomNotify, Auth
                 passed: !self.failedLesson
             }
         };
-        Courses.addPassedLessonToUser(data, function (response) {
+        Courses.addPassedLessonToUser(data, function () {
             if(!self.failedLesson)
             CustomNotify.success($rootScope.getTranslation('core.courses.passedLesson'));
             else
-            CustomNotify.warning($rootScope.getTranslation('core.courses.passedNotLesson'));
+            CustomNotify.warning($rootScope.getTranslation('core.courses.notPassedLesson'));
 
-        });
+        },false);
         $scope.parentScope.goToNextLesson();
     };
 

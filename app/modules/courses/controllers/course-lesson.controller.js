@@ -28,8 +28,8 @@
                     userId: Authentication.user._id,
                     courseId: vm.course._id
                 }).then(function (response) {
-                    _.forEach(response.data.lessonData,function(passedLessonData){
-                        if(passedLessonData._id ===vm.lessonId){
+                    _.forEach(response.data.lessonData, function (passedLessonData) {
+                        if (passedLessonData._id === vm.lessonId) {
                             vm.passedLesson = passedLessonData.passed;
                         }
                     })
@@ -71,12 +71,12 @@
                 Courses.addPassedLessonToUser(data, function (response) {
                     CustomNotify.success($rootScope.getTranslation('core.courses.passedLesson'));
                     if (vm.nextLesson !== null) {
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $state.go('frontend.courses.display.lesson', {
                                 courseUrl: vm.course.urlName,
                                 lessonId: vm.nextLesson._id
                             });
-                        },500);
+                        }, 500);
 
                     } else {
                         $state.go('frontend.courses.display.content', {courseUrl: vm.course.urlName});
@@ -98,13 +98,19 @@
         };
 
         vm.goToNextLesson = function () {
-            $state.go('frontend.courses.display.lesson', {
-                courseUrl: vm.course.urlName,
-                lessonId: vm.nextLesson._id
-            });
+            if (vm.nextLesson) {
+                $state.go('frontend.courses.display.lesson', {
+                    courseUrl: vm.course.urlName,
+                    lessonId: vm.nextLesson._id
+                });
+            }else{
+                $state.go('frontend.courses.display.content', {
+                    courseUrl: vm.course.urlName
+                });
+            }
         };
 
-        vm.checkLessonAndGoToNextLesson = function(){
+        vm.checkLessonAndGoToNextLesson = function () {
             //set the current lesson to passed
             var data = {
                 courseId: vm.course._id,
