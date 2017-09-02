@@ -36,7 +36,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('inject', function () {
-    var target = gulp.src('./app/index.html');
+    var target = gulp.src('./app/index_template.html');
     // It's not necessary to read the files (will speed up things), we're only after their paths:
     return target
         .pipe(plugins.inject(
@@ -49,6 +49,7 @@ gulp.task('inject', function () {
                 relative: true,
                 addRootSlash: true
             }))
+        .pipe(plugins.rename('index.html'))
         .pipe(gulp.dest('./app'));
 });
 

@@ -3,3 +3,5 @@ node_modules
 app/lib
 app/css/main.css
 /dist/
+
+app/index\.html
