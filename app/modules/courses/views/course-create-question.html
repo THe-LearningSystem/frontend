@@ -18,10 +18,7 @@
                 <label>
                     {{'core.courses.content' | translate}}
                 </label>
-                <textarea froala="vm.froalaOptions"
-                          ng-model="vm.data.content"
-                          required>
-                </textarea>
+                <own-editor data="vm.data.content" is-required="true"></own-editor>
             </div>
             <div class="pull-right">
                 <course-form-control-buttons></course-form-control-buttons>

@@ -13,6 +13,7 @@
             courseDisplay: courseDisplay,
             createCourse: createCourse,
             updateCourse: updateCourse,
+            getCourseModerators:getCourseModerators,
             createSection: createSection,
             updateSection: updateSection,
             deleteSection: deleteSection,
@@ -35,8 +36,8 @@
             deleteAnswer: deleteAnswer,
             enrolledCourses: enrolledCourses,
             enrollCourse: enrollCourse,
-            addPassedLessonToUser: addPassedLessonToUser,
-            removePassedLessonFromUser: removePassedLessonFromUser
+            addPassedLessonToUser: addPassedLessonToUser
+            // removePassedLessonFromUser: removePassedLessonFromUser
         };
 
         function courseList() {
@@ -56,6 +57,10 @@
 
         function updateCourse(data, callback) {
             return crud.put('/courses/' + data.courseId + '/', data.payload, callback);
+        }
+
+        function getCourseModerators(data){
+            return crud.get('/courses/'+data.courseId+'/moderators')
         }
 
         /**
@@ -122,8 +127,8 @@
             return crud.put('/courses/' + data.courseId + '/notifications/' + data.notificationId + '/', data.payload, callback);
         }
 
-        function deleteNotification(data) {
-            return crud.delete('/courses/' + data.courseId + '/notifications/' + data.notificationId + '/');
+        function deleteNotification(data,callback) {
+            return crud.delete('/courses/' + data.courseId + '/notifications/' + data.notificationId + '/',callback);
         }
 
         /**
@@ -165,11 +170,11 @@
         }
 
         function addPassedLessonToUser(data, callback, notify) {
-            return crud.post('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, {}, callback, notify);
+            return crud.post('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, data.payload, callback, notify);
         }
 
-        function removePassedLessonFromUser(data, callback, notify) {
-            return crud.delete('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, callback, notify);
-        }
+        // function removePassedLessonFromUser(data, callback, notify) {
+        //     return crud.delete('/users/' + data.userId + '/courses/' + data.courseId + '/lessons/' + data.lessonId, callback, notify);
+        // }
     }
 }());

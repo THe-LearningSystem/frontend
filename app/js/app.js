@@ -3,10 +3,10 @@ deferredBootstrapper.bootstrap({
     module: 'app',
     resolve: {
         I18N_DATA: ['$http', function ($http) {
-            return $http.get('http://localhost:3000/api/i18n/?simplified=true');
+            return $http.get(theLearningSystemConfig.serverUrl + '/i18n/?simplified=true');
         }],
         I18N_CONFIG: ['$http', function ($http) {
-            return $http.get('http://localhost:3000/api/i18n/config');
+            return $http.get(theLearningSystemConfig.serverUrl + '/i18n/config');
         }]
     }
 });
@@ -22,17 +22,17 @@ var config = {
         'LocalStorageModule',
         'ngSanitize',
         'ui.select',
-        'ncy-angular-breadcrumb',
         'dndLists',
         'bootstrap.angular.validation',
-        'froala',
-        'yaru22.angular-timeago'
+        'yaru22.angular-timeago',
+        'jsonFormatter',
+        'ngQuill'
     ]
 };
 
 var app = angular.module(config.name, config.vendorDependencies)
-    .config(["$httpProvider", "$locationProvider", "localStorageServiceProvider", "jwtOptionsProvider","I18N_DATA",'bsValidationConfigProvider',
-        function ($httpProvider, $locationProvider, localStorageServiceProvider, jwtOptionsProvider,I18N_DATA,bsValidationConfigProvider ) {
+    .config(["$httpProvider", "$locationProvider", "localStorageServiceProvider", "jwtOptionsProvider", "I18N_DATA", 'bsValidationConfigProvider',
+        function ($httpProvider, $locationProvider, localStorageServiceProvider, jwtOptionsProvider, I18N_DATA, bsValidationConfigProvider) {
             localStorageServiceProvider
                 .setPrefix('learningsystem');
             jwtOptionsProvider
@@ -43,7 +43,7 @@ var app = angular.module(config.name, config.vendorDependencies)
                         return Authentication.token;
                     }],
                     unauthenticatedRedirectPath: '/login',
-                    whiteListedDomains: ['localhost']
+                    whiteListedDomains: [theLearningSystemConfig.whitedListedDomains]
                 });
             $locationProvider.html5Mode(true);
 
@@ -55,8 +55,8 @@ var app = angular.module(config.name, config.vendorDependencies)
             bsValidationConfigProvider.global.successClass = '';
         }])
 
-    .run(['$rootScope', '$state', 'jwtHelper', 'localStorageService', 'Authentication', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG",'bsValidationConfig',
-        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, I18nManager, I18N_DATA, I18N_CONFIG,bsValidationConfig) {
+    .run(['$rootScope', '$state', 'jwtHelper', 'localStorageService', 'Authentication', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG", 'bsValidationConfig', 'Courses', 'CustomNotify',
+        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, I18nManager, I18N_DATA, I18N_CONFIG, bsValidationConfig, Courses, CustomNotify) {
             $rootScope.getDeepValue = function (obj, path) {
                 for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
                     if (obj !== undefined) {
@@ -65,11 +65,10 @@ var app = angular.module(config.name, config.vendorDependencies)
                         return path.toUpperCase();
                     }
                 }
-                if (_.has(obj,I18nManager.preferredLanguage)) {
+                if (_.has(obj, I18nManager.preferredLanguage)) {
                     return obj[I18nManager.preferredLanguage];
                 } else {
-                    // console.log(path);
-                    // return obj[I18nManager.preferredLanguage];
+                    return path;
                 }
             };
 
@@ -78,16 +77,21 @@ var app = angular.module(config.name, config.vendorDependencies)
 
             I18nManager.setData(I18N_DATA);
             I18nManager.setConfig(I18N_CONFIG);
-            I18nManager.init();
+            $rootScope.i18nj = I18nManager.init();
+            $rootScope.preferredLanguage = I18nManager.preferredLanguage;
 
 
-            bsValidationConfig.messages.required = $rootScope.getDeepValue(I18N_DATA,"core.general.required");
+            $rootScope.getTranslation = function (input) {
+                return $rootScope.getDeepValue(I18nManager.data, input);
+            };
 
-            $rootScope.serverUrl = "http://localhost:3000/api";
+            bsValidationConfig.messages.required = $rootScope.getDeepValue(I18N_DATA, "core.general.required");
+
+            $rootScope.serverUrl = theLearningSystemConfig.serverUrl;
             $rootScope.isAuthenticated = Authentication.isAuthenticated;
 
 
-            $rootScope.getLocalized = function (obj,defaultLanguage) {
+            $rootScope.getLocalized = function (obj, defaultLanguage) {
                 if (obj !== undefined) {
                     if (_.has(obj, I18nManager.preferredLanguage))
                         return obj[I18nManager.preferredLanguage];
@@ -102,10 +106,10 @@ var app = angular.module(config.name, config.vendorDependencies)
             //Dont show signin or signup page when the user is already logged in
             //Not the best solution
             //TODO: find a better solution
-            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-                event.preventDefault();
-                $state.transitionTo('not-reachable'); // error has data, status and config properties
-            });
+            // $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            //     event.preventDefault();
+            //     $state.transitionTo('not-reachable'); // error has data, status and config properties
+            // });
 
             $rootScope.$on("$stateChangeStart",
                 function (event, toState, toParams, fromState, fromParams) {
@@ -119,13 +123,9 @@ var app = angular.module(config.name, config.vendorDependencies)
                     }
                     if (toState.name === "frontend.users.signout" && Authentication.isAuthenticated) {
                         event.preventDefault();
-                        Notification.success({
-                            message: '<i class="glyphicon glyphicon-ok"></i> Signout successfull!',
-                            positionX: 'right',
-                            positionY: 'bottom'
-                        });
                         Authentication.removeToken();
-                        $state.go('frontend.home');
+                        CustomNotify.success($rootScope.getTranslation('core.general.signoutSuccessfull'));
+                        $state.go('frontend.home', {}, {reload: true});
                     }
                     //if the site is restricted and the user isnt logged in then redirect to login
                     if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
@@ -133,10 +133,22 @@ var app = angular.module(config.name, config.vendorDependencies)
                         $state.go('frontend.users.signin', {fromOutside: true});
                         //if the user has not the right then redirect to not-authorized
                     } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
-                        console.log(toState.requiredRight, Authentication.rights);
-
                         event.preventDefault();
-                        $state.go('not-authorized');
+                        $state.go('not-authorized',{},{inherit:true});
+                    }
+                    //check if the user has the right to edit the course
+                    if (toState.needCourseRights) {
+                        var data = {
+                            courseId: toParams.courseUrl
+                        };
+                        Courses.getCourseModerators(data).then(function (response) {
+                            var data = response.data;
+                            if (Authentication.user._id === data.author || _.includes(data.moderators, Authentication.user._id)) {
+                            } else {
+                                event.preventDefault();
+                                $state.go('not-authorized',{},{inherit:true});
+                            }
+                        });
                     }
 
                 }
@@ -146,21 +158,18 @@ var app = angular.module(config.name, config.vendorDependencies)
 
 app.filter('translate', ['I18nManager', function (I18nManager) {
     var _deep_value = function (obj, path) {
-        if(path !== undefined){
-            // console.log(path);
+        if (path !== undefined) {
             for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
-                if(tmpPath === undefined)
-                    console.log(tmpPath);
                 if (obj !== undefined) {
                     obj = obj[tmpPath[i]];
                 } else {
                     return path.toUpperCase();
                 }
             }
-            if (_.has(obj,I18nManager.preferredLanguage)) {
+            if (_.has(obj, I18nManager.preferredLanguage)) {
                 return obj[I18nManager.preferredLanguage];
             } else {
-                // return obj[I18nManager.preferredLanguage];
+                return path;
             }
         }
     };

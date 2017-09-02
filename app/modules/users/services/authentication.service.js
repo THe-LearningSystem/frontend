@@ -49,11 +49,20 @@
                 auth.isAuthenticated = false;
                 localStorageService.remove("token");
             },
-            hasRight: function (right) {
-                return (auth.rights !== null && _.includes(auth.rights, right));
+            hasRight: function (rights) {
+                var bool = true;
+                if(auth.rights !== null){
+                    _.forEach(rights, function(right){
+                        if(! _.includes(auth.rights, right)){
+                            bool = false;
+                        }
+                    });
+                    return bool;
+                }else{
+                    return false;
+                }
             }
         };
-
         return auth;
     }
 }());

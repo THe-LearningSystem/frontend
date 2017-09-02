@@ -190,6 +190,7 @@ autoSim.Transitions = function ($scope) {
      * @param transition      The id from the transition
      */
     self.remove = function (transition) {
+        console.log(self,self.inputSymbolAlphabet);
         self.inputSymbolAlphabet.removeIfNotUsedFromOthers(transition);
         var transitionGroup = self.getTransitionGroup(transition.fromState, transition.toState);
         if (transitionGroup.length === 1) {

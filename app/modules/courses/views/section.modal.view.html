@@ -42,7 +42,7 @@
             <div class="col-sm-6">
                 <course-language-selection></course-language-selection>
                 <div id="{{language}}-select" ng-repeat="language in vm.course.secondaryLanguages"
-                     ng-if="vm.selected === language">
+                     ng-if="vm.selectedLanguage === language">
                     <div class="form-group">
                         <label>{{'core.courses.sectionName' | translate}}</label>
                         <input type="text"

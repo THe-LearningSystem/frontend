@@ -14,11 +14,8 @@
                                ng-model="vm.data.name[vm.course.primaryLanguage]">
                     </div>
                     <div class="form-group">
-                        <label>{{'core.general.content' | translate}}</label>
-                        <textarea froala="vm.froalaOptions"
-                                  ng-model=" vm.data.data.question[vm.course.primaryLanguage]"
-                                  required>
-                         </textarea>
+                        <label>{{'core.general.question' | translate}}</label>
+                        <own-editor data="vm.data.data.question[vm.course.primaryLanguage]" is-required="true"></own-editor>
                     </div>
                     <div class="answers margin-top">
                         <div class="answer-edit panel panel-default" ng-repeat="answer in vm.data.data.answers"
@@ -26,16 +23,16 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
-                                    <textarea froala="vm.froalaOptionsSmall"
-                                              ng-model="answer[vm.course.primaryLanguage]"
-                                              required>
-                                    </textarea>
+                                    <own-editor data="answer[vm.course.primaryLanguage]" is-required="true"></own-editor>
+
                                 </div>
                                 <button class="btn btn-default"
+                                        type="button"
                                         ng-click="vm.data.data.rightAnswerIndex = $index"
                                         ng-show="$index !== vm.data.data.rightAnswerIndex">
                                     {{'core.courses.setRightAnswer' | translate}}
                                 </button>
+
                             </div>
 
                         </div>
@@ -52,9 +49,8 @@
                                    ng-model="vm.data.question[language]">
                         </div>
                         <div class="form-group">
-                            <label>{{'core.general.content' | translate}}</label>
-                            <textarea froala="vm.froalaOptions"
-                                      ng-model=" vm.data.data.content[language]"></textarea>
+                            <label>{{'core.general.question' | translate}}</label>
+                            <own-editor data="vm.data.data.content[language]"></own-editor>
                         </div>
 
                         <div class="answers margin-top">
@@ -63,14 +59,25 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label>{{'core.courses.answer' | translate}}-{{$index+1}}</label>
-                                        <textarea froala="vm.froalaOptionsSmall"
-                                                  ng-model="answer[language]">
-                                    </textarea>
+                                        <own-editor data="answer[language]"></own-editor>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-12">
+                   <button class="btn btn-default" ng-click="vm.addAnswer()"
+                           type="button"
+                           ng-show="vm.data.data.answers.length < 4">
+                       {{'core.courses.addAnswer' | translate}}
+                   </button>
+                    <button class="btn btn-default"
+                            ng-click="vm.removeAnswer()"
+                            type="button"
+                            ng-show="vm.data.data.answers.length > 2">
+                        {{'core.courses.removeAnswer' | translate}}
+                    </button>
                 </div>
                 <div class="col-sm-12">
                     <course-is-published></course-is-published>

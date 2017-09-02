@@ -20,12 +20,6 @@
                 }
             });
         }
-        vm.froalaOptions = {
-            toolbarButtons: ["bold", "italic", "underline", "|", "align", "formatOL", "formatUL"],
-            height: 300,
-            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.courses.content')
-
-        };
 
         vm.create = function () {
             var data = {
@@ -33,9 +27,7 @@
                 payload: vm.data
             };
             Courses.createQuestion(data, function (response) {
-                console.log(response);
                 $scope.$parent.vm.course = response.data.obj;
-                console.log(_.last(response.data.obj.questionsAndAnswers)._id);
                 $state.go('frontend.courses.display.questionsAndAnswers.display', {
                     courseUrl: vm.courseUrl,
                     questionId: _.last(response.data.obj.questionsAndAnswers)._id
@@ -43,7 +35,6 @@
             });
         };
         vm.update = function () {
-            console.log(vm.course);
             var data = {
                 courseId: vm.course._id,
                 notificationId: vm.data._id,

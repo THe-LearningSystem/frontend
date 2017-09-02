@@ -1,0 +1,88 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <course-lesson-create-header></course-lesson-create-header>
+        <div class="row">
+            <form name="inputform">
+                <div class="col-sm-12">
+                    <course-lesson-type-selection></course-lesson-type-selection>
+                </div>
+                <div class="col-sm-6">
+                    <course-primary-language></course-primary-language>
+                    <div class="form-group">
+                        <label>{{'core.courses.name' | translate}}</label>
+                        <input type="text" class="form-control" placeholder="{{'core.courses.name' | translate}}"
+                               ng-model="vm.data.name[vm.course.primaryLanguage]">
+                    </div>
+                    <div class="form-group">
+                        <label>{{'core.general.question' | translate}}</label>
+                        <own-editor data="vm.data.data.question[vm.course.primaryLanguage]" is-required="true"></own-editor>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <course-language-selection></course-language-selection>
+                    <div ng-repeat="language in vm.course.secondaryLanguages"
+                         ng-show="vm.selectedLanguage === language">
+                        <div class="form-group">
+                            <label>{{'core.courses.lessonName' | translate}}</label>
+                            <input type="text" class="form-control"
+                                   placeholder="Name"
+                                   ng-model="vm.data.question[language]">
+                        </div>
+                        <div class="form-group">
+                            <label>{{'core.general.question' | translate}}</label>
+                            <own-editor data="vm.data.data.content[language]"></own-editor>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="lesys-selection">
+                        <span class="lesys-select" ng-click="vm.automatonType ='DFA'"
+                              ng-class="{'selected':vm.automatonType=== 'DFA'}">
+                           DFA
+                        </span>
+                        <span class="lesys-select" ng-click="vm.automatonType ='NFA'"
+                              ng-class="{'selected':vm.automatonType=== 'NFA'}">
+                           NFA
+                        </span>
+                        <span class="lesys-select" ng-click="vm.automatonType ='PDA'"
+                              ng-class="{'selected':vm.automatonType=== 'PDA'}">
+                           PDA
+                        </span>
+                        <span class="lesys-select" ng-click="vm.automatonType ='NPDA'"
+                              ng-class="{'selected':vm.automatonType=== 'NPDA'}">
+                           NPDA
+                        </span>
+                    </div>
+                    <div class="lesys-selection">
+                        <span class="lesys-select" ng-click="vm.data.data.questionType =1"
+                              ng-class="{'selected':vm.data.data.questionType=== 1}">
+                           Überprüfe auf korrekten Automaten
+                        </span>
+                        <span class="lesys-select" ng-click="vm.data.data.questionType =2"
+                              ng-class="{'selected':vm.data.data.questionType=== 2}">
+                            TYP 2
+                        </span>
+                    </div>
+                    <div ng-show="vm.automatonType=== 'DFA'">
+                        <div class="btn btn-default" button="button"
+                             ng-click="vm.openDFA()">
+                            Open DFA Automata Modal
+                        </div>
+                    </div>
+                    <json-formatter json="vm.data.data.automaton" open="1"></json-formatter>
+
+                    <course-is-published></course-is-published>
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <course-form-control-buttons></course-form-control-buttons>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

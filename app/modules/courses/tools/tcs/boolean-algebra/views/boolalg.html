@@ -1,57 +1,70 @@
-<div class="row">
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="box">
-            <div class="boxTitle">
-                <h2 class="diagram-title" translate="MAIN.TITLE">Boolescher Ausdruck</h2>
-            </div>
-            <div class="boxBody">
-                <bool-input bool-domain="boolMain" bool-symbol="F"></bool-input>
-            </div>
-        </div>
-        <div class="box">
-            <div class="boxTitle">
-                <h2 class="diagram-title" translate="TABLE.TITLE">Wahrheitstabelle</h2>
-            </div>
-            <div class="boxBody" id="tableBody">
-                <div class="createInfo">
-                    <p translate="TABLE.INFO.TEXT">Zum Generieren einer Wahrheitstabelle benötigen Sie einen gültigen Ausdruck!</p>
-                    <button class="btn" ng-click="createBTable('#tableBody')" translate="TABLE.INFO.BUTTON">Wahrheitstabelle üben</button>
+<div class="remove-container full-wrapper">
+    <div class="flex-item  inner-wrapper">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="box">
+                    <div class="boxTitle">
+                        <h2 class="diagram-title" translate="MAIN.TITLE">Boolescher Ausdruck</h2>
+                    </div>
+                    <div class="boxBody">
+                        <bool-input bool-domain="boolMain" bool-symbol="F"></bool-input>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="boxTitle">
+                        <h2 class="diagram-title" translate="TABLE.TITLE">Wahrheitstabelle</h2>
+                    </div>
+                    <div class="boxBody" id="tableBody">
+                        <div class="createInfo">
+                            <p translate="TABLE.INFO.TEXT">Zum Generieren einer Wahrheitstabelle benötigen Sie einen
+                                gültigen Ausdruck!</p>
+                            <button class="btn" ng-click="createBTable('#tableBody')" translate="TABLE.INFO.BUTTON">
+                                Wahrheitstabelle üben
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
 
-        <div class="box">
-            <div class="boxTitle">
-                <h2 class="diagram-title" translate="KV.TITLE">KV-Diagramm</h2>
-            </div>
-            <div class="boxBody" id="kvBody">
-                <!--<bool-kv bool-expr="A∨B⇔C"></bool-kv>-->
-                <!--<bool-kv bool-expr="(A∧B)∧((C∨¬C)∧(¬D∨D))∨¬A∧¬B"></bool-kv>-->
-                <!--<bool-kv bool-expr="C∨(¬A∧B)∨(A∧¬B)"></bool-kv>-->
-                <!--<bool-kv bool-expr="A∧B∧C∧D∨A∧B∧¬C∧D∨A∧B∧C∧¬D∨A∧B∧¬C∧¬D∨¬A∧¬B"></bool-kv>-->
-                <!--<bool-kv bool-expr="A∨B∨C∨D"></bool-kv>-->
-                <!--<bool-kv bool-expr="¬A∧B∧¬C∧¬D∨A∧¬B∧¬C∧¬D∨A∧¬B∧¬C∧D∨A∧¬B∧C∧¬D∨A∧¬B∧C∧D∨A∧B∧¬C∧¬D∨A∧B∧C∧¬D∨A∧B∧C∧D"></bool-kv>-->
-                <!--<bool-kv bool-expr="A∧(B∨¬B)∧C∨D"></bool-kv>-->
-                <div class="createInfo">
-                    <p translate="KV.INFO.TEXT">Zum Generieren eines KV-Diagramms benötigen Sie einen gültigen Booleschen Ausdruck!</p>
-                    <button translate="KV.INFO.BUTTON" class="btn" ng-click="createKV('#kvBody')">KV-Diagramm üben</button>
+                <div class="box">
+                    <div class="boxTitle">
+                        <h2 class="diagram-title" translate="KV.TITLE">KV-Diagramm</h2>
+                    </div>
+                    <div class="boxBody" id="kvBody">
+                        <!--<bool-kv bool-expr="A∨B⇔C"></bool-kv>-->
+                        <!--<bool-kv bool-expr="(A∧B)∧((C∨¬C)∧(¬D∨D))∨¬A∧¬B"></bool-kv>-->
+                        <!--<bool-kv bool-expr="C∨(¬A∧B)∨(A∧¬B)"></bool-kv>-->
+                        <!--<bool-kv bool-expr="A∧B∧C∧D∨A∧B∧¬C∧D∨A∧B∧C∧¬D∨A∧B∧¬C∧¬D∨¬A∧¬B"></bool-kv>-->
+                        <!--<bool-kv bool-expr="A∨B∨C∨D"></bool-kv>-->
+                        <!--<bool-kv bool-expr="¬A∧B∧¬C∧¬D∨A∧¬B∧¬C∧¬D∨A∧¬B∧¬C∧D∨A∧¬B∧C∧¬D∨A∧¬B∧C∧D∨A∧B∧¬C∧¬D∨A∧B∧C∧¬D∨A∧B∧C∧D"></bool-kv>-->
+                        <!--<bool-kv bool-expr="A∧(B∨¬B)∧C∨D"></bool-kv>-->
+                        <div class="createInfo">
+                            <p translate="KV.INFO.TEXT">Zum Generieren eines KV-Diagramms benötigen Sie einen gültigen
+                                Booleschen Ausdruck!</p>
+                            <button translate="KV.INFO.BUTTON" class="btn" ng-click="createKV('#kvBody')">KV-Diagramm
+                                üben
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <!--<div class="box">
+                    <div class="boxTitle">
+                        <h2 class="diagram-title">Schaltsysteme</h2>
+                    </div>
+                    <div class="boxBody" id="circuitBody">
+                        <div class="createInfo">
+                            <p>Für das Üben mit dem Schaltsystem benötigen Sie einen gültigen Booleschen Ausdruck!</p>
+                            <button class="btn" ng-click="createCircuit('#circuitBody')">Schaltsysteme üben</button>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+
         </div>
     </div>
-    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-        <!--<div class="box">
-            <div class="boxTitle">
-                <h2 class="diagram-title">Schaltsysteme</h2>
-            </div>
-            <div class="boxBody" id="circuitBody">
-                <div class="createInfo">
-                    <p>Für das Üben mit dem Schaltsystem benötigen Sie einen gültigen Booleschen Ausdruck!</p>
-                    <button class="btn" ng-click="createCircuit('#circuitBody')">Schaltsysteme üben</button>
-                </div>
-            </div>
-        </div>-->
-    </div>
+    <tools-bottom-toolbar>
+    </tools-bottom-toolbar>
 </div>

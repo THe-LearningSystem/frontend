@@ -26,19 +26,13 @@
                 templateUrl: '/modules/admin/acl/views/list-users.view.html',
                 controller: 'ListUsersCtrl',
                 controllerAs: 'vm',
-                requiredRight:'users.view',
-                ncyBreadcrumb: {
-                    label: 'Users'
-                }
+                requiredRight:['users.view']
             })
             .state('backend.acl', {
                 url: '/acl',
                 templateUrl: '/modules/admin/acl/views/acl.view.html',
                 controller: 'ACLCtrl',
-                controllerAs: 'vm',
-                ncyBreadcrumb: {
-                    label: 'Berechtigungen'
-                }
+                controllerAs: 'vm'
             });
     }
 }());

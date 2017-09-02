@@ -22,11 +22,12 @@
                     vm.userEnrolledCourseData = response.data;
                     _.forEach(vm.course.sections, function (section) {
                         _.forEach(section.lessons, function (lesson) {
-                            if (_.includes(vm.userEnrolledCourseData.passedLessons, lesson._id)) {
-                                lesson.userPassed = true;
-                            } else {
-                                lesson.userPassed = false;
-                            }
+                            lesson.userPassed = null;
+                            _.forEach(vm.userEnrolledCourseData.lessonData,function(userLessonData){
+                                if(userLessonData._id === lesson._id){
+                                    lesson.userPassed = userLessonData.passed;
+                                }
+                            });
                         })
                     })
                 });
@@ -37,7 +38,6 @@
         vm.editMode = true;
         vm.languages = i18nManager.config.languages;
         vm.selected = i18nManager.config.default;
-
         vm.reorderSection = false;
 
         vm.isEditEnabled = function (string) {
@@ -62,7 +62,6 @@
         };
 
         vm.updateSection = function (section) {
-            console.log(section);
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 templateUrl: '/modules/courses/views/section.modal.view.html',

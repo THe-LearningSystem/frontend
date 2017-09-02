@@ -8,15 +8,19 @@ autoSim.StateMenus = function ($scope) {
     self.edit.watcher = [];
 
     self.edit.openHandler = function () {
-        event.preventDefault();
+        if ($scope.states.isInCreation) {
+            $scope.statediagram.svgOuter.on("mousemove", null);
+            $scope.states.isInCreation = false;
+            $scope.saveApply();
+        }
         $scope.states.menu.edit.open($scope.states.getById(parseInt(d3.select(this).attr("object-id"))));
     };
 
     self.edit.open = function (state) {
-        console.log("asd");
         $scope.core.closeMenus();
-        if (d3.event !== null && d3.event.stopPropagation !== undefined)
+        if (d3.event !== null && d3.event.stopPropagation !== undefined) {
             d3.event.stopPropagation();
+        }
         $scope.states.selected = state;
         self.edit.state = _.cloneDeep(state);
 
@@ -38,7 +42,9 @@ autoSim.StateMenus = function ($scope) {
         });
         self.edit.watcher = [];
         self.edit.state = null;
-        $scope.states.selected = null;
+        if (!$scope.states.isInCreation) {
+            $scope.states.selected = null;
+        }
         self.edit.isOpen = false;
         $scope.saveApply();
     };
@@ -60,7 +66,6 @@ autoSim.StateMenus = function ($scope) {
             d3.event.stopPropagation();
 
         $scope.states.selected = state;
-        console.log(event);
         self.context.position.x = event.pageX;
         self.context.position.y = event.pageY;
         self.context.isOpen = true;
@@ -69,7 +74,7 @@ autoSim.StateMenus = function ($scope) {
 
     self.context.close = function (dontRemoveSelectedState) {
         self.context.position = {};
-        if (dontRemoveSelectedState !== true)
+        if (dontRemoveSelectedState !== true && !$scope.states.isInCreation)
             $scope.states.selected = null;
         self.context.isOpen = false;
         $scope.saveApply();

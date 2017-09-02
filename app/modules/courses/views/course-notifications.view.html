@@ -1,19 +1,23 @@
-<button class="btn btn-default"
-        ui-sref="frontend.courses.display.createNotification({courseUrl:vm.course.urlName})">Create
-    Notification
-</button>
+<div class="panel panel-default"
+     ng-show="vm.isAllowedToEdit()">
+    <div class="panel-body">
+        <button class="btn btn-default"
+                ui-sref="frontend.courses.display.createNotification({courseUrl:vm.course.urlName})">
+            {{'core.courses.createNotification' | translate}}
+        </button>
+    </div>
+</div>
 
 <div ng-repeat="notification in vm.course.notifications | orderBy :'-date'">
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="panel panel-default panel-notification">
+        <div class="panel-heading ">
             <h4 class="notification-header">{{notification.title}}</h4>
             <span class="pull-left">
                  am {{notification.date | date : "dd.mm.yyyy"}}
             </span>
-            <a
-                    ui-sref="frontend.courses.display.updateNotifications({courseUrl:vm.courseUrl,notificationId:notification._id})">
+            <a ui-sref="frontend.courses.display.updateNotifications({courseUrl:vm.courseUrl,notificationId:notification._id})"
+               ng-show="vm.isAllowedToEdit()">
                 <i class="fa fa-pencil" aria-hidden="true">
-
                 </i>
             </a>
         </div>

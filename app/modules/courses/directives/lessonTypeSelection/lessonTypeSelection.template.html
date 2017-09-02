@@ -8,6 +8,12 @@
           ui-sref="frontend.courses.lessons.create.quiz({courseUrl:vm.courseUrl,sectionUrl:vm.sectionUrl})"
           ng-class="{'selected':vm.currentStateName==='frontend.courses.lessons.create.quiz'}">
         {{'core.courses.lessonTypeQuiz' | translate}}
-            </span>
+    </span>
+    <span class="lesys-select"
+          ui-sref="frontend.courses.lessons.create.automaton({courseUrl:vm.courseUrl,sectionUrl:vm.sectionUrl})"
+          ng-class="{'selected':vm.currentStateName==='frontend.courses.lessons.create.automaton'}">
+        <!--{{'core.courses.lessonTypeQuiz' | translate}}-->
+        Automaton
+    </span>
     <hr>
 </div>

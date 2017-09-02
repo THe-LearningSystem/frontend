@@ -10,7 +10,6 @@
     function UserModalCtrl($uibModalInstance, ACL, data) {
         var vm = this;
         if (data !== undefined) {
-            console.log(data);
             vm.userData = data.userData;
             vm.roles = data.roles;
             vm.selected = [];
