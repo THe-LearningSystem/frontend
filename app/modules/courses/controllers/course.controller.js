@@ -25,9 +25,6 @@
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
-            console.log(vm.course.secondaryLanguages);
-            vm.selected = vm.course.secondaryLanguages[0];
-
             //getEnrolledCourseData
             if(Authentication.user !== null){
                 Courses.enrolledCourses(

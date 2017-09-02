@@ -62,7 +62,6 @@
         };
 
         vm.updateSection = function (section) {
-            console.log(section);
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 templateUrl: '/modules/courses/views/section.modal.view.html',
