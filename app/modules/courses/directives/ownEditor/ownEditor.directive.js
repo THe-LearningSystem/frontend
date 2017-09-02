@@ -9,9 +9,16 @@
         return {
             scope: {
                 data: '=',
-                isRequired: '='
+                isRequired: '=',
+                smallVersion :'='
             },
-            templateUrl: 'modules/courses/directives/ownEditor/ownEditor.template.html'
+            templateUrl: 'modules/courses/directives/ownEditor/ownEditor.template.html',
+            link: function(scope,el,attrs){
+                console.log(scope);
+                if(scope.smallVersion){
+
+                }
+            }
         };
     }
 }());

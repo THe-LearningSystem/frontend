@@ -55,8 +55,8 @@ var app = angular.module(config.name, config.vendorDependencies)
             bsValidationConfigProvider.global.successClass = '';
         }])
 
-    .run(['$rootScope', '$state', 'jwtHelper', 'localStorageService', 'Authentication', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG", 'bsValidationConfig','Courses',
-        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, I18nManager, I18N_DATA, I18N_CONFIG, bsValidationConfig, Courses) {
+    .run(['$rootScope', '$state', 'jwtHelper', 'localStorageService', 'Authentication', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG", 'bsValidationConfig', 'Courses', 'CustomNotify',
+        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, I18nManager, I18N_DATA, I18N_CONFIG, bsValidationConfig, Courses, CustomNotify) {
             $rootScope.getDeepValue = function (obj, path) {
                 for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
                     if (obj !== undefined) {
@@ -123,13 +123,9 @@ var app = angular.module(config.name, config.vendorDependencies)
                     }
                     if (toState.name === "frontend.users.signout" && Authentication.isAuthenticated) {
                         event.preventDefault();
-                        Notification.success({
-                            message: '<i class="glyphicon glyphicon-ok"></i> Signout successfull!',
-                            positionX: 'right',
-                            positionY: 'bottom'
-                        });
                         Authentication.removeToken();
-                        $state.go('frontend.home');
+                        CustomNotify.success($rootScope.getTranslation('core.general.signoutSuccessfull'));
+                        $state.go('frontend.home', {}, {reload: true});
                     }
                     //if the site is restricted and the user isnt logged in then redirect to login
                     if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
@@ -138,19 +134,19 @@ var app = angular.module(config.name, config.vendorDependencies)
                         //if the user has not the right then redirect to not-authorized
                     } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
                         event.preventDefault();
-                        // $state.go('not-authorized',{inherit:true});
+                        $state.go('not-authorized',{},{inherit:true});
                     }
                     //check if the user has the right to edit the course
-                    if(toState.needCourseRights){
-                        var data ={
-                            courseId:toParams.courseUrl
+                    if (toState.needCourseRights) {
+                        var data = {
+                            courseId: toParams.courseUrl
                         };
-                        Courses.getCourseModerators(data).then(function(response){
+                        Courses.getCourseModerators(data).then(function (response) {
                             var data = response.data;
-                            if(Authentication.user._id === data.author || _.includes(data.moderators,Authentication.user._id)){
-                            }else{
+                            if (Authentication.user._id === data.author || _.includes(data.moderators, Authentication.user._id)) {
+                            } else {
                                 event.preventDefault();
-                                $state.go('not-authorized',{location:'replace'});
+                                $state.go('not-authorized',{},{inherit:true});
                             }
                         });
                     }

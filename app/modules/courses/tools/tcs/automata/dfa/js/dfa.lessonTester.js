@@ -13,7 +13,6 @@ autoSim.lessonTester = function ($scope, $rootScope, Courses, CustomNotify, Auth
     };
 
     self.checkType1 = function () {
-
         var automaton = $scope.lessonData.data.automaton;
         self.acceptedInput = [];
         var acceptedInputString = automaton.automatonData.acceptedInputRaw;
@@ -51,7 +50,6 @@ autoSim.lessonTester = function ($scope, $rootScope, Courses, CustomNotify, Auth
 
 
     self.goToNextLesson = function () {
-        console.log(self.failedLesson);
         var data = {
             courseId: $scope.parentScope.course._id,
             userId: Authentication.user._id,
@@ -66,7 +64,6 @@ autoSim.lessonTester = function ($scope, $rootScope, Courses, CustomNotify, Auth
             CustomNotify.success($rootScope.getTranslation('core.courses.passedLesson'));
             else
             CustomNotify.warning($rootScope.getTranslation('core.courses.notPassedLesson'));
-
         },false);
         $scope.parentScope.goToNextLesson();
     };

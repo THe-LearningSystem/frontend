@@ -5,9 +5,9 @@
         .module('courses')
         .controller('LessonCtrl', LessonCtrl);
 
-    LessonCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', 'Courses', 'Authentication', 'CustomNotify'];
+    LessonCtrl.$inject = ['$rootScope', '$state', '$stateParams', 'Courses', 'Authentication', 'CustomNotify'];
 
-    function LessonCtrl($rootScope, $scope, $state, $stateParams, Courses, Authentication, CustomNotify) {
+    function LessonCtrl($rootScope, $state, $stateParams, Courses, Authentication, CustomNotify) {
         var vm = this;
 
         vm.courseUrl = $stateParams.courseUrl;
@@ -54,7 +54,7 @@
         });
 
 
-        vm.isAllowedToEdit = function (string) {
+        vm.isAllowedToEdit = function () {
             var isAllowedToEdit = true;
             if (vm.course)
                 isAllowedToEdit = vm.course.author === Authentication.user._id;
@@ -68,7 +68,7 @@
                     _id: tmpLesson._id,
                     passed: true
                 };
-                Courses.addPassedLessonToUser(data, function (response) {
+                Courses.addPassedLessonToUser(data, function () {
                     CustomNotify.success($rootScope.getTranslation('core.courses.passedLesson'));
                     if (vm.nextLesson !== null) {
                         setTimeout(function () {
@@ -87,7 +87,7 @@
                     _id: tmpLesson._id,
                     passed: false
                 };
-                Courses.addPassedLessonToUser(data, function (response) {
+                Courses.addPassedLessonToUser(data, function () {
                     vm.failedLesson = true;
                 }, false);
                 CustomNotify.error($rootScope.getTranslation('core.courses.notPassedLesson'));

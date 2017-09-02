@@ -5,9 +5,9 @@
         .module('users')
         .controller('AuthenticationCtrl', AuthenticationCtrl);
 
-    AuthenticationCtrl.$inject = ['$state', '$stateParams','UsersService', 'CustomNotify', 'Authentication','I18nManager'];
+    AuthenticationCtrl.$inject = ['$rootScope', '$state', '$stateParams', 'UsersService', 'CustomNotify', 'Authentication', 'I18nManager'];
 
-    function AuthenticationCtrl($state,$stateParams, UsersService, CustomNotify, Authentication,I18nManager) {
+    function AuthenticationCtrl($rootScope, $state, $stateParams, UsersService, CustomNotify, Authentication, I18nManager) {
         var vm = this;
 
         vm.auth = Authentication;
@@ -41,14 +41,13 @@
                     password: vm.credentials.password
                 }, function (response) {
                     var token = response.data.token;
-                    var user =Authentication.setToken(token).user;
+                    var user = Authentication.setToken(token).user;
                     //set the preferred Language
                     I18nManager.setPreferredLanguage(user.preferredLanguage);
-
-                        // And redirect to the previous or home page
-                    $state.go($state.previous.state.name || 'frontend.home', $state.previous.params);
-                    // CustomNotify.serversuccess('core.')
-                },false);
+                    // And redirect to the previous or home page
+                    $state.transitionTo($state.previous.state.name || 'frontend.home', {}, {reload: true});
+                    CustomNotify.success($rootScope.getTranslation('core.general.signinSuccessfull'));
+                }, false);
             }
         }
 

@@ -5,24 +5,20 @@
         .module('courses')
         .controller('SectionModalCtrl', SectionModalCtrl);
 
-    SectionModalCtrl.$inject = ['$state', '$uibModalInstance', 'Courses', 'data'];
+    SectionModalCtrl.$inject = ['$scope','$state', '$uibModalInstance', 'Courses', 'data'];
 
-    function SectionModalCtrl($state, $uibModalInstance, Courses, data) {
+    function SectionModalCtrl($scope,$state, $uibModalInstance, Courses, data) {
         var vm = this;
+        vm.test = true;
         if (data !== undefined) {
             vm.courseId = data.course._id;
             vm.course = data.course;
-            if (vm.course.secondaryLanguages.length > 0)
-                vm.selected = vm.course.secondaryLanguages[0];
-
+            vm.selectedLanguage = vm.course.secondaryLanguages[0];
             if (data.section !== undefined) {
                 vm.data = data.section;
             }
         }
 
-        vm.selectLanguage = function (language) {
-            vm.selected = language;
-        };
 
         vm.create = function () {
             var data = {

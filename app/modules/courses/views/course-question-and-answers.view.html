@@ -47,8 +47,12 @@
         <form name="inputform">
         <div class="form-group">
             <label>{{'core.general.comment' | translate}}</label>
-            <textarea id="notification-content" froala="vm.froalaOptions" ng-model="vm.answer.content"
-                      required></textarea>
+            <ng-quill-editor ng-model="vm.answer.content"
+
+                             toolbar="false" link-tooltip="true" image-tooltip="true"
+                             toolbar-entries="font size bold list bullet italic underline strike align color background link image" >
+            </ng-quill-editor>
+            <!--<own-editor data="vm.answer.content" is-required="true" small-version="true"></own-editor>-->
         </div>
         <button class="btn btn-default" type="submit" ng-click="inputform.$valid &&  vm.createAnswer()">Create
             Comment</button>

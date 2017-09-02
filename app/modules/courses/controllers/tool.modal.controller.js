@@ -18,13 +18,7 @@
                vm.data = data.tool;
             }
         }
-        vm.languages = I18nManager.config.languages;
         vm.selected = I18nManager.config.default;
-
-
-        vm.selectLanguage = function (language) {
-            vm.selected = language;
-        };
 
         vm.create = function () {
             var data={

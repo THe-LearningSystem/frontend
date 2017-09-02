@@ -15,8 +15,10 @@
             vm.update = true;
             Courses.courseDisplay(vm.courseUrl).then(function (response) {
                 vm.data = response.data;
+                //fix for the language selection
+                vm.course = vm.data;
                 if (vm.data.secondaryLanguages.length > 0)
-                    vm.selected = vm.data.secondaryLanguages[0];
+                    vm.selectedLanguage = vm.data.secondaryLanguages[0];
             });
         }
 
