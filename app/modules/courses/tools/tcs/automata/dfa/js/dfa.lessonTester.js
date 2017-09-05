@@ -65,7 +65,7 @@ autoSim.lessonTester = function ($scope, $rootScope, Courses, CustomNotify, Auth
             else
             CustomNotify.warning($rootScope.getTranslation('core.courses.notPassedLesson'));
         },false);
-        $scope.parentScope.goToNextLesson();
+        setTimeout($scope.parentScope.goToNextLesson,800);
     };
 
 
