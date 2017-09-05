@@ -23,6 +23,7 @@
             //Get the next lesson
             Courses.getLesson(vm.lessonId).then(function (response) {
                 vm.lesson = response.data;
+                console.log(vm.lesson);
                 //check if the lesson is already passed
                 Courses.enrolledCourses({
                     userId: Authentication.user._id,
@@ -45,6 +46,7 @@
                             return false;
                         }
                         if (vm.lesson._id === lesson._id) {
+                            vm.section = section;
                             vm.lesson.position = lesson.position;
                             foundLesson = true;
                         }

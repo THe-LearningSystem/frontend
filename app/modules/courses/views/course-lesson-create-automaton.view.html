@@ -9,13 +9,14 @@
                 <div class="col-sm-6">
                     <course-primary-language></course-primary-language>
                     <div class="form-group">
-                        <label>{{'core.courses.name' | translate}}</label>
+                        <label>{{'core.courses.lessonTitle' | translate}}</label>
                         <input type="text" class="form-control" placeholder="{{'core.courses.name' | translate}}"
                                ng-model="vm.data.name[vm.course.primaryLanguage]">
                     </div>
                     <div class="form-group">
-                        <label>{{'core.general.question' | translate}}</label>
-                        <own-editor data="vm.data.data.question[vm.course.primaryLanguage]" is-required="true"></own-editor>
+                        <label>{{'core.courses.exercise' | translate}}</label>
+                        <own-editor data="vm.data.data.question[vm.course.primaryLanguage]"
+                                    is-required="true"></own-editor>
                     </div>
 
                 </div>
@@ -24,58 +25,100 @@
                     <div ng-repeat="language in vm.course.secondaryLanguages"
                          ng-show="vm.selectedLanguage === language">
                         <div class="form-group">
-                            <label>{{'core.courses.lessonName' | translate}}</label>
+                            <label>{{'core.courses.lessonTitle' | translate}}</label>
                             <input type="text" class="form-control"
                                    placeholder="Name"
                                    ng-model="vm.data.question[language]">
                         </div>
                         <div class="form-group">
-                            <label>{{'core.general.question' | translate}}</label>
+                            <label>{{'core.courses.exercise' | translate}}</label>
                             <own-editor data="vm.data.data.content[language]"></own-editor>
                         </div>
 
                     </div>
                 </div>
-
                 <div class="col-sm-12">
-                    <div class="lesys-selection">
-                        <span class="lesys-select" ng-click="vm.automatonType ='DFA'"
-                              ng-class="{'selected':vm.automatonType=== 'DFA'}">
-                           DFA
-                        </span>
-                        <span class="lesys-select" ng-click="vm.automatonType ='NFA'"
-                              ng-class="{'selected':vm.automatonType=== 'NFA'}">
-                           NFA
-                        </span>
-                        <span class="lesys-select" ng-click="vm.automatonType ='PDA'"
-                              ng-class="{'selected':vm.automatonType=== 'PDA'}">
-                           PDA
-                        </span>
-                        <span class="lesys-select" ng-click="vm.automatonType ='NPDA'"
-                              ng-class="{'selected':vm.automatonType=== 'NPDA'}">
-                           NPDA
-                        </span>
+                    <hr>
+                    <div class="form-group">
+                        <label>Automat</label>
+                        <select class="form-control" ng-model="vm.data.data.automaton.type" required>
+                            <option>DFA</option>
+                            <option>NFA</option>
+                            <option>PDA</option>
+                            <option>NPDA</option>
+                        </select>
                     </div>
                     <div class="lesys-selection">
-                        <span class="lesys-select" ng-click="vm.data.data.questionType =1"
-                              ng-class="{'selected':vm.data.data.questionType=== 1}">
-                           Überprüfe auf korrekten Automaten
-                        </span>
-                        <span class="lesys-select" ng-click="vm.data.data.questionType =2"
-                              ng-class="{'selected':vm.data.data.questionType=== 2}">
-                            TYP 2
-                        </span>
-                    </div>
-                    <div ng-show="vm.automatonType=== 'DFA'">
-                        <div class="btn btn-default" button="button"
-                             ng-click="vm.openDFA()">
-                            Open DFA Automata Modal
+                        <div>
+                            <label>Aufgabenart</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body cursor-pointer"
+                                         ng-class="{'panel-selected':vm.data.data.questionType === 1}"
+                                         ng-click="vm.data.data.questionType = 1">
+                                        <h4>Inputtest</h4>
+                                        <div>Bei dem Inputtest muss der Benutzer einen Automaten erstellen, der
+                                            die angegebenen Wörter akzeptiert
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body cursor-pointer"
+                                         ng-class="{'panel-selected':vm.data.data.questionType === 2}"
+                                         ng-click="vm.data.data.questionType = 2">
+                                        <h4>Regulärer Ausdruck</h4>
+                                        <div>
+                                            Bei diesem Aufgabentyp wird dem Benutzer der Bulktest nicht angezeigt.
+                                            Nur die Aufgabe wird gezeigt. Beispiel: Erstelle einen Automaten der den
+                                            regulären Ausdruck a^nb^n akzeptiert.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <json-formatter json="vm.data.data.automaton" open="1"></json-formatter>
+                    <div ng-show="vm.data.data.questionType === 1 || vm.data.data.questionType === 2">
+                        <input type="text" ng-model="vm.data.data.automaton.automatonData.type"
+                               value="{{vm.data.data.automaton.type}}"
+                               ng-hide="true">
 
+                        <div class="form-group">
+                            <label>{{'core.general.accepted' | translate}} ({{'as.core.onePerLine' |
+                                translate}})</label>
+                            <textarea class="form-control"
+                                      ng-model="vm.data.data.automaton.automatonData.hiddenAcceptedInputRaw"
+                                      rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>{{'core.general.rejected' | translate}} ({{'as.core.onePerLine' |
+                                translate}})</label>
+                            <textarea class="form-control"
+                                      ng-model="vm.data.data.automaton.automatonData.hiddenRejectedInputRaw"
+                                      rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div ng-show="vm.data.data.automaton.type === 'DFA'">
+                        <div ng-show="vm.data.data.questionType === 3">
+                            <div class="btn btn-default" button="button"
+                                 ng-click="vm.openDFA()">
+                                {{'core.general.edit' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="vm.automatonType=== 'NFA'">
+                        <div ng-show="vm.data.data.questionType === 3">
+                            <div class="btn btn-default" button="button"
+                                 ng-click="vm.openNFA()">
+                                {{'core.general.edit' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <course-is-published></course-is-published>
-
                 </div>
                 <div class="col-sm-12">
                     <div class="pull-right">

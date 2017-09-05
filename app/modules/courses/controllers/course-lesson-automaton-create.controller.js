@@ -5,9 +5,9 @@
         .module('courses')
         .controller('CourseLessonAutomatonCreateCtrl', CourseLessonAutomatonCreateCtrl);
 
-    CourseLessonAutomatonCreateCtrl.$inject = ['$rootScope', '$state', 'Courses', 'I18nManager', '$stateParams','$uibModal'];
+    CourseLessonAutomatonCreateCtrl.$inject = ['$rootScope', '$state', 'Courses', 'I18nManager', '$stateParams', '$uibModal'];
 
-    function CourseLessonAutomatonCreateCtrl($rootScope, $state, Courses, I18nManager, $stateParams,$uibModal) {
+    function CourseLessonAutomatonCreateCtrl($rootScope, $state, Courses, I18nManager, $stateParams, $uibModal) {
         var vm = this;
 
         vm.data = {};
@@ -27,7 +27,7 @@
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
-            if(vm.course.secondaryLanguages.length > 0)
+            if (vm.course.secondaryLanguages.length > 0)
                 vm.selectedLanguage = vm.course.secondaryLanguages[0];
             vm.section = _.find(vm.course.sections, {urlName: vm.sectionUrl});
         });
@@ -37,19 +37,23 @@
                 vm.editMode = true;
                 vm.data = response.data;
             });
-        }else{
+        } else {
             vm.data = {};
             vm.data.type = "automaton";
-            vm.data.data ={};
+            vm.data.data = {};
             vm.data.data.questionType = 1;
             vm.data.isPublished = false;
+            vm.data.data.automaton = {};
+            vm.data.data.automaton.type = "DFA";
+            vm.data.data.automaton.automatonData ={};
+            vm.data.data.automaton.automatonData.hiddenAcceptedInputRaw = "";
+            vm.data.data.automaton.automatonData.hiddenRejectedInputRaw = "";
 
 
         }
 
-        vm.automatonType = "DFA";
 
-        vm.openDFA = function(){
+        vm.openDFA = function () {
             $uibModal.open({
                 openedClass: 'full-modal',
                 ariaLabelledBy: 'modal-title',
@@ -60,7 +64,25 @@
                     data: function () {
                         return {
                             parentController: vm,
-                            automaton:vm.data.data.automaton
+                            automaton: vm.data.data.automaton
+                        };
+                    }
+                }
+            });
+        };
+
+        vm.openNFA = function () {
+            $uibModal.open({
+                openedClass: 'full-modal',
+                ariaLabelledBy: 'modal-title',
+                templateUrl: '/modules/courses/tools/tcs/automata/nfa/views/nfaModal.html',
+                controller: 'NFAModalCtrl',
+                controllerAs: 'vm',
+                resolve: {
+                    data: function () {
+                        return {
+                            parentController: vm,
+                            automaton: vm.data.data.automaton
                         };
                     }
                 }
@@ -91,6 +113,7 @@
                 lessonId: vm.lessonId,
                 payload: vm.data
             };
+            console.log(data);
             Courses.updateLesson(data, function () {
                 $state.go('frontend.courses.display.lesson', {courseUrl: vm.courseUrl, lessonId: vm.lessonId});
 

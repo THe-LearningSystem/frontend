@@ -1,7 +1,7 @@
 <div class="lesys-selection">
-                <span class="lesys-select" ng-repeat="language in vm.course.secondaryLanguages"
-                      ng-class="{'selected':language===vm.selectedLanguage}"
-                      ng-click="vm.selectedLanguage = language">
-                    {{'core.languages.'+language |translate}}
-                </span>
+    <span class="lesys-select cursor-pointer" ng-repeat="language in vm.course.secondaryLanguages"
+          ng-class="{'selected':language===vm.selectedLanguage}"
+          ng-click="vm.selectedLanguage = language">
+          {{'core.languages.'+language |translate}}
+     </span>
 </div>
