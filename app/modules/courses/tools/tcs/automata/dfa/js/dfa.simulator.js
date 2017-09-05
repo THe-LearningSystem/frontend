@@ -441,6 +441,7 @@ autoSim.Simulator = function ($scope) {
      * @param possible
      */
     self.animateSequence = function (sequence, possible) {
+        console.log(sequence,possible);
         self.reset();
         self.isInPlay = false;
         self.isInAnimation = true;
@@ -450,7 +451,7 @@ autoSim.Simulator = function ($scope) {
             transition.fromState.isAnimated = true;
             if (key === sequence.length - 1) {
                 transition.toState.isAnimatedFinal = true;
-                transition.toState.isPossible = true;
+                transition.toState.isPossible = possible;
             }
         });
         //TODO: Save Values and after load them
