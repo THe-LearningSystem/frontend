@@ -12,9 +12,13 @@ autoSim.Transitions = function ($scope) {
     self.selfTransitionTextLength = 10;
 
 
-    self.selectTransitionGroup = function(transitionGroup){
-        self.selected = transitionGroup;
-        $scope.core.updateListener();
+    self.selectTransitionGroup = function (transitionGroup) {
+        if (self.selected !== null && transitionGroup !== null) {
+            self.selected = transitionGroup;
+            $scope.core.updateListener();
+        } else {
+            self.selected = transitionGroup;
+        }
     };
 
     /**
@@ -190,7 +194,7 @@ autoSim.Transitions = function ($scope) {
      * @param transition      The id from the transition
      */
     self.remove = function (transition) {
-        console.log(self,self.inputSymbolAlphabet);
+        console.log(self, self.inputSymbolAlphabet);
         self.inputSymbolAlphabet.removeIfNotUsedFromOthers(transition);
         var transitionGroup = self.getTransitionGroup(transition.fromState, transition.toState);
         if (transitionGroup.length === 1) {

@@ -27,10 +27,12 @@
         .module('courses.tcs')
         .controller('DFACtrl', DFACtrl);
 
-    DFACtrl.$inject = ['$scope'];
+    DFACtrl.$inject = ['$scope','$uibModal'];
 
-    function DFACtrl($scope) {
+    function DFACtrl($scope,$uibModal) {
         _initAutomaton($scope);
+        $scope.$uibModal = $uibModal;
+        $scope.testAgent.testDFA();
     }
 
     angular

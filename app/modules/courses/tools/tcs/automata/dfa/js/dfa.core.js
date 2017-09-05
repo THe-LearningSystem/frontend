@@ -42,7 +42,25 @@ autoSim.DFACore = function ($scope) {
                 }
             }
         });
-    }
+    };
+
+    self.openInfoModal = function(title,description){
+        $scope.$uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            templateUrl: '/modules/courses/tools/tcs/automata/directives/modal/info/info.modal.view.html',
+            controller: 'InfoModalCtrl',
+            controllerAs: 'vm',
+            resolve: {
+                data: function () {
+                    return {
+                        title:title,
+                        description:description,
+                        parentScope:$scope
+                    };
+                }
+            }
+        });
+    };
 
     /**
      * This function calls the method updateFunction of every element in $scope.core.updateListeners

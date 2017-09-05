@@ -6,8 +6,8 @@ module.exports = {
             'app/lib/angular-ui-notification/dist/angular-ui-notification.css',
             'app/lib/angular-ui-select/dist/select.css',
             'app/lib/font-awesome/css/font-awesome.css',
-            'app/lib/json-formatter/dist/json-formatter.css'
-
+            'app/lib/json-formatter/dist/json-formatter.css',
+            'app/lib/angularjs-slider/dist/rzslider.css'
 
         ],
         js: [
@@ -35,7 +35,8 @@ module.exports = {
             'app/lib/extend.js/bin/extend.min.js',
             'app/lib/jquery-slimscroll/jquery.slimscroll.js',
             'app/lib/json-formatter/dist/json-formatter.js',
-            'app/lib/ngQuill/src/ng-quill.js'
+            'app/lib/ngQuill/src/ng-quill.js',
+            'app/lib/angularjs-slider/dist/rzslider.js'
         ],
         tests: []
     },

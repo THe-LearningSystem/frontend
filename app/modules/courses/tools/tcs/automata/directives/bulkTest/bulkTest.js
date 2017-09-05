@@ -5,6 +5,7 @@ angular.module('courses.tcs').directive("bulkTest", function () {
         scope: {},
         link: function (scope, elm, attrs) {
 
+            scope.simulator = scope.$parent.simulator;
             scope.parent = scope.$parent;
             scope.$parent.core.updateListeners.push(scope);
             scope.acceptedInput = [];

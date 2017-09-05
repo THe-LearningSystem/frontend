@@ -26,7 +26,8 @@ var config = {
         'bootstrap.angular.validation',
         'yaru22.angular-timeago',
         'jsonFormatter',
-        'ngQuill'
+        'ngQuill',
+        'rzModule'
     ]
 };
 
