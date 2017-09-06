@@ -46,10 +46,11 @@
 
             <div ng-repeat="value in rejectedInput" class="bulk-result"
                  ng-class="!value.possible? 'pass-class' : 'fail-class'">
-                {{value.word}}--{{value.possible === false ? "PASS" : "FAIL"}}
+                {{value.word}}
+                <!--&#45;&#45;{{value.possible === false ? "PASS" : "FAIL"}}-->
                 <div class="pull-right animate-sequence-wrapper" ng-repeat="sequence in value.sequences">
                     <button class="btn btn-default btn-bulk-animate-sequence"
-                            ng-click="simulator.animateSequence(sequence,value.possible)">
+                            ng-click="simulator.animateSequence(sequence,!value.possible)">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
                     <button class="btn btn-default btn-bulk-animate-sequence"

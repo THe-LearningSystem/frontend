@@ -1,14 +1,14 @@
 <div class="top-question" ng-if="isLesson">
     <div class="lesson-question-box">
         <div class="layout-item">
-            <div class="title ng-binding">
+            <div class="title automaton-question-title ng-binding">
                 {{getLocalized(lessonData.name)}}
             </div>
             <div class="content">
                 <div class="alert alert-info ng-hide" ng-show="!vm.lesson.isPublished">
                     {{'core.courses.contentNotPublished' | translate}}
                 </div>
-                <div ng-bind-html="getLocalized(vm.lesson.data.question)">
+                <div class="automaton-question" ng-bind-html="getLocalized(vm.lesson.data.question)">
                 </div>
                 <hr>
                 <div class="alert alert-warning ng-hide" ng-show="lessonTester.failedLesson">

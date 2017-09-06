@@ -31,9 +31,6 @@ autoSim.Simulator = function ($scope) {
             transition: null,
             nextState: null
         };
-        self.currentState = null;
-        self.transition = null;
-        self.nextState = null;
         self.isInAnimation = false;
         self.sequences = {};
         self.processedWord = "";

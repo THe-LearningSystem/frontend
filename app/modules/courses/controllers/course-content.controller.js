@@ -5,40 +5,79 @@
         .module('courses')
         .controller('CourseContentCtrl', CourseContentCtrl);
 
-    CourseContentCtrl.$inject = ['$scope', '$uibModal', 'Courses', 'I18nManager', 'Authentication'];
+    CourseContentCtrl.$inject = ['$scope', '$uibModal', 'Courses', 'I18nManager', 'Authentication','$state'];
 
-    function CourseContentCtrl($scope, $uibModal, Courses, i18nManager, Authentication) {
+    function CourseContentCtrl($scope, $uibModal, Courses, i18nManager, Authentication,$state) {
         var vm = this;
         vm.courseUrl = $scope.$parent.vm.courseUrl;
         vm.parentVm = $scope.$parent.vm;
 
+       var _checkUserEnrolledData = function(){
+            Courses.enrolledCourses({
+                userId: Authentication.user._id,
+                courseId: vm.course._id
+            }).then(function (response) {
+                vm.userEnrolledCourseData = response.data;
+                _.forEach(vm.course.sections, function (section) {
+                    _.forEach(section.lessons, function (lesson) {
+                        lesson.userPassed = null;
+                        _.forEach(vm.userEnrolledCourseData.lessonData, function (userLessonData) {
+                            if (userLessonData._id === lesson._id) {
+                                lesson.userPassed = userLessonData.passed;
+                            }
+                        });
+                    })
+                })
+            });
+        };
+
+
         $scope.$parent.$watch('vm.course', function (data) {
             if (data) {
                 vm.course = data;
-                Courses.enrolledCourses({
-                    userId: Authentication.user._id,
-                    courseId: vm.course._id
-                }).then(function (response) {
-                    vm.userEnrolledCourseData = response.data;
-                    _.forEach(vm.course.sections, function (section) {
-                        _.forEach(section.lessons, function (lesson) {
-                            lesson.userPassed = null;
-                            _.forEach(vm.userEnrolledCourseData.lessonData,function(userLessonData){
-                                if(userLessonData._id === lesson._id){
-                                    lesson.userPassed = userLessonData.passed;
-                                }
-                            });
-                        })
-                    })
-                });
-
+                console.log(vm.course);
+                _checkUserEnrolledData();
             }
         });
+
+
+        vm.mySpliceSection = function (index) {
+            vm.course.sections.splice(index, 1);
+            var data = {
+                courseId: vm.course._id,
+                payload: vm.course
+            };
+            Courses.updateCourse(data, function () {
+                Courses.courseDisplay(vm.course._id).then(function(response){
+                    vm.course = response.data;
+                    _checkUserEnrolledData();
+                })
+            });
+            return true;
+
+        };
+
+        vm.mySplice = function (section, index) {
+            section.lessons.splice(index, 1);
+            var data = {
+                courseId: vm.course._id,
+                payload: vm.course
+            };
+            Courses.updateCourse(data, function () {
+                Courses.courseDisplay(vm.course._id).then(function(response){
+                    vm.course = response.data;
+                    _checkUserEnrolledData();
+                })
+            });
+            return true;
+        };
+
+
 
         vm.editMode = true;
         vm.languages = i18nManager.config.languages;
         vm.selected = i18nManager.config.default;
-        vm.reorderSection = false;
+        vm.allowReorder = false;
 
         vm.isEditEnabled = function (string) {
 
@@ -76,46 +115,6 @@
                     }
                 }
             });
-        };
-
-
-        function reorderArray(array, index, otherIndex) {
-            var tmpArray = [];
-            if (otherIndex < index) {
-                var tmp = index;
-                index = otherIndex;
-                otherIndex = tmp;
-            }
-            var i;
-            //copy everything until index
-            for (i = 0; i < index; i++) {
-                tmpArray.push(array[i]);
-            }
-            //copy otherindex and index
-            tmpArray.push(array[otherIndex]);
-            tmpArray.push(array[index]);
-
-            //copy everything after index except otherindex
-            for (i = index + 1; i < array.length; i++) {
-                if (i !== otherIndex) {
-                    tmpArray.push(array[i]);
-                }
-            }
-
-            return tmpArray;
-        }
-
-        vm.onDropComplete = function (index, obj) {
-            // vm.course.sections = reorderArray(vm.course.sections, index, vm.course.sections.indexOf(obj));
-            // var data = {
-            //     courseId: vm.course._id,
-            //     payload: vm.course
-            // };
-            // Courses.updateCourse(data, function (response) {
-            //     Courses.courseDisplay(vm.courseUrl).then(function (response) {
-            //         vm.course = response.data;
-            //     });
-            // });
         };
 
         vm.changePassedLessonToUser = function (lesson) {

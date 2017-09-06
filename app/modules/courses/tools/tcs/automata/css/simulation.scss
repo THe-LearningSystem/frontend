@@ -42,10 +42,18 @@
 .transition-line-selection {
   stroke-width: 7;
   stroke: $selectedColor;
-  opacity: 0.6;
+  opacity: 1;
   visibility: hidden;
 }
-
+.transition-line-selection-arrow {
+  stroke-width: 4.8;
+  stroke: $selectedColor;
+  opacity: 1;
+  visibility: hidden;
+}
+.transition.active .transition-line-selection-arrow {
+  visibility: visible;
+}
 .transition.active .transition-line-selection {
   visibility: visible;
 }
@@ -109,11 +117,11 @@ Slider
  */
 
 .my-custom-slider.rzslider .rz-bar {
-  background: $orangeColor;
+  background: $blueColor;
   height: 2px;
 }
 .my-custom-slider.rzslider .rz-selection {
-  background: $orangeColor;
+  background: $blueColor;
 }
 
 .my-custom-slider.rzslider .rz-pointer {
@@ -149,5 +157,5 @@ Slider
 }
 
 .my-custom-slider.rzslider .rz-tick.rz-selected {
-  background: $orangeColor;
+  background: $blueColor;
 }
