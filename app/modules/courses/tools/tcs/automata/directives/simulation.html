@@ -21,8 +21,8 @@
         <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true" ng-if="automatonData.type !== 'TM'" ng-show="!simulator.isInputWordAccepted(automatonData.inputWord)"></span>
         <span class="input-group-addon icon-check green" aria-hidden="true" ng-if="automatonData.type !== 'TM'" ng-show="simulator.isInputWordAccepted(automatonData.inputWord)"></span>
 
-        <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true" ng-if="automatonData.type === 'TM'" ng-show="!simulator.isInputWordAccepted(simulator.virtualTape.tapeArray)"></span>
-        <span class="input-group-addon icon-check green" aria-hidden="true" ng-if="automatonData.type === 'TM'" ng-show="simulator.isInputWordAccepted(simulator.virtualTape.tapeArray)"></span>
+        <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true" ng-if="automatonData.type === 'TM'" ng-show="!simulator.isInputWordAccepted(automatonData.inputWord)"></span>
+        <span class="input-group-addon icon-check green" aria-hidden="true" ng-if="automatonData.type === 'TM'" ng-show="simulator.isInputWordAccepted(automatonData.inputWord)"></span>
     </div>
     <div ng-if="automatonData.type !== 'TM'" ng-show="simulator.isInAnimation && simulator.animatedSequence == null">
         <div class="sim-char-item" ng-repeat="value in automatonData.inputWord track by $index" ng-class="{'pass-class':$index < simulator.currentPosition,'unknown-class':$index==simulator.currentPosition &&
@@ -37,7 +37,7 @@
         <!-- <p>
             <input class="checkbox-item" type="checkbox" ng-model="simulator.tape.pointerStartLeft"> {{"SIM.TAPESTARTLEFT" | translate}}
         </p> -->
-        <label class="box1">Tapestart:</label>
+        <label class="box1">Startposition:</label>
         <div class="box2">
             links
         </div>

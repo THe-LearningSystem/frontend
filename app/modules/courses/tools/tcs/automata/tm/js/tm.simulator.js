@@ -40,7 +40,7 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
     self.prepareSimulation = function() {
         self.reset();
         self.isInAnimation = true;
-        self.sequences = self.getSequences(self.virtualTape.tapeArray);
+        self.sequences = self.getSequences($scope.automatonData.inputWord);
     };
 
     /**
@@ -76,8 +76,8 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
                     if (self.tape.pointer > 24 && !self.modalIsDisplayed) {
                         $uibModal.open({
                             ariaLabelledBy: 'modal-title',
-                            templateUrl: '/app/components/automata/tm/views/tm.modal.html',
-                            controller: 'ModalCtrl',
+                            templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.modal.html',
+                            controller: 'TmModalCtrl',
                             controllerAs: 'vm'
                         });
                         self.modalIsDisplayed = true;
@@ -85,8 +85,8 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
                     if (self.tape.pointer < 0 && !self.modalIsDisplayed) {
                       $uibModal.open ({
                         ariaLabelledBy: 'modal-title',
-                        templateUrl: '/app/components/automata/tm/views/tm.modal.html',
-                        controller: 'ModalCtrl',
+                        templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.modal.html',
+                        controller: 'TmModalCtrl',
                         controllerAs: 'vm'
                       });
                       self.modalIsDisplayed = true;
@@ -170,7 +170,7 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
      */
     self.isInputWordAccepted = function(tapeWord) {
         self.virtualTape.tapeSetup($scope.automatonData.inputWord);
-        return self.getSequences(self.virtualTape.tapeArray).possible;
+        return self.getSequences(tapeWord).possible;
     };
 
     /**
@@ -182,7 +182,7 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
         // self.virtualTape.refillTape();
         self.virtualTape.fillTape(tapeWord);
         // console.log(self.virtualTape);
-        tapeWord = self.virtualTape.tapeArray;
+        var tape = self.virtualTape.tapeArray;
         var tmpObj = {};
         if (self.tape.isEmpty() && $scope.states.final.isFinalState($scope.states.startState)) {
             tmpObj.possible = true;
@@ -210,7 +210,7 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
         //     tmpObj.sequences = self.getFarthestPossibleSequences(tapeWord);
         //     return tmpObj;
         // }
-        var tmpObj2 = self.getAllPossibleSequences(tapeWord);
+        var tmpObj2 = self.getAllPossibleSequences(tape, tapeWord);
         // console.log(tmpObj2);
         if (tmpObj2.completeSequence === true && tmpObj2.possibleSequences.length !== 0) {
           tmpObj.possible = true;
@@ -249,16 +249,18 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
      * @param inputWord
      * @returns {Array}
      */
-    self.getAllPossibleSequences = function(tape) {
+    self.getAllPossibleSequences = function(tape, tapeWord) {
         var tmpObj = {};
         tmpObj.completeSequence = false;
         tmpObj.possibleSequences = [];
         var state = $scope.states.startState;
         var possibleSequence = [];
 
-        self.virtualTape.pointer = self.virtualTape.searchPointerStart();
+        self.virtualTape.pointer = self.virtualTape.searchPointerStart(tapeWord);
+        console.log(self.virtualTape.pointer);
         while (self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]).length !== 0) {
             var possibleTransition = self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]);
+
             if (possibleTransition[0][0].inputSymbol === tape[self.virtualTape.pointer]) {
                 self.virtualTape.writeOnTape(possibleTransition[0][0].outputSymbol);
                 if (possibleTransition[0][0].movingDirection === "→") {
