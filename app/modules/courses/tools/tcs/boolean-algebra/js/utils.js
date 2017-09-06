@@ -1,8 +1,7 @@
 /**
  * Created by Sergej on 06.09.2016.
  */
-
-DomUtils = {
+var DomUtils = {
     getCaretPosition: function (editableDiv) {
         var caretPos = 0,
             sel, range;

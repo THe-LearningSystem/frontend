@@ -5,15 +5,12 @@
         .module('courses')
         .controller('CoursesCtrl', CoursesCtrl);
 
-    CoursesCtrl.$inject = ['$scope', 'Courses'];
+    CoursesCtrl.$inject = ['Courses'];
 
-    function CoursesCtrl($scope, Courses) {
+    function CoursesCtrl(Courses) {
         var vm = this;
-
         Courses.courseList().then(function (response) {
-            console.log(response);
             vm.courses = response.data;
-        console.log(vm.courses);
         })
     }
 }());

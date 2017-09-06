@@ -38,13 +38,13 @@ angular.module('courses.tcs').directive("containerItem", function () {
             titlename: '@',
             extendableRaw: '='
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/container-item.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/container-item.html'
     };
 
 });
 angular.module('courses.tcs').directive("simulation", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/simulation.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/simulation.html'
     };
 });
 angular.module('courses.tcs').directive("simulationSettings", function () {
@@ -80,7 +80,7 @@ angular.module('courses.tcs').directive("simulationSettings", function () {
                 }
             };
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/simulation-settings.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/simulation-settings.html'
     };
 });
 angular.module('courses.tcs').directive("topMenu", function () {
@@ -89,12 +89,12 @@ angular.module('courses.tcs').directive("topMenu", function () {
             //TODO:LATER
             // scope.portation.addInputListener();
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/top-menu.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/top-menu.html'
     };
 });
 angular.module('courses.tcs').directive("develop", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/develop.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/develop.html'
     };
 });
 angular.module('courses.tcs').directive("automatonName", function () {
@@ -112,47 +112,47 @@ angular.module('courses.tcs').directive("automatonName", function () {
 
 
         },
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/automaton-name.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/automaton-name.html'
     };
 });
 
 angular.module('courses.tcs').directive("ownTable", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/own-table.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/own-table.html'
     };
 });
 angular.module('courses.tcs').directive("stateTransitionFunction", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/state-transition-function.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/state-transition-function.html'
     };
 });
 angular.module('courses.tcs').directive("stateMenu", function () {
     return {
         scope:false,
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/state-menu.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/state-menu.html'
     };
 });
 angular.module('courses.tcs').directive("transitionMenu", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/transition-menu.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/transition-menu.html'
     };
 });
 angular.module('courses.tcs').directive("settings", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/settings.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/settings.html'
     };
 });
 
 
 angular.module('courses.tcs').directive("contextMenu", function () {
     return {
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/context-menu.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/context-menu.html'
     };
 });
 angular.module('courses.tcs').directive("zoomTooltip", function () {
     return {
         replace: true,
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/zoom-tooltip.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/zoom-tooltip.html'
     };
 });
 
@@ -162,7 +162,7 @@ angular.module('courses.tcs').directive("unsavedChanges", function () {
         restrict: 'E',
         replace: true,
         transclude: true,
-        templateUrl: 'modules/courses/tools/tcs//automata/directives/unsaved-changes.html'
+        templateUrl: 'modules/courses/tools/tcs/automata/directives/unsaved-changes.html'
 
     };
 

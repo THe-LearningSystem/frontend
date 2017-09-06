@@ -3,7 +3,7 @@
 
     <menubutton icon="wrench" action="testAgent.testDFA()" ng-show="automatonData.type== 'DFA'">
     </menubutton>
-    <menubutton icon="wrench" action="testAgent.testNFA()" ng-show="automatonData.type== 'DFA'">
+    <menubutton icon="wrench" action="testAgent.testNFA()" ng-show="automatonData.type== 'NFA'">
     </menubutton>
     <menubutton icon="wrench" action="testAgent.testPDA()" ng-show="automatonData.type== 'PDA'">
     </menubutton>
@@ -24,5 +24,5 @@
     </p>
 
     <json-formatter json="table" open="0"></json-formatter>
-    <json-formatter json="simulator.stack" open="0"></json-formatter>
+    <json-formatter json="simulator" open="0"></json-formatter>
 </container-item>

@@ -48,7 +48,6 @@
             };
             ACL.changeRoleRight(dataObject,function(){
                 data.state = !data.state;
-                console.log(data);
             });
 
         };

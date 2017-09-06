@@ -10,6 +10,7 @@ autoSim.States = function ($scope) {
     self.startState = null;
     self.final = new autoSim.FinalStates($scope);
     self.selected = null;
+    self.isInCreation = false;
     self.statesId = 0;
     self.radius = 25;
 
@@ -52,7 +53,7 @@ autoSim.States = function ($scope) {
     self.hasTransitions = function (state) {
         var tmp = false;
         _.forEach($scope.transitions, function (transition) {
-            if (transition.fromState === state || transition.toState === state) {
+            if (transition.fromState.id === state.id || transition.toState.id === state.id) {
                 tmp = true;
                 return true;
             }
@@ -110,7 +111,7 @@ autoSim.States = function ($scope) {
             stateNameNumber++;
         }
         var obj = self.create((self.statePrefix + stateNameNumber), x, y);
-        if (self.startState == null) {
+        if (self.startState === null) {
             self.changeStartState(obj);
         }
         return obj;
@@ -169,13 +170,26 @@ autoSim.States = function ($scope) {
         console.log(state);
         console.log(self.hasTransitions(state));
         if (self.hasTransitions(state)) {
-            $scope.showModalWithMessage('STATE_MENU.DELETE_MODAL_TITLE', 'STATE_MENU.DELETE_MODAL_DESC', 'states.forcedRemoveWithId(' + state.id + ')', 'MODAL_BUTTON.DELETE');
+            $scope.$uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                templateUrl: '/modules/courses/tools/tcs/automata/directives/modal/deleteState/deleteState.modal.view.html',
+                controller: 'DeleteStateModalCtrl',
+                controllerAs: 'vm',
+                resolve: {
+                    data: function () {
+                        return {
+                            state:state,
+                            parentScope:$scope
+                        };
+                    }
+                }
+            });
             return false;
         } else {
             if (self.final.isFinalState(state)) {
                 self.final.remove(state);
             }
-            if ($scope.automatonData.startState == state) {
+            if (self.startState === state) {
                 self.removeStartState();
             }
             self.splice(self.getIndexByStateId(state.id), 1);
@@ -199,11 +213,12 @@ autoSim.States = function ($scope) {
     self.forcedRemove = function (state) {
         for (var i = 0; i < $scope.transitions.length; i++) {
             var tmpTransition = $scope.transitions[i];
-            if (tmpTransition.fromState === state || tmpTransition.toState === state) {
+            if (tmpTransition.fromState.id === state.id || tmpTransition.toState.id === state.id) {
                 $scope.transitions.remove(tmpTransition);
                 i--;
             }
         }
+        console.log($scope.transitions);
         self.remove(state);
     };
 

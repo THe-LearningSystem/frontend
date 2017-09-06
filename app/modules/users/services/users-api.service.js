@@ -29,8 +29,8 @@
             return crud.post('/auth/signup', credentials,callback);
         }
 
-        function signin(credentials,callback) {
-            return crud.post('/auth/signin', credentials,callback);
+        function signin(credentials,callback,notify) {
+            return crud.post('/auth/signin', credentials,callback,notify);
         }
 
         function isUsernameUnique(username) {

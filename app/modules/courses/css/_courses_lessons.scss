@@ -2,7 +2,6 @@
 Lessons
  */
 .lesson {
-  font-size: 18px;
   border-bottom: 1px solid #f4f4f4;
 }
 
@@ -37,6 +36,30 @@ Lessons
   background-color:$brand-success;
 }
 
+.panel-selected{
+  background-color:$brand-success;
+}
+
 .answer-edit{
   height:270px;
+}
+
+
+.quiz-answer{
+  padding:5px 25px 0 40px;
+
+}
+.quiz-right-answer{
+  background-color:$greenColor;
+  border: 1px solid darken($greenColor,15%);
+}
+
+
+.lesson-question-box{
+  margin:15px 15px 0 15px;
+
+}
+
+.lesson-question-box .content {
+  padding:10px;
 }

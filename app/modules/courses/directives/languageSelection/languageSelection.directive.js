@@ -7,7 +7,7 @@
 
     function courseLanguageSelection() {
         return {
-            scope: false,
+            scope:false,
             templateUrl: 'modules/courses/directives/languageSelection/languageSelection.template.html'
         };
     }

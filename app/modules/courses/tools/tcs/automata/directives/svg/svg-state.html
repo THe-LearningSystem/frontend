@@ -3,7 +3,10 @@
    'animated-currentstate-svg':state === simulator.animated.currentState,
    'animated-nextstate-svg':state === simulator.animated.nextState,
    'animated-accepted-svg':state === simulator.animated.currentState&& simulator.status == 'accepted',
-   'animated-not-accepted-svg':state === simulator.animated.currentState&& simulator.status == 'notAccepted'}">
+   'animated-not-accepted-svg':state === simulator.animated.currentState&& simulator.status == 'notAccepted'
+   ,'animated-currentstate-svg':state.isAnimated,
+   'animated-accepted-svg':state.isAnimatedFinal && state.isPossible,
+   'animated-not-accepted-svg':state.isAnimatedFinal && !state.isPossible}">
     <line class="transition-line start-line" x1="0" y1="-75" x2="0" y2="-29"
           marker-end="url(#marker-end-arrow)"
           ng-show="states.startState === state && !states.final.isFinalState(state)"></line>

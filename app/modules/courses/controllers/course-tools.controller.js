@@ -5,20 +5,18 @@
         .module('courses')
         .controller('ToolsCtrl', ToolsCtrl);
 
-    ToolsCtrl.$inject = ['$uibModal','$scope', '$state', 'Courses', '$stateParams', 'Authentication'];
+    ToolsCtrl.$inject = ['$uibModal', '$scope', '$stateParams'];
 
-    function ToolsCtrl($uibModal,$scope, $state, Courses, $stateParams, Authentication) {
+    function ToolsCtrl($uibModal, $scope, $stateParams) {
         var vm = this;
         vm.courseUrl = $stateParams.courseUrl;
         vm.parentVm = $scope.$parent.vm;
-        console.log(vm.parentVm);
 
-        $scope.$parent.$watch('vm.course',function(data){
-            if(data){
+        $scope.$parent.$watch('vm.course', function (data) {
+            if (data) {
                 vm.course = data;
             }
         });
-
 
         vm.createTool = function () {
             $uibModal.open({
@@ -36,7 +34,6 @@
             });
         };
 
-
         vm.updateTool = function (tool) {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
@@ -53,6 +50,5 @@
                 }
             });
         }
-
     }
 }());

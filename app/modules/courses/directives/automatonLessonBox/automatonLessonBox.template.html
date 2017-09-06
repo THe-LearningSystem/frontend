@@ -1,0 +1,41 @@
+<div class="top-question" ng-if="isLesson">
+    <div class="lesson-question-box">
+        <div class="layout-item">
+            <div class="title ng-binding">
+                {{getLocalized(lessonData.name)}}
+            </div>
+            <div class="content">
+                <div class="alert alert-info ng-hide" ng-show="!vm.lesson.isPublished">
+                    {{'core.courses.contentNotPublished' | translate}}
+                </div>
+                <div ng-bind-html="getLocalized(vm.lesson.data.question)">
+                </div>
+                <hr>
+                <div class="alert alert-warning ng-hide" ng-show="lessonTester.failedLesson">
+                    {{'core.courses.lessonFailedWithErrors' | translate}}
+                    <p ng-show="vm.lesson.data.data.questionType === 1">
+                        <span ng-repeat="acceptedInput in lessonTester.acceptedInput">
+                            <span ng-if="!acceptedInput.possible">{{acceptedInput.word}}{{$last ? ' ' : ', '}}</span>
+                        </span>
+                        <span ng-repeat="rejectedInput in lessonTester.rejectedInput">
+                            <span ng-if="!rejectedInput.possible">{{rejectedInput.word}}{{$last ? ' ' : ', '}}</span>
+                        </span>
+                    </p>
+                </div>
+                <button class="btn btn-default"
+                        ng-click="lessonTester.checkLessonAndGoToNextLesson()">
+                    {{'core.courses.finishLesson' | translate}}
+                </button>
+                <button class="btn btn-warning"
+                        ng-click="lessonTester.goToNextLesson()"
+                        ng-if="lessonTester.failedLesson">
+                    {{'core.courses.goToNextLesson' | translate}}
+                </button>
+                <button class="btn btn-default"
+                        ui-sref="frontend.courses.lessons.update.automaton({courseUrl:vm.courseUrl, lessonId:vm.lessonId})">
+                    {{'core.general.edit' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

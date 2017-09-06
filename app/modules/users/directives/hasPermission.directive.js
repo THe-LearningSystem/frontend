@@ -14,7 +14,8 @@
 
         return {
             link: function (scope, element, attrs) {
-                var hasPermission =Authentication.hasRight(attrs.hasPermission);
+                var array = attrs.hasPermission.split(';');
+                var hasPermission =Authentication.hasRight(array);
                 //TODO: or better even remove that element from the DOM?
                 if(hasPermission){
                     element[0].style.display = 'block';

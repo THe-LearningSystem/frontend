@@ -4,7 +4,7 @@
  * @param toState
  * @constructor
  */
-autoSim.TransitionGroupTM = function(fromState, toState) {
+autoSim.TransitionGroupTM = function (fromState, toState) {
     var self = this;
     autoSim.TransitionGroup.apply(this, arguments);
 
@@ -13,7 +13,7 @@ autoSim.TransitionGroupTM = function(fromState, toState) {
      * @param id
      * @param inputSymbol
      */
-    self.create = function(id, inputSymbol, outputSymbol, movingDirection) {
+    self.create = function (id, inputSymbol, outputSymbol, movingDirection) {
         return self[self.push(new autoSim.TransitionObjectTM(id, self.fromState, self.toState, inputSymbol, outputSymbol, movingDirection)) - 1];
     };
 };
@@ -29,7 +29,7 @@ autoSim.TransitionGroupTM.prototype = Array.prototype;
  * @param movingDirection
  * @constructor
  */
-autoSim.TransitionObjectTM = function(id, fromState, toState, inputSymbol, outputSymbol, movingDirection) {
+autoSim.TransitionObjectTM = function (id, fromState, toState, inputSymbol, outputSymbol, movingDirection) {
     var self = this;
     self.id = id;
     self.fromState = fromState;
@@ -44,15 +44,15 @@ autoSim.TransitionObjectTM = function(id, fromState, toState, inputSymbol, outpu
  * @param $scope
  * @constructor
  */
-autoSim.TransitionAlphabet = function($scope) {
+autoSim.TransitionAlphabet = function ($scope) {
     var self = this;
 
     /**
      * Adds the newInputSymbol to the input alphabet if the char does not already exist
      * @param newInputSymbol
      */
-    self.addIfNotExists = function(newInputSymbol) {
-        if (!_.some(self, function(savedInputSymbol) {
+    self.addIfNotExists = function (newInputSymbol) {
+        if (!_.some(self, function (savedInputSymbol) {
                 return savedInputSymbol === newInputSymbol;
             })) {
             self.push(newInputSymbol);
@@ -66,12 +66,12 @@ autoSim.TransitionAlphabet = function($scope) {
      * @param  transition
      * @returns {boolean} true if it was removed false if not removed
      */
-    self.removeIfNotUsedFromOthers = function(transition) {
+    self.removeIfNotUsedFromOthers = function (transition) {
         for (var i = 0; i < $scope.transitions.length; i++) {
             var notFound = true;
             var notFound2 = true;
-            _.forEach($scope.transitions, function(transitionGroup) {
-                _.forEach(transitionGroup, function(tmpTransition) {
+            _.forEach($scope.transitions, function (transitionGroup) {
+                _.forEach(transitionGroup, function (tmpTransition) {
                     if (tmpTransition.inputSymbol === transition.inputSymbol && tmpTransition.id !== transition.id) {
                         notFound = false;
                     }
@@ -88,10 +88,10 @@ autoSim.TransitionAlphabet = function($scope) {
      * exports the transitionInputAlphabet
      * @returns {object}
      */
-    self.export = function() {
+    self.export = function () {
         var exportData = {};
         exportData.array = [];
-        _.forEach(self, function(inputSymbol) {
+        _.forEach(self, function (inputSymbol) {
             exportData.array.push(inputSymbol);
         });
         return exportData;
@@ -101,9 +101,9 @@ autoSim.TransitionAlphabet = function($scope) {
      * Imports the data
      * @param importData
      */
-    self.import = function(importData) {
+    self.import = function (importData) {
         self.clear();
-        _.forEach(importData.array, function(inputSymbol) {
+        _.forEach(importData.array, function (inputSymbol) {
             self.addIfNotExists(inputSymbol);
         });
     };
@@ -111,8 +111,8 @@ autoSim.TransitionAlphabet = function($scope) {
     /**
      * Clears the InputAlphabet
      */
-    self.clear = function() {
-        _.forEach(self, function() {
+    self.clear = function () {
+        _.forEach(self, function () {
             self.pop();
         });
     };
@@ -124,7 +124,7 @@ autoSim.TransitionAlphabet.prototype = Array.prototype;
  * @param $scope
  * @constructor
  */
-autoSim.TransitionInputAlphabetTM = function($scope) {
+autoSim.TransitionInputAlphabetTM = function ($scope) {
     var self = this;
     $scope.core.updateListeners.push(self);
 
@@ -132,9 +132,9 @@ autoSim.TransitionInputAlphabetTM = function($scope) {
      * Adds the newInputSymbol to the input alphabet if the char does not already exist
      * @param newInputWord
      */
-    self.addIfNotExists = function(newInputWord) {
+    self.addIfNotExists = function (newInputWord) {
         for (var i = 0; i < newInputWord.length; i++) {
-            if (!_.some(self, function(savedInputSymbol) {
+            if (!_.some(self, function (savedInputSymbol) {
                     return savedInputSymbol === newInputWord[i];
                 })) {
                 self.push(newInputWord[i]);
@@ -147,7 +147,7 @@ autoSim.TransitionInputAlphabetTM = function($scope) {
      * Removes a character from the inputSymbolAlphabet if the character is not used in the inputWord
      * @param  inputWord
      */
-    self.removeIfNotUsed = function(inputWord) {
+    self.removeIfNotUsed = function (inputWord) {
         for (var i = 0; i < $scope.transitions.inputSymbolAlphabet.length; i++) {
             tmpObj = false;
             for (var j = 0; j < inputWord.length; j++) {
@@ -165,10 +165,10 @@ autoSim.TransitionInputAlphabetTM = function($scope) {
      * exports the transitionInputAlphabet
      * @returns {object}
      */
-    self.export = function() {
+    self.export = function () {
         var exportData = {};
         exportData.array = [];
-        _.forEach(self, function(inputWordSymbol) {
+        _.forEach(self, function (inputWordSymbol) {
             exportData.array.push(inputWordSymbol);
         });
         return exportData;
@@ -178,9 +178,9 @@ autoSim.TransitionInputAlphabetTM = function($scope) {
      * Imports the data of the inputSymbolAlphabet
      * @param importData
      */
-    self.import = function(importData) {
+    self.import = function (importData) {
         self.clear();
-        _.forEach(importData.array, function(inputWordSymbol) {
+        _.forEach(importData.array, function (inputWordSymbol) {
             self.addIfNotExists(inputWordSymbol);
         });
     };
@@ -188,13 +188,13 @@ autoSim.TransitionInputAlphabetTM = function($scope) {
     /**
      * Clears the InputAlphabet
      */
-    self.clear = function() {
-        _.forEach(self, function() {
+    self.clear = function () {
+        _.forEach(self, function () {
             self.pop();
         });
     };
 
-    self.updateFunction = function() {
+    self.updateFunction = function () {
         //prepare alphabet
         self.addIfNotExists($scope.automatonData.inputWord);
         self.removeIfNotUsed($scope.automatonData.inputWord);
@@ -204,7 +204,7 @@ autoSim.TransitionInputAlphabetTM = function($scope) {
      * Watcher schießt zweimal. Warum?
      * TODO: Fixen!
      */
-    $scope.$watch('automatonData.inputWord', function(newValue, oldValue) {
+    $scope.$watch('automatonData.inputWord', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             self.updateFunction();
         }
@@ -218,7 +218,7 @@ autoSim.TransitionInputAlphabetTM.prototype = Array.prototype;
  * @param $scope
  * @constructor
  */
-autoSim.TransitionTapeAlphabet = function($scope) {
+autoSim.TransitionTapeAlphabet = function ($scope) {
     var self = this;
     self.blankSymbol = "☐";
     self.push(self.blankSymbol);
@@ -230,11 +230,11 @@ autoSim.TransitionTapeAlphabet = function($scope) {
      * Adds the newTapeSymbol to the tapeAlphabet if the char does not already exist
      * @param newTapeSymbol
      */
-    self.addIfNotExists = function(newTapeSymbol) {
+    self.addIfNotExists = function (newTapeSymbol) {
         //console.log(newTapeSymbol);
         if (newTapeSymbol !== 'undefined' && newTapeSymbol !== null) {
             for (var i = 0; i < newTapeSymbol.length; i++) {
-                if (!_.some(self, function(savedTapeSymbol) {
+                if (!_.some(self, function (savedTapeSymbol) {
                         //          console.log(savedTapeSymbol === newTapeSymbol[i]);
                         return savedTapeSymbol === newTapeSymbol[i];
                     })) {
@@ -250,14 +250,14 @@ autoSim.TransitionTapeAlphabet = function($scope) {
      * @param  transition
      * @returns {boolean} true if it was removed false if not removed
      */
-    self.removeIfNotUsedFromOthers = function(transition) {
+    self.removeIfNotUsedFromOthers = function (transition) {
         //search if an other transition use the same readFromStack
         var i;
         var notFound = true;
         var j;
         var notFound2 = true;
-        _.forEach($scope.transitions, function(transitionGroup) {
-            _.forEach(transitionGroup, function(tmpTransition) {
+        _.forEach($scope.transitions, function (transitionGroup) {
+            _.forEach(transitionGroup, function (tmpTransition) {
                 if (tmpTransition.outputSymbol === transition.outputSymbol && tmpTransition.id !== transition.id) {
                     notFound2 = false;
                     return false;
@@ -267,8 +267,8 @@ autoSim.TransitionTapeAlphabet = function($scope) {
                 }
             });
         });
-        _.forEach($scope.transitions, function(transitionGroup) {
-            _.forEach(transitionGroup, function(tmpTransition) {
+        _.forEach($scope.transitions, function (transitionGroup) {
+            _.forEach(transitionGroup, function (tmpTransition) {
                 if (tmpTransition.inputSymbol === transition.inputSymbol && tmpTransition.id !== transition.id) {
                     notFound = false;
                     return false;
@@ -291,11 +291,11 @@ autoSim.TransitionTapeAlphabet = function($scope) {
      * @returns {boolean} true if it was removed
      * @returns {boolean} false if not removed
      */
-    self.removeIfNotUsed = function(char) {
+    self.removeIfNotUsed = function (char) {
         for (var i = 1; i < self.length; i++) {
-            found = false;
-            found2 = false;
-            found3 = false;
+            var found = false;
+            var found2 = false;
+            var found3 = false;
             //Search in transitionAlphabet for char
             for (var j = 0; j < $scope.transitions.transitionAlphabet.length; j++) {
                 if ($scope.transitions.transitionAlphabet[j] === self[i]) {
@@ -309,8 +309,8 @@ autoSim.TransitionTapeAlphabet = function($scope) {
                 }
             }
             //Search in transitions and outputSymbols for inputCharacter
-            _.forEach($scope.transitions, function(transitionGroup) {
-                _.forEach(transitionGroup, function(tmpTransition) {
+            _.forEach($scope.transitions, function (transitionGroup) {
+                _.forEach(transitionGroup, function (tmpTransition) {
                     if (tmpTransition.outputSymbol === self[i]) {
                         found3 = true;
                     }
@@ -326,10 +326,10 @@ autoSim.TransitionTapeAlphabet = function($scope) {
      * exports the transitionInputAlphabet
      * @returns {object}
      */
-    self.export = function() {
+    self.export = function () {
         var exportData = {};
         exportData.array = [];
-        _.forEach(self, function(tapeSymbol) {
+        _.forEach(self, function (tapeSymbol) {
             exportData.array.push(tapeSymbol);
         });
         return exportData;
@@ -339,9 +339,9 @@ autoSim.TransitionTapeAlphabet = function($scope) {
      * Imports the data
      * @param importData
      */
-    self.import = function(importData) {
+    self.import = function (importData) {
         self.clear();
-        _.forEach(importData.array, function(tapeSymbol) {
+        _.forEach(importData.array, function (tapeSymbol) {
             self.addIfNotExists(tapeSymbol);
         });
     };
@@ -349,13 +349,13 @@ autoSim.TransitionTapeAlphabet = function($scope) {
     /**
      * Clears the InputAlphabet
      */
-    self.clear = function() {
-        _.forEach(self, function() {
+    self.clear = function () {
+        _.forEach(self, function () {
             self.pop();
         });
     };
 
-    self.updateFunction = function() {
+    self.updateFunction = function () {
         //prepare alphabet
         self.addIfNotExists($scope.automatonData.inputWord);
         self.removeIfNotUsed($scope.automatonData.inputWord);
@@ -365,7 +365,7 @@ autoSim.TransitionTapeAlphabet = function($scope) {
      * Watcher schießt zweimal. Warum?
      * TODO: Fixen!
      */
-    $scope.$watch('automatonData.inputWord', function(newValue, oldValue) {
+    $scope.$watch('automatonData.inputWord', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             self.updateFunction();
         }
@@ -374,7 +374,7 @@ autoSim.TransitionTapeAlphabet = function($scope) {
 autoSim.TransitionTapeAlphabet.prototype = Array.prototype;
 
 
-autoSim.TMTape = function($scope) {
+autoSim.TMTape = function ($scope) {
     var self = this;
     self.blankSymbol = "☐";
     self.tapeSize = 25;
@@ -430,7 +430,7 @@ autoSim.TMTape = function($scope) {
         self.setPointer(inputWord);
     };
 
-    self.refillTape = function() {
+    self.refillTape = function () {
         var n = 0;
         while (n < self.tapeSize) {
             self.tapeArray[n] = "☐";
@@ -438,33 +438,33 @@ autoSim.TMTape = function($scope) {
         }
     };
 
-    self.tapeSetup = function(inputWord) {
+    self.tapeSetup = function (inputWord) {
         self.refillTape();
         self.fillTape(inputWord);
-    }
+    };
 
-    self.writeOnTape = function(outputSymbol) {
+    self.writeOnTape = function (outputSymbol) {
         self.tapeArray[self.pointer] = outputSymbol;
     };
 
-    self.pointerGoLeft = function() {
+    self.pointerGoLeft = function () {
         self.pointer--;
     };
 
-    self.pointerGoRight = function() {
+    self.pointerGoRight = function () {
         self.pointer++;
     };
 
-    self.pointerStay = function() {
+    self.pointerStay = function () {
         self.pointer = self.pointer;
     };
 
-    self.updateFunction = function() {
+    self.updateFunction = function () {
         self.refillTape();
         self.fillTape($scope.automatonData.inputWord);
     };
 
-    self.isEmpty = function() {
+    self.isEmpty = function () {
         for (var i = 0; i < tapeArray.length; i++) {
             if (tapeArray[i] !== "☐") {
                 return false;
@@ -473,26 +473,26 @@ autoSim.TMTape = function($scope) {
             return true;
     }
 
-    self.emptyTape = function() {
+    self.emptyTape = function () {
         var emptyTape = [self.tapeSize];
         for (var i = 0; i < self.tapeSize; i++) {
             emptyTape[i] = "☐";
             i++;
         }
         return emptyTape;
-    }
+    };
 
     /**
      * Watcher schießt zweimal. Warum?
      * TODO: Fixen!
      */
-    $scope.$watch('automatonData.inputWord', function(newValue, oldValue) {
+    $scope.$watch('automatonData.inputWord', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             self.updateFunction();
         }
     });
 
-    $scope.$watch('simulator.tape.pointerStartRight', function(newValue, oldValue) {
+    $scope.$watch('simulator.tape.pointerStartRight', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             self.setPointer($scope.automatonData.inputWord);
             $scope.simulator.virtualTape.pointerStartRight = $scope.simulator.tape.pointerStartRight;

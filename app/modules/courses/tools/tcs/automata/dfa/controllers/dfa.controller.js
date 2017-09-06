@@ -1,13 +1,7 @@
 (function () {
     'use strict';
 
-    angular
-        .module('courses.tcs')
-        .controller('DFACtrl', DFACtrl);
-
-    DFACtrl.$inject = ['$scope','$state','Courses', '$stateParams','Authentication'];
-
-    function DFACtrl($scope,$state,Courses, $stateParams,Authentication) {
+    function _initAutomaton($scope) {
         window.rootScope = $scope;
         $scope.saveApply = scopeSaveApply;
         $scope.debug = true;
@@ -27,36 +21,70 @@
         $scope.table = new autoSim.Table($scope);
 
         $scope.testAgent = new TestData($scope);
+    }
+
+    angular
+        .module('courses.tcs')
+        .controller('DFACtrl', DFACtrl);
+
+    DFACtrl.$inject = ['$scope','$uibModal'];
+
+    function DFACtrl($scope,$uibModal) {
+        _initAutomaton($scope);
+        $scope.$uibModal = $uibModal;
+        $scope.testAgent.testDFA();
+    }
+
+    angular
+        .module('courses.tcs')
+        .controller('DFAModalCtrl', DFAModalCtrl);
+
+    DFAModalCtrl.$inject = ['$scope', '$state', 'Courses', '$stateParams', 'Authentication', '$uibModal', 'data', '$uibModalInstance'];
+
+    function DFAModalCtrl($scope, $state, Courses, $stateParams, Authentication, $uibModal, data, $uibModalInstance) {
+        _initAutomaton($scope);
+        $scope.$uibModal = $uibModal;
 
 
-        // $scope.testAgent.testDFA();
+        // if (data !== undefined) {
+        //     $scope.save = function () {
+        //         var exportData = {};
+        //         exportData.automatonData = _.cloneDeep($scope.automatonData);
+        //         exportData.states = $scope.states.export();
+        //         exportData.transitions = $scope.transitions.export();
+        //         exportData.type = $scope.automatonData.type.toLowerCase();
+        //         data.parentController.data.data.automaton = exportData;
+        //         $uibModalInstance.close();
+        //     };
+        //     if (!_.isEmpty(data.automaton)) {
+        //         var tmpObject = _.cloneDeep(data.automaton);
+        //         if (tmpObject.automatonData.type === $scope.automatonData.type) {
+        //             $scope.automatonData = tmpObject.automatonData;
+        //             $scope.states.import(tmpObject.states);
+        //             $scope.transitions.import(tmpObject.transitions);
+        //
+        //             //update all listeners
+        //             $scope.core.updateListener();
+        //         } else {
+        //             console.log("the automaton has not the same type. AutomatonType:" + $scope.type + ", uploaded automatonType:" + tmpObject.type);
+        //         }
+        //     }
+        // }
+    }
 
+    angular
+        .module('courses.tcs')
+        .controller('DFALessonCtrl', DFALessonCtrl);
 
-        if(false){
-            $scope.save = function(){
-                var exportData = {};
-                exportData.automatonData = _.cloneDeep($scope.automatonData);
-                exportData.states = $scope.states.export();
-                exportData.transitions = $scope.transitions.export();
-                exportData.type = $scope.automatonData.type.toLowerCase();
-                console.log(exportData);
-                data.parentController.data.data.automaton = exportData;
-                $uibModalInstance.close();
-            };
-            console.log(data.automaton);
-            if(!_.isEmpty(data.automaton)){
-                var tmpObject = _.cloneDeep(data.automaton);
-                if (tmpObject.automatonData.type === $scope.automatonData.type) {
-                    $scope.automatonData = tmpObject.automatonData;
-                    $scope.states.import(tmpObject.states);
-                    $scope.transitions.import(tmpObject.transitions);
+    DFALessonCtrl.$inject = ['$rootScope','$scope','Courses','CustomNotify','Authentication'];
 
-                    //update all listeners
-                    $scope.core.updateListener();
-                } else {
-                    console.log("the automaton has not the same type. AutomatonType:" + $scope.type + ", uploaded automatonType:" + tmpObject.type);
-                }
-            }
-        }
+    function DFALessonCtrl($rootScope,$scope, Courses,CustomNotify,Authentication) {
+        _initAutomaton($scope);
+        $scope.isLesson = true;
+        $scope.lessonTester = new autoSim.lessonTester($scope,$rootScope, Courses,CustomNotify,Authentication);
+
+        $scope.init = function (data, parentScope) {
+            prepareLesson(data,parentScope,$scope)
+        };
     }
 }());

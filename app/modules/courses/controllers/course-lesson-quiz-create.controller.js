@@ -39,6 +39,7 @@
             });
         } else {
             vm.data = {};
+            vm.data.isPublished = false;
             vm.data.data = {};
             vm.data.data.answers = [{}, {}];
             vm.data.type = "quiz";
@@ -51,23 +52,14 @@
             }
         });
 
-        vm.froalaOptions = {
-            toolbarButtons: ['bold', 'italic', 'underline', 'insertHR', '|', 'undo', 'redo'],
-            // toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline','|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-            height: 200,
-            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.general.question')+' ...'
-        };
-
-        vm.froalaOptionsSmall = {
-            toolbarButtons: ['bold', 'italic', 'underline', 'insertHR', '|', 'undo', 'redo'],
-            // toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline','|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
-            height: 120,
-            placeholderText: $rootScope.getDeepValue(I18nManager.data, 'core.courses.answer')+' ...'
-        };
-
         vm.addAnswer = function () {
             if (vm.data.data.answers.length < 4)
                 vm.data.data.answers.push({});
+        };
+
+        vm.removeAnswer = function () {
+            if (vm.data.data.answers.length > 2)
+                vm.data.data.answers.pop();
         };
 
 
@@ -83,8 +75,7 @@
                     sectionId: vm.section._id,
                     payload: vm.section
                 };
-                Courses.updateSection(sectionData, function (response) {
-                    console.log("updated section", response);
+                Courses.updateSection(sectionData, function () {
                     $state.go('frontend.courses.display.content', {courseUrl: vm.courseUrl});
                 })
             })
@@ -96,8 +87,7 @@
                 lessonId: vm.lessonId,
                 payload: vm.data
             };
-            Courses.updateLesson(data, function (response) {
-                console.log(response);
+            Courses.updateLesson(data, function () {
                 $state.go('frontend.courses.display.lesson', {courseUrl: vm.courseUrl, lessonId: vm.lessonId});
 
             });
@@ -115,10 +105,8 @@
                 sectionId: vm.section._id,
                 payload: vm.section
             };
-            Courses.updateSection(sectionData, function (response) {
-                console.log("updated section", response);
-                Courses.deleteLesson(data, function (response) {
-                    console.log("deleted lesson", response);
+            Courses.updateSection(sectionData, function () {
+                Courses.deleteLesson(data, function () {
                     $state.go('frontend.courses.display.content', {courseUrl: vm.courseUrl});
                 });
             });
