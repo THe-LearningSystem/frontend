@@ -17,7 +17,7 @@
         <hr style="margin:7px">
     </div>
     <div class="bulktest-result"
-         ng-show="acceptedInput.length != 0 ||rejectedInput.length != 0">
+         ng-show="acceptedInput.length != 0 || rejectedInput.length != 0">
        <hr style="margin:7px">
         <div ng-if="parent.automatonData.type !== 'TM'">
             <label>{{'core.general.accepted' | translate}}:</label>
@@ -81,4 +81,5 @@
                 </div>
             </div>
         </div>
+      </div>
 </container-item>

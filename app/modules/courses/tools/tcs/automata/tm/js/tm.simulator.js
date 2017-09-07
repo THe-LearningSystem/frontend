@@ -73,23 +73,17 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
                         //wenn aktiviert, dann wandert currentTapeItem gleichzeitig mit Pointer
                         // self.animateCurrentTapeItem();
                     }
-                    if (self.tape.pointer > 24 && !self.modalIsDisplayed) {
-                        $uibModal.open({
-                            ariaLabelledBy: 'modal-title',
-                            templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.modal.html',
-                            controller: 'TmModalCtrl',
-                            controllerAs: 'vm'
-                        });
-                        self.modalIsDisplayed = true;
+                    if (self.tape.pointer > 24) {
+                        self.animated.nextState = self.animated.transition.toState;
+                        self.status = 'notAccepted';
+                        self.pause();
+                        $scope.core.openInfoModal('as.tm.error', 'as.tm.outOfBounds');
                     }
                     if (self.tape.pointer < 0 && !self.modalIsDisplayed) {
-                      $uibModal.open ({
-                        ariaLabelledBy: 'modal-title',
-                        templateUrl: '/modules/courses/tools/tcs/automata/tm/views/tm.modal.html',
-                        controller: 'TmModalCtrl',
-                        controllerAs: 'vm'
-                      });
-                      self.modalIsDisplayed = true;
+                      self.animated.nextState = self.animated.transition.toState;
+                      self.status = 'notAccepted';
+                      self.pause();
+                      $scope.core.openInfoModal('as.tm.error', 'as.tm.outOfBounds');
                     }
                 } else if (self.animated.nextState === null) {
                     self.animateNextState();
@@ -257,7 +251,6 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
         var possibleSequence = [];
 
         self.virtualTape.pointer = self.virtualTape.searchPointerStart(tapeWord);
-        console.log(self.virtualTape.pointer);
         while (self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]).length !== 0) {
             var possibleTransition = self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]);
 
