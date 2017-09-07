@@ -15,7 +15,8 @@
             isUsernameUnique: isUsernameUnique,
             isEmailUnique: isEmailUnique,
             get:get,
-            update:update
+            update:update,
+            getLightUserList:getLightUserList
         };
 
         function get(userId){
@@ -39,6 +40,10 @@
 
         function isEmailUnique(email) {
             return crud.get('/users/email/' + email);
+        }
+
+        function getLightUserList() {
+            return crud.get('/users/short/');
         }
     }
 }());

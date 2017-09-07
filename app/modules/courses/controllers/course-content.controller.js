@@ -12,6 +12,11 @@
         vm.courseUrl = $scope.$parent.vm.courseUrl;
         vm.parentVm = $scope.$parent.vm;
 
+        vm.editMode = true;
+        vm.languages = i18nManager.config.languages;
+        vm.selected = i18nManager.config.default;
+        vm.allowReorder = false;
+
        var _checkUserEnrolledData = function(){
             Courses.enrolledCourses({
                 userId: Authentication.user._id,
@@ -70,18 +75,6 @@
                 })
             });
             return true;
-        };
-
-
-
-        vm.editMode = true;
-        vm.languages = i18nManager.config.languages;
-        vm.selected = i18nManager.config.default;
-        vm.allowReorder = false;
-
-        vm.isEditEnabled = function (string) {
-
-            return vm.parentVm.isAllowedToEdit(string) && vm.editMode;
         };
 
         vm.createSection = function () {

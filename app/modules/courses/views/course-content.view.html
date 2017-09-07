@@ -6,16 +6,15 @@
                 {{'core.courses.createSection' | translate}}
             </button>
             <button class="btn btn-default" ng-click="vm.allowReorder = !vm.allowReorder"
-                    ng-class="{'btn-danger':!vm.allowReorder,'btn-success':vm.allowReorder}">
-                <span ng-show="vm.allowReorder">{{'core.general.enable' | translate}}</span>
-                <span ng-show="!vm.allowReorder">{{'core.general.disable' | translate}}</span>
+                    ng-class="{'btn-danger':vm.allowReorder,'btn-success':!vm.allowReorder}">
+                <span ng-show="!vm.allowReorder">{{'core.general.enable' | translate}}</span>
+                <span ng-show="vm.allowReorder">{{'core.general.disable' | translate}}</span>
                 <span>Drag and Drop</span>
             </button>
         </div>
 
     </div>
 </div>
-
 <div class="simpleDemo">
     <ul class="col-md-12 ng-scope" dnd-list="vm.course.sections"
         dnd-allowed-types="['section']">
@@ -24,7 +23,7 @@
             dnd-draggable="section"
             dnd-moved="vm.mySpliceSection($index)"
             dnd-effect-allowed="move"
-            dnd-disable-if="vm.allowReorder"
+            dnd-disable-if="!vm.allowReorder || !vm.parentVm.isAllowedToEdit()"
             class="panel panel-default panel-section">
             <div class="pull-right section-edit cursor-pointer"
                  ng-click="vm.updateSection(section)"
@@ -52,7 +51,7 @@
                     dnd-type="'lesson'"
                     dnd-moved="vm.mySplice(section,$index)"
                     dnd-effect-allowed="move"
-                    dnd-disable-if="vm.allowReorder"
+                    dnd-disable-if="!vm.allowReorder || !vm.parentVm.isAllowedToEdit()"
                     class="lesson-wrapper clearfix"
                     ng-show="lesson.isPublished || vm.parentVm.isAllowedToEdit()">
                     <div class="lesson cursor-pointer"

@@ -135,7 +135,7 @@ var app = angular.module(config.name, config.vendorDependencies)
                         //if the user has not the right then redirect to not-authorized
                     } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
                         event.preventDefault();
-                        $state.go('not-authorized',{},{inherit:true});
+                        $state.go('not-authorized', {}, {inherit: true});
                     }
                     //check if the user has the right to edit the course
                     if (toState.needCourseRights) {
@@ -147,7 +147,7 @@ var app = angular.module(config.name, config.vendorDependencies)
                             if (Authentication.user._id === data.author || _.includes(data.moderators, Authentication.user._id)) {
                             } else {
                                 event.preventDefault();
-                                $state.go('not-authorized',{},{inherit:true});
+                                $state.go('not-authorized', {}, {inherit: true});
                             }
                         });
                     }
@@ -178,6 +178,12 @@ app.filter('translate', ['I18nManager', function (I18nManager) {
     return function (input) {
         return _deep_value(I18nManager.data, input);
     }
+}]);
+
+app.filter('to_trusted', ['$sce', function ($sce) {
+    return function (text) {
+        return $sce.trustAsHtml(text);
+    };
 }]);
 
 /**

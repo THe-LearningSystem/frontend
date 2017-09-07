@@ -24,7 +24,7 @@
                     <h2>{{vm.lesson.position}}. {{getLocalized(vm.lesson.name)}}</h2>
                 </div>
                 <passed-lesson></passed-lesson>
-                <div ng-bind-html="getLocalized(vm.lesson.data.content)">
+                <div class="content-container" ng-bind-html="getLocalized(vm.lesson.data.content) | to_trusted">
                 </div>
             </div>
             <div ng-if="vm.lesson.kind === 'quiz'">
@@ -45,6 +45,8 @@
                     </div>
                 </div>
             </div>
+            <hr>
+
             <div class="pull-right">
                 <button class="btn btn-default"
                         ng-click="vm.checkLessonAndGoToNextLesson()"
