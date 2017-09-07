@@ -14,23 +14,15 @@
   text-align: center;
   margin-bottom: 10px; }
 
-.sim-char-item {
-  width: 25px;
-  float: left;
-  padding: 3px;
-  font-size: 15px;
-  border: 1px solid #000000;
-  margin-right: 2px; }
-
 .animated-currenttapeitem-svg {
-  fill: #ff7b00; }
+  fill: $orangeColor; }
 
 .animated-acceptedtapeitem-svg {
-  fill: #00ff7b;
+  fill: $greenColor;
 }
 
 .animated-not-acceptedtapeitem-svg {
-  fill: #aa2200;
+  fill: $redColor;
 }
 
 /* The switch - the box around the slider */
@@ -52,7 +44,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2196F3;
+  background-color: $blueColor;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -70,11 +62,11 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: $blueColor;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px $blueColor;
 }
 
 input:checked + .slider:before {

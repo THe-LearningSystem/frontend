@@ -101,16 +101,18 @@
 }
 
 .sim-char-item {
-  width: 25px;
+  width: 33px;
   float: left;
-  padding: 3px;
+  padding: 2px 6px;
   font-size: 15px;
-  border: 1px solid #000000;
-  margin-right: 2px;
+  border: 1px solid $lightGreyColor;
+  margin-right: 5px;
+  margin-bottom:5px;
+  text-align:center;
 }
-
-
-
+.sim-char-item.unknown-class{
+  color:white;
+}
 
 /**
 Slider

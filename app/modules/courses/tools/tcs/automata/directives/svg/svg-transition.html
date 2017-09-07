@@ -33,16 +33,15 @@
           ng-attr-y="{{transitionGroup.svgConfig.textPosition.y}}">
         <tspan ng-repeat="transition in transitionGroup" transition-id="{{transition.id}}"
                style="font-family:'Roboto', sans-serif;">
-            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition,
-            'animated-transition-text':transition.isAnimated}"
+            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition || transition.isAnimated}"
                    ng-show="automatonData.type !== 'PDA' && automatonData.type !== 'NPDA' && automatonData.type !== 'TM'">
                 {{transition.inputSymbol}}
             </tspan>
-            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition}"
+            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition || transition.isAnimated}"
                    ng-show="automatonData.type === 'PDA' || automatonData.type === 'NPDA'">
                 {{transition.inputSymbol}},{{transition.readFromStack}};{{transition.writeToStack}}
             </tspan>
-            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition}"
+            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition || transition.isAnimated}"
                    ng-show="automatonData.type === 'TM'">
                 {{transition.inputSymbol}}; {{transition.outputSymbol}}, {{transition.movingDirection}}
             </tspan>
