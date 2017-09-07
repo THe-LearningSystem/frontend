@@ -6,7 +6,8 @@
                 <div class="col-sm-12">
                     <course-lesson-type-selection></course-lesson-type-selection>
                 </div>
-                <div class="col-sm-6">
+                <div ng-class="{'col-sm-6':vm.isInDualEditing && vm.isInSecondaryLanguagesEdit,
+                        'col-sm-12':!vm.isInDualEditing || !vm.isInSecondaryLanguagesEdit}">
                     <course-primary-language></course-primary-language>
                     <div class="form-group">
                         <label>{{'core.courses.lessonTitle' | translate}}</label>
@@ -20,7 +21,11 @@
                     </div>
 
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12" ng-show="!vm.isInDualEditing && vm.isInSecondaryLanguagesEdit">
+                    <hr>
+                </div>
+                <div ng-class="{'col-sm-6':vm.isInDualEditing,'col-sm-12':!vm.isInDualEditing}"
+                     ng-show="vm.isInSecondaryLanguagesEdit">
                     <course-language-selection></course-language-selection>
                     <div ng-repeat="language in vm.course.secondaryLanguages"
                          ng-show="vm.selectedLanguage === language">
@@ -55,7 +60,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="panel panel-default">
-                                    <div class="panel-body cursor-pointer"
+                                    <div class="panel-body cursor-pointer  panel-question-type"
                                          ng-class="{'panel-selected':vm.data.data.questionType === 1}"
                                          ng-click="vm.data.data.questionType = 1">
                                         <h4>Inputtest</h4>
@@ -67,7 +72,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="panel panel-default">
-                                    <div class="panel-body cursor-pointer"
+                                    <div class="panel-body cursor-pointer  panel-question-type""
                                          ng-class="{'panel-selected':vm.data.data.questionType === 2}"
                                          ng-click="vm.data.data.questionType = 2">
                                         <h4>Regulärer Ausdruck</h4>
@@ -121,6 +126,23 @@
                     <course-is-published></course-is-published>
                 </div>
                 <div class="col-sm-12">
+                    <hr>
+                    <div class="pull-left">
+                        <button class="btn btn-default" ng-click="vm.isInDualEditing = !vm.isInDualEditing"
+                                type="button"
+                                ng-show="vm.isInSecondaryLanguagesEdit">
+                            <span ng-show="!vm.isInDualEditing">{{'core.general.enable' | translate}}</span>
+                            <span ng-show="vm.isInDualEditing">{{'core.general.disable' | translate}}</span>
+                            <span>Dual-Edit</span>
+                        </button>
+                        <button class="btn btn-default"
+                                ng-click="vm.isInSecondaryLanguagesEdit = !vm.isInSecondaryLanguagesEdit"
+                                type="button">
+                            <span ng-show="!vm.isInSecondaryLanguagesEdit">{{'core.general.enable' | translate}}</span>
+                            <span ng-show="vm.isInSecondaryLanguagesEdit">{{'core.general.disable' | translate}}</span>
+                            <span>SecondaryLanguages-Edit</span>
+                        </button>
+                    </div>
                     <div class="pull-right">
                         <course-form-control-buttons></course-form-control-buttons>
                     </div>

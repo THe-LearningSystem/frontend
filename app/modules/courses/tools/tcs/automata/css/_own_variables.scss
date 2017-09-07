@@ -13,20 +13,21 @@ $layout-item-border-color: darken($panel-default-border,10%);
 //state Settings
 $stateColor: #CCC;
 $stateBorderWidth: 2;
-$stateBorderColor: #666;
+$stateBorderColor: $greyColor;
 $stateFontSize: 15px;
-$stateFontColor: #000;
+$stateFontColor: $greyColor;
+$stateFontStrokeWidth:1;
 //final state
 $finalStateColor: #FFF;
 $finalStateBorderColor: $stateBorderColor;
 $finalStateBorderWidth: 2;
 //Hover
 $stateHoverColor: #000;
-$stateColorHoverOpacity: 0.4;
+$stateColorHoverOpacity: 0.2;
 $selectForAddTransitionColor: #F00;
 //animated state for the simulation
-$animatedCurrentStateColor: #ff7b00;
-$animatedNextStateColor: #ff7b00;
+$animatedCurrentStateColor: #FF9E59;
+$animatedNextStateColor: #FF9E59;
 //Transition Settings
 $transitionColor: #000;
 $transitionFontSize: 15px;
@@ -36,10 +37,10 @@ $transitionHoverColor: #AAA;
 $gridLine: #B3AEAE;
 //animated transition
 $animatedTransitionWidth: 2.5;
-$animatedTransitionColor: #ff7b00;
-$animatedTransitionFontColor: #ff7b00;
+$animatedTransitionColor: $orangeColor;
+$animatedTransitionFontColor: $orangeColor;
 //animated accepted and not accepted color
-$animatedAcceptedColor: #00ff7b;
-$animatedNotAcceptedColor: #aa2200;
+$animatedAcceptedColor: $greenColor;
+$animatedNotAcceptedColor: $redColor;
 //selected
-$selectedColor: #00b7ff;
+$selectedColor: #21B1FF;

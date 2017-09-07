@@ -19,7 +19,8 @@
         vm.lessonId = $stateParams.lessonId;
         vm.course = null;
         vm.section = null;
-
+        vm.isInDualEditing = true;
+        vm.isInSecondaryLanguagesEdit = true;
 
         // vm.languages = I18nManager.config.languages;
         vm.currentStateName = $state.current.name;
@@ -51,7 +52,6 @@
 
 
         }
-
 
         vm.openDFA = function () {
             $uibModal.open({

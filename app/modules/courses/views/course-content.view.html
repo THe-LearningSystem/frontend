@@ -5,37 +5,55 @@
             <button class="btn btn-default" ng-click="vm.createSection()">
                 {{'core.courses.createSection' | translate}}
             </button>
-            <!--<button class="btn btn-default" ng-click="vm.sectionReorder = !vm.sectionReorder">-->
-            <!--allowReorder-->
-            <!--</button>-->
+            <button class="btn btn-default" ng-click="vm.allowReorder = !vm.allowReorder"
+                    ng-class="{'btn-danger':vm.allowReorder,'btn-success':!vm.allowReorder}">
+                <span ng-show="!vm.allowReorder">{{'core.general.enable' | translate}}</span>
+                <span ng-show="vm.allowReorder">{{'core.general.disable' | translate}}</span>
+                <span>Drag and Drop</span>
+            </button>
         </div>
 
     </div>
 </div>
-<div ng-show="true">
-    <div ng-repeat="section in vm.course.sections track by $index"
-         ng-show="section.isPublished || vm.parentVm.isAllowedToEdit()">
-        <div class="section-reorder" ng-show="false">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-        </div>
-        <div>
-            <div class="panel panel-default">
-                <div class="pull-right section-edit cursor-pointer"
-                     ng-click="vm.updateSection(section)"
-                     ng-show="vm.parentVm.isAllowedToEdit()">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
+<div class="simpleDemo">
+    <ul class="col-md-12 ng-scope" dnd-list="vm.course.sections"
+        dnd-allowed-types="['section']">
+        <li ng-repeat="section in vm.course.sections"
+            dnd-type="'section'"
+            dnd-draggable="section"
+            dnd-moved="vm.mySpliceSection($index)"
+            dnd-effect-allowed="move"
+            dnd-disable-if="!vm.allowReorder || !vm.parentVm.isAllowedToEdit()"
+            class="panel panel-default panel-section">
+            <div class="pull-right section-edit cursor-pointer"
+                 ng-click="vm.updateSection(section)"
+                 ng-show="vm.parentVm.isAllowedToEdit()">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </div>
+            <div class="section-info">
+                <h4>
+                    {{"core.courses.section" | translate}} {{$index+1}}: {{getLocalized(section.name)}}
+                </h4>
+                {{getLocalized(section.description)}}
+                <div class="alert alert-info margin-top"
+                     ng-show="!section.isPublished && vm.parentVm.isAllowedToEdit()">
+                    {{'core.courses.contentNotPublished' | translate}}
                 </div>
-                <div class="section-info">
-                    <h4>
-                        {{"core.courses.section" | translate}} {{$index+1}}: {{getLocalized(section.name)}}
-                    </h4>
-                    {{getLocalized(section.description)}}
-                    <div class="alert alert-info margin-top" ng-show="!section.isPublished && vm.parentVm.isAllowedToEdit()">
-                        {{'core.courses.contentNotPublished' | translate}}
-                    </div>
-                </div>
-                <div class="lesson-wrapper clearfix" ng-repeat="lesson in section.lessons track by $index"
-                     ng-show="lesson.isPublished || vm.parentVm.isAllowedToEdit()">
+            </div>
+            <ul dnd-list="section.lessons"
+                dnd-allowed-types="['lesson']">
+                <!-- The dnd-draggable directive makes an element draggable and will
+                     transfer the object that was assigned to it. If an element was
+                     dragged away, you have to remove it from the original list
+                     yourself using the dnd-moved attribute -->
+                <li ng-repeat="lesson in section.lessons"
+                    dnd-draggable="lesson"
+                    dnd-type="'lesson'"
+                    dnd-moved="vm.mySplice(section,$index)"
+                    dnd-effect-allowed="move"
+                    dnd-disable-if="!vm.allowReorder || !vm.parentVm.isAllowedToEdit()"
+                    class="lesson-wrapper clearfix"
+                    ng-show="lesson.isPublished || vm.parentVm.isAllowedToEdit()">
                     <div class="lesson cursor-pointer"
                          ui-sref="frontend.courses.display.lesson({courseUrl:vm.courseUrl,lessonId:lesson._id})">
                         <div class="lesson-name pull-left">
@@ -44,7 +62,7 @@
                         </div>
                         <div class="lesson-type pull-right cursor-pointer"
                              ui-sref="frontend.courses.lessons.update.content({
-                                courseUrl:vm.course.urlName, sectionUrl:section.urlName , lessonId:lesson._id})"
+courseUrl:vm.course.urlName, sectionUrl:section.urlName , lessonId:lesson._id})"
                              ng-click="$event.stopPropagation()"
                              ng-if="lesson.kind === 'content'"
                              ng-show="vm.parentVm.isAllowedToEdit()">
@@ -52,7 +70,7 @@
                         </div>
                         <div class="lesson-type pull-right cursor-pointer"
                              ui-sref="frontend.courses.lessons.update.quiz({
-                                courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
+courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
                              ng-click="$event.stopPropagation()"
                              ng-if="lesson.kind === 'quiz'"
                              ng-show="vm.parentVm.isAllowedToEdit()">
@@ -60,7 +78,7 @@
                         </div>
                         <div class="lesson-type pull-right cursor-pointer"
                              ui-sref="frontend.courses.lessons.update.automaton({
-                                courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
+courseUrl:vm.course.urlName,sectionUrl:section.urlName, lessonId:lesson._id})"
                              ng-click="$event.stopPropagation()"
                              ng-if="lesson.kind === 'automaton'"
                              ng-show="vm.parentVm.isAllowedToEdit()">
@@ -70,7 +88,7 @@
                             <div ng-class="{'checkbox-success': lesson.userPassed === true,'checkbox-danger':lesson.userPassed === false}"
                                  class="checkbox lesson-checkbox">
                                 <input type="checkbox"
-                                      ng-checked="lesson.userPassed === true || lesson.userPassed ===false" disabled>
+                                       ng-checked="lesson.userPassed === true || lesson.userPassed ===false" disabled>
                                 <!--ng-click="vm.changePassedLessonToUser(lesson); $event.stopPropagation();"-->
                                 <label></label>
                             </div>
@@ -82,9 +100,8 @@
                             <i class="fa fa-check-square-o" aria-hidden="true" ng-if="lesson.kind==='quiz'"></i>
                             <i class="fa fa-cogs" aria-hidden="true" ng-if="lesson.kind==='automaton'"></i>
                         </div>
-
                     </div>
-                </div>
+                </li>
                 <div class="lesson create-lesson cursor-pointer"
                      ui-sref="frontend.courses.lessons.create.content({courseUrl:vm.courseUrl,sectionUrl:section.urlName})"
                      ng-show="vm.parentVm.isAllowedToEdit()">
@@ -92,10 +109,7 @@
                         {{"core.courses.createLesson" | translate}}
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="alert alert-warning" role="alert" ng-if="vm.courses.sections.length ===0">
-    {{"core.courses.noSectionFound" | translate}}
+            </ul>
+        </li>
+    </ul>
 </div>
