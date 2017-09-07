@@ -37,11 +37,11 @@
                    ng-show="automatonData.type !== 'PDA' && automatonData.type !== 'NPDA' && automatonData.type !== 'TM'">
                 {{transition.inputSymbol}}
             </tspan>
-            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition}"
+            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition || transition.isAnimated}"
                    ng-show="automatonData.type === 'PDA' || automatonData.type === 'NPDA'">
                 {{transition.inputSymbol}},{{transition.readFromStack}};{{transition.writeToStack}}
             </tspan>
-            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition}"
+            <tspan ng-class="{'animated-transition-text':transition === simulator.animated.transition || transition.isAnimated}"
                    ng-show="automatonData.type === 'TM'">
                 {{transition.inputSymbol}}; {{transition.outputSymbol}}, {{transition.movingDirection}}
             </tspan>
