@@ -1,8 +1,7 @@
 <g class="transition" from-state-id="{{transitionGroup.fromState.id}}" to-state-id="{{transitionGroup.toState.id}}"
    ng-class="{active:transitionGroup === transitions.selected,
-   'animated-transition':transitionGroup.fromState.id === simulator.animated.transition.fromState.id &&
-   transitionGroup.toState.id === simulator.animated.transition.toState.id,
-   'animated-transition':transitionGroup.isAnimated}">
+   'animated-transition':(transitionGroup.fromState.id === simulator.animated.transition.fromState.id &&
+   transitionGroup.toState.id === simulator.animated.transition.toState.id)||transitionGroup.isAnimated}">
     <!--Arrows:Start-->
     <path class="transition-line-selection" fill="none"
           ng-attr-d="{{transitionGroup.svgConfig.path}}">
