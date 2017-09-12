@@ -93,7 +93,7 @@ function TestData($scope) {
 
     self.testTM4 = function () {
         $scope.core.resetAutomaton();
-        $scope.automatonData.inputWord = "abc";
+        $scope.automatonData.inputWord = "";
 
         //TestData4 (erhöht eine Dualzahl um 1; muss von rechts starten)
         var state0 = $scope.states.createWithPresets(100, 200);

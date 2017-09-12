@@ -45,7 +45,7 @@
 
             <div ng-show="automatonData.type ==='TM'">
                 <div class="input-group" ng-class="transition.inputSymbol.error === true ? 'has-error':''">
-                    <span class="input-group-addon">{{"as.trans_menu.name" | translate}}</span>
+                    <span class="input-group-addon">{{"as.core.transitionReadedChar" | translate}}</span>
                     <input id="transition-read-symbol-{{transition.id}}" class="form-control" type="text" ng-model="transition.inputSymbol.value" maxlength="1"
                            ng-attr-show-focus="true" ng-disabled="simulator.isInPlay">
                 </div>

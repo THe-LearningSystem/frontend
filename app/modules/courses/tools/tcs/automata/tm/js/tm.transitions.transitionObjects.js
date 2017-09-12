@@ -222,7 +222,6 @@ autoSim.TransitionTapeAlphabet = function ($scope) {
     var self = this;
     self.blankSymbol = "☐";
     self.push(self.blankSymbol);
-    console.log(self);
     // self.push("w");
     // self.push("x");
     // console.log(self);

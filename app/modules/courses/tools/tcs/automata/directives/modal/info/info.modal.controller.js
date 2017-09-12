@@ -12,6 +12,11 @@
         vm.data = data;
         vm.cancel = function () {
             $uibModalInstance.dismiss("");
+
+            if (data.parentScope.automatonData.type === 'TM') {
+              data.parentScope.simulator.stop();
+              data.parentScope.simulator.playOrPause();
+            }
         };
     }
 }());

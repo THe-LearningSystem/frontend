@@ -81,6 +81,3 @@ autoSim.DFACore = function ($scope) {
         $scope.saveApply();
     };
 };
-
-
-
