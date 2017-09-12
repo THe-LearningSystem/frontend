@@ -178,8 +178,8 @@ autoSim.States = function ($scope) {
                 resolve: {
                     data: function () {
                         return {
-                            state:state,
-                            parentScope:$scope
+                            state: state,
+                            parentScope: $scope
                         };
                     }
                 }
@@ -212,13 +212,16 @@ autoSim.States = function ($scope) {
      */
     self.forcedRemove = function (state) {
         for (var i = 0; i < $scope.transitions.length; i++) {
-            var tmpTransition = $scope.transitions[i];
-            if (tmpTransition.fromState.id === state.id || tmpTransition.toState.id === state.id) {
-                $scope.transitions.remove(tmpTransition);
-                i--;
+            var tmpTransitionGroup = $scope.transitions[i];
+            if (tmpTransitionGroup.fromState.id === state.id || tmpTransitionGroup.toState.id === state.id) {
+                _.forEach(tmpTransitionGroup,function(transition){
+                    $scope.transitions.inputSymbolAlphabet.removeIfNotUsedFromOthers(transition);
+                });
+                $scope.transitions.splice(i,1);
+                if (i !== 0)
+                    i--;
             }
         }
-        console.log($scope.transitions);
         self.remove(state);
     };
 
