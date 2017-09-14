@@ -3,6 +3,9 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
     var self = this;
     autoSim.Simulator.apply(this, arguments);
 
+    //if the simulation loops (start at the end again)
+    self.loopSimulation = false;
+
 
     self.tape = new autoSim.TMTape($scope);
     self.virtualTape = new autoSim.TMTape($scope);

@@ -14,8 +14,8 @@
             $uibModalInstance.dismiss("");
 
             if (data.parentScope.automatonData.type === 'TM') {
-              data.parentScope.simulator.stop();
-              data.parentScope.simulator.playOrPause();
+              data.parentScope.simulator.reset();
+              // data.parentScope.simulator.playOrPause();
             }
         };
     }
