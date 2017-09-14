@@ -54,7 +54,6 @@
                 $scope.statediagram.zoom = new autoSim.StateDiagramZoom($scope);
 
                 $scope.testAgent = new TestData($scope);
-                $scope.testAgent.testTM4();
     }
 
     angular
