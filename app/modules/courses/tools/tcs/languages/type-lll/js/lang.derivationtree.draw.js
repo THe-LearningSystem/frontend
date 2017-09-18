@@ -9,8 +9,8 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
      * Calculates the positions of all rule elements and stores them in the order object.
      */
     self.calculatePositionsAndFollower = function () {
-        var posX = 0;
-        var posY = 100;
+        var posX = $scope.langDerivationtree.grid.spaceBetweenSnappingPoint;
+        var posY = $scope.langDerivationtree.grid.spaceBetweenSnappingPoint;
         var animationGroup = 0;
         var steps = null;
 
@@ -18,34 +18,33 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
             steps = $scope.langWordChecker.foundCandidate.steps;
         }
 
-        if ($scope.langWordChecker.inputAccepted) {
-            var follower = -1;
+        var follower = -1;
 
-            _.forEach(steps, function (value) {
-                var rule = $scope.langProductionRules.getByRuleId(value);
-                posX += 100;
+        _.forEach(steps, function (value) {
+            var rule = $scope.langProductionRules.getByRuleId(value);
+            posX += $scope.langDerivationtree.grid.spaceBetweenSnappingPoint;
 
-                if (follower !== -1) {
+            if (follower !== -1) {
+                self.getById(follower).follower.push(self.orderId);
+            }
+            var test = new autoSim.LangDerivationtreeOrder(self.orderId++, rule.left, posX, posY, animationGroup);
+            follower = self.orderId;
+            follower -= 1;
+            self.push(test);
+            posY += $scope.langDerivationtree.grid.spaceBetweenSnappingPoint;
+            posX -= 50;
+
+            _.forEach(rule.right, function (char) {
+
+                if (char == angular.lowercase(char)) {
                     self.getById(follower).follower.push(self.orderId);
+                    var test = new autoSim.LangDerivationtreeOrder(self.orderId++, char, posX, posY, animationGroup);
+                    self.push(test);
                 }
-                var test = new autoSim.LangDerivationtreeOrder(self.orderId++, rule.left, posX, posY, animationGroup);
-                follower = self.orderId;
-                follower -= 1;
-                self.push(test);
-                posY += 100;
-
-                _.forEach(rule.right, function (char) {
-
-                    if (char == angular.lowercase(char)) {
-                        self.getById(follower).follower.push(self.orderId);
-                        var test = new autoSim.LangDerivationtreeOrder(self.orderId++, char, posX, posY, animationGroup);
-                        self.push(test);
-                    }
-                });
-                posY -= 100;
-                animationGroup++;
             });
-        }
+            posX += 50;
+            animationGroup++;
+        });
     };
 
     /**
@@ -55,15 +54,19 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
      */
     self.getAnimationGroup = function (groupId, next) {
         var value = 1;
-        
+
         if (!next) {
-            value = - 1;
+            value = -1;
         }
-        
+
         for (var i = 0; i < self.length; i++) {
+            
+            if (self[i + value] === undefined && i > 0) {
+                return - 1;
+            }
 
             if (self[i].animationGroup === groupId && self[i + value].animationGroup !== groupId) {
-                
+
                 return self[i + value].animationGroup;
             }
         }

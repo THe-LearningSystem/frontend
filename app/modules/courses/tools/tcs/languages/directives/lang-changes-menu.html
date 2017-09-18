@@ -1,4 +1,4 @@
-<container-item titlename="Bearbeiten" extendable-raw="true">
+<container-item titlename="languages.core.ruleEditing" extendable-raw="true">
     <form name="editAddNewMenu">
 
         <div class="input-group">
@@ -10,7 +10,7 @@
                 <input ng-disabled="langSimulator.isInPlay" class="form-control" id="production-input-right" maxlength="2" ng-model="langProductionRules.menuRight" ng-keypress="keypressCallback($event)">
 
                 <!-- Hover des Buttons fehlt -->
-                <span class="input-group-addon btn" ng-click="langProductionRules.change.addEpsilonToRightSide(null, false)">
+                <span id="epsilon-button" class="input-group-addon btn" ng-click="langProductionRules.change.addEpsilonToRightSide(null, false)">
                     <span>ε</span>
                 </span>
             </div>
@@ -18,17 +18,17 @@
 
         <p></p>
         <div class="alert alert-danger" ng-show="!langProductionRules.change.checkLeftForLetter(langProductionRules.menuLeft)">
-            Bitte nur non Terminal (Großbuchstabe) eingeben!
+            {{"languages.typeIII.errorLeftMsg" | translate}}
         </div>
 
         <p></p>
         <!--TODO: Checking of the right side only with terminal -->
         <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRightForLetter(langProductionRules.menuRight)">
-            Bitte nur ein Terminal (Kleinbuchstabe) oder dann ein non Terminal (Großbuchstabe) eingeben!
+            {{"languages.typeIII.errorRightMsg" | translate}}
         </div>
 
         <button class="btn" ng-disabled="!langProductionRules.change.noErrorsInInput(langProductionRules.menuLeft, langProductionRules.menuRight)" ng-click="langProductionRules.create(langProductionRules.menuLeft, langProductionRules.menuRight)">
-            Hinzufügen
+            {{"languages.core.addButton" | translate}}
         </button>
     </form>
     <p></p>
@@ -37,11 +37,11 @@
 
     <div class="input-group">
         <div class="input-group" ng-repeat="production in langProductionRules">
-            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, true)" ng-model="production.left" class="form-control" id="production-input-left" maxlength="1">
+            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, true)" ng-model="production.left" class="form-control" id="production-input-left" maxlength="1" ng-class="{'error-check-changes': production.id === langProductionRules.change.checkError(production.id, true)}">
 
             <span class="input-group-addon">&#11106;</span>
 
-            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, false)" ng-model="production.right" class="form-control" id="production-input-right" maxlength="2">
+            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, false)" ng-model="production.right" class="form-control" id="production-input-right" maxlength="2" ng-class="{'error-check-changes': production.id === langProductionRules.change.checkError(production.id, false)}">
 
             <!-- Hover des Buttons fehlt -->
             <span class="input-group-addon btn" ng-click="langProductionRules.change.addEpsilonToRightSide(production.id, true)">
@@ -57,17 +57,17 @@
 
     <p></p>
     <div class="alert alert-danger" ng-show="!langProductionRules.change.checkUpdateLeft">
-        Bitte nur non Terminal (Großbuchstabe) eingeben!
+        {{"languages.typeIII.errorLeftMsg" | translate}}
     </div>
 
     <p></p>
     <div class="alert alert-danger" ng-show="!langProductionRules.change.checkUpdateRight">
-        Bitte nur ein Terminal (Kleinbuchstabe) oder dann ein non Terminal (Großbuchstabe) eingeben!
+        {{"languages.typeIII.errorRightMsg" | translate}}
     </div>
 
     <p></p>
     <div class="input-group" ng-show="langProductionRules.change.showStartRuleDropdown">
-        <span class="input-group-addon">Startregel:</span>
+        <span class="input-group-addon">{{"languages.core.startRule" | translate}}</span>
         <div uib-dropdown on-toggle="toggled(open)">
             <button type="button" class="menu-button dropbutton" uib-dropdown-toggle>
                 {{langProductionRules.getStartRule().left}}

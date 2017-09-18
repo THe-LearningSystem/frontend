@@ -1,7 +1,9 @@
 autoSim.LangProductionRulesChange = function ($scope) {
     var self = this;
-    
+
     self.beginInput = false;
+
+    self.errors = [];
     self.checkUpdateLeft = true;
     self.checkUpdateRight = true;
     self.showStartRuleDropdown = false;
@@ -17,6 +19,7 @@ autoSim.LangProductionRulesChange = function ($scope) {
         } else {
             $scope.langProductionRules.menuRight = "ε";
         }
+
         $scope.langCore.langUpdateListener();
 
         /* Only for inserting the epsilon to a specific position.
@@ -61,7 +64,7 @@ autoSim.LangProductionRulesChange = function ($scope) {
 
         return false;
     };
-    
+
     /**
      * Updates the rule from the available rules.
      * @param {object} prod [[Description]]
@@ -70,23 +73,69 @@ autoSim.LangProductionRulesChange = function ($scope) {
 
         if (self.checkLeftForLetter(prod.left) && left) {
             self.checkUpdateLeft = true;
+            self.manageErrorData(prod.id, left, false);
 
         } else if (left) {
             self.checkUpdateLeft = false;
-        }  
-        
+            self.manageErrorData(prod.id, left, true);
+        }
+
         if (self.checkRightForLetter(prod.right) && !left) {
             self.checkUpdateRight = true;
+            self.manageErrorData(prod.id, left, false);
 
         } else if (!left) {
             self.checkUpdateRight = false;
+            self.manageErrorData(prod.id, left, true);
         }
 
-        if (self.checkUpdateLeft, self.checkUpdateRight) {
-            $scope.langCore.langUpdateListener();
-        }
+        $scope.langCore.langUpdateListener();
     };
-    
+
+    /**
+     * Manages the error array.
+     * @param {[[Type]]} id   [[Description]]
+     * @param {[[Type]]} left [[Description]]
+     * @param {[[Type]]} add  [[Description]]
+     */
+    self.manageErrorData = function (id, left, add) {
+        var newError = {
+            id: id,
+            left: left
+        };
+
+        if (add) {
+
+            if (!_.find(self.errors, newError)) {
+                self.errors.push(newError);
+            }
+
+        } else {
+
+            self.errors.splice(_.find(self.errors, newError), 1);
+        }
+
+        console.log(self.errors);
+    };
+
+    /**
+     * Checks the transmitted id for existance in the error array.
+     * @param   {[[Type]]} id   [[Description]]
+     * @param   {[[Type]]} left [[Description]]
+     * @returns {[[Type]]} [[Description]]
+     */
+    self.checkError = function (id, left) {
+        var check = _.find(self.errors, {
+            'id': id,
+            'left': left
+        });
+
+        if (check)
+            return check.id;
+        else
+            return -1;
+    };
+
     /**
      * Checks the left value of a production rule, for only letters.
      * @param   {[[Type]]} string [[Description]]
@@ -97,10 +146,10 @@ autoSim.LangProductionRulesChange = function ($scope) {
         if (string !== undefined) {
 
             return /^[A-Z]/.test(string);
-            
+
         } else {
             self.beginInput = true;
-            
+
             return true;
         }
     };
@@ -113,9 +162,9 @@ autoSim.LangProductionRulesChange = function ($scope) {
     self.checkRightForLetter = function (string) {
 
         if (string !== undefined) {
-            
+
             if (string === 'ε') {
-                
+
                 return true;
             }
 
@@ -134,15 +183,15 @@ autoSim.LangProductionRulesChange = function ($scope) {
             return true;
         }
     };
-    
+
     /**
      * For showing of the start rule dropdown.
      */
     self.checkStartRuleDropdown = function () {
-        
+
         if ($scope.langProductionRules.length > 0) {
             self.showStartRuleDropdown = true;
-            
+
         } else {
             self.showStartRuleDropdown = false;
         }

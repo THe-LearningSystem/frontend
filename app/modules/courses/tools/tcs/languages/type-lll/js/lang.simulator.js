@@ -18,8 +18,7 @@ autoSim.LangSimulator = function ($scope) {
     self.simulationDone = false;
     self.startReached = true;
     self.isFirstStep = true;
-
-    $scope.langCore.langUpdateListeners.push(self);
+    self.animationStarted = false;
 
     /**
      * Changes the icon and the state to play or pause.
@@ -89,6 +88,7 @@ autoSim.LangSimulator = function ($scope) {
         if (!self.isInAnimation) {
             self.prepareSimulation();
         }
+        self.checkAnimation();
         self.getDerivationSequenceStep(true);
         self.getDerivationTreeStep(true);
         self.getTransitionStep(true);
@@ -114,6 +114,7 @@ autoSim.LangSimulator = function ($scope) {
         if (!self.isInAnimation) {
             self.prepareSimulation();
         }
+        self.checkAnimation();
         self.getDerivationSequenceStep(false);
         self.getDerivationTreeStep(false);
         self.getTransitionStep(false);
@@ -128,11 +129,13 @@ autoSim.LangSimulator = function ($scope) {
     self.reset = function () {
         self.isInAnimation = false;
         self.isFirstStep = true;
+        self.animationStarted = false;
         self.simulationDone = false;
         self.startReached = true;
         self.animated = {
             currentDerivationSequence: null,
             currentDerivationTreeGroup: null,
+            currentDerivationTreeChar: null,
             currentTransition: null,
             currentProduction: null,
             currentTerminal: null
@@ -165,12 +168,34 @@ autoSim.LangSimulator = function ($scope) {
     };
 
     /**
+     * Updates all Tabs of the program and resets the simulation after changes of the input word.
+     */
+    self.updateInputWord = function () {
+        $scope.langCore.langUpdateListener();
+        self.reset();
+    };
+
+    /**
+     * Checks, if the animtion of the language has started.
+     */
+    self.checkAnimation = function () {
+
+        _.forEach(self.animated, function (value) {
+
+            if (value !== null) {
+                self.animationStarted = true;
+            }
+        });
+    };
+
+    /**
      * Gets the next derivationsequence and saves it in the animate object.
+     * @param {[[Type]]} next [[Description]]
      */
     self.getDerivationSequenceStep = function (next) {
         var derivationSequence = null;
 
-        if (self.isFirstStep) {
+        if (self.isFirstStep && !self.animationStarted) {
             derivationSequence = $scope.langDerivationSequence[0].sequence;
 
         } else {
@@ -185,26 +210,39 @@ autoSim.LangSimulator = function ($scope) {
 
     /**
      * Gets the next derivationtree group and saves it in the animate object.
+     * @param {[[Type]]} next [[Description]]
      */
     self.getDerivationTreeStep = function (next) {
         var derivationTree = null;
 
-        if (self.isFirstStep) {
+        if (self.isFirstStep && !self.animationStarted) {
             derivationTree = $scope.langDerivationtree.draw[0].animationGroup;
 
         } else {
             derivationTree = $scope.langDerivationtree.draw.getAnimationGroup(self.animated.currentDerivationTreeGroup, next);
         }
         self.animated.currentDerivationTreeGroup = derivationTree;
+        var nextNonTerminal = $scope.langDerivationtree.draw.getAnimationGroup(derivationTree, true);
+
+        _.forEach($scope.langDerivationtree.draw, function (value) {
+
+            if (nextNonTerminal === value.animationGroup) {
+
+                if (value.char === angular.uppercase(value.char)) {
+                    self.animated.currentDerivationTreeChar = value.char;
+                }
+            }
+        });
     };
 
     /**
      * Gets the next transition group and saves it in the animate object.
+     * @param {[[Type]]} next [[Description]]
      */
     self.getTransitionStep = function (next) {
         var transitionGroup = null;
 
-        if (self.isFirstStep) {
+        if (self.isFirstStep && !self.animationStarted) {
             transitionGroup = $scope.langTransitions[0].animationGroup;
 
         } else {
@@ -215,18 +253,19 @@ autoSim.LangSimulator = function ($scope) {
 
     /**
      * Gets the next non terminal and terminal and saves it in the animate object.
+     * @param {[[Type]]} next [[Description]]
      */
     self.animateGrammar = function (next) {
         var production = null;
 
-        if (self.isFirstStep) {
+        if (self.isFirstStep && !self.animationStarted) {
             self.productionIndex = 0;
 
         } else {
 
             if (next) {
                 self.productionIndex++;
-                
+
             } else {
                 self.productionIndex--;
             }
@@ -235,9 +274,4 @@ autoSim.LangSimulator = function ($scope) {
         self.animated.currentTerminal = $scope.langGrammar.getTerminalStep();
         self.animated.currentProduction = production;
     };
-
-    /**
-     * UpdateFunction for the simulator.
-     */
-    self.updateFunction = function () {};
 };

@@ -28,7 +28,7 @@
 
         //Creating the testData.
         $scope.testLangAgent = new TestLangData($scope);
-        //$scope.testLangAgent.testLANG();
+        $scope.testLangAgent.testLANG1();
 
     }
 }());

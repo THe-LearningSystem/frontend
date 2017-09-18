@@ -12,44 +12,10 @@ angular.module('courses.tcs').directive("langmenubutton", function () {
     };
 });
 
-angular.module('courses.tcs').directive("containeritem", function () {
-
-    return {
-        restrict: 'E',
-        replace: true,
-        transclude: true,
-        link: function (scope, elm, attrs) {
-            if (scope.extendableRaw === undefined || scope.extendableRaw !== false) {
-                scope.extendable = true;
-            } else {
-                scope.extendable = false;
-            }
-            scope.extended = true;
-
-            scope.toggle = function () {
-                if (scope.extendable)
-                    scope.extended = !scope.extended;
-            };
-        },
-        scope: {
-            titlename: '@',
-            extendableRaw: '='
-        },
-        templateUrl: 'modules/courses/tools/tcs/languages/directives/lang-container-item.html'
-    };
-
-});
-
 angular.module('courses.tcs').directive("langzoomtooltip", function () {
     return {
         replace: true,
         templateUrl: 'modules/courses/tools/tcs/languages/directives/lang-zoom-tooltip.html'
-    };
-});
-
-angular.module('courses.tcs').directive("langdevelop", function () {
-    return {
-        templateUrl: 'modules/courses/tools/tcs/languages/directives/lang-develop.html'
     };
 });
 
@@ -83,8 +49,6 @@ angular.module('courses.tcs').directive("languagename", function () {
                     document.getElementById("languageNameEdit").blur();
                 }
             };
-
-
         },
         templateUrl: 'modules/courses/tools/tcs/languages/directives/lang-languagename.html'
     };

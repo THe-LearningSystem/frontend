@@ -12,6 +12,7 @@ autoSim.LangWordChecker = function ($scope) {
      * @returns {[[Type]]} [[Description]]
      */
     self.searchInputWord = function () {
+
         var firstStep = true;
         var noSolution = false;
 
@@ -57,9 +58,6 @@ autoSim.LangWordChecker = function ($scope) {
 
             var tmpString = self.cloneString(nCheck.string);
 
-            if (current.right === "ε") {
-                //current.right = "";
-            }
             var string = _.replace(tmpString, current.left, current.right);
             var array = self.cloneArray(nCheck);
 
@@ -154,6 +152,7 @@ autoSim.LangWordChecker = function ($scope) {
     // Called by the listener in the core.
     self.updateFunction = function () {
         self.inputAccepted = false;
+        self.foundCandidate = undefined;
         self.counter = 0;
 
         while (self.pop() !== undefined) {}

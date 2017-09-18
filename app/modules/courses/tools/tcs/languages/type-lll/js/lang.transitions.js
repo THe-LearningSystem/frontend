@@ -2,7 +2,7 @@ autoSim.LangTransitions = function ($scope) {
     var self = this;
 
     self.transitionId = 0;
-    self.radius = 20;
+    self.radius = 15;
 
     $scope.langCore.langUpdateListeners.push(self);
 
@@ -35,7 +35,7 @@ autoSim.LangTransitions = function ($scope) {
         var transition = new autoSim.LangTransitionObject(id, from, to, self.calculatePath(from, to), animationGroup);
         self.push(transition);
     };
-    
+
     /**
      * Searches the transferred transition group, and returns the follower group of it.
      * @param   {[[Type]]} transitionGroup [[Description]]
@@ -43,15 +43,15 @@ autoSim.LangTransitions = function ($scope) {
      */
     self.getTransitionGroup = function (transitionGroup, next) {
         var value = 1;
-        
+
         if (!next) {
-            value = - 1;
+            value = -1;
         }
-        
+
         for (var i = 0; i < self.length; i++) {
 
             if (self[i].animationGroup === transitionGroup && self[i + value].animationGroup !== transitionGroup) {
-                
+
                 return self[i + value].animationGroup;
             }
         }
@@ -85,30 +85,35 @@ autoSim.LangTransitions = function ($scope) {
      * @returns {[[Type]]} [[Description]]
      */
     self.calculatePath = function (from, to) {
-        var obj = {};
+        var obj2 = {};
+        var path2 = d3.path();
 
-        var directionVector = {
-            x: to.posX - from.posX,
-            y: to.posY - from.posY
-        };
+        var pX = from.posX;
+        var pY = from.posY + self.radius;
+        var downLine = 11;
 
-        var directionVectorLength = Math.sqrt(directionVector.x * directionVector.x + directionVector.y * directionVector.y);
+        if (from.posX > to.posX) {
+            path2.moveTo(pX, pY);
+            path2.lineTo(pX, pY + downLine);
+            path2.lineTo(pX - 50, pY + downLine);
+            path2.lineTo(pX - 50, pY + downLine + downLine);
+        }
 
-        //Non Terminals in grid are bigger, transition is not completly correct, but works for now.
-        var nStart = (self.radius) / directionVectorLength;
-        var nEnd = (self.radius) / directionVectorLength;
+        if (from.posX < to.posX) {
+            path2.moveTo(pX, pY + downLine);
+            path2.lineTo(pX + 50, pY + downLine);
+            path2.lineTo(pX + 50, pY + downLine + downLine);
+        }
+        
+        // For more than 2 follower.
+        if (from.posX === to.posX) {
+            
+        }
 
-        obj.xStart = from.posX + nStart * directionVector.x;
-        obj.yStart = from.posY + nStart * directionVector.y;
-        obj.xEnd = to.posX - nEnd * directionVector.x;
-        obj.yEnd = to.posY - nEnd * directionVector.y;
+        obj2 = path2.toString();
+        path2.closePath();
 
-        var path = d3.path();
-        path.moveTo(obj.xStart, obj.yStart);
-        path.lineTo(obj.xEnd, obj.yEnd);
-        obj = path.toString();
-        path.closePath();
-        return obj;
+        return obj2;
     };
 
     // Called by the listener in the core.

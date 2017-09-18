@@ -5,20 +5,22 @@
             <langzoomtooltip></langzoomtooltip>
         </div>
         <div class="button-group">
-            <menubutton icon="search-plus" action="derivationtree.zoom.zoomIn()" tttext="NAVBAR.TTTEXT_ZOOM_IN"></menubutton>
-            <menubutton icon="search-minus" action="derivationtree.zoom.zoomOut()" tttext="NAVBAR.TTTEXT_ZOOM_OUT"></menubutton>
+            <menubutton icon="search-plus" action="langDerivationtree.zoom.zoomIn()" tttext="as.core.zoomIn"></menubutton>
+            <menubutton icon="search-minus" action="langDerivationtree.zoom.zoomOut()" tttext="as.core.zoomOut"></menubutton>
         </div>
     </div>
     <div class="container-wrapper diagram-container">
         <svg id="diagram-lang-svg" class="noselect" xmlns="http://www.w3.org/2000/svg" style="font-family:'Roboto', sans-serif; font-weight:100">
             <svglanggrid></svglanggrid>
 
-            <marker id="lang-marker-arrow" refX="7.5" refY="3" markerWidth="10" markerHeight="10" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z"></path>
+            <!--
+            <marker id="lang-marker-arrow" refX="2.5" refY="2" markerWidth="10" markerHeight="10" orient="auto">
+                <path d="M0,0 L0,4 L4,2 z"></path>
             </marker>
-            <marker id="lang-marker-arrow-animated" refX="7.5" refY="3" markerWidth="10" markerHeight="10" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z"></path>
+            <marker id="lang-marker-arrow-animated" refX="2.5" refY="2" markerWidth="10" markerHeight="10" orient="auto">
+                <path d="M0,0 L0,4 L4,2 z"></path>
             </marker>
+            -->
 
             <svglangouter>
 

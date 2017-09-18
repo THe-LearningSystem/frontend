@@ -31,7 +31,7 @@ autoSim.LangDerivationSequence = function ($scope) {
      */
     self.createSequence = function () {
 
-        if ($scope.langWordChecker.inputAccepted) {
+        if ($scope.langWordChecker.inputAccepted || $scope.langProductionRules.change.errors === 0) {
 
             _.forEach($scope.langWordChecker.foundCandidate.steps, function (value) {
                 var currentRule = $scope.langProductionRules.getByRuleId(value);
