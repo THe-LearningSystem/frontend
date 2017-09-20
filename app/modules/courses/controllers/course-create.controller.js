@@ -5,16 +5,19 @@
         .module('courses')
         .controller('CourseCreateCtrl', CourseCreateCtrl);
 
-    CourseCreateCtrl.$inject = ['Courses', 'I18nManager', '$stateParams'];
+    CourseCreateCtrl.$inject = ['Courses', 'I18nManager', '$stateParams','UsersService','$scope'];
 
-    function CourseCreateCtrl(Courses, i18nManager, $stateParams) {
+    function CourseCreateCtrl(Courses, i18nManager, $stateParams,UsersService,$scope) {
         var vm = this;
-        vm.update = false;
+        vm.isInUpdate = false;
         vm.courseUrl = $stateParams.courseUrl;
         if (vm.courseUrl) {
-            vm.update = true;
+            vm.isInUpdate = true;
             Courses.courseDisplay(vm.courseUrl).then(function (response) {
                 vm.data = response.data;
+                UsersService.getLightUserList().then(function(response){
+                    vm.users = response.data;
+                });
                 //fix for the language selection
                 vm.course = vm.data;
                 if (vm.data.secondaryLanguages.length > 0)

@@ -4,12 +4,14 @@
     <p class="right-indextab-subtitle">
         {{'as.core.view' | translate}}
     </p>
-    <p>
-        <input class="checkbox-item" type="checkbox" id="statediagram-isGrid" ng-model="statediagram.grid.isOpen">
-        {{"as.core.grid" | translate}}
-    </p>
-    <p>
-        <input class="checkbox-item" type="checkbox" id="statediagram-snapping" ng-model="statediagram.grid.snapping">
-        {{"as.core.snapping" | translate}}
-    </p>
+    <div class="checkbox">
+        <input type="checkbox" id="statediagram-isGrid"
+               ng-model="statediagram.grid.isOpen">
+        <label>{{"as.core.grid" | translate}}</label>
+    </div>
+    <div class="checkbox">
+        <input type="checkbox" id="statediagram-snapping"
+               ng-model="statediagram.grid.snapping">
+        <label>{{"as.core.snapping" | translate}}</label>
+    </div>
 </container-item>

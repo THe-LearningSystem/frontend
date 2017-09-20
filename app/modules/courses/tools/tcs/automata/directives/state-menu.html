@@ -9,21 +9,20 @@
                    ng-model="states.menu.edit.state.name"
                    ng-disabled="simulator.isInPlay">
         </div>
-        <div>
-            <input class="checkbox-item" type="checkbox" id="state-input-startstate"
-                   ng-checked="states.selected === states.startState"
-                   ng-click="states.toggleStartState(states.selected)"
+        <div class="checkbox">
+            <input type="checkbox" id="state-input-startstate"
+                   ng-checked="states.final.isFinalState(states.selected)"
+                   ng-click="states.final.toggle(states.selected)"
                    ng-disabled="simulator.isInPlay">
-            {{"as.core.startState" | translate}}
+            <label>{{"as.core.startState" | translate}}</label>
         </div>
-        <div>
-            <div ng-show="automatonData.type!=='PDA'">
-                <input class="checkbox-item" type="checkbox" id="state-input-finalstate"
+        <div ng-show="automatonData.type!=='PDA'">
+            <div class="checkbox">
+                <input type="checkbox" id="state-input-finalstate"
                        ng-checked="states.final.isFinalState(states.selected)"
                        ng-click="states.final.toggle(states.selected)"
                        ng-disabled="simulator.isInPlay">
-                {{"as.core.finalState" | translate}}
-
+                <label>{{"as.core.finalState" | translate}}</label>
             </div>
         </div>
         <div class="alert alert-danger alert-transition"

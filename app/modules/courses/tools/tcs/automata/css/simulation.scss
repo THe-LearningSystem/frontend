@@ -42,10 +42,18 @@
 .transition-line-selection {
   stroke-width: 7;
   stroke: $selectedColor;
-  opacity: 0.6;
+  opacity: 1;
   visibility: hidden;
 }
-
+.transition-line-selection-arrow {
+  stroke-width: 4.8;
+  stroke: $selectedColor;
+  opacity: 1;
+  visibility: hidden;
+}
+.transition.active .transition-line-selection-arrow {
+  visibility: visible;
+}
 .transition.active .transition-line-selection {
   visibility: visible;
 }
@@ -93,10 +101,63 @@
 }
 
 .sim-char-item {
-  width: 25px;
+  width: 33px;
   float: left;
-  padding: 3px;
+  padding: 2px 6px;
   font-size: 15px;
-  border: 1px solid #000000;
-  margin-right: 2px;
+  border: 1px solid $lightGreyColor;
+  margin-right: 5px;
+  margin-bottom:5px;
+  text-align:center;
+}
+.sim-char-item.unknown-class{
+  color:white;
+}
+
+/**
+Slider
+ */
+
+.my-custom-slider.rzslider .rz-bar {
+  background: $blueColor;
+  height: 2px;
+}
+.my-custom-slider.rzslider .rz-selection {
+  background: $blueColor;
+}
+
+.my-custom-slider.rzslider .rz-pointer {
+  width: 8px;
+  height: 16px;
+  top: auto; /* to remove the default positioning */
+  bottom: 0;
+  background-color: black;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.my-custom-slider.rzslider .rz-pointer:after {
+  display: none;
+}
+
+.my-custom-slider.rzslider .rz-bubble {
+  bottom: 14px;
+}
+
+.my-custom-slider.rzslider .rz-limit {
+  font-weight: bold;
+  color: $orangeColor;
+}
+
+.my-custom-slider.rzslider .rz-tick {
+  width: 1px;
+  height: 10px;
+  margin-left: 4px;
+  border-radius: 0;
+  background: #ffe4d1;
+  top: -1px;
+}
+
+.my-custom-slider.rzslider .rz-tick.rz-selected {
+  background: $blueColor;
 }

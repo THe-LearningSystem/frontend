@@ -18,11 +18,29 @@
         vm.passedLesson = null;
         vm.failedLesson = false;
 
+        String.prototype.replaceAll = function (search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
+
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
             //Get the next lesson
             Courses.getLesson(vm.lessonId).then(function (response) {
                 vm.lesson = response.data;
+                //Workaround fot the youtube videos, they werent responsive
+                String.prototype.replaceAll = function (search, replacement) {
+                    var target = this;
+                    return target.replace(new RegExp(search, 'g'), replacement);
+                };
+                var tmp = vm.lesson.data.content;
+                _.forEach(tmp, function (language, key) {
+                    language = language.replaceAll("<iframe", "<div class='video-container'><iframe");
+                    language = language.replaceAll("</iframe>", "</iframe></div>");
+                    tmp[key] = language;
+                });
+                vm.lesson.data.content = tmp;
+                //workaround end
                 //check if the lesson is already passed
                 Courses.enrolledCourses({
                     userId: Authentication.user._id,
@@ -45,6 +63,7 @@
                             return false;
                         }
                         if (vm.lesson._id === lesson._id) {
+                            vm.section = section;
                             vm.lesson.position = lesson.position;
                             foundLesson = true;
                         }
@@ -56,8 +75,13 @@
 
         vm.isAllowedToEdit = function () {
             var isAllowedToEdit = true;
-            if (vm.course)
-                isAllowedToEdit = vm.course.author === Authentication.user._id;
+            if (vm.course && Authentication.user) {
+                var user = _.find(vm.course.moderators, function (o) {
+                    return o._id === Authentication.user._id;
+                });
+                isAllowedToEdit = (vm.course.author === Authentication.user._id) || user !== undefined;
+
+            }
             return isAllowedToEdit;
         };
 
@@ -103,7 +127,7 @@
                     courseUrl: vm.course.urlName,
                     lessonId: vm.nextLesson._id
                 });
-            }else{
+            } else {
                 $state.go('frontend.courses.display.content', {
                     courseUrl: vm.course.urlName
                 });

@@ -51,12 +51,6 @@ body {
 
 }
 
-//
-//#logo div {
-//  height: 50px;
-//  width: 230px;
-//}
-
 #logo a {
   color: white;
 }
@@ -326,7 +320,7 @@ body {
 .bottom-toolbar{
   height:50px;
   width:100%;
-  background-color:darken($greyColor,5%);
+  background-color:lighten($greyColor,5%);
   color:white;
   font-size:14px;
   position:absolute;
@@ -338,7 +332,7 @@ body {
   display:inline-block
 }
 .bottom-toolbar .element:hover{
-  background-color:lighten($greyColor,5%);
+  background-color:lighten($greyColor,10%);
 }
 .bottom-toolbar a{
   color:white;

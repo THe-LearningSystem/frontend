@@ -1,5 +1,5 @@
 <container-item titlename="as.core.bulkTitle" id="bulk-tester-tab">
-    <div  ng-if="!parent.isLesson">
+    <div ng-if="!parent.isLesson">
         <label>{{'core.general.accepted' | translate}} ({{'as.core.onePerLine' | translate}}):</label>
         <textarea class="form-control bulk-test-textarea" id="acceptedInput"
                   ng-model="parent.automatonData.acceptedInputRaw"
@@ -28,6 +28,7 @@
                 <!--&#45;&#45;{{value.possible === true ? "PASS" : "FAIL"}}-->
                 <div class="pull-right animate-sequence-wrapper" ng-repeat="sequence in value.sequences">
                     <button class="btn btn-default btn-bulk-animate-sequence"
+                            ng-class="{'btn-primary':sequence == simulator.animatedSequence}"
                             ng-click="simulator.animateSequence(sequence,value.possible)">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
@@ -45,10 +46,11 @@
 
             <div ng-repeat="value in rejectedInput" class="bulk-result"
                  ng-class="!value.possible? 'pass-class' : 'fail-class'">
-                {{value.word}}--{{value.possible === false ? "PASS" : "FAIL"}}
+                {{value.word}}
+                <!--&#45;&#45;{{value.possible === false ? "PASS" : "FAIL"}}-->
                 <div class="pull-right animate-sequence-wrapper" ng-repeat="sequence in value.sequences">
                     <button class="btn btn-default btn-bulk-animate-sequence"
-                            ng-click="simulator.animateSequence(sequence,value.possible)">
+                            ng-click="simulator.animateSequence(sequence,!value.possible)">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
                     <button class="btn btn-default btn-bulk-animate-sequence"
@@ -59,14 +61,4 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!--<div>
-        <label>Regular Expression:</label>
-
-        <div ng-repeat="value in bulktester.regularExpression"
-             ng-class="value.accepted? 'pass-class' : 'fail-class'">
-            {{value.word}}--{{value.accepted === true ? "PASS" : "FAIL"}}
-        </div>
-    </div>
-</div>-->
 </container-item>

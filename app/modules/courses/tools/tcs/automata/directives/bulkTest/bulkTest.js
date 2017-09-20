@@ -5,6 +5,7 @@ angular.module('courses.tcs').directive("bulkTest", function () {
         scope: {},
         link: function (scope, elm, attrs) {
 
+            scope.simulator = scope.$parent.simulator;
             scope.parent = scope.$parent;
             scope.$parent.core.updateListeners.push(scope);
             scope.acceptedInput = [];
@@ -24,15 +25,17 @@ angular.module('courses.tcs').directive("bulkTest", function () {
             scope.testAcceptedInputs = function () {
                 scope.acceptedInput = [];
                 var acceptedInputString = scope.parent.automatonData.acceptedInputRaw;
-                var acceptedInputArray = acceptedInputString.split("\n");
+                if (acceptedInputString) {
+                    var acceptedInputArray = acceptedInputString.split("\n");
 
-                _.forEach(acceptedInputArray, function (acceptedWord) {
-                    if (acceptedWord !== "") {
-                        var tmpObj = scope.$parent.simulator.getSequences(acceptedWord);
-                        tmpObj.word = acceptedWord;
-                        scope.acceptedInput.push(tmpObj);
-                    }
-                })
+                    _.forEach(acceptedInputArray, function (acceptedWord) {
+                        if (acceptedWord !== "") {
+                            var tmpObj = scope.$parent.simulator.getSequences(acceptedWord);
+                            tmpObj.word = acceptedWord;
+                            scope.acceptedInput.push(tmpObj);
+                        }
+                    })
+                }
             };
 
             /**
@@ -41,15 +44,17 @@ angular.module('courses.tcs').directive("bulkTest", function () {
             scope.testRejectedInputs = function () {
                 scope.rejectedInput = [];
                 var rejectedInputString = scope.parent.automatonData.rejectedInputRaw;
-                var rejectedInputArray = rejectedInputString.split("\n");
+                if (rejectedInputString) {
+                    var rejectedInputArray = rejectedInputString.split("\n");
 
-                _.forEach(rejectedInputArray, function (rejectedWord) {
-                    if (rejectedWord !== "") {
-                        var tmpObj = scope.$parent.simulator.getSequences(rejectedWord);
-                        tmpObj.word = rejectedWord;
-                        scope.rejectedInput.push(tmpObj);
-                    }
-                })
+                    _.forEach(rejectedInputArray, function (rejectedWord) {
+                        if (rejectedWord !== "") {
+                            var tmpObj = scope.$parent.simulator.getSequences(rejectedWord);
+                            tmpObj.word = rejectedWord;
+                            scope.rejectedInput.push(tmpObj);
+                        }
+                    })
+                }
             };
 
             /**

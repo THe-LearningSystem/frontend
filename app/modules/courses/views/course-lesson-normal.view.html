@@ -5,12 +5,12 @@
         </div>
         <div class="pull-right">
             <button class="btn btn-default"
-                    ui-sref="frontend.courses.lessons.update.content({courseUrl:vm.courseUrl, lessonId:vm.lessonId})"
+                    ui-sref="frontend.courses.lessons.update.content({courseUrl:vm.courseUrl, sectionUrl:vm.section.urlName, lessonId:vm.lessonId})"
                     ng-if="vm.lesson.kind === 'content' && vm.isAllowedToEdit()">
                 {{'core.general.edit' | translate}}
             </button>
             <button class="btn btn-default"
-                    ui-sref="frontend.courses.lessons.update.quiz({courseUrl:vm.courseUrl, lessonId:vm.lessonId})"
+                    ui-sref="frontend.courses.lessons.update.quiz({courseUrl:vm.courseUrl, sectionUrl:vm.section.urlName, lessonId:vm.lessonId})"
                     ng-if="vm.lesson.kind === 'quiz' && vm.isAllowedToEdit()">
                 {{'core.general.edit' | translate}}
             </button>
@@ -24,7 +24,7 @@
                     <h2>{{vm.lesson.position}}. {{getLocalized(vm.lesson.name)}}</h2>
                 </div>
                 <passed-lesson></passed-lesson>
-                <div ng-bind-html="getLocalized(vm.lesson.data.content)">
+                <div class="content-container" ng-bind-html="getLocalized(vm.lesson.data.content) | to_trusted">
                 </div>
             </div>
             <div ng-if="vm.lesson.kind === 'quiz'">
@@ -45,6 +45,8 @@
                     </div>
                 </div>
             </div>
+            <hr>
+
             <div class="pull-right">
                 <button class="btn btn-default"
                         ng-click="vm.checkLessonAndGoToNextLesson()"

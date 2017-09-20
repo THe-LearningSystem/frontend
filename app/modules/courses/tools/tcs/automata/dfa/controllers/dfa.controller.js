@@ -27,10 +27,12 @@
         .module('courses.tcs')
         .controller('DFACtrl', DFACtrl);
 
-    DFACtrl.$inject = ['$scope'];
+    DFACtrl.$inject = ['$scope','$uibModal'];
 
-    function DFACtrl($scope) {
+    function DFACtrl($scope,$uibModal) {
         _initAutomaton($scope);
+        $scope.$uibModal = $uibModal;
+        $scope.testAgent.testDFA();
     }
 
     angular
@@ -41,34 +43,33 @@
 
     function DFAModalCtrl($scope, $state, Courses, $stateParams, Authentication, $uibModal, data, $uibModalInstance) {
         _initAutomaton($scope);
-
         $scope.$uibModal = $uibModal;
 
 
-        if (data !== undefined) {
-            $scope.save = function () {
-                var exportData = {};
-                exportData.automatonData = _.cloneDeep($scope.automatonData);
-                exportData.states = $scope.states.export();
-                exportData.transitions = $scope.transitions.export();
-                exportData.type = $scope.automatonData.type.toLowerCase();
-                data.parentController.data.data.automaton = exportData;
-                $uibModalInstance.close();
-            };
-            if (!_.isEmpty(data.automaton)) {
-                var tmpObject = _.cloneDeep(data.automaton);
-                if (tmpObject.automatonData.type === $scope.automatonData.type) {
-                    $scope.automatonData = tmpObject.automatonData;
-                    $scope.states.import(tmpObject.states);
-                    $scope.transitions.import(tmpObject.transitions);
-
-                    //update all listeners
-                    $scope.core.updateListener();
-                } else {
-                    console.log("the automaton has not the same type. AutomatonType:" + $scope.type + ", uploaded automatonType:" + tmpObject.type);
-                }
-            }
-        }
+        // if (data !== undefined) {
+        //     $scope.save = function () {
+        //         var exportData = {};
+        //         exportData.automatonData = _.cloneDeep($scope.automatonData);
+        //         exportData.states = $scope.states.export();
+        //         exportData.transitions = $scope.transitions.export();
+        //         exportData.type = $scope.automatonData.type.toLowerCase();
+        //         data.parentController.data.data.automaton = exportData;
+        //         $uibModalInstance.close();
+        //     };
+        //     if (!_.isEmpty(data.automaton)) {
+        //         var tmpObject = _.cloneDeep(data.automaton);
+        //         if (tmpObject.automatonData.type === $scope.automatonData.type) {
+        //             $scope.automatonData = tmpObject.automatonData;
+        //             $scope.states.import(tmpObject.states);
+        //             $scope.transitions.import(tmpObject.transitions);
+        //
+        //             //update all listeners
+        //             $scope.core.updateListener();
+        //         } else {
+        //             console.log("the automaton has not the same type. AutomatonType:" + $scope.type + ", uploaded automatonType:" + tmpObject.type);
+        //         }
+        //     }
+        // }
     }
 
     angular
@@ -83,19 +84,7 @@
         $scope.lessonTester = new autoSim.lessonTester($scope,$rootScope, Courses,CustomNotify,Authentication);
 
         $scope.init = function (data, parentScope) {
-            console.log($scope);
-            console.log(data);
-            $scope.parentScope = parentScope;
-            $scope.lessonData = data;
-            if (!_.isEmpty(data)) {
-                var tmpObject = _.cloneDeep(data.data.automaton);
-                if (tmpObject.automatonData.type === $scope.automatonData.type) {
-                    $scope.automatonData = tmpObject.automatonData;
-                    $scope.states.import(tmpObject.states);
-                    $scope.transitions.import(tmpObject.transitions);
-                }
-            }
+            prepareLesson(data,parentScope,$scope)
         };
-
     }
 }());

@@ -103,6 +103,9 @@
 
 .state-text {
   font-size: $stateFontSize;
+  stroke:$stateFontColor;
+  stroke-width:$stateFontStrokeWidth;
+  fill:$stateFontColor;
 }
 
 //animated state for the simulation

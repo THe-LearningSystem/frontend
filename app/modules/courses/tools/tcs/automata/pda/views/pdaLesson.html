@@ -1,14 +1,12 @@
-<div class="modal-body" id="modal-body">
+<div class="remove-container full-wrapper">
+    <automaton-lesson-box></automaton-lesson-box>
     <div class="flex-item  inner-wrapper">
         <div class="main main-wrapper">
             <div class="main-item layout-item container-wrapper">
                 <own-svg></own-svg>
             </div>
             <div class="main-bottom">
-                <div class="main-bottom-item layout-item">
-                    <own-table></own-table>
-                </div>
-                <div class="main-bottom-item layout-item">
+                <div class="layout-item container-wrapper">
                     <state-transition-function></state-transition-function>
                 </div>
             </div>
@@ -26,12 +24,8 @@
             <!--Transition Menu -->
             <transition-menu></transition-menu>
         </aside>
+    </div>
+    <tools-bottom-toolbar>
+    </tools-bottom-toolbar>
 
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button"
-                ng-click="save()">
-            {{'core.general.save' | translate}}
-        </button>
-    </div>
 </div>

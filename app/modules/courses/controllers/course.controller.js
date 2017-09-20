@@ -21,12 +21,12 @@
         vm.selectedLanguage = null;
 
 
-            vm.showMobileNavbar = false;
+        vm.showMobileNavbar = false;
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
             //getEnrolledCourseData
-            if(Authentication.user !== null){
+            if (Authentication.user !== null) {
                 Courses.enrolledCourses(
                     {userId: Authentication.user._id, courseId: vm.course._id}
                 ).then(function (response) {
@@ -88,16 +88,15 @@
         };
 
 
-        vm.hasEditCoursePermission = function () {
-            //TODO: edit only author and mods and global edit can edit a course
-            return vm.course.author === Authentication.username;
-        };
-
-
-        vm.isAllowedToEdit = function (string) {
+        vm.isAllowedToEdit = function () {
             var isAllowedToEdit = true;
-            if (vm.course && Authentication.user)
-                isAllowedToEdit = vm.course.author === Authentication.user._id;
+            if (vm.course && Authentication.user) {
+                var user = _.find(vm.course.moderators, function (o) {
+                    return o._id === Authentication.user._id;
+                });
+                isAllowedToEdit = (vm.course.author === Authentication.user._id) || user !== undefined;
+
+            }
             return isAllowedToEdit;
         };
 

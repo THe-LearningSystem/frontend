@@ -13,13 +13,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="user-roles">Sekundärsprachen</label>
-                <ui-select ng-model="vm.data.secondaryLanguages" multiple title="Choose a person" id="user-roles">
-                    <ui-select-match ui-lock-choice="$item.name == 'authenticated'">
+                <label for="languages">Sekundärsprachen</label>
+                <ui-select ng-model="vm.data.secondaryLanguages" multiple id="languages">
+                    <ui-select-match>
                         {{'core.languages.'+$item |translate}}
                     </ui-select-match>
-                    <ui-select-choices repeat="language in vm.languages |filter:'!'+vm.data.primaryLanguage"
-                                       ui-disable-choice>
+                    <ui-select-choices
+                            repeat="language in vm.languages |filter:'!'+vm.data.primaryLanguage">
                         <div> {{'core.languages.'+language |translate}}</div>
                     </ui-select-choices>
                 </ui-select>
@@ -39,7 +39,19 @@
                 nicht wieder unter der gleichen URL gefunden wird.
             </div>
             <hr>
-
+            <div class="ng-hide" ng-show="vm.isInUpdate && vm.data.author === Authentication.user._id">
+                <h5>Moderatoren</h5>
+                <ui-select ng-model="vm.data.moderators" multiple id="user">
+                    <ui-select-match>
+                        {{$item.username}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="user in vm.users | filter:{_id:'!' + vm.data.author}"
+                                       refresh-delay="0">
+                        <div>{{user.username}}</div>
+                    </ui-select-choices>
+                </ui-select>
+                <hr>
+            </div>
             <div class="row" ng-show="vm.data.primaryLanguage">
                 <div class="col-sm-6">
                     <div>
