@@ -1,7 +1,38 @@
-<ng-quill-editor ng-model="data"
-                 toolbar="true" link-tooltip="true" image-tooltip="true"
-                 toolbar-entries="font size bold list bullet italic underline strike align color background link image"
-                >
+<ng-quill-editor ng-model="data">
+    <ng-quill-toolbar ng-if="isSmallVersion">
+        <div>
+            <button class="ql-bold" ng-attr-title="{{'Bold'}}"></button>
+            <button class="ql-italic" ng-attr-title="{{'Italic'}}"></button>
+            <button class="ql-underline" ng-attr-title="{{'Underline'}}"></button>
+            <select class="ql-size">
+                <option value="small"></option>
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+            </select>
+            <button class="ql-list" value="ordered" ng-attr-title="{{'List Ordered'}}"></button>
+            <button class="ql-list" value="bullet" ng-attr-title="{{'List Bullet'}}"></button>
+        </div>
+    </ng-quill-toolbar>
+    <ng-quill-toolbar ng-if="!isSmallVersion">
+        <div>
+            <button class="ql-bold" ng-attr-title="{{'Bold'}}"></button>
+            <button class="ql-italic" ng-attr-title="{{'Italic'}}"></button>
+            <button class="ql-underline" ng-attr-title="{{'Underline'}}"></button>
+            <select class="ql-size">
+                <option value="small"></option>
+                <option selected></option>
+                <option value="large"></option>
+                <option value="huge"></option>
+            </select>
+            <button class="ql-list" value="ordered" ng-attr-title="{{'List Ordered'}}"></button>
+            <button class="ql-list" value="bullet" ng-attr-title="{{'List Bullet'}}"></button>
+            <button class="ql-code-block" ng-attr-title="{{'Code-Block'}}"></button>
 
+            <button class="ql-formula" ng-attr-title="{{'Formula'}}"></button>
+            <button class="ql-image" ng-attr-title="{{'Image'}}"></button>
+            <button class="ql-video" ng-attr-title="{{'Video'}}"></button>
+        </div>
+    </ng-quill-toolbar>
 </ng-quill-editor>
 <textarea class="ng-hide" ng-model="data" ng-required="isRequired"></textarea>

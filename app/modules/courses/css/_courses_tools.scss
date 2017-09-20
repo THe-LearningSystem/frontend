@@ -13,6 +13,14 @@ Tool
   height: 200px;
 }
 
+.panel-tool > a:hover{
+  background-color:$gray-lighter;
+}
+
+.tool-edit-container:hover{
+  background-color:$gray-lighter;
+}
+
 .tool-link {
   width:100%;
   padding: 15px;
@@ -44,11 +52,6 @@ Tool
 
 .tool-edit:hover {
   background-color: #fcfcfc;
-}
-
-
-.panel-tool-title {
-
 }
 
 

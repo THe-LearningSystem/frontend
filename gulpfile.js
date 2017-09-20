@@ -118,7 +118,8 @@ gulp.task('serveJs', function () {
         .pipe(plugins.concat('app.js'))
         .pipe(gulp.dest(jsDest))
         .pipe(plugins.rename('app.min.js'))
-        .pipe(plugins.uglify())
+        .pipe(plugins.uglify({
+        mangle: false}))
         .on('error', function (err) {
             plugins.util.log(plugins.util.colors.red('[Error]'), err.toString());
         })
