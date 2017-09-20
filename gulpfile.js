@@ -97,7 +97,7 @@ gulp.task('serveLibs',function(){
         .pipe(gulp.dest('dist/fonts'));
 });
 gulp.task('serveIndex',function(){
-    gulp.src(['app/index.html'])
+    gulp.src(['app/index_template.html'])
         .pipe(gulp.dest('dist'));
 });
 
