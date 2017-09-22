@@ -11,8 +11,8 @@
         </div>
         <div class="checkbox">
             <input type="checkbox" id="state-input-startstate"
-                   ng-checked="states.final.isFinalState(states.selected)"
-                   ng-click="states.final.toggle(states.selected)"
+                   ng-checked="states.selected === states.startState"
+                   ng-click="states.toggleStartState(states.selected)"
                    ng-disabled="simulator.isInPlay">
             <label>{{"as.core.startState" | translate}}</label>
         </div>
