@@ -5,6 +5,7 @@
             <change-input-field-value char="ε"></change-input-field-value>
             <change-input-field-value char="⊥"></change-input-field-value>
         </div>
+        <!--Change input field value buttons for the turing machine with which you can insert the symbols into the input fields-->
         <div ng-show="automatonData.type ==='TM'">
             <change-input-field-value char="☐"></change-input-field-value>
             <change-input-field-value char="←"></change-input-field-value>
@@ -42,8 +43,9 @@
                       ng-disabled="simulator.isInPlay"> <span class="icon-times"></span> </span>
             </div>
 
-
+            <!--transitio  menu for the turing machine-->
             <div ng-show="automatonData.type ==='TM'">
+                <!--input symbol of the transition-->
                 <div class="input-group" ng-class="transition.inputSymbol.error === true ? 'has-error':''">
                     <span class="input-group-addon">{{"as.core.transitionReadedChar" | translate}}</span>
                     <input id="transition-read-symbol-{{transition.id}}" class="form-control" type="text" ng-model="transition.inputSymbol.value" maxlength="1"
@@ -53,6 +55,7 @@
                      ng-show="transition.inputSymbol.error && transition.isUnique">
                     {{"as.trans_menu.name_too_short"| translate}}
                 </div>
+                <!--output symbol of the transition-->
                 <div class="input-group" ng-class="transition.outputSymbol.error === true ? 'has-error':''">
                     <span class="input-group-addon">{{"as.tm.write_symbol"| translate}}</span>
                     <input id="transition-write-symbol-{{transition.id}}" type="text" class="form-control"
@@ -63,6 +66,7 @@
                      ng-show="transition.outputSymbol.error && transition.isUnique">
                     {{"as.trans_menu.name_too_short"| translate}}
                 </div>
+                <!--moving direction of the write-read-head for this transition-->
                 <div class="input-group"
                      ng-class="transition.movingDirection.error ===true ? 'has-error':''">
                     <span class="input-group-addon">{{"as.tm.moving_direction"| translate}}</span>

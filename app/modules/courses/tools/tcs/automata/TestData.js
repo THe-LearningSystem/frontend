@@ -24,6 +24,9 @@ function TestData($scope) {
 
     };
 
+    /**
+     * test automaton for the turing machine
+     */
     self.testTM1 = function () {
         $scope.core.resetAutomaton();
         $scope.automatonData.inputWord = "abc";
@@ -42,9 +45,11 @@ function TestData($scope) {
         // $scope.transitions.create(state4, state5, "d", "e", "←");
     };
 
+    /**
+     * test automaton for turing machine which subtracts two unary numbers which are separated by a '0'
+     */
     self.testTM2 = function () {
         $scope.core.resetAutomaton();
-        // TestData2 (Subtrahieren von zwei unären Zahlen getrennt durch eine 0)
         var state0 = $scope.states.createWithPresets(400, 100);
         var state1 = $scope.states.createWithPresets(400, 300);
         var state2 = $scope.states.createWithPresets(200, 300);
@@ -67,6 +72,9 @@ function TestData($scope) {
         $scope.statediagram.zoom.zoomTo(70);
     };
 
+    /**
+     * test automaton for turing machine increase a binary number by '1'
+     */
     self.testTM3 = function () {
         $scope.core.resetAutomaton();
         $scope.automatonData.inputWord = "";
@@ -95,6 +103,9 @@ function TestData($scope) {
         $scope.statediagram.zoom.zoomTo(70);
     };
 
+    /**
+     * test automaton for turing machine increase a binary number by '1'. This automaton have to start from right
+     */
     self.testTM4 = function () {
         $scope.core.resetAutomaton();
         $scope.automatonData.inputWord = "";
@@ -119,6 +130,9 @@ function TestData($scope) {
 
     };
 
+    /**
+     * test automaton for turing machine for testing the boundariesx
+     */
     self.testTM5 = function(){
         $scope.core.resetAutomaton();
         $scope.automatonData.inputWord = "";

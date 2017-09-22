@@ -47,6 +47,7 @@
             </span>
 
         </td>
+        <!--Table content for the turing machine-->
         <td ng-show="automatonData.type==='TM'" ng-repeat="transvalue in value.trans">
             <span ng-repeat="transition in transvalue">
                  <span ng-class="{'selected':transition.selected,

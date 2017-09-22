@@ -25,7 +25,7 @@
         </span> }
       </div>
     </div>
-    <div ng-show="automatonData.type=='PDA' && automatonData.type!=='TM'">
+    <div ng-show="automatonData.type=='PDA'">
       <div class="stf-element" uib-tooltip="{{ 'as.core.states' | translate}}" tooltip-placement="right">
         Γ = {
         <span ng-repeat="stackSymbol in transitions.stackAlphabet">
@@ -34,6 +34,7 @@
                 }
             </div>
         </div>
+        <!--Alphabet for the TM-->
         <div ng-show="automatonData.type==='TM'">
             <div class="stf-element" uib-tooltip="{{ 'as.core.automataAlphabet' | translate}}"
                  tooltip-placement="right">
@@ -43,6 +44,7 @@
                   {{$last ? ' ' : ', '}}
                 </span> }
       </div>
+      <!--Tape alphabet for the TM-->
       <div class="stf-element" uib-tooltip="{{ 'as.tm.tapeAlphabet' | translate}}" tooltip-placement="right">
         &Gamma; = {
         <span ng-repeat="tapeSymbol in transitions.tapeAlphabet">
@@ -77,6 +79,7 @@
         </span>
             }
         </div>
+        <!--State transition functions for the TM-->
         <div ng-show="automatonData.type==='TM'" class="stf-element"
              uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}"
              tooltip-placement="right">
