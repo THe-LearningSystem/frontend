@@ -1,5 +1,5 @@
 <container-item titlename="core.general.development">
-
+    <p>Beispielautomaten</p>
     <menubutton icon="wrench" action="testAgent.testDFA()" ng-show="automatonData.type== 'DFA'">
     </menubutton>
     <menubutton icon="wrench" action="testAgent.testNFA()" ng-show="automatonData.type== 'NFA'">
@@ -12,9 +12,9 @@
     <button class="btn btn-default" ng-click="testAgent.testTM2()" ng-show="automatonData.type=='TM'">2</button>
     <button class="btn btn-default" ng-click="testAgent.testTM3()" ng-show="automatonData.type=='TM'">3</button>
     <button class="btn btn-default" ng-click="testAgent.testTM4()" ng-show="automatonData.type=='TM'">4</button>
-    <button class="btn btn-default" ng-click="testAgent.testTM5()" ng-show="automatonData.type=='TM'">Test Border</button>
+    <button class="btn btn-default" ng-click="testAgent.testTM5()" ng-show="automatonData.type=='TM'">5</button>
 
-
+    <hr>
     <p>
         AutomatonData:
         <json-formatter json="automatonData" open="0"></json-formatter>

@@ -43,6 +43,23 @@ autoSim.TransitionsTM = function($scope) {
         return tmp;
     };
 
+    self.deterministicExists = function(fromState, toState, inputSymbol, transitionId) {
+      var tmp = false;
+      _.forEach(self, function(transitionGroup) {
+          if (fromState === transitionGroup.fromState) {
+              _.forEach(transitionGroup, function(transition) {
+                  if (transition.fromState === fromState && transition.inputSymbol === inputSymbol && transitionId !== transition.id) {
+                      tmp = true;
+                      return false;
+                  }
+              });
+              if (tmp === true)
+                  return false;
+          }
+      });
+      return tmp;
+    };
+
     /**
      * Return the next possible inputSymbol (a,b,c already used -> returns d)
      * @param fromState

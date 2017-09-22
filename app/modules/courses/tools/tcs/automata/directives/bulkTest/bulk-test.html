@@ -17,11 +17,11 @@
         <hr style="margin:7px">
     </div>
     <div class="bulktest-result"
-         ng-show="acceptedInput.length != 0 ||rejectedInput.length != 0">
-
-        <div>
+         ng-show="acceptedInput.length != 0 || rejectedInput.length != 0">
+       <hr style="margin:7px">
+        <div ng-if="parent.automatonData.type !== 'TM'">
             <label>{{'core.general.accepted' | translate}}:</label>
-
+            <div>{{'core.general.inputWord' | translate}}</div>
             <div ng-repeat="value in acceptedInput" class="bulk-result"
                  ng-class="value.possible ? 'pass-class' : 'fail-class'">
                 {{value.word}}
@@ -29,6 +29,27 @@
                 <div class="pull-right animate-sequence-wrapper" ng-repeat="sequence in value.sequences">
                     <button class="btn btn-default btn-bulk-animate-sequence"
                             ng-class="{'btn-primary':sequence == simulator.animatedSequence}"
+                            ng-click="simulator.animateSequence(sequence,value.possible)">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn-bulk-animate-sequence"
+                            ng-click="simulator.animateSequence([],false)"
+                            ng-show="!value.sequences.length">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="parent.automatonData.type === 'TM'">
+            <label>{{'core.general.accepted' | translate}}:</label>
+            <div>{{'core.general.inputWord' | translate}} - {{'core.general.outputWord' | translate}}</div>
+            <div ng-repeat="value in acceptedInput" class="bulk-result"
+                 ng-class="value.possible ? 'pass-class' : 'fail-class'">
+                {{value.word}} - {{value.outputWord}}
+                <!--&#45;&#45;{{value.possible === true ? "PASS" : "FAIL"}}-->
+                <div class="pull-right animate-sequence-wrapper" ng-repeat="sequence in value.sequences">
+                    <button class="btn btn-default btn-bulk-animate-sequence"
                             ng-click="simulator.animateSequence(sequence,value.possible)">
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
@@ -61,4 +82,5 @@
                 </div>
             </div>
         </div>
+      </div>
 </container-item>

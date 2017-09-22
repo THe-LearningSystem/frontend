@@ -384,9 +384,9 @@ autoSim.TMTape = function ($scope) {
     self.pointerStartRight = false;
 
 
-    self.setPointer = function () {
-        var x = $scope.automatonData.inputWord.length;
-        var y = $scope.automatonData.inputWord.length;
+    self.setPointer = function(inputWord) {
+        var x = inputWord.length;
+        var y = inputWord.length;
 
         if (x % 2 === 0 && x !== 0) {
             x = x - 1;
@@ -403,7 +403,22 @@ autoSim.TMTape = function ($scope) {
         }
     };
 
-    self.fillTape = function (inputWord) {
+    self.searchPointerStart = function(inputWord) {
+      var i = 0;
+      if (self.isEmpty()) {
+          i = (Math.round(self.tapeArray.length / 2) - 1);
+          return i;
+      }
+      while (tapeArray[i] === '☐') {
+        i++
+      }
+      if (self.pointerStartRight === true) {
+        i = i + inputWord.length - 1;
+      }
+      return i;
+    };
+
+    self.fillTape = function(inputWord) {
         var j = 0;
         self.numOfChar = 0;
         for (var i = (Math.round((self.tapeArray.length - inputWord.length) / 2)); i < (Math.round((self.tapeArray.length - inputWord.length) / 2) + inputWord.length); i++) {
@@ -411,7 +426,7 @@ autoSim.TMTape = function ($scope) {
             self.numOfChar++;
             j++;
         }
-        self.setPointer();
+        self.setPointer(inputWord);
     };
 
     self.refillTape = function () {
@@ -454,10 +469,8 @@ autoSim.TMTape = function ($scope) {
                 return false;
             }
         }
-        if ($scope.automatonData.inputWord === "") {
             return true;
-        }
-    };
+    }
 
     self.emptyTape = function () {
         var emptyTape = [self.tapeSize];
@@ -480,9 +493,9 @@ autoSim.TMTape = function ($scope) {
 
     $scope.$watch('simulator.tape.pointerStartRight', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-            self.setPointer();
+            self.setPointer($scope.automatonData.inputWord);
             $scope.simulator.virtualTape.pointerStartRight = $scope.simulator.tape.pointerStartRight;
-            $scope.simulator.virtualTape.setPointer();
+            $scope.simulator.virtualTape.setPointer($scope.automatonData.inputWord);
         }
     });
 
