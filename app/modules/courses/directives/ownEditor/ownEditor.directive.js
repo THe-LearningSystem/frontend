@@ -10,14 +10,10 @@
             scope: {
                 data: '=',
                 isRequired: '=',
-                smallVersion :'='
+                isSmallVersion :'='
             },
             templateUrl: 'modules/courses/directives/ownEditor/ownEditor.template.html',
             link: function(scope,el,attrs){
-                console.log(scope);
-                if(scope.smallVersion){
-
-                }
             }
         };
     }
