@@ -454,6 +454,9 @@ autoSim.Simulator = function ($scope) {
         //TODO: Save Values and after load them
         self.animatedSequence = sequence;
         self.animatedSequencePossible = possible;
+
+        //Fix for the table
+        $scope.table.updateFunction();
     };
 
     /**

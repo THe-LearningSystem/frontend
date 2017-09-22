@@ -6,9 +6,11 @@
             S = {
             <span ng-repeat="state in states track by $index">
             <span ng-class="{selected:state === states.selected ,
-                    'animated-currentstate':state === simulator.animated.currentState,
-                    'animated-accepted':state === simulator.animated.currentState&& simulator.status == 'accepted',
-                    'animated-not-accepted':state === simulator.animated.currentState&& simulator.status == 'notAccepted'}">
+                    'animated-currentstate':(state === simulator.animated.currentState) || (state.isAnimated),
+                    'animated-accepted':(state === simulator.animated.currentState&& simulator.status == 'accepted')
+                    || (state.isAnimatedFinal && state.isPossible),
+                    'animated-not-accepted':(state === simulator.animated.currentState&& simulator.status == 'notAccepted')
+                    || (state.isAnimatedFinal && !state.isPossible)}">
                 {{state.name}}
             </span>
             {{$last ? ' ' : ', '}}
@@ -37,7 +39,7 @@
         </div>
         <div ng-show="automatonData.type==='TM'">
             <div class="stf-element" uib-tooltip="{{ 'as.core.automataAlphabet' | translate}}"
-            tooltip-placement="right">
+                 tooltip-placement="right">
                 &Sigma; = {
                 <span ng-repeat="inputSymbol in transitions.inputSymbolAlphabet">
                   {{inputSymbol}}
@@ -57,7 +59,8 @@
             &delta; = {
             <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
         <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'">
-            <span ng-class="{selected:transitionGroup === transitions.selected,'animated-transition':transition ===simulator.animated.transition }">
+            <span ng-class="{selected:transitionGroup === transitions.selected,
+            'animated-transition':transition ===simulator.animated.transition ||transition.isAnimated }">
                 ({{transition.fromState.name}}, {{transition.inputSymbol}}, {{transition.toState.name}})
             </span>
             {{$last ? ' ' : ', '}}
@@ -71,7 +74,8 @@
             &delta; = {
             <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
             <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'">
-                <span ng-class="{selected:transitionGroup === transitions.selected,'animated-transition':transition ===simulator.animated.transition }">
+                <span ng-class="{selected:transitionGroup === transitions.selected,
+                'animated-transition':transition ===simulator.animated.transition || transition.isAnimated}">
                     ({{transition.fromState.name}}, {{transition.inputSymbol}}, {{transition.readFromStack}}, {{transition.toState.name}}, {{transition.writeToStack}} )
                 </span>
                 {{$last ? '' : ', '}}
@@ -80,12 +84,14 @@
         </span>
             }
         </div>
-        <div ng-show="automatonData.type==='TM'" class="stf-element" uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}"
+        <div ng-show="automatonData.type==='TM'" class="stf-element"
+             uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}"
              tooltip-placement="right">
             &delta; = {
             <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
             <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'">
-                <span ng-class="{selected:transitionGroup === transitions.selected,'animated-transition':transition ===simulator.animated.transition }">
+                <span ng-class="{selected:transitionGroup === transitions.selected,
+                'animated-transition':transition ===simulator.animated.transition || transition.isAnimated}">
                     ({{transition.fromState.name}}, {{transition.inputSymbol}}, {{transition.toState.name}}, {{transition.outputSymbol}}, {{transition.movingDirection}} )
                 </span> {{$last ? '' : ', '}}
             </span>
