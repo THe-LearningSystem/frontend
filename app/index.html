@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolInput/boolInput.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKV/boolKV.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.css">
+    <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKV/boolKV.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTable.css">
     <link rel="stylesheet" href="/modules/courses/tools/tcs/boolean-algebra/directives/dropmenu/dropmenu.css">
@@ -160,27 +161,7 @@
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/boolTable/boolTableSelect.js"></script>
 <script src="/modules/courses/tools/tcs/boolean-algebra/directives/dropmenu/dropmenu.js"></script>
 <script src="/modules/courses/tools/tcs/languages/directives/svg/svg-Lang-Directives.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BADomain.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BAExpression.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BAGroup.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BANode.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BATable.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/Canvas/CanvasInterface.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/Canvas/EaselInterface.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/Circuit/BACircuit.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/BAKV.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/ColorPathLayer.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/ColorPathMap.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVBlock.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVCell.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVDiagram.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVExprCompare.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVReflectingBlock.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVReflectingBlockRect.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVReflectingSearch.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVRow.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/controllers/BACtrl.js"></script>
-<script src="/modules/courses/tools/tcs/boolean-algebra/js/controllers/LangCtrl.js"></script>
+<script src="/modules/courses/tools/tcs/automata/nfa/js/nfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/cellular/js/cell.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.automatonData.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.core.js"></script>
@@ -200,7 +181,6 @@
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.transitions.menu.js"></script>
 <script src="/modules/courses/tools/tcs/automata/dfa/js/dfa.transitions.transitionObjects.js"></script>
-<script src="/modules/courses/tools/tcs/automata/nfa/js/nfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/npda/js/nfa.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/pda/js/pda.simulator.js"></script>
 <script src="/modules/courses/tools/tcs/automata/pda/js/pda.transitions.js"></script>
@@ -211,8 +191,29 @@
 <script src="/modules/courses/tools/tcs/automata/tm/js/tm.transitions.js"></script>
 <script src="/modules/courses/tools/tcs/automata/tm/js/tm.transitions.menu.js"></script>
 <script src="/modules/courses/tools/tcs/automata/tm/js/tm.transitions.transitionObjects.js"></script>
-<script src="/modules/courses/tools/tcs/automata/cellular/directives/cell-menu/cell-menu.directive.js"></script>
 <script src="/modules/courses/tools/tcs/automata/cellular/directives/cell/cell.directive.js"></script>
+<script src="/modules/courses/tools/tcs/automata/cellular/directives/cell-menu/cell-menu.directive.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/Canvas/CanvasInterface.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/Canvas/EaselInterface.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/Circuit/BACircuit.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BADomain.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BAExpression.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BAGroup.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BANode.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/BoolAlgebra/BATable.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/BAKV.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/ColorPathLayer.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/ColorPathMap.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVBlock.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVCell.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVDiagram.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVExprCompare.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVReflectingBlock.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVReflectingBlockRect.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVReflectingSearch.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/KV/KVRow.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/controllers/BACtrl.js"></script>
+<script src="/modules/courses/tools/tcs/boolean-algebra/js/controllers/LangCtrl.js"></script>
 <script src="/modules/courses/tools/tcs/languages/type-lll/js/lang.checkInformationObject.js"></script>
 <script src="/modules/courses/tools/tcs/languages/type-lll/js/lang.core.js"></script>
 <script src="/modules/courses/tools/tcs/languages/type-lll/js/lang.derivationsequence.derivationsequenceObject.js"></script>
