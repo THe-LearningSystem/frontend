@@ -158,7 +158,7 @@ autoSim.TransitionInputAlphabetTM = function ($scope) {
                     tmpObj = true;
                 }
             }
-            if (tmpObj == false) {
+            if (tmpObj === false) {
                 _.pull(self, $scope.transitions.inputSymbolAlphabet[i]);
             }
         }
@@ -328,7 +328,7 @@ autoSim.TransitionTapeAlphabet = function ($scope) {
                     }
                 });
             });
-            if (found == false && found2 == false && found3 == false) {
+            if (found === false && found2 === false && found3 === false) {
                 _.pull(self, self[i]);
             }
         }

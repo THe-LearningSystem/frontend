@@ -190,7 +190,7 @@ autoSim.SimulatorTM = function ($scope, $uibModal) {
             return tmpObj;
         } else {
             tmpObj.possible = false;
-            tmpObj.sequences = tmpObj2.possibleSequences
+            tmpObj.sequences = tmpObj2.possibleSequences;
             return tmpObj
         }
     };
