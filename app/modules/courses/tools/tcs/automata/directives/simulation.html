@@ -17,10 +17,11 @@
     <div class="input-group" ng-show="!simulator.isInAnimation  || simulator.animatedSequence !== null">
         <span class="input-group-addon" aria-hidden="true">{{"as.core.inputWord" | translate}}</span>
         <input class="inputWord form-control" ng-if="automatonData.type !== 'TM'" ng-model="automatonData.inputWord" ng-change="simulator.updateFunction()" ng-disabled="simulator.isInAnimation" />
+        <!--Inputfield for the inputword for the turing machine-->
         <input class="inputWord form-control" ng-if="automatonData.type === 'TM'" ng-model="automatonData.inputWord" ng-change="simulator.updateFunction()" ng-disabled="simulator.isInAnimation" maxlength="20" />
         <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true" ng-if="automatonData.type !== 'TM'" ng-show="!simulator.isInputWordAccepted(automatonData.inputWord)"></span>
         <span class="input-group-addon icon-check green" aria-hidden="true" ng-if="automatonData.type !== 'TM'" ng-show="simulator.isInputWordAccepted(automatonData.inputWord)"></span>
-
+        <!--Visual note that notifys whether the inputword will be accepted or not-->
         <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true" ng-if="automatonData.type === 'TM'" ng-show="!simulator.isInputWordAccepted(automatonData.inputWord)"></span>
         <span class="input-group-addon icon-check green" aria-hidden="true" ng-if="automatonData.type === 'TM'" ng-show="simulator.isInputWordAccepted(automatonData.inputWord)"></span>
     </div>
@@ -33,10 +34,8 @@
         <div style="clear:both"></div>
     </div>
 
+    <!--Switch check box for adjust the pointer start position-->
     <div class="tapeStart" ng-if="automatonData.type ==='TM'" ng-show="!simulator.isInAnimation">
-        <!-- <p>
-            <input class="checkbox-item" type="checkbox" ng-model="simulator.tape.pointerStartLeft"> {{"SIM.TAPESTARTLEFT" | translate}}
-        </p> -->
         <label class="box1">Startposition:</label>
         <div class="box2">
             links
