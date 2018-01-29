@@ -1,21 +1,24 @@
-<container-item titlename="as.sim.settings">
+<container-item titlename="as.sim.settings" is-collapsed="true">
 
     <div class="border-bottom">
         <p>
             {{"as.sim.STO" | translate}}
         </p>
-        <rzslider rz-slider-model="simulator.stepTimeOut" rz-slider-options="stepTimeOutSlider.options"></rzslider>
+        <rzslider class="my-custom-slider" rz-slider-model="simulator.stepTimeOut"
+                  rz-slider-options="stepTimeOutSlider.options"></rzslider>
     </div>
 
     <div class="border-bottom">
         <p>
             {{"as.sim.LTO" | translate}}
         </p>
-        <rzslider rz-slider-model="simulator.loopTimeOut" rz-slider-options="loopTimeOutSlider.options"></rzslider>
+        <rzslider class="my-custom-slider" rz-slider-model="simulator.loopTimeOut"
+                  rz-slider-options="loopTimeOutSlider.options"></rzslider>
     </div>
-    <p>
-        <input class="checkbox-item" id="simulator-settings-input-loop" type="checkbox"
-               ng-model="simulator.loopSimulation" title="">
-        {{"as.sim.settingsLoop" | translate}}
-    </p>
+    <div class="checkbox">
+        <input type="checkbox"
+               ng-checked="simulator.loopSimulation"
+               ng-model="simulator.loopSimulation">
+        <label> {{"as.sim.settingsLoop" | translate}}</label>
+    </div>
 </container-item>

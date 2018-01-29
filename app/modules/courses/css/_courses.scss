@@ -20,6 +20,7 @@
 }
 
 .lesys-select.selected {
+  border:none;
   background-color: lightgray;
 }
 
@@ -103,6 +104,11 @@ Section
   border-bottom:1px solid #ddd;
   padding:15px;
 }
+
+.section-edit:hover{
+  background-color: #cbcbcb;
+
+}
 .section-edit .fa{
   //color:white;
 }
@@ -132,4 +138,10 @@ Allign
 
 .align-item {
   max-width: 50%;
+}
+
+
+
+.has-warning .ql-container.ql-snow{
+  border:1px solid #a94442 !important;
 }

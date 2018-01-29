@@ -2,3 +2,6 @@ node_modules
 .idea
 app/lib
 app/css/main.css
+/dist/
+
+app/index\.html

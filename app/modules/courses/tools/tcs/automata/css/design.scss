@@ -10,10 +10,12 @@
 //BulkTester
 .fail-class {
   background-color: $animatedNotAcceptedColor;
+  color:white;
 }
 
 .pass-class {
   background-color: $animatedAcceptedColor;
+  color:white;
 }
 
 .bulk-result {

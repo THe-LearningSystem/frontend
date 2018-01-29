@@ -15,7 +15,8 @@
             isUsernameUnique: isUsernameUnique,
             isEmailUnique: isEmailUnique,
             get:get,
-            update:update
+            update:update,
+            getLightUserList:getLightUserList
         };
 
         function get(userId){
@@ -29,8 +30,8 @@
             return crud.post('/auth/signup', credentials,callback);
         }
 
-        function signin(credentials,callback) {
-            return crud.post('/auth/signin', credentials,callback);
+        function signin(credentials,callback,notify) {
+            return crud.post('/auth/signin', credentials,callback,notify);
         }
 
         function isUsernameUnique(username) {
@@ -39,6 +40,10 @@
 
         function isEmailUnique(email) {
             return crud.get('/users/email/' + email);
+        }
+
+        function getLightUserList() {
+            return crud.get('/users/short/');
         }
     }
 }());

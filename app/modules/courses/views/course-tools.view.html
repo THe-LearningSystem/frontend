@@ -9,9 +9,8 @@
         </a>
     </div>
     <div class="col-sm-4" ng-repeat="tool in vm.course.tools" ng-if="!tool.extern">
-
         <div class="panel panel-default panel-tool">
-            <a class="tool-link" ui-sref="{{tool.url}}"
+            <a class="tool-link" ui-sref="{{tool.url}}({courseUrl:vm.parentVm.courseUrl})"
                ng-class="{'panel-tool-show-edit':vm.parentVm.isAllowedToEdit()}">
                 <h3 class="panel-tool-title">
                     {{getLocalized(tool.name)}}
@@ -29,16 +28,22 @@
         </div>
     </div>
     <div class="col-sm-4" ng-repeat="tool in vm.course.tools" ng-if="tool.extern">
-        <a href="{{tool.url}}">
-            <div class="panel panel-default panel-tool">
-                <div class="panel-body">
-
+        <div class="panel panel-default panel-tool">
+            <a class="tool-link" href="{{tool.url}}"
+               ng-class="{'panel-tool-show-edit':vm.parentVm.isAllowedToEdit()}">
+                <h3 class="panel-tool-title">
                     {{getLocalized(tool.name)}}
-                    <a ng-click="vm.updateTool(tool)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    {{getLocalized(tool.description)}}
-                    {
+                </h3>
+
+                {{getLocalized(tool.description)}}
+            </a>
+            <div class="tool-edit" ng-if="vm.parentVm.isAllowedToEdit()" ng-click="vm.updateTool(tool)">
+                <div class="align-container tool-edit-container">
+                    <div class="align-item">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 </div>

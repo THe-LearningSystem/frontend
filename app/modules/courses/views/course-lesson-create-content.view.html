@@ -6,10 +6,11 @@
                 <div class="col-sm-12">
                     <course-lesson-type-selection></course-lesson-type-selection>
                 </div>
-                <div class="col-sm-6">
+                <div ng-class="{'col-sm-6':vm.isInDualEditing && vm.isInSecondaryLanguagesEdit,
+                        'col-sm-12':!vm.isInDualEditing || !vm.isInSecondaryLanguagesEdit}">
                     <course-primary-language></course-primary-language>
                     <div class="form-group">
-                        <label>{{'core.courses.name' | translate}}</label>
+                        <label>{{'core.courses.lessonTitle' | translate}}</label>
                         <input type="text" class="form-control"
                                placeholder="{{'core.courses.name' | translate}}"
                                ng-model="vm.data.name[vm.course.primaryLanguage]"
@@ -17,33 +18,51 @@
                     </div>
                     <div class="form-group">
                         <label>{{'core.courses.content' | translate}}</label>
-                        <textarea froala="vm.froalaOptions"
-                                  ng-model="vm.data.data.content[vm.course.primaryLanguage]"
-                                  required>
-                    </textarea>
+                        <own-editor data="vm.data.data.content[vm.course.primaryLanguage]"
+                                    is-required="true" ></own-editor>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12" ng-show="!vm.isInDualEditing && vm.isInSecondaryLanguagesEdit">
+                    <hr>
+                </div>
+                <div ng-class="{'col-sm-6':vm.isInDualEditing,'col-sm-12':!vm.isInDualEditing}"
+                     ng-show="vm.isInSecondaryLanguagesEdit">
                     <course-language-selection></course-language-selection>
                     <div id="{{language}}-select" ng-repeat="language in vm.course.secondaryLanguages"
                          ng-if="vm.selectedLanguage === language">
                         <div class="form-group">
-                            <label>{{'core.courses.name' | translate}}</label>
+                            <label>{{'core.courses.lessonTitle' | translate}}</label>
                             <input type="text" class="form-control" placeholder="{{'core.courses.name' | translate}}"
                                    ng-model="vm.data.name[language]">
                         </div>
                         <div class="form-group">
                             <label>{{'core.courses.content' | translate}}</label>
-                            <textarea froala="vm.froalaOptions"
-                                      ng-model="vm.data.data.content[language]"></textarea>
+                            <own-editor data="vm.data.data.content[language]"></own-editor>
                         </div>
                     </div>
                 </div>
-                <hr>
+
                 <div class="col-sm-12">
                     <course-is-published></course-is-published>
                 </div>
                 <div class="col-sm-12">
+                    <hr>
+                    <div class="pull-left">
+                        <button class="btn btn-default" ng-click="vm.isInDualEditing = !vm.isInDualEditing"
+                                type="button"
+                                ng-show="vm.isInSecondaryLanguagesEdit">
+                            <span ng-show="!vm.isInDualEditing">{{'core.general.enable' | translate}}</span>
+                            <span ng-show="vm.isInDualEditing">{{'core.general.disable' | translate}}</span>
+                            <span>Dual-Edit</span>
+                        </button>
+                        <button class="btn btn-default"
+                                ng-click="vm.isInSecondaryLanguagesEdit = !vm.isInSecondaryLanguagesEdit"
+                                type="button">
+                            <span ng-show="!vm.isInSecondaryLanguagesEdit">{{'core.general.enable' | translate}}</span>
+                            <span ng-show="vm.isInSecondaryLanguagesEdit">{{'core.general.disable' | translate}}</span>
+                            <span>SecondaryLanguages-Edit</span>
+                        </button>
+                    </div>
                     <div class="pull-right">
                         <course-form-control-buttons></course-form-control-buttons>
                     </div>

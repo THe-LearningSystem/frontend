@@ -1,10 +1,4 @@
 <div class="remove-container full-wrapper">
-    <!--<div class="flex-item header">-->
-        <!--<app-menu>-->
-            <!--<automaton-name></automaton-name>-->
-            <!--<unsaved-changes></unsaved-changes>-->
-        <!--</app-menu>-->
-    <!--</div>-->
     <div class="flex-item  inner-wrapper">
 
         <div class="main main-wrapper">
@@ -15,14 +9,13 @@
                 <div class="layout-item container-wrapper">
                     <state-transition-function></state-transition-function>
                 </div>
-
             </div>
         </div>
         <aside class="sidebar sidebar-1 container-item layout-item">
             <simulation></simulation>
             <bulk-test></bulk-test>
             <simulation-settings></simulation-settings>
-            <develop></develop>
+            <develop has-permission="admin.showDevInfos"></develop>
         </aside>
         <aside class="sidebar sidebar-2 container-item layout-item">    <!--Diagram Settings -->
             <settings></settings>
@@ -30,9 +23,9 @@
             <state-menu></state-menu>
             <!--Transition Menu -->
             <transition-menu></transition-menu>
-            <credits></credits>
         </aside>
 
     </div>
-
+    <tools-bottom-toolbar>
+    </tools-bottom-toolbar>
 </div>

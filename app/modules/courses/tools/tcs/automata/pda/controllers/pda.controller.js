@@ -1,16 +1,9 @@
 (function () {
     'use strict';
 
-    angular
-        .module('courses')
-        .controller('PDACtrl', PDACtrl);
-
-    PDACtrl.$inject = ['$scope','$state','Courses', '$stateParams','Authentication'];
-
-    function PDACtrl($scope,$state,Courses, $stateParams,Authentication) {
+    function _initAutomaton($scope) {
         console.log("created PDA");
         prepareScope($scope);
-
         //Config Object
         $scope.automatonData = new autoSim.AutomatonData('PDA');
         $scope.core = new autoSim.DFACore($scope);
@@ -25,6 +18,31 @@
         $scope.statediagram.zoom = new autoSim.StateDiagramZoom($scope);
 
         $scope.testAgent = new TestData($scope);
-        $scope.testAgent.testPDA();
+    }
+    angular
+        .module('courses')
+        .controller('PDACtrl', PDACtrl);
+
+    PDACtrl.$inject = ['$scope','$uibModal'];
+
+    function PDACtrl($scope,$uibModal) {
+        _initAutomaton($scope);
+        $scope.$uibModal = $uibModal;
+    }
+
+    angular
+        .module('courses.tcs')
+        .controller('PDALessonCtrl', PDALessonCtrl);
+
+    PDALessonCtrl.$inject = ['$rootScope','$scope','Courses','CustomNotify','Authentication'];
+
+    function PDALessonCtrl($rootScope,$scope, Courses,CustomNotify,Authentication) {
+        _initAutomaton($scope);
+        $scope.isLesson = true;
+        $scope.lessonTester = new autoSim.lessonTester($scope,$rootScope, Courses,CustomNotify,Authentication);
+
+        $scope.init = function (data, parentScope) {
+            prepareLesson(data,parentScope,$scope)
+        };
     }
 }());

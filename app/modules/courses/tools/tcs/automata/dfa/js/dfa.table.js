@@ -39,6 +39,19 @@ autoSim.Table = function ($scope) {
         });
     };
 
+
+    self.isTransitionAnimated = function(inputSymbol){
+        var tmpBoolean = false;
+
+        _.forEach($scope.transitions,function(transitionGroup){
+            _.forEach(transitionGroup, function(transition){
+                if(inputSymbol == transition.inputSymbol && transition.isAnimated)
+                    tmpBoolean = true;
+            });
+        });
+        return tmpBoolean;
+    };
+
     /**
      * creates the alphabet array for the view
      */

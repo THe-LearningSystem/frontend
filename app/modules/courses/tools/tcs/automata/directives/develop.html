@@ -1,14 +1,20 @@
 <container-item titlename="core.general.development">
-    <menubutton icon="wrench" action="statetransitionfunction.simulatePhysic()"></menubutton>
-
+    <p>Beispielautomaten</p>
     <menubutton icon="wrench" action="testAgent.testDFA()" ng-show="automatonData.type== 'DFA'">
     </menubutton>
-    <menubutton icon="wrench" action="testAgent.testNFA()" ng-show="automatonData.type== 'DFA'">
+    <menubutton icon="wrench" action="testAgent.testNFA()" ng-show="automatonData.type== 'NFA'">
     </menubutton>
     <menubutton icon="wrench" action="testAgent.testPDA()" ng-show="automatonData.type== 'PDA'">
     </menubutton>
     <menubutton icon="wrench" action="testAgent.testNPDA()" ng-show="automatonData.type== 'NPDA'">
     </menubutton>
+    <button class="btn btn-default" ng-click="testAgent.testTM1()" ng-show="automatonData.type=='TM'">1</button>
+    <button class="btn btn-default" ng-click="testAgent.testTM2()" ng-show="automatonData.type=='TM'">2</button>
+    <button class="btn btn-default" ng-click="testAgent.testTM3()" ng-show="automatonData.type=='TM'">3</button>
+    <button class="btn btn-default" ng-click="testAgent.testTM4()" ng-show="automatonData.type=='TM'">4</button>
+    <button class="btn btn-default" ng-click="testAgent.testTM5()" ng-show="automatonData.type=='TM'">5</button>
+
+    <hr>
     <p>
         AutomatonData:
         <json-formatter json="automatonData" open="0"></json-formatter>
@@ -24,5 +30,5 @@
     </p>
 
     <json-formatter json="table" open="0"></json-formatter>
-    <json-formatter json="simulator.stack" open="0"></json-formatter>
+    <json-formatter json="simulator" open="0"></json-formatter>
 </container-item>

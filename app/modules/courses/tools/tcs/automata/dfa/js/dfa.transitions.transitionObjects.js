@@ -75,10 +75,20 @@ autoSim.TransitionInputAlphabet = function ($scope) {
      * @returns {boolean} true if it was removed false if not removed
      */
     self.removeIfNotUsedFromOthers = function (transition) {
-        for (var i = 0; i < $scope.transitions.length; i++) {
-            if (transition.inputSymbol === $scope.transitions[i].name && $scope.transitions[i].id !== transition.id) {
-                return false;
+        var foundTransition = false;
+        _.forEach($scope.transitions, function (transitionGroup) {
+            _.forEach(transitionGroup, function (otherTransition) {
+                if (transition.inputSymbol === otherTransition.inputSymbol && otherTransition.id !== transition.id) {
+                    foundTransition = true;
+                    return true;
+                }
+            });
+            if (foundTransition) {
+                return true;
             }
+        });
+        if (foundTransition) {
+            return false;
         }
         _.pull(self, transition.inputSymbol);
         return true;

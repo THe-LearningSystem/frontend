@@ -1,25 +1,32 @@
 //Simulator for the simulation of the automata
-autoSim.SimulatorTM = function($scope, $uibModal) {
+/**
+ * Simulator for the simulation of the turing machine
+ */
+autoSim.SimulatorTM = function ($scope, $uibModal) {
     var self = this;
     autoSim.Simulator.apply(this, arguments);
+
+    //if the simulation loops (start at the end again)
+    self.loopSimulation = false;
 
 
     self.tape = new autoSim.TMTape($scope);
     self.virtualTape = new autoSim.TMTape($scope);
 
     self.tape.refillTape();
-    self.tape.setPointer();
+    self.tape.setPointer($scope.automatonData.inputWord);
     self.virtualTape.refillTape();
-    self.virtualTape.setPointer();
+    self.virtualTape.setPointer($scope.automatonData.inputWord);
 
 
     //save the reference
     var parentReset = this.reset;
 
     /**
-     * Should reset the simulation
+     *  Resets the simulation and refills the tape with blank symbols
+     *  and writes the inputword back to the tape
      */
-    self.reset = function() {
+    self.reset = function () {
         self.tape.refillTape();
         self.tape.fillTape($scope.automatonData.inputWord);
         self.virtualTape.refillTape();
@@ -35,26 +42,27 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
     }
 
     /**
-     * Prepare the simulation (set startSettings)
+     * Prepares the simulation
+     * Resets the simulation and fetches the sequences for the simulation
      */
-    self.prepareSimulation = function() {
+    self.prepareSimulation = function () {
         self.reset();
         self.isInAnimation = true;
-        self.sequences = self.getSequences(self.virtualTape.tapeArray);
+        self.sequences = self.getSequences($scope.automatonData.inputWord);
+        console.log(self.sequences);
     };
 
     /**
-     * Make a step forward
+     * Makes a step forward in simulation-sequence
      */
-    self.stepForward = function() {
-        var modalIsDisplayed = false;
+    self.stepForward = function () {
         if (!self.isInAnimation) {
             self.prepareSimulation();
         }
         if (!_.includes(["accepted", "notAccepted"], self.status)) {
-            // if (self.isEmptyWordAccepted && self.tape.isEmpty() === true) {
-            //     self.animateEmptyWord();
-            // } else {
+            if (self.tape.isEmpty() && $scope.states.final.isFinalState($scope.states.startState) && $scope.transitions.length === 0) {
+                self.animateEmptyWord();
+            } else {
                 if (self.animated.currentState === null) {
                     self.animateCurrentState();
                     self.animateCurrentTapeItem();
@@ -70,26 +78,18 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
                         } else {
                             self.tape.pointerStay();
                         }
-                        //wenn aktiviert, dann wandert currentTapeItem gleichzeitig mit Pointer
-                        // self.animateCurrentTapeItem();
                     }
-                    if (self.tape.pointer > 24 && !self.modalIsDisplayed) {
-                        $uibModal.open({
-                            ariaLabelledBy: 'modal-title',
-                            templateUrl: '/app/components/automata/tm/views/tm.modal.html',
-                            controller: 'ModalCtrl',
-                            controllerAs: 'vm'
-                        });
-                        self.modalIsDisplayed = true;
+                    if (self.tape.pointer > 24) {
+                        self.animated.nextState = self.animated.transition.toState;
+                        self.status = 'notAccepted';
+                        self.pause();
+                        $scope.core.openInfoModal('as.tm.error', 'as.tm.outOfBounds');
                     }
                     if (self.tape.pointer < 0 && !self.modalIsDisplayed) {
-                      $uibModal.open ({
-                        ariaLabelledBy: 'modal-title',
-                        templateUrl: '/app/components/automata/tm/views/tm.modal.html',
-                        controller: 'ModalCtrl',
-                        controllerAs: 'vm'
-                      });
-                      self.modalIsDisplayed = true;
+                        self.animated.nextState = self.animated.transition.toState;
+                        self.status = 'notAccepted';
+                        self.pause();
+                        $scope.core.openInfoModal('as.tm.error', 'as.tm.outOfBounds');
                     }
                 } else if (self.animated.nextState === null) {
                     self.animateNextState();
@@ -97,31 +97,23 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
                 } else {
                     self.changeNextStateToCurrentState();
                 }
-            // }
+            }
         }
         $scope.saveApply();
     };
 
-    self.sleep = function(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds) {
-                break;
-            }
-        }
-    }
     /**
-     *Animate the currentState
+     * Animates the tapeitem on which the pointer stands
      */
-    self.animateCurrentTapeItem = function() {
+    self.animateCurrentTapeItem = function () {
         self.animated.currentTapeItem = self.tape.pointer;
     };
 
 
     /**
-     *Change the currentState to the nextState
+     * Changes the next state to the current state
      */
-    self.changeNextStateToCurrentState = function() {
+    self.changeNextStateToCurrentState = function () {
         self.currentPosition++;
         self.currentSequencePosition++;
         self.animated.currentState = self.animated.nextState;
@@ -134,17 +126,18 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
     };
 
     /**
-     * Returns if the animation is accepted for overriding
-     * @returns {boolean}
+     * tells us if the inputword is accepted
+     * @return {boolean} Returns 'true' if simulation is in the last animation step of the sequence and the sequence is
+     * an possible sequence
      */
-    self.isAnimationAccepted = function() {
+    self.isAnimationAccepted = function () {
         return self.currentSequencePosition == self.sequences.sequences[0].length && self.sequences.possible;
     };
 
     /**
-     * Goes the animation back. if we have only a currentState
+     * Goes a step back in the simulation
      */
-    self.goAnimationBack = function() {
+    self.goAnimationBack = function () {
         self.status = "unknown";
         if (self.currentPosition !== 0) {
             self.currentPosition--;
@@ -165,61 +158,54 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
     };
 
     /**
-     * checks if a word is accepted from the automata
-     * @return {Boolean}
+     * Checks if a word is accepted from the automaton
+     * @return {Boolean}: Returns 'true' if the inputWord is accepted, returns 'false' if not.
      */
-    self.isInputWordAccepted = function(tapeWord) {
+    self.isInputWordAccepted = function (tapeWord) {
         self.virtualTape.tapeSetup($scope.automatonData.inputWord);
-        return self.getSequences(self.virtualTape.tapeArray).possible;
+        return self.getSequences(tapeWord).possible;
     };
 
     /**
-     * Return either the possibleSequences, if there is no possibleSequence, then return the farthestPossibleSequences
-     * @param inputWord
-     * @returns {{}}
+     * Returns the sequence for the automaton with the inputword
+     * @param tapeWord: word written on the tape to be edited
+     * @return {Array}: array tmpObj containing the simulation steps, a variable that indicates whether the simulation is
+     * complete or not and the edited output word
      */
-    self.getSequences = function(tapeWord) {
+    self.getSequences = function (tapeWord) {
         self.virtualTape.fillTape(tapeWord);
-        tapeWord = self.virtualTape.tapeArray;
+        var tape = self.virtualTape.tapeArray;
         var tmpObj = {};
-        if (self.tape.isEmpty() && $scope.states.final.isFinalState($scope.states.startState)) {
+        var tmpObj2 = self.getAllPossibleSequences(tape, tapeWord);
+        if (self.tape.isEmpty() && $scope.states.final.isFinalState($scope.states.startState) && $scope.transitions.length === 0) {
             tmpObj.possible = true;
             tmpObj.sequences = [];
             return tmpObj;
         }
-        // if (self.tape.isEmpty()) {
-        //     if ($scope.states.final.isFinalState($scope.states.startState)) {
-        //         tmpObj.possible = true;
-        //         tmpObj.sequences = [];
-        //         return tmpObj;
-        //     } else {
-        //         tmpObj.possible = false;
-        //         tmpObj.sequences = [];
-        //         return tmpObj;
-        //     }
-        // }
-        var possibleSequences = self.getAllPossibleSequences(tapeWord);
-        if (possibleSequences.length !== 0) {
+
+        if (tmpObj2.completeSequence === true && tmpObj2.possibleSequences.length !== 0) {
             tmpObj.possible = true;
-            tmpObj.sequences = possibleSequences;
+            tmpObj.sequences = tmpObj2.possibleSequences;
+            tmpObj.outputWord = tmpObj2.outputWord;
             return tmpObj;
         } else {
             tmpObj.possible = false;
-            tmpObj.sequences = self.getFarthestPossibleSequences(tapeWord);
-            return tmpObj;
+            tmpObj.sequences = tmpObj2.possibleSequences;
+            return tmpObj
         }
     };
 
     /**
      * returns all possible transition, which go from the fromState with the inputSymbol to a state
-     * @param fromState
-     * @param inputSymbol
-     * @returns {Array}
+     * @param fromState: state from which you want to search
+     * @param tapeSymbol: character for the next transition to be searched for
+     * @returns {Array}: an array with transitions which run out from the fromState and contain the specific tapeSymbol
+     * as input symbol
      */
-    self.getNextTransitions = function(fromState, tapeSymbol) {
+    self.getNextTransitions = function (fromState, tapeSymbol) {
         var transitions = [];
-        _.forEach($scope.transitions, function(transitionGroup) {
-            _.forEach(transitionGroup, function(transition) {
+        _.forEach($scope.transitions, function (transitionGroup) {
+            _.forEach(transitionGroup, function (transition) {
                 if (transition.fromState == fromState && transition.inputSymbol == tapeSymbol) {
                     transitions.push([transition]);
                 }
@@ -230,18 +216,25 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
 
 
     /**
-     * Returns all possible sequences, if an empty array is returned, there is no possibleSequence
-     * @param inputWord
-     * @returns {Array}
+     * Returns the possible sequence of animation steps. If there is no possible sequence the broadest sequence is
+     * returned
+     * @param tape: tape to be worked with
+     * @param tapeWord: word for which a sequence is to be searched
+     * @returns {Array}: array tmpObj which contains the possible animation steps, a variable that indicates whether
+     * the sequence is complete or not and the output word
      */
-    self.getAllPossibleSequences = function(tapeWord) {
-        var possibleSequences = [];
+    self.getAllPossibleSequences = function (tape, tapeWord) {
+        var tmpObj = {};
+        tmpObj.completeSequence = false;
+        tmpObj.possibleSequences = [];
         var state = $scope.states.startState;
         var possibleSequence = [];
 
+        self.virtualTape.pointer = self.virtualTape.searchPointerStart(tapeWord);
         while (self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]).length !== 0) {
             var possibleTransition = self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]);
-            if (possibleTransition[0][0].inputSymbol === tapeWord[self.virtualTape.pointer]) {
+
+            if (possibleTransition[0][0].inputSymbol === tape[self.virtualTape.pointer]) {
                 self.virtualTape.writeOnTape(possibleTransition[0][0].outputSymbol);
                 if (possibleTransition[0][0].movingDirection === "→") {
                     self.virtualTape.pointerGoRight();
@@ -252,281 +245,18 @@ autoSim.SimulatorTM = function($scope, $uibModal) {
                 }
                 possibleSequence.push(possibleTransition[0][0]);
             }
-            // } else if ($scope.states.final.isFinalState(possibleTransition[0][0].fromState)) {
-            //     possibleSequences.push(possibleSequence);
-            //     return possibleSequences;
-            // } else {
-            //     self.virtualTape.refillTape();
-            //     self.virtualTape.fillTape($scope.automatonData.inputWord);
-            //     possibleSequences = [];
-            //     console.log("start");
-            //     return possibleSequences;
-            // }
             state = possibleTransition[0][0].toState;
         }
-        if ($scope.states.final.isFinalState(state)) {
-            possibleSequences.push(possibleSequence);
-            return possibleSequences;
+        if (possibleSequence.length > 0) {
+            tmpObj.possibleSequences.push(possibleSequence);
         }
-        self.virtualTape.tapeSetup($scope.automatonData.inputWord);
-        return possibleSequences;
+        tmpObj.outputWord = self.virtualTape.getOutputWord();
+        self.virtualTape.refillTape();
+        if (tmpObj.possibleSequences.length > 0 && $scope.states.final.isFinalState(state) && self.virtualTape.pointer < 25 && self.virtualTape.pointer >= 0) {
+            tmpObj.completeSequence = true;
+            return tmpObj;
+        }
+        return tmpObj;
 
-
-        // //as long as there are possibleSequences do
-        // while (tapeSequences.length !== 0) {
-        //     var tmpSequence = tapeSequences.pop();
-        //     if (tmpSequence.length === self.tape.numOfChar && $scope.states.final.isFinalState(_.last(tmpSequence).toState)) {
-        //         possibleSequences.push(tmpSequence);
-        //     } else if (self.tape.numOfChar > tmpSequence.length) {
-        //         // console.log(tmpSequence);
-        //         var tmpSequences = [];
-        //         var newTmpSequence = [];
-        //         var i = self.getPointerPosition(tmpSequence);
-        //         console.log(tapeWord[i]);
-        //         _.forEach(self.getNextTransitions(_.last(tmpSequence).toState, tapeWord[self.tape.pointer + tmpSequence.length]), function(value) {
-        //             newTmpSequence = _.concat(tmpSequence, value);
-        //             tmpSequences.push(newTmpSequence);
-        //         });
-        //         tapeSequences = _.concat(tapeSequences, tmpSequences);
-        //     }
-        // }
-        // return possibleSequences;
     };
-
-    /**
-     * Returns the farthest possible sequences
-     * @param inputWord
-     * @returns {Array}
-     */
-    self.getFarthestPossibleSequences = function(tapeWord) {
-        var farthestSequences = [];
-        //     //     //1.Get the all possible transitions
-        //     //     var tapeSequences = self.getNextTransitions($scope.states.startState, tapeWord[self.tape.pointer]);
-        //     //     //as long as there are possibleSequences do
-        //     //     while (tapeSequences.length !== 0) {
-        //     //         var tmpSequence = tapeSequences.pop();
-        //     //         if (tmpSequence.length === self.tape.numOfChar && $scope.states.final.isFinalState(_.last(tmpSequence).toState)) {}
-        //     // else if (self.tape.numOfChar > tmpSequence.length) {
-        //     //             var tmpSequences = [];
-        //     //             var newTmpSequence = [];
-        //     //             var i = self.tape.pointer + tmpSequence.length;
-        //     //             _.forEach(self.getNextTransitions(_.last(tmpSequence).toState, tapeWord[i]), function(value) {
-        //     //                 newTmpSequence = _.concat(tmpSequence, value);
-        //     //                 tmpSequences.push(newTmpSequence);
-        //     //             });
-        //     //             tapeSequences = _.concat(tapeSequences, tmpSequences);
-        //     //             if (tmpSequences.length === 0) {
-        //     //                 farthestSequences.push(tmpSequence);
-        //     //             }
-        //     //         } else {
-        //     //             farthestSequences.push(tmpSequence);
-        //     //         }
-        //     //     }
-        //     //     return farthestSequences;
-        //
-        var state = $scope.states.startState;
-        var farthestSequence = [];
-
-        while (self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]).length !== 0) {
-            var possibleTransition = self.getNextTransitions(state, self.virtualTape.tapeArray[self.virtualTape.pointer]);
-            if (possibleTransition[0][0].inputSymbol === tapeWord[self.virtualTape.pointer]) {
-                self.virtualTape.writeOnTape(possibleTransition[0][0].outputSymbol);
-                if (possibleTransition[0][0].movingDirection === "→") {
-                    self.virtualTape.pointerGoRight();
-                } else if (possibleTransition[0][0].movingDirection === "←") {
-                    self.virtualTape.pointerGoLeft();
-                } else {
-                    self.virtualTape.pointerStay();
-                }
-                farthestSequence.push(possibleTransition[0][0]);
-            }
-            // } else if ($scope.states.final.isFinalState(possibleTransition[0][0].fromState)) {
-            //     farthestSequences.push(farthestSequence);
-            //     return farthestSequences;
-            // } else {
-            //     farthestSequences = [];
-            //     return farthestSequences;
-            // }
-            state = possibleTransition[0][0].toState;
-        }
-        if ($scope.states.final.isFinalState(state)) {
-            farthestSequences.push(farthestSequence);
-            return farthestSequences;
-        }
-        farthestSequences.push(farthestSequence);
-        return farthestSequences;
-    };
-
-    /**
-     *update the currentSequences if it didn't break the simulation
-     */
-    self.updateCurrentSequences = function() {};
-
-
-    // //save the reference
-    // var parentReset = this.reset;
-    //
-    // /**
-    //  * Should reset the simulation
-    //  */
-    // self.reset = function () {
-    //     self.stack = new autoSim.PDAStack();
-    //     parentReset.apply(this);
-    //
-    //     //TODO:
-    //     //$scope.statediagram.addToStack(self.stack.stackContainer);
-    // };
-    //
-    // /**
-    //  * for stack pop used
-    //  */
-    // self.animateTransitionOverride = function () {
-    //     self.stack.pop();
-    // };
-    //
-    // //saving reference
-    // var parentChangeNextStateToCurrentState = self.changeNextStateToCurrentState;
-    //
-    // /**
-    //  * stack push integrated
-    //  */
-    // self.changeNextStateToCurrentState = function () {
-    //     self.stack.push(self.animated.transition.writeToStack);
-    //     parentChangeNextStateToCurrentState();
-    // };
-
-
-    // /**
-    //  * Returns all possible sequences, if an empty array is returned, there is no possibleSequence
-    //  * @param inputWord
-    //  * @returns {Array}
-    //  */
-    // self.getAllPossibleSequences = function(inputWord) {
-    //     var possibleSequences = [];
-    //     //Get the all possible transitions
-    //     var stackSequences = self.getNextTransitions($scope.states.startState, inputWord[0]);
-    //     //as long as there are possibleSequences do
-    //     while (stackSequences.length !== 0) {
-    //         var tmpSequence = stackSequences.pop();
-    //         if (tmpSequence.length === inputWord.length && $scope.states.final.isFinalState(_.last(tmpSequence).toState)) {
-    //             possibleSequences.push(tmpSequence);
-    //         } else if (inputWord.length > tmpSequence.length) {
-    //             var tmpSequences = [];
-    //             var newTmpSequence = [];
-    //             _.forEach(self.getNextTransitions(_.last(tmpSequence).toState, inputWord[tmpSequence.length]), function(value) {
-    //                 newTmpSequence = _.concat(tmpSequence, value);
-    //                 tmpSequences.push(newTmpSequence);
-    //             });
-    //             stackSequences = _.concat(stackSequences, tmpSequences);
-    //         }
-    //     }
-    //     return possibleSequences;
-    // //init needed variables
-    // var possibleSequences = [];
-    // var stackSequences = [];
-    // var tmpSequences = [];
-    //
-    // if (inputWord.length !== 0) {
-    //     tmpSequences = self.getNextTransitions($scope.states.startState, inputWord[0], new autoSim.PDAStack().stackFirstSymbol);
-    //     for (var i = 0; i < tmpSequences.length; i++) {
-    //         var tmpSequence = {};
-    //         tmpSequence.stack = new autoSim.PDAStack();
-    //         tmpSequence.stack.pop();
-    //         tmpSequence.stack.push(tmpSequences[i].writeToStack);
-    //         tmpSequence.value = [tmpSequences[i]];
-    //         stackSequences.push(tmpSequence);
-    //     }
-    // }
-    //
-    // while (stackSequences.length !== 0) {
-    //     tmpSequence = stackSequences.pop();
-    //     if (tmpSequence.value.length === inputWord.length && tmpSequence.stack.stackContainer.length === 0) {
-    //         possibleSequences.push(tmpSequence.value);
-    //     } else if (inputWord.length > tmpSequence.value.length && tmpSequence.stack.stackContainer.length !== 0) {
-    //         tmpSequences = [];
-    //         _.forEach(self.getNextTransitions(_.last(tmpSequence.value).toState, inputWord[tmpSequence.value.length], tmpSequence.stack.pop()), function (sequence) {
-    //             var newTmpSequence = {};
-    //             newTmpSequence.stack = new autoSim.PDAStack(tmpSequence.stack.stackContainer);
-    //             newTmpSequence.stack.push(sequence.writeToStack);
-    //             newTmpSequence.value = _.concat(tmpSequence.value, sequence);
-    //             tmpSequences.push(newTmpSequence);
-    //         });
-    //         stackSequences = _.concat(stackSequences, tmpSequences);
-    //     }
-    // }
-    // return possibleSequences;
-    // };
-
-
-    // /**
-    //  * Returns the farthest possible sequences
-    //  * @param inputWord
-    //  * @returns {Array}
-    //  */
-    // self.getFarthestPossibleSequences = function(inputWord) {
-    //     var farthestSequences = [];
-    //     //1.Get the all possible transitions
-    //     var stackSequences = self.getNextTransitions($scope.states.startState, inputWord[0]);
-    //     //as long as there are possibleSequences do
-    //     while (stackSequences.length !== 0) {
-    //         var tmpSequence = stackSequences.pop();
-    //         if (tmpSequence.length === inputWord.length && $scope.states.final.isFinalState(_.last(tmpSequence).toState)) {} else if (inputWord.length > tmpSequence.length) {
-    //             var tmpSequences = [];
-    //             var newTmpSequence = [];
-    //             _.forEach(self.getNextTransitions(_.last(tmpSequence).toState, inputWord[tmpSequence.length]), function(value) {
-    //                 newTmpSequence = _.concat(tmpSequence, value);
-    //                 tmpSequences.push(newTmpSequence);
-    //             });
-    //             stackSequences = _.concat(stackSequences, tmpSequences);
-    //             if (tmpSequences.length === 0) {
-    //                 farthestSequences.push(tmpSequence);
-    //             }
-    //         } else {
-    //             farthestSequences.push(tmpSequence);
-    //         }
-    //     }
-    //     return farthestSequences;
-    // //init needed variables
-    // var farthestSequences = [];
-    // var stackSequences = [];
-    // var tmpSequences = [];
-    //
-    //
-    // if (inputWord.length !== 0) {
-    //     tmpSequences = self.getNextTransitions($scope.states.startState, inputWord[0], new autoSim.PDAStack().stackFirstSymbol);
-    //     for (var i = 0; i < tmpSequences.length; i++) {
-    //         var tmpSequence = {};
-    //         tmpSequence.stack = new autoSim.PDAStack();
-    //         tmpSequence.stack.pop();
-    //         tmpSequence.stack.push(tmpSequences[i].writeToStack);
-    //         tmpSequence.value = [tmpSequences[i]];
-    //         stackSequences.push(tmpSequence);
-    //     }
-    // }
-    //
-    // while (stackSequences.length !== 0) {
-    //     tmpSequence = stackSequences.pop();
-    //     if (tmpSequence.value.length === inputWord.length && tmpSequence.stack.stackContainer.length === 0) {
-    //     } else if (inputWord.length > tmpSequence.value.length && tmpSequence.stack.stackContainer.length !== 0) {
-    //         tmpSequences = [];
-    //         _.forEach(self.getNextTransitions(_.last(tmpSequence.value).toState, inputWord[tmpSequence.value.length], tmpSequence.stack.pop()), function (sequence) {
-    //             var newTmpSequence = {};
-    //             newTmpSequence.stack = new autoSim.PDAStack(tmpSequence.stack.stackContainer);
-    //             newTmpSequence.stack.push(sequence.writeToStack);
-    //             newTmpSequence.value = _.concat(tmpSequence.value, sequence);
-    //             tmpSequences.push(newTmpSequence);
-    //         });
-    //         stackSequences = _.concat(stackSequences, tmpSequences);
-    //         if (tmpSequences.length === 0) {
-    //             farthestSequences.push(tmpSequence.value);
-    //         }
-    //     } else {
-    //         farthestSequences.push(tmpSequence.value);
-    //     }
-    // }
-    // return farthestSequences;
-    // };
-
-
-
 };

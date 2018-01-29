@@ -5,15 +5,13 @@
         .module('courses')
         .controller('QuestionsAndAnswersCtrl', QuestionsAndAnswersCtrl);
 
-    QuestionsAndAnswersCtrl.$inject = ['$scope', '$state', 'Courses', '$stateParams', 'Authentication'];
+    QuestionsAndAnswersCtrl.$inject = ['Courses', '$stateParams'];
 
-    function QuestionsAndAnswersCtrl($scope, $state, Courses, $stateParams, Authentication) {
-
+    function QuestionsAndAnswersCtrl(Courses, $stateParams) {
         var vm = this;
         vm.courseUrl = $stateParams.courseUrl;
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
         });
-
     }
 }());

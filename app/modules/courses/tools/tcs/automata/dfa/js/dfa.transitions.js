@@ -12,9 +12,13 @@ autoSim.Transitions = function ($scope) {
     self.selfTransitionTextLength = 10;
 
 
-    self.selectTransitionGroup = function(transitionGroup){
-        self.selected = transitionGroup;
-        $scope.core.updateListener();
+    self.selectTransitionGroup = function (transitionGroup) {
+        if (self.selected !== null && transitionGroup !== null) {
+            self.selected = transitionGroup;
+            $scope.core.updateListener();
+        } else {
+            self.selected = transitionGroup;
+        }
     };
 
     /**

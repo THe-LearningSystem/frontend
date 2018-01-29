@@ -21,8 +21,8 @@ autoSim.Simulator = function ($scope) {
      * Reset the simulation
      */
     self.reset = function () {
-        if (self.animatedSequence != null) {
-            self.removeSequenceAnimation(self.animatedSequence, self.animatedSequencePossible);
+        if (self.animatedSequence) {
+            self.removeSequenceAnimation();
         }
         self.animatedSequencePossible = null;
         self.animatedSequence = null;
@@ -31,9 +31,6 @@ autoSim.Simulator = function ($scope) {
             transition: null,
             nextState: null
         };
-        self.currentState = null;
-        self.transition = null;
-        self.nextState = null;
         self.isInAnimation = false;
         self.sequences = {};
         self.processedWord = "";
@@ -71,15 +68,20 @@ autoSim.Simulator = function ($scope) {
      */
     self.play = function () {
         //if the simulation is paused then return
-        if (!self.simulationPaused) {
+        if (!self.simulationPaused && self.animatedSequence === null) {
             //start and prepare for the play
             if (!self.isInAnimation) {
                 self.prepareSimulation();
-                setTimeout(self.play, self.loopTimeOut);
+                setTimeout(self.play, self.stepTimeOut);
             } else {
                 self.stepForward();
-                if (!_.includes(["accepted", "notAccepted"], self.status))
+                if (!_.includes(["accepted", "notAccepted"], self.status)) {
+                    setTimeout(self.play, self.stepTimeOut);
+                } else if (self.loopSimulation) {
+                    self.isInAnimation = false;
+                    self.isInPlay = true;
                     setTimeout(self.play, self.loopTimeOut);
+                }
             }
         }
     };
@@ -139,7 +141,7 @@ autoSim.Simulator = function ($scope) {
         if (self.isInPlay)
             self.pause();
         self.stepForward();
-    }
+    };
 
     /**
      *Animation for the empty word
@@ -426,7 +428,7 @@ autoSim.Simulator = function ($scope) {
         }
         if (!bool) {
             self.reset();
-            $scope.showModalWithMessage('SIM.MODAL_TITLE', 'SIM.MODAL_DESC');
+            $scope.core.openInfoModal('as.sim.simWasResettedTitle', 'as.sim.simWasResettedDescription');
         }
     };
 
@@ -436,21 +438,44 @@ autoSim.Simulator = function ($scope) {
      * @param possible
      */
     self.animateSequence = function (sequence, possible) {
+        console.log(sequence,possible);
         self.reset();
+        self.isInPlay = false;
         self.isInAnimation = true;
-        $scope.statediagram.animateSequence(sequence, possible);
+        _.forEach(sequence, function (transition, key) {
+            transition.isAnimated = true;
+            $scope.transitions.getTransitionGroup(transition.fromState, transition.toState).isAnimated = true;
+            transition.fromState.isAnimated = true;
+            if (key === sequence.length - 1) {
+                transition.toState.isAnimatedFinal = true;
+                transition.toState.isPossible = possible;
+            }
+        });
         //TODO: Save Values and after load them
         self.animatedSequence = sequence;
         self.animatedSequencePossible = possible;
+
+        //Fix for the table
+        $scope.table.updateFunction();
     };
 
     /**
      * removes the sequence animation
-     * @param sequence
-     * @param possible
      */
-    self.removeSequenceAnimation = function (sequence, possible) {
-        $scope.statediagram.removeSequenceAnimation(sequence, possible);
+    self.removeSequenceAnimation = function () {
+        if (self.animatedSequence) {
+            _.forEach(self.animatedSequence, function (transition, key) {
+                delete $scope.transitions.getTransitionGroup(transition.fromState, transition.toState).isAnimated;
+                delete transition.isAnimated;
+                delete transition.fromState.isAnimated;
+                if (key === self.animatedSequence.length - 1) {
+                    delete transition.toState.isAnimatedFinal;
+                    delete transition.toState.isPossible;
+                }
+            });
+            self.animatedSequence = null;
+            self.animatedSequencePossible = null;
+        }
     };
 
 

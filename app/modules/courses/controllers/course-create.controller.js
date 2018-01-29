@@ -5,19 +5,23 @@
         .module('courses')
         .controller('CourseCreateCtrl', CourseCreateCtrl);
 
-    CourseCreateCtrl.$inject = ['Courses', 'I18nManager', '$stateParams'];
+    CourseCreateCtrl.$inject = ['Courses', 'I18nManager', '$stateParams','UsersService','$scope'];
 
-    function CourseCreateCtrl(Courses, i18nManager, $stateParams) {
+    function CourseCreateCtrl(Courses, i18nManager, $stateParams,UsersService,$scope) {
         var vm = this;
-        vm.update = false;
+        vm.isInUpdate = false;
         vm.courseUrl = $stateParams.courseUrl;
         if (vm.courseUrl) {
-            vm.update = true;
+            vm.isInUpdate = true;
             Courses.courseDisplay(vm.courseUrl).then(function (response) {
                 vm.data = response.data;
-                console.log(response.data);
+                UsersService.getLightUserList().then(function(response){
+                    vm.users = response.data;
+                });
+                //fix for the language selection
+                vm.course = vm.data;
                 if (vm.data.secondaryLanguages.length > 0)
-                    vm.selected = vm.data.secondaryLanguages[0];
+                    vm.selectedLanguage = vm.data.secondaryLanguages[0];
             });
         }
 
@@ -28,17 +32,14 @@
             var data = {
                 payload: vm.data
             };
-            console.log(data);
             Courses.createCourse(data);
         };
 
         vm.update = function () {
-            console.log("update COurse");
             var data = {
                 courseId: vm.data._id,
                 payload: vm.data
             };
-            console.log(data);
             Courses.updateCourse(data);
         }
     }

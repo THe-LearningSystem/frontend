@@ -1,0 +1,6 @@
+<div class="alert alert-success" ng-if="vm.passedLesson === true">
+    {{'core.courses.lessonAlreadyPassed' | translate}}
+</div>
+<div class="alert alert-warning" ng-if="vm.passedLesson === false">
+    {{'core.courses.lessonNotAlreadyPassed' | translate}}
+</div>

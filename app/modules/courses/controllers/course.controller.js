@@ -18,25 +18,30 @@
         vm.userEnrolledCourseData = null;
         vm.nextLesson = null;
         vm.firstLesson = null;
+        vm.selectedLanguage = null;
+
 
         vm.showMobileNavbar = false;
 
         Courses.courseDisplay(vm.courseUrl).then(function (response) {
             vm.course = response.data;
-            console.log(vm.course);
             //getEnrolledCourseData
-            Courses.enrolledCourses(
-                {userId: Authentication.user._id, courseId: vm.course._id}
-            ).then(function (response) {
-                console.log(response);
-                if (response.data !== null) {
-                    vm.userEnrolledCourseData = response.data;
-                    vm.findNextLesson();
-                }
-            });
-            //count the coursenumber
+            if (Authentication.user !== null) {
+                Courses.enrolledCourses(
+                    {userId: Authentication.user._id, courseId: vm.course._id}
+                ).then(function (response) {
+                    if (response.data !== null) {
+                        vm.userEnrolledCourseData = response.data;
+                        vm.findNextLesson();
+                    }
+                });
+            }
+            //count the lessons
             _.forEach(vm.course.sections, function (section) {
-                vm.lessonCount += section.lessons.length;
+                _.forEach(section.lessons, function (lesson) {
+                    if (lesson.isPublished)
+                        vm.lessonCount += 1;
+                });
             });
         });
 
@@ -46,13 +51,20 @@
                 _.forEach(section.lessons, function (lesson) {
                     if (vm.firstLesson === null)
                         vm.firstLesson = lesson;
-                    if (!_.includes(vm.userEnrolledCourseData.passedLessons, lesson._id) && vm.nextLesson === null) {
+                    var foundLesson = false;
+                    _.forEach(vm.userEnrolledCourseData.lessonData, function (lessonData) {
+                        if (lessonData._id === lesson._id) {
+                            foundLesson = true;
+                            return false;
+                        }
+                    });
+                    if (!foundLesson && lesson.isPublished) {
                         vm.nextLesson = lesson;
-                        return false;
                     }
+                    if (vm.nextLesson !== null)
+                        return false;
                 });
-                if (vm.nextLesson !== null)
-                    return false;
+
             });
         };
 
@@ -76,16 +88,15 @@
         };
 
 
-        vm.hasEditCoursePermission = function () {
-            //TODO: edit only author and mods and global edit can edit a course
-            return vm.course.author === Authentication.username;
-        };
-
-
-        vm.isAllowedToEdit = function (string) {
+        vm.isAllowedToEdit = function () {
             var isAllowedToEdit = true;
-            if (vm.course)
-                isAllowedToEdit = vm.course.author === Authentication.user._id;
+            if (vm.course && Authentication.user) {
+                var user = _.find(vm.course.moderators, function (o) {
+                    return o._id === Authentication.user._id;
+                });
+                isAllowedToEdit = (vm.course.author === Authentication.user._id) || user !== undefined;
+
+            }
             return isAllowedToEdit;
         };
 
@@ -94,12 +105,10 @@
                 userId: Authentication.user._id,
                 courseId: vm.course._id
             };
-            Courses.enrollCourse(data, function (response) {
-                // console.log(response);
+            Courses.enrollCourse(data, function () {
                 Courses.enrolledCourses(
                     {userId: Authentication.user._id, courseId: vm.course._id}
                 ).then(function (response) {
-                    console.log(response);
                     if (response.data !== null) {
                         vm.userEnrolledCourseData = response.data;
                         vm.findNextLesson();

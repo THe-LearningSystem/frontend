@@ -1,4 +1,7 @@
-//TableDFA
+/**
+ * Creating and updating the tabular display format
+ * @param $scope
+ */
 autoSim.TableTM = function ($scope) {
     var self = this;
     autoSim.Table.apply(this, arguments);
@@ -6,7 +9,7 @@ autoSim.TableTM = function ($scope) {
     $scope.core.updateListeners.push(self);
 
     /**
-     * Creates the state array for the views
+     * Collects and saves all states and transitions from the state diagram
      */
     self.getStatesWithTransition = function () {
         var tmpObject;
@@ -15,7 +18,6 @@ autoSim.TableTM = function ($scope) {
             tmpObject.state = state;
             tmpObject.trans = [];
 
-            // iterates over all alphabet
             _.forEach($scope.transitions.transitionAlphabet, function (inputSymbol) {
                 var trans = [];
 
@@ -41,7 +43,7 @@ autoSim.TableTM = function ($scope) {
     };
 
     /**
-     * creates the alphabet array for the view
+     * Collects and saves all input symbols from the state diagram
      */
     self.getAlphabet = function () {
         var tmpObject;
@@ -65,7 +67,7 @@ autoSim.TableTM = function ($scope) {
     };
 
     /**
-     * called by the listener
+     * function called by the watchers to update the table
      */
     self.updateFunction = function () {
         self.statesTransitions = [];
@@ -76,7 +78,9 @@ autoSim.TableTM = function ($scope) {
         self.getStatesWithTransition();
     };
 
-
+    /**
+     * Watchers which are looking out for changes of the state diagram
+     */
     $scope.$watch('simulator.animated.currentState', function (newValue, oldValue) {
         if (newValue !== oldValue) {
             self.updateFunction();
@@ -95,7 +99,7 @@ autoSim.TableTM = function ($scope) {
     });
     $scope.$watch('transitions.tapeAlphabet', function (newValue, oldValue) {
         if (newValue !== oldValue) {
-            self.updateFuction();
+            self.updateFunction();
         }
     });
 };

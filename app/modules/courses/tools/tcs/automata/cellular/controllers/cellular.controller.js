@@ -33,14 +33,15 @@
         vm.cellData =   _create2DArray(vm.sizeX);
         _.forEach(vm.cellData,function(row){
             for(var i = 0; i<= vm.sizeY;i++){
-                    row[i] = new cell(randomColor());
-                // row[i] = new cell('#000000');
+                    // row[i] = new cell(randomColor());
+                row[i] = new cell('#000000');
             }
             // console.log(row);
         });
         console.log(vm.cellData);
 
         vm.selectedColor = '#ff0000';
+        vm.isSelectedAlive = true;
         vm.dyeCell = function(cell){
             cell.color = vm.selectedColor;
         };
@@ -61,10 +62,12 @@
                 rect.onMouseOver = handleMouseOver;
                 rect.onMouseOut = handleMouseOut;
                 rect.addEventListener("click", function(event) {
+                    console.log("test",event.timeStamp -Date.now());
                     var target = event.target;
-                    target.graphics.clear().beginFill(vm.selectedColor).drawRect(indexX*vm.cellSize, indexY*vm.cellSize, vm.cellSize, vm.cellSize).endFill();
+                    cell.color = vm.selectedColor;
+                    cell.isAlive = vm.isSelectedAlive;
+                    target.graphics.clear().beginFill(cell.color).drawRect(indexX*vm.cellSize, indexY*vm.cellSize, vm.cellSize, vm.cellSize).endFill();
                     // rect.graphics.beginFill(vm.selectedColor);
-                    vm.stage.update();
                 });
                 // console.log("asd",indexX,indexY);
 
@@ -72,6 +75,21 @@
             })
         });
         vm.stage.update();
+
+    vm.simulate= function(){
+        _.forEach(vm.cellData,function(row,indexX){
+            _.forEach(row,function(cell,indexY) {
+                if(cell.isAlive){
+                    console.log("am leben");
+
+                    // cell.getNa
+                }
+
+            });
+        });
+    };
+    
+
 
         function handleMouseOver(event) {
             console.log(event);
