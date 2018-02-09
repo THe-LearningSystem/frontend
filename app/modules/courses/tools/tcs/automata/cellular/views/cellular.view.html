@@ -8,21 +8,118 @@
     <div class="flex-item  inner-wrapper">
         <div class="main main-wrapper">
             <div class="main-item layout-item container-wrapper">
-                <!--<div class="cell-row" style="height:{{vm.cellSize}}"-->
-                     <!--ng-repeat="row in vm.cellData">-->
+                <div class="container-wrapper">
+                    <div class="title">{{"as.core.diagram" | translate}}</div>
+                    <!--<div class="cell-row" style="height:{{vm.cellSize}}"-->
+                    <!--ng-repeat="row in vm.cellData">-->
                     <!--<tcs-cell ng-repeat="cell in row"></tcs-cell>-->
-                <!--</div>-->
-                <canvas id="cellular-canvas" width="500px" height="500px">
+                    <!--</div>-->
+                    <!--<canvas id="demoCanvas" width="500" height="300"></canvas>-->
+                    <div style="width:100px; height: 100px;">
+                        <canvas id="cellSpace" width="1070px" height="1070px"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
         <aside class="sidebar sidebar-1 container-item layout-item">
-            <!--<simulation></simulation>-->
+            <cell-space-settings></cell-space-settings>
+            <ca-simulation></ca-simulation>
             <!--<bulk-test></bulk-test>-->
             <!--<simulation-settings></simulation-settings>-->
-            <!--<develop></develop>-->
+            <develop></develop>
         </aside>
         <aside class="sidebar sidebar-2 container-item layout-item">    <!--Diagram Settings -->
-            <tcs-ca-menu></tcs-ca-menu>
+            <!--<ca-state-transition-function></ca-state-transition-function>-->
+            <div class="state-transition-function">
+                <div class="title">{{"as.core.stateTransitionFunction" | translate}}</div>
+                <div class="content">
+                    <div>
+                        <div class="input-group centered color-picker">
+                            <span class="input-group-addon color-display"
+                                  style="background-color:{{vm.selectedColor}}"></span>
+                            <input type="text" class="form-control" ng-model="vm.selectedColor">
+                        </div>
+
+                        <div class="color-table">
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FFFFFF'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#FFFFFF'"
+                                 style="background-color: #FFFFFF">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FFFF00'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#FFFF00'"
+                                 style="background-color: #FFFF00">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FFA500'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#FFA500'"
+                                 style="background-color: #FFA500">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FF0000'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#FF0000'"
+                                 style="background-color: #FF0000">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#800080'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#800080'"
+                                 style="background-color: #800080">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#0066CC'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#0066CC'"
+                                 style="background-color: #0066CC">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#00BFFF'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#00BFFF'"
+                                 style="background-color: #00BFFF">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#00FF00'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#00FF00'"
+                                 style="background-color: #00FF00">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#006400'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#006400'"
+                                 style="background-color: #006400">
+                            </div>
+                            <div ng-class="{'selected-Color' : vm.selectedColor === '#000000'}" class="pick-color"
+                                 ng-click="vm.selectedColor = '#000000'"
+                                 style="background-color: #000000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="color-split">
+
+                    <div style="max-height: 600px; overflow: auto;">
+                        <li ng-repeat="rule in vm.stateTransitionRules track by $index" class="rules">
+                            <div class="rules" ng-if="vm.twoD">
+                                <canvas id="demoCanvas{{$index}}" class="canvas-centered moore-neighbourhood"
+                                        elem-ready="vm.initRule($event, $index)" width="152px" height="92px"></canvas>
+                                <button class="btn btn-default button-centered" ng-click="vm.deleteRule($index);">
+                                    Delete
+                                </button>
+                            </div>
+                            <div class="rules" ng-if="!vm.twoD">
+                                <canvas id="demoCanvas{{$index}}" class="canvas-centered von-neumann-neighbourhood"
+                                        elem-ready="vm.initRule($event, $index)" width="92px" height="92px"></canvas>
+                                <button class="btn btn-default button-centered vNmRule-del-btn" ng-click="vm.deleteRule($index);">
+                                    Delete
+                                </button>
+                            </div>
+                            <!--{{vm.createRule(rule)}}-->
+                        </li>
+
+                        <button class="btn btn-default button-centered" ng-click="vm.createRuleObject();">Neue Regel
+                            erstellen
+                        </button>
+                        <button class="btn btn-default button-centered" ng-click="vm.randomize();">Randomize
+                        </button>
+                    </div>
+
+                    <!--<div style="clear: both;">
+                        <input type="checkbox" ng-model="vm.isSelectedAlive">
+
+                        <button class="btn btn-default" ng-click="vm.simulate()">simulate</button>
+                    </div>
+                    -->
+                </div>
+            </div>
             <!--<settings></settings>-->
             <!--&lt;!&ndash;State Menu &ndash;&gt;-->
             <!--<state-menu></state-menu>-->

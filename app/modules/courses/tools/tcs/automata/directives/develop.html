@@ -1,4 +1,4 @@
-<container-item titlename="core.general.development">
+<container-item titlename="core.general.development" is-collapsed="true">
     <p>Beispielautomaten</p>
     <menubutton icon="wrench" action="testAgent.testDFA()" ng-show="automatonData.type== 'DFA'">
     </menubutton>
@@ -19,16 +19,21 @@
         AutomatonData:
         <json-formatter json="automatonData" open="0"></json-formatter>
     </p>
-    <p>
-        <json-formatter json="simulator.animated" open="0"></json-formatter>
-    </p>
-    <p>
-        <json-formatter json="states" open="0"></json-formatter>
-    </p>
-    <p>
-        <json-formatter json="transitions" open="0"></json-formatter>
-    </p>
+    <div ng-if="automatonData.type !== 'CA'">
+        <p>
+            <json-formatter json="simulator.animated" open="0"></json-formatter>
+        </p>
+        <p>
+            <json-formatter json="states" open="0"></json-formatter>
+        </p>
+        <p>
+            <json-formatter json="transitions" open="0"></json-formatter>
+        </p>
 
-    <json-formatter json="table" open="0"></json-formatter>
-    <json-formatter json="simulator" open="0"></json-formatter>
+        <json-formatter json="table" open="0"></json-formatter>
+        <json-formatter json="simulator" open="0"></json-formatter>
+    </div>
+    <div ng-if="automatonData.type === 'CA'">
+        <json-formatter json="vm.stateTransitionRules" open="0"></json-formatter>
+    </div>
 </container-item>

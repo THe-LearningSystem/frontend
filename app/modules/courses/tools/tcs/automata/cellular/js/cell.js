@@ -10,7 +10,7 @@ function cell(color, isAlive) {
     if (color) {
         self.color = color;
     } else {
-        self.color = "#000";
+        self.color = "#000000";
 
     }
 

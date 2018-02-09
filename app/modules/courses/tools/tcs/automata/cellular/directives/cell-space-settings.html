@@ -1,0 +1,17 @@
+<container-item titlename="Zellraumeinstellungen">
+    <div class="dimension" ng-if="automatonData.type ==='CA'" ng-show="!vm.isInPlay">
+        <label class="box1">Gitterdimension:</label>
+        <div class="box2">
+            1 D
+        </div>
+        <div class="box3">
+            <label class="switch">
+                <input type="checkbox" ng-model="vm.twoD" ng-click="vm.init()"/>
+                <div class="slider round"></div>
+            </label>
+        </div>
+        <div class="box4">
+            2 D
+        </div>
+    </div>
+</container-item>

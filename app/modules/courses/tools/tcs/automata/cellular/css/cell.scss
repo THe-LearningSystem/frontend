@@ -1,17 +1,79 @@
 $cellSize: 50px;
 
-
-.cell{
+.cell {
   display:inline-block;
 }
 
-.pick-color{
-  width:20px;
-  height:20px;
+.color-picker {
+  width: 200px;
 }
 
-#cellular-canvas{
-  //width:700px;
-  //height:700px;
-  background-color:black;
+.color-split {
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.canvas-centered {
+  padding: 0;
+  margin: auto;
+  display: block;
+}
+
+.button-centered {
+  display: block;
+  margin:0 auto;
+  margin-top: 20px;
+}
+
+.pick-color {
+  border:1px solid #CCCCCC;
+  width:20px;
+  height:20px;
+  float: left;
+  display: inline-block;
+}
+
+.selected-Color {
+  border: 1px solid #000000;
+}
+
+.color-display {
+  width: 34px;
+  height: 30px;
+}
+
+.color-table {
+  width: 87%;
+  margin: 0 auto;
+  margin-left: 16px;
+}
+
+.rules {
+  clear: left;
+  margin-top: 20px;
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.rule {
+  margin-top: 10px;
+}
+
+.dimension {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding-bottom: 5px;
+}
+
+.von-neumann-neighbourhood {
+  margin-top: 30px;
+}
+
+.vNmRule-del-btn {
+  margin-top: 0;
 }

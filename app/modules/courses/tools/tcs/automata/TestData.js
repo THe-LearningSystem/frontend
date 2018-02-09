@@ -204,5 +204,8 @@ function TestData($scope) {
         $scope.transitions.create(state1, state2, "b", "A", "ε");
     };
 
+    self.testCA = function () {
+      $scope.vm.createRule(0);
+    };
 
 }
