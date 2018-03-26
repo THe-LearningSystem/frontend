@@ -1,0 +1,16 @@
+<!--Directive-Template with buttons for controlling the simulation-->
+<container-item titlename="as.sim.title" id="simulation-tab">
+    <div class="sim-buttons">
+        <menubutton icon="play" action="simulator.playOrPause(cellSpace)" tttext="as.core.play"
+                    ng-hide="simulator.isInPlay" ng-disabled="stateTransitionRules.array.length === 0"></menubutton>
+        <menubutton icon="pause" action="simulator.playOrPause(cellSpace)" tttext="as.core.pause"
+                    ng-hide="!simulator.isInPlay" ng-disabled="stateTransitionRules.array.length === 0"></menubutton>
+        <menubutton icon="stop" action="simulator.stop(cellSpace)" ng-disabled="!simulator.alreadyPlayed || stateTransitionRules.array.length === 0"
+                    tttext="as.core.stop"></menubutton>
+        <menubutton icon="fast-backward" action="simulator.stepBackwards()"
+                    ng-disabled="simulator.sequenceNumber === 0"
+                    tttext="as.core.stepBackward"></menubutton>
+        <menubutton icon="fast-forward" action="simulator.stepForward()"
+                    tttext="as.core.stepForward" ng-disabled="stateTransitionRules.array.length === 0"></menubutton>
+    </div>
+</container-item>

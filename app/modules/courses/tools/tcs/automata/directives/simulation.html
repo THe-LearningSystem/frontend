@@ -14,7 +14,7 @@
                     ng-disabled="simulator.status =='notAccepted' || simulator.status=='accepted' || simulator.animatedSequence !== null"
                     tttext="as.core.stepForward"></menubutton>
     </div>
-    <div class="input-group" ng-show="!simulator.isInAnimation  || simulator.animatedSequence !== null">
+    <div class="input-group" ng-show="!simulator.isInAnimation  || simulator.animatedSequence !== null" ng-if="automatonData.type !== 'CA'">
         <span class="input-group-addon" aria-hidden="true">{{"as.core.inputWord" | translate}}</span>
         <input class="inputWord form-control" ng-if="automatonData.type !== 'TM'" ng-model="automatonData.inputWord" ng-change="simulator.updateFunction()" ng-disabled="simulator.isInAnimation" />
         <!--Inputfield for the inputword for the turing machine-->

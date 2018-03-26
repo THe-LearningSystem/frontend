@@ -1,6 +1,6 @@
 <container-item titlename="as.sim.settings" is-collapsed="true">
 
-    <div class="border-bottom">
+    <div class="border-bottom" ng-if="automatonData.type !== 'CA'">
         <p>
             {{"as.sim.STO" | translate}}
         </p>
@@ -8,14 +8,22 @@
                   rz-slider-options="stepTimeOutSlider.options"></rzslider>
     </div>
 
-    <div class="border-bottom">
+    <div class="border-bottom" ng-if="automatonData.type === 'CA'">
+        <p>
+            {{"as.sim.STO" | translate}}
+        </p>
+        <rzslider class="my-custom-slider" rz-slider-model="simulator.stepTimeOut"
+                  rz-slider-options="stepTimeOutSlider.options"></rzslider>
+    </div>
+
+    <div class="border-bottom" ng-if="automatonData.type !== 'CA'">
         <p>
             {{"as.sim.LTO" | translate}}
         </p>
         <rzslider class="my-custom-slider" rz-slider-model="simulator.loopTimeOut"
                   rz-slider-options="loopTimeOutSlider.options"></rzslider>
     </div>
-    <div class="checkbox">
+    <div class="checkbox" ng-if="automatonData.type !== 'CA'">
         <input type="checkbox"
                ng-checked="simulator.loopSimulation"
                ng-model="simulator.loopSimulation">

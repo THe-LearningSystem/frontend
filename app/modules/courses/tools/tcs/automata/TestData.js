@@ -131,7 +131,7 @@ function TestData($scope) {
     };
 
     /**
-     * test automaton for turing machine for testing the boundariesx
+     * test automaton for turing machine for testing the boundaries
      */
     self.testTM5 = function(){
         $scope.core.resetAutomaton();
@@ -204,5 +204,64 @@ function TestData($scope) {
         $scope.transitions.create(state1, state2, "b", "A", "ε");
     };
 
+    self.sierpinskiTriangle = function () {
+        $scope.cellSpace.twoD = false;
+        $scope.simulator.init();
 
+        $scope.CaCtrl.selectedColor = '#0066CC';
+
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+        $scope.stateTransitionRules.createRuleObject();
+
+        $scope.stateTransitionRules.drawRule(0);
+        $scope.stateTransitionRules.drawRule(1);
+        $scope.stateTransitionRules.drawRule(2);
+        $scope.stateTransitionRules.drawRule(3);
+        $scope.stateTransitionRules.drawRule(4);
+        $scope.stateTransitionRules.drawRule(5);
+        $scope.stateTransitionRules.drawRule(6);
+        $scope.stateTransitionRules.drawRule(7);
+
+        //rule 2
+        $scope.stateTransitionRules.array[1].newState = '#0066CC';
+        $scope.stateTransitionRules.array[1].neighbourhood[0][0].color = '#0066CC';
+
+        //rule 3
+        $scope.stateTransitionRules.array[2].newState = '#0066CC';
+        $scope.stateTransitionRules.array[2].neighbourhood[1][0].color = '#0066CC';
+
+        //rule 4
+        $scope.stateTransitionRules.array[3].newState = '#0066CC';
+        $scope.stateTransitionRules.array[3].neighbourhood[2][0].color = '#0066CC';
+
+        //rule 5
+        $scope.stateTransitionRules.array[4].newState = '#0066CC';
+        $scope.stateTransitionRules.array[4].neighbourhood[0][0].color = '#0066CC';
+        $scope.stateTransitionRules.array[4].neighbourhood[1][0].color = '#0066CC';
+
+        //rule 6
+        $scope.stateTransitionRules.array[5].newState = '#0066CC';
+        $scope.stateTransitionRules.array[5].neighbourhood[0][0].color = '#0066CC';
+        $scope.stateTransitionRules.array[5].neighbourhood[2][0].color = '#0066CC';
+
+        //rule 7
+        $scope.stateTransitionRules.array[6].newState = '#0066CC';
+        $scope.stateTransitionRules.array[6].neighbourhood[1][0].color = '#0066CC';
+        $scope.stateTransitionRules.array[6].neighbourhood[2][0].color = '#0066CC';
+
+        //rule 8
+        $scope.stateTransitionRules.array[7].neighbourhood[0][0].color = '#0066CC';
+        $scope.stateTransitionRules.array[7].neighbourhood[1][0].color = '#0066CC';
+        $scope.stateTransitionRules.array[7].neighbourhood[2][0].color = '#0066CC';
+
+        console.log($scope.cellSpace.cellData);
+        $scope.cellSpace.cellData[Math.round($scope.cellSpace.sizeX/2-1)][0].color = '#0066CC';
+        $scope.cellSpace.draw1DCanvas();
+    };
 }
