@@ -1,17 +1,42 @@
+<!--Directive-Template for setting at the automaton-->
 <container-item titlename="Zellraumeinstellungen">
-    <div class="dimension" ng-if="automatonData.type ==='CA'" ng-show="!vm.isInPlay">
+    <div class="dimension" ng-if="automatonData.type ==='CA'" ng-show="!simulator.isInPlay">
         <label class="box1">Gitterdimension:</label>
         <div class="box2">
             1 D
         </div>
         <div class="box3">
             <label class="switch">
-                <input type="checkbox" ng-model="vm.twoD" ng-click="vm.init()"/>
+                <input type="checkbox" ng-model="cellSpace.twoD" ng-click="simulator.init()"/>
                 <div class="slider round"></div>
             </label>
         </div>
         <div class="box4">
             2 D
         </div>
+    </div>
+
+    <div class="dimension" ng-if="automatonData.type ==='CA'" ng-show="!simulator.isInPlay">
+        <label class="box1">Zellrand:</label>
+        <div class="box2">
+            begrenzt
+        </div>
+        <div class="box3">
+            <label class="switch">
+                <input type="checkbox" ng-model="cellSpace.unlimitedCellSpace" ng-click="simulator.stop()"/>
+                <div class="slider round"></div>
+            </label>
+        </div>
+        <div class="box4">
+            Umlauf
+        </div>
+    </div>
+
+    <div class="border-bottom" ng-if="automatonData.type === 'CA'" ng-show="!simulator.alreadyPlayed">
+        <p>
+            Zellenanzahl einer Zeile
+        </p>
+        <rzslider class="my-custom-slider" rz-slider-model="cellSpace.sizeX"
+                  rz-slider-options="cellSpaceSizeSlider.options"></rzslider>
     </div>
 </container-item>

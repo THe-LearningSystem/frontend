@@ -1,0 +1,30 @@
+<!--Directive-Template with buttons for the zoom, randomize, clear and delete function-->
+<div class="svg-controls">
+    <div class="button-group">
+        <zoom-tooltip></zoom-tooltip>
+    </div>
+    <div class="button-group">
+        <menubutton icon="search-plus" action="cellSpaceZoom.zoomIn(cellSpace.stage)"
+                    tttext="as.core.zoomIn" ng-disabled="simulator.isInPlay">
+        </menubutton>
+        <menubutton icon="search-minus" action="cellSpaceZoom.zoomOut(cellSpace.stage)"
+                    tttext="as.core.zoomOut" ng-disabled="simulator.isInPlay">
+        </menubutton>
+    </div>
+    <div class="button-group">
+        <menubutton class="fa fa-random" action="cellSpace.randomize(simulator.cellData)"
+                    ng-disabled="simulator.isInPlay"
+                    tttext="Zellraum zufällig füllen">
+        </menubutton>
+    </div>
+    <div class="button-group">
+        <menubutton class="fa fa-paint-brush" action="cellSpace.clearCellSpace()"
+                    ng-disabled="simulator.isInPlay"
+                    tttext="Zellraum leeren">
+        </menubutton>
+        <menubutton icon="trash" action="simulator.deleteAutomaton()"
+                    ng-disabled="simulator.isInPlay"
+                    tttext="as.core.deleteAutomaton">
+        </menubutton>
+    </div>
+</div>

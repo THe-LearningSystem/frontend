@@ -20,14 +20,12 @@ $cellSize: 50px;
 
 .canvas-centered {
   padding: 0;
-  margin: auto;
-  display: block;
+  margin: 0 auto;
+  margin-left: 42px;
 }
 
 .button-centered {
-  display: block;
   margin:0 auto;
-  margin-top: 20px;
 }
 
 .pick-color {
@@ -70,10 +68,45 @@ $cellSize: 50px;
   padding-bottom: 5px;
 }
 
-.von-neumann-neighbourhood {
-  margin-top: 30px;
-}
-
 .vNmRule-del-btn {
   margin-top: 0;
+}
+
+.stateHeader {
+  text-align: center;
+  font-weight: bold;
+}
+
+.ruleHeader {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.addRule {
+  background-color: #469bcf;
+  color: white;
+}
+
+#cellSpace {
+  margin: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c4c4c4;
+}
+
+.div-one {
+  display: inline-block;
+  margin: 0 15px 0 0;
+  vertical-align: middle;
+}
+
+.div-one-moore {
+  margin-top: 5px;
+  margin-left: 12px;
+}
+
+.div-two {
+  display: inline-block;
+  vertical-align: middle;
 }

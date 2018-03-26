@@ -10,13 +10,10 @@
             <div class="main-item layout-item container-wrapper">
                 <div class="container-wrapper">
                     <div class="title">{{"as.core.diagram" | translate}}</div>
-                    <!--<div class="cell-row" style="height:{{vm.cellSize}}"-->
-                    <!--ng-repeat="row in vm.cellData">-->
-                    <!--<tcs-cell ng-repeat="cell in row"></tcs-cell>-->
-                    <!--</div>-->
-                    <!--<canvas id="demoCanvas" width="500" height="300"></canvas>-->
+                    <ca-toolbar></ca-toolbar>
                     <div style="width:100px; height: 100px;">
-                        <canvas id="cellSpace" width="1070px" height="1070px"></canvas>
+                        <!--1900er Auflösung width: 1290px (1050) height: 804px (661)-->
+                        <canvas id="cellSpace" width="1050px" height="661px"></canvas>
                     </div>
                 </div>
             </div>
@@ -24,110 +21,94 @@
         <aside class="sidebar sidebar-1 container-item layout-item">
             <cell-space-settings></cell-space-settings>
             <ca-simulation></ca-simulation>
-            <!--<bulk-test></bulk-test>-->
-            <!--<simulation-settings></simulation-settings>-->
+            <simulation-settings></simulation-settings>
             <develop></develop>
         </aside>
-        <aside class="sidebar sidebar-2 container-item layout-item">    <!--Diagram Settings -->
-            <!--<ca-state-transition-function></ca-state-transition-function>-->
+        <aside id="ruleEditor" class="sidebar sidebar-2 container-item layout-item">
             <div class="state-transition-function">
                 <div class="title">{{"as.core.stateTransitionFunction" | translate}}</div>
                 <div class="content">
-                    <div>
-                        <div class="input-group centered color-picker">
-                            <span class="input-group-addon color-display"
-                                  style="background-color:{{vm.selectedColor}}"></span>
-                            <input type="text" class="form-control" ng-model="vm.selectedColor">
-                        </div>
-
-                        <div class="color-table">
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FFFFFF'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#FFFFFF'"
-                                 style="background-color: #FFFFFF">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FFFF00'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#FFFF00'"
-                                 style="background-color: #FFFF00">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FFA500'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#FFA500'"
-                                 style="background-color: #FFA500">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#FF0000'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#FF0000'"
-                                 style="background-color: #FF0000">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#800080'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#800080'"
-                                 style="background-color: #800080">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#0066CC'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#0066CC'"
-                                 style="background-color: #0066CC">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#00BFFF'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#00BFFF'"
-                                 style="background-color: #00BFFF">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#00FF00'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#00FF00'"
-                                 style="background-color: #00FF00">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#006400'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#006400'"
-                                 style="background-color: #006400">
-                            </div>
-                            <div ng-class="{'selected-Color' : vm.selectedColor === '#000000'}" class="pick-color"
-                                 ng-click="vm.selectedColor = '#000000'"
-                                 style="background-color: #000000">
-                            </div>
-                        </div>
-                    </div>
+                    <ca-color-picker></ca-color-picker>
 
                     <hr class="color-split">
 
-                    <div style="max-height: 600px; overflow: auto;">
-                        <li ng-repeat="rule in vm.stateTransitionRules track by $index" class="rules">
-                            <div class="rules" ng-if="vm.twoD">
-                                <canvas id="demoCanvas{{$index}}" class="canvas-centered moore-neighbourhood"
-                                        elem-ready="vm.initRule($event, $index)" width="152px" height="92px"></canvas>
-                                <button class="btn btn-default button-centered" ng-click="vm.deleteRule($index);">
-                                    Delete
-                                </button>
+                    <!--1900er Auflösung max-height: 750px (600)-->
+                    <div style="max-height: 600px; overflow: auto;" ng-if="stateTransitionRules.deleteRules">
+                        <p class="ruleHeader">Regeln</p>
+                        <li ng-repeat="rule in stateTransitionRules.array track by $index" class="rules">
+                            <div class="rules" ng-if="cellSpace.twoD">
+                                <div class="div-one div-one-moore">
+                                    <canvas id="demoCanvas{{$index}}"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="152px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove"
+                                            ng-click="stateTransitionRules.deleteRule(rule.id);">
+                                    </button>
+                                </div>
                             </div>
-                            <div class="rules" ng-if="!vm.twoD">
-                                <canvas id="demoCanvas{{$index}}" class="canvas-centered von-neumann-neighbourhood"
-                                        elem-ready="vm.initRule($event, $index)" width="92px" height="92px"></canvas>
-                                <button class="btn btn-default button-centered vNmRule-del-btn" ng-click="vm.deleteRule($index);">
-                                    Delete
-                                </button>
+                            <div class="rules" ng-if="!cellSpace.twoD">
+                                <div class="div-one">
+                                    <canvas id="demoCanvas{{$index}}" class="canvas-centered"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="92px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove vNmRule-del-btn deleteRule"
+                                            style="display: table-cell; vertical-align: center;"
+                                            ng-click="stateTransitionRules.deleteRule($index);">
+                                    </button>
+                                </div>
                             </div>
-                            <!--{{vm.createRule(rule)}}-->
                         </li>
 
-                        <button class="btn btn-default button-centered" ng-click="vm.createRuleObject();">Neue Regel
+                        <button class="btn btn-default button-centered addRule"
+                                ng-style="stateTransitionRules.buttonSize"
+                                ng-click="stateTransitionRules.createRuleObject();">Neue Regel
                             erstellen
                         </button>
-                        <button class="btn btn-default button-centered" ng-click="vm.randomize();">Randomize
+                    </div>
+
+                    <div style="max-height: 600px; overflow: auto;" ng-if="!stateTransitionRules.deleteRules">
+                        <p class="ruleHeader">Regeln</p>
+                        <li ng-repeat="rule in stateTransitionRules.array track by $index" class="rules">
+                            <div class="rules" ng-if="cellSpace.twoD">
+                                <div class="div-one div-one-moore">
+                                    <canvas id="demoCanvas{{$index}}"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="152px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove"
+                                            ng-click="stateTransitionRules.deleteRule(rule.id);">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rules" ng-if="!cellSpace.twoD">
+                                <div class="div-one">
+                                    <canvas id="demoCanvas{{$index}}" class="canvas-centered"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="92px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove vNmRule-del-btn deleteRule"
+                                            style="display: table-cell; vertical-align: center;"
+                                            ng-click="stateTransitionRules.deleteRule($index);">
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <button class="btn btn-default button-centered addRule"
+                                ng-style="stateTransitionRules.buttonSize"
+                                ng-click="stateTransitionRules.createRuleObject();">Neue Regel
+                            erstellen
                         </button>
                     </div>
-
-                    <!--<div style="clear: both;">
-                        <input type="checkbox" ng-model="vm.isSelectedAlive">
-
-                        <button class="btn btn-default" ng-click="vm.simulate()">simulate</button>
-                    </div>
-                    -->
                 </div>
             </div>
-            <!--<settings></settings>-->
-            <!--&lt;!&ndash;State Menu &ndash;&gt;-->
-            <!--<state-menu></state-menu>-->
-            <!--&lt;!&ndash;Transition Menu &ndash;&gt;-->
-            <!--<transition-menu></transition-menu>-->
-            <!--<credits></credits>-->
         </aside>
 
     </div>
-
+    <tools-bottom-toolbar></tools-bottom-toolbar>
 </div>
