@@ -91,10 +91,9 @@ autoSim.LangSimulator = function ($scope) {
         self.checkAnimation();
         self.getDerivationSequenceStep(true);
         self.getDerivationTreeStep(true);
-        self.getTransitionStep(true);
         self.animateGrammar(true);
         self.checkSimulationStatus(true);
-        $scope.langCore.langUpdateListener();
+        self.updateListenersOfSimulation();
     };
 
     /**
@@ -117,10 +116,9 @@ autoSim.LangSimulator = function ($scope) {
         self.checkAnimation();
         self.getDerivationSequenceStep(false);
         self.getDerivationTreeStep(false);
-        self.getTransitionStep(false);
         self.animateGrammar(false);
         self.checkSimulationStatus(false);
-        $scope.langCore.langUpdateListener();
+        self.updateListenersOfSimulation();
     };
 
     /**
@@ -135,10 +133,9 @@ autoSim.LangSimulator = function ($scope) {
         self.animated = {
             currentDerivationSequence: null,
             currentDerivationTreeGroup: null,
-            currentDerivationTreeChar: null,
-            currentTransition: null,
             currentProduction: null,
-            currentTerminal: null
+            currentTerminal: null,
+            currentIsStart: null
         };
     };
 
@@ -150,6 +147,10 @@ autoSim.LangSimulator = function ($scope) {
         self.isInAnimation = true;
     };
 
+    /**
+     * Checks, if the simulator has reached the end or the start.
+     * @param {[[Type]]} next [[Description]]
+     */
     self.checkSimulationStatus = function (next) {
         self.isFirstStep = false;
         self.simulationDone = false;
@@ -166,12 +167,21 @@ autoSim.LangSimulator = function ($scope) {
             }
         }
     };
+    
+    self.updateListenersOfSimulation = function () {
+        $scope.langDerivationSequence.updateFunction();
+        $scope.langGrammar.updateFunction();
+        $scope.langDerivationtree.draw.updateFunction();
+        $scope.langTransitions.updateFunction();
+        $scope.saveApply();
+    };
 
     /**
      * Updates all Tabs of the program and resets the simulation after changes of the input word.
      */
     self.updateInputWord = function () {
-        $scope.langCore.langUpdateListener();
+        $scope.langWordChecker.running = true;
+        setTimeout($scope.langCore.langUpdateListener, 10);
         self.reset();
     };
 
@@ -213,42 +223,7 @@ autoSim.LangSimulator = function ($scope) {
      * @param {[[Type]]} next [[Description]]
      */
     self.getDerivationTreeStep = function (next) {
-        var derivationTree = null;
-
-        if (self.isFirstStep && !self.animationStarted) {
-            derivationTree = $scope.langDerivationtree.draw[0].animationGroup;
-
-        } else {
-            derivationTree = $scope.langDerivationtree.draw.getAnimationGroup(self.animated.currentDerivationTreeGroup, next);
-        }
-        self.animated.currentDerivationTreeGroup = derivationTree;
-        var nextNonTerminal = $scope.langDerivationtree.draw.getAnimationGroup(derivationTree, true);
-
-        _.forEach($scope.langDerivationtree.draw, function (value) {
-
-            if (nextNonTerminal === value.animationGroup) {
-
-                if (value.char === angular.uppercase(value.char)) {
-                    self.animated.currentDerivationTreeChar = value.char;
-                }
-            }
-        });
-    };
-
-    /**
-     * Gets the next transition group and saves it in the animate object.
-     * @param {[[Type]]} next [[Description]]
-     */
-    self.getTransitionStep = function (next) {
-        var transitionGroup = null;
-
-        if (self.isFirstStep && !self.animationStarted) {
-            transitionGroup = $scope.langTransitions[0].animationGroup;
-
-        } else {
-            transitionGroup = $scope.langTransitions.getTransitionGroup(self.animated.currentTransition, next);
-        }
-        self.animated.currentTransition = transitionGroup;
+        self.animated.currentDerivationTreeGroup = $scope.langDerivationtree.draw.getNextAnimationRule(self.animated.currentDerivationTreeGroup, next);
     };
 
     /**
@@ -256,21 +231,32 @@ autoSim.LangSimulator = function ($scope) {
      * @param {[[Type]]} next [[Description]]
      */
     self.animateGrammar = function (next) {
-        var production = null;
+        var production;
+        var id;
 
         if (self.isFirstStep && !self.animationStarted) {
-            self.productionIndex = 0;
+            production = $scope.langProductionRules.getStartRule();
+            self.productionIndex = -1;
 
         } else {
+            
+            if (!next) {
 
-            if (next) {
-                self.productionIndex++;
-
+                if (self.productionIndex === 0) {
+                    production = $scope.langProductionRules.getStartRule();
+                    self.productionIndex = -1;
+                
+                } else {
+                    id = $scope.langWordChecker.foundCandidate.appliedRules[--self.productionIndex];
+                    production = $scope.langProductionRules.getByRuleId(id.ruleId);
+                }
+                
             } else {
-                self.productionIndex--;
+                id = $scope.langWordChecker.foundCandidate.appliedRules[++self.productionIndex];
+                production = $scope.langProductionRules.getByRuleId(id.ruleId);
+                
             }
         }
-        production = $scope.langProductionRules.getByRuleId($scope.langWordChecker.foundCandidate.steps[self.productionIndex]);
         self.animated.currentTerminal = $scope.langGrammar.getTerminalStep();
         self.animated.currentProduction = production;
     };

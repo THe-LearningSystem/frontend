@@ -1,6 +1,6 @@
 <div class="lang-grammar">
 
-    <div class="title">{{"languages.grammar.title" | translate}}</div>
+    <div class="title">{{"languages.grammar.title" | translate}} {{langProductionRules.grammarType}}</div>
     <div class="content">
         <div class="stf-element" uib-tooltip="{{'languages.grammar.nonTerminal' | translate}}" tooltip-placement="right">
             V = {
@@ -25,8 +25,8 @@
         <div class="stf-element" uib-tooltip="{{'languages.grammar.productions' | translate}}" tooltip-placement="right">
             P = {
             <span ng-repeat="production in langProductionRules | orderBy:'left'">
-                <span ng-class="{'lang-simulator-grammar': production === langSimulator.animated.currentProduction}"> ( {{production.left}} </span>
-                &#11106;
+                <span ng-class="{'lang-simulator-grammar': production === langSimulator.animated.currentProduction}"> ( {{production.left}}     &#11106;
+                </span>
             <span ng-class="{'lang-simulator-grammar': production === langSimulator.animated.currentProduction}"> {{production.right}} ) {{$last ? '' : ' , '}} </span>
             </span>
             }
@@ -34,9 +34,9 @@
 
         <div class="stf-element" uib-tooltip="{{'languages.grammar.start' | translate}}" tooltip-placement="right">
             S<sub>0</sub> = {
-            <span>
+            <span ng-class="{'lang-simulator-grammar': langProductionRules.getStartRule() === langSimulator.animated.currentIsStart}">
                     {{langProductionRules.getStartRule().left}}
-                </span> }
+            </span> }
         </div>
     </div>
 </div>

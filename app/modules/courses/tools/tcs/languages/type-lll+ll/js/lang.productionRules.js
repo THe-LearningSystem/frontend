@@ -2,6 +2,7 @@ autoSim.LangProductionRules = function ($scope) {
     var self = this;
 
     self.productionId = 0;
+    self.grammarType = null;
 
     $scope.langCore.langUpdateListeners.push(self);
 
@@ -11,8 +12,8 @@ autoSim.LangProductionRules = function ($scope) {
      * @param {[[Type]]} right [[Description]]
      */
     self.create = function (left, right) {
-        self.menuLeft = undefined;
         self.menuRight = undefined;
+        self.menuLeft = undefined;
 
         return self.createWithId(self.productionId++, left, right);
     };
@@ -24,11 +25,11 @@ autoSim.LangProductionRules = function ($scope) {
      * @param {[[Type]]} right [[Description]]
      */
     self.createWithId = function (id, left, right) {
-        //var rightArray = self.createRightArray(right);
         var production = new autoSim.LangProductionRuleObject(id, left, right);
         self.push(production);
 
         self.updateFollowerRules();
+        self.checkLanguageType();
         $scope.langCore.langUpdateListener();
 
         return production;
@@ -45,6 +46,7 @@ autoSim.LangProductionRules = function ($scope) {
         }
 
         self.splice(self.getIndexByRuleId(prId), 1);
+        self.checkLanguageType();
         $scope.langCore.langUpdateListener();
     };
 
@@ -55,19 +57,40 @@ autoSim.LangProductionRules = function ($scope) {
 
         _.forEach(self, function (tmp) {
 
-            _.forEach(self, function (production) {
+            _.forEach(tmp.right, function (char) {
 
-                _.forEach(production.right, function (right) {
+                if (char === angular.lowercase(char)) {
+                    tmp.followerRuleId.push(-1);
 
-                    if (tmp.left == right) {
+                } else {
+                    //Create the new follower array, which is filled in the complete array.
+                    var followerInsert = [];
 
-                        if (!self.checkIfValueExists(production.followerRuleId, tmp.id)) {
-                            production.followerRuleId.push(tmp.id);
+                    _.forEach(self, function (production) {
+
+                        if (char === production.left) {
+                            followerInsert.push(production.id);
                         }
-                    }
-                });
+                    });
+                    tmp.followerRuleId.push(followerInsert);
+                }
             });
         });
+    };
+    
+    /**
+     * Counts the Follower of an Rule, and returns the count.
+     * @param   {[[Type]]} followerArray [[Description]]
+     * @returns {[[Type]]} [[Description]]
+     */
+    self.countFollowers = function (followerArray) {
+        var result = 0;
+        
+        _.forEach(followerArray, function (value) {
+            result++;
+        });
+        
+        return result;
     };
 
     /**
@@ -87,6 +110,28 @@ autoSim.LangProductionRules = function ($scope) {
         });
 
         return check;
+    };
+    
+    /**
+     * Checks the rules for type 3 or 2.
+     */
+    self.checkLanguageType = function () {
+        var ruleCount = self.length;
+        var loopCounter = 0;
+        
+        _.forEach(self, function (value) {
+            if (value.right.length === 2 && value.right !== 'ε' && value.right[0] === angular.lowercase(value.right[0]) && value.right[1] === angular.uppercase(value.right[1]) && value.right[2] === undefined) {
+                loopCounter++;
+            
+            } else if (value.right === 'ε') {
+                ruleCount--;
+            }
+        });
+        
+        if (ruleCount === loopCounter)
+            self.grammarType = '3';
+        else
+            self.grammarType = '2';
     };
 
     /**
@@ -177,6 +222,7 @@ autoSim.LangProductionRules = function ($scope) {
         });
 
         self.updateFollowerRules();
+        
         $scope.langProductionRules.change.checkStartRuleDropdown();
     };
 

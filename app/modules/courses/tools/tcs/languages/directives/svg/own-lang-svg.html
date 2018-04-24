@@ -8,6 +8,7 @@
             <menubutton icon="search-plus" action="langDerivationtree.zoom.zoomIn()" tttext="as.core.zoomIn"></menubutton>
             <menubutton icon="search-minus" action="langDerivationtree.zoom.zoomOut()" tttext="as.core.zoomOut"></menubutton>
         </div>
+        <span class="alertTree alertTree-danger" ng-show="langProductionRules.grammarType === '2' && langWordChecker.inputAccepted">{{"languages.core.treeUnique" | translate}}</span>
     </div>
     <div class="container-wrapper diagram-container">
         <svg id="diagram-lang-svg" class="noselect" xmlns="http://www.w3.org/2000/svg" style="font-family:'Roboto', sans-serif; font-weight:100">

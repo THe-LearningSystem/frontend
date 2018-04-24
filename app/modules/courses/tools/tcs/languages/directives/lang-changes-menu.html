@@ -4,10 +4,10 @@
         <div class="input-group">
             <div class="input-group">
 
-                <input ng-disabled="langSimulator.isInPlay" class="form-control" id="production-input-left" maxlength="10" ng-model="langProductionRules.menuLeft" ng-keypress="keypressCallback($event)">
+                <input ng-disabled="langSimulator.isInPlay" class="form-control" id="production-input-left" maxlength="1" ng-model="langProductionRules.menuLeft" ng-keypress="keypressCallback($event)" ng-class="{'error-check-changes': langProductionRules.change.inputLeft}">
 
                 <span class="input-group-addon">&#11106;</span>
-                <input ng-disabled="langSimulator.isInPlay" class="form-control" id="production-input-right" maxlength="2" ng-model="langProductionRules.menuRight" ng-keypress="keypressCallback($event)">
+                <input ng-disabled="langSimulator.isInPlay" class="form-control" id="production-input-right" maxlength="10" ng-model="langProductionRules.menuRight" ng-keypress="keypressCallback($event)" ng-class="{'error-check-changes': langProductionRules.change.inputRight}">
 
                 <!-- Hover des Buttons fehlt -->
                 <span id="epsilon-button" class="input-group-addon btn" ng-click="langProductionRules.change.addEpsilonToRightSide(null, false)">
@@ -15,19 +15,9 @@
                 </span>
             </div>
         </div>
-
+        
         <p></p>
-        <div class="alert alert-danger" ng-show="!langProductionRules.change.checkLeftForLetter(langProductionRules.menuLeft)">
-            {{"languages.typeIII.errorLeftMsg" | translate}}
-        </div>
-
-        <p></p>
-        <!--TODO: Checking of the right side only with terminal -->
-        <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRightForLetter(langProductionRules.menuRight)">
-            {{"languages.typeIII.errorRightMsg" | translate}}
-        </div>
-
-        <button class="btn" ng-disabled="!langProductionRules.change.noErrorsInInput(langProductionRules.menuLeft, langProductionRules.menuRight)" ng-click="langProductionRules.create(langProductionRules.menuLeft, langProductionRules.menuRight)">
+        <button class="btn" ng-disabled="langProductionRules.change.checkInputRule(langProductionRules.menuLeft, langProductionRules.menuRight)" ng-click="langProductionRules.create(langProductionRules.menuLeft, langProductionRules.menuRight)">
             {{"languages.core.addButton" | translate}}
         </button>
     </form>
@@ -37,14 +27,14 @@
 
     <div class="input-group">
         <div class="input-group" ng-repeat="production in langProductionRules">
-            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, true)" ng-model="production.left" class="form-control" id="production-input-left" maxlength="1" ng-class="{'error-check-changes': production.id === langProductionRules.change.checkError(production.id, true)}">
+            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, 'left')" ng-model="production.left" class="form-control" id="production-input-left" maxlength="1" ng-class="{'error-check-changes': production.id === langProductionRules.change.checkError(production.id, 'left').id}">
 
             <span class="input-group-addon">&#11106;</span>
 
-            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, false)" ng-model="production.right" class="form-control" id="production-input-right" maxlength="2" ng-class="{'error-check-changes': production.id === langProductionRules.change.checkError(production.id, false)}">
+            <input ng-disabled="langSimulator.isInPlay" ng-change="langProductionRules.change.updateRule(production, 'right')" ng-model="production.right" class="form-control" id="production-input-right" maxlength="10" ng-class="{'error-check-changes': production.id === langProductionRules.change.checkError(production.id, 'right').id}">
 
             <!-- Hover des Buttons fehlt -->
-            <span class="input-group-addon btn" ng-click="langProductionRules.change.addEpsilonToRightSide(production.id, true)">
+            <span class="input-group-addon btn" ng-click="langProductionRules.change.addEpsilonToRightSide(production.id, 'right')">
                 <span>ε</span>
             </span>
 
@@ -53,16 +43,6 @@
             </span>
 
         </div>
-    </div>
-
-    <p></p>
-    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkUpdateLeft">
-        {{"languages.typeIII.errorLeftMsg" | translate}}
-    </div>
-
-    <p></p>
-    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkUpdateRight">
-        {{"languages.typeIII.errorRightMsg" | translate}}
     </div>
 
     <p></p>
@@ -82,6 +62,31 @@
                 </li>
             </ul>
         </div>
+    </div>
+    
+    <p></p>
+    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRuleLeftNotEmpty">
+        {{"languages.typeIII_typeII.errorLeftNotEmptyMsg" | translate}}
+    </div>
+    
+    <p></p>
+    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRuleRightNotEmpty">
+        {{"languages.typeIII_typeII.errorRightNotEmptyMsg" | translate}}
+    </div>
+    
+    <p></p>
+    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRuleLoop">
+        {{"languages.typeIII_typeII.errorRuleLoopMsg" | translate}}
+    </div>
+
+    <p></p>
+    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRuleLeftIsNoTerminal">
+        {{"languages.typeIII_typeII.errorLeftIsNoTerminalMsg" | translate}}
+    </div>
+    
+    <p></p>
+    <div class="alert alert-danger" ng-show="!langProductionRules.change.checkRuleCharacters">
+        {{"languages.typeIII_typeII.errorNotAllowedCharactersMsg" | translate}}
     </div>
 
 </container-item>

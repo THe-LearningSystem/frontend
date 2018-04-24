@@ -21,8 +21,17 @@
         <span class="input-group-addon" aria-hidden="true">{{"languages.sim.inputWord" | translate}}</span>
         <input ng-disabled="langSimulator.isInPlay" class="inputWord form-control" ng-model="languageData.inputWord" ng-change="langSimulator.updateInputWord()">
         <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true"
-              ng-show="!langWordChecker.inputAccepted"></span>
+              ng-if="!langWordChecker.running && !langWordChecker.inputAccepted"></span>
         <span class="input-group-addon icon-check green" aria-hidden="true"
-              ng-show="langWordChecker.inputAccepted"></span>
+              ng-if="!langWordChecker.running && langWordChecker.inputAccepted"></span>
+        
+        <span class="input-group-addon" aria-hidden="true" ng-if="langWordChecker.running">
+            <div class="loader"></div>
+        </span>
+    </div>
+        
+    <p></p>
+    <div class="alert alert-danger" ng-show="langWordChecker.counter >= langWordChecker.maxTries && !langWordChecker.inputAccepted">
+        {{"languages.typeIII_typeII.maxCounterReached" | translate}}
     </div>
 </container-item>

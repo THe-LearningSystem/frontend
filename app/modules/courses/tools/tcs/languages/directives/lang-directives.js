@@ -33,6 +33,14 @@ angular.module('courses.tcs').directive("langgrammar", function () {
 
 angular.module('courses.tcs').directive("langderivationsequence", function () {
     return {
+        link: function (scope, elm, attrs) {
+            /**
+             * Not showing the epsilons in derivation sequence.
+             */
+            scope.replaceEpsilon = function (string) {
+                return string.replace(/ε/g, '');
+            };
+        },
         templateUrl: 'modules/courses/tools/tcs/languages/directives/lang-derivationsequence.html'
     };
 });

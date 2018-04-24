@@ -72,12 +72,12 @@
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/boolean-algebra/views/boolalg.html'
             })
-            //boolean Algebra
-            .state('tcs.languages-type-lll', {
-                url: 'languages/type-lll',
+            //languages type lll and ll
+            .state('tcs.languages', {
+                url: 'languages/type-lll+ll',
                 controller: 'LANGController',
                 controllerAs: 'vm',
-                templateUrl: '/modules/courses/tools/tcs/languages/type-lll/views/type-lll.view.html'
+                templateUrl: '/modules/courses/tools/tcs/languages/type-lll+ll/views/view.html'
             })
         ;
 
