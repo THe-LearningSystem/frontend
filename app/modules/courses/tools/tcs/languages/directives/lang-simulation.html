@@ -1,28 +1,37 @@
-<container-item titlename="Simulation" id="simulation-tab">
+<container-item titlename="as.sim.title" id="simulation-tab">
     <div class="sim-buttons">
-        <menubutton icon="play" action="langSimulator.playOrPause()" tttext="SIM.PLAY"
+        <menubutton icon="play" action="langSimulator.playOrPause()" tttext="languages.sim.play"
                     ng-disabled="langSimulator.simulationDone || !langWordChecker.inputAccepted"
                     ng-hide="langSimulator.isInPlay"></menubutton>
-        <menubutton icon="pause" action="langSimulator.playOrPause()" tttext="SIM.PAUSE"
+        <menubutton icon="pause" action="langSimulator.playOrPause()" tttext="languages.sim.pause"
                     ng-hide="!langSimulator.isInPlay"></menubutton>
         <menubutton icon="stop" action="langSimulator.stop()" ng-disabled="!langSimulator.isInAnimation"
-                    tttext="SIM.STOP"></menubutton>
+                    tttext="languages.sim.stop"></menubutton>
         <menubutton icon="fast-backward" action="langSimulator.previousStepWrapper()"
                     ng-disabled="langSimulator.startReached"
-                    tttext="SIM.STEPBACKWARD"></menubutton>
+                    tttext="languages.sim.stepBackward"></menubutton>
         <menubutton icon="fast-forward" action="langSimulator.nextStepWrapper()"
                     ng-disabled="langSimulator.simulationDone || !langWordChecker.inputAccepted"
-                    tttext="SIM.STEPFORWARD"></menubutton>
+                    tttext="languages.sim.stepForward"></menubutton>
     </div>
     
     <div class="input-group">
         
         <!-- What does aria-hidden exactly do? -->
-        <span class="input-group-addon" aria-hidden="true">Eingabe:</span>
-        <input ng-disabled="langSimulator.isInPlay" class="inputWord form-control" ng-model="languageData.inputWord" ng-change="langCore.langUpdateListener()">
+        <span class="input-group-addon" aria-hidden="true">{{"languages.sim.inputWord" | translate}}</span>
+        <input ng-disabled="langSimulator.isInPlay" class="inputWord form-control" ng-model="languageData.inputWord" ng-change="langSimulator.updateInputWord()">
         <span class="input-group-addon icon-times red sim-input-not-accepted" aria-hidden="true"
-              ng-show="!langWordChecker.inputAccepted"></span>
+              ng-if="!langWordChecker.running && !langWordChecker.inputAccepted"></span>
         <span class="input-group-addon icon-check green" aria-hidden="true"
-              ng-show="langWordChecker.inputAccepted"></span>
+              ng-if="!langWordChecker.running && langWordChecker.inputAccepted"></span>
+        
+        <span class="input-group-addon" aria-hidden="true" ng-if="langWordChecker.running">
+            <div class="loader"></div>
+        </span>
+    </div>
+        
+    <p></p>
+    <div class="alert alert-danger" ng-show="langWordChecker.counter >= langWordChecker.maxTries && !langWordChecker.inputAccepted">
+        {{"languages.typeIII_typeII.maxCounterReached" | translate}}
     </div>
 </container-item>

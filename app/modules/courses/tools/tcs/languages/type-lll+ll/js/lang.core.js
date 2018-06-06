@@ -13,17 +13,19 @@ autoSim.LangCore = function ($scope) {
     //define scope
 
     self.inNameEdit = false;
-
+    
     /**
      * This function calls the method updateFunction of every element in $scope.core.updateListeners
      * Not in use;
      */
     self.langUpdateListener = function () {
+        console.time();
         _.forEach($scope.langCore.langUpdateListeners, function (value) {
             value.updateFunction();
         });
         // $scope.LanguageData.unSavedChanges = true;
         // instant update, but more digest cycles
         $scope.saveApply();
+        console.timeEnd();
     };
 };

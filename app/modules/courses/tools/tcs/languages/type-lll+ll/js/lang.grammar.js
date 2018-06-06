@@ -35,7 +35,7 @@ autoSim.LangGrammar = function ($scope) {
 
             _.forEach(value.right, function (char) {
 
-                if (!self.checkIfValueExists(self.terminals, char) && char === angular.lowercase(char)) {
+                if (!self.checkIfValueExists(self.terminals, char) && char === angular.lowercase(char) && char !== 'ε') {
                     self.terminals.push(char);
                 }
             });
@@ -51,7 +51,7 @@ autoSim.LangGrammar = function ($scope) {
 
         _.forEach($scope.langDerivationtree.draw, function (value) {
 
-            if (value.animationGroup === $scope.langSimulator.animated.currentDerivationTreeGroup) {
+            if (value.predecessor === $scope.langSimulator.animated.currentDerivationTreeGroup) {
 
                 _.forEach(self.terminals, function (terminal) {
 
