@@ -9,6 +9,9 @@
 
     function LANGController($scope,$state,Courses, $stateParams,Authentication,$uibModal) {
 
+        angular.lowercase = text => text.toLowerCase();
+        angular.uppercase = text => text.toUpperCase();
+        
         prepareScope($scope);
 
         //Adding the different "classes" to the scope.

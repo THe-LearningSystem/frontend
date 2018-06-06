@@ -57,8 +57,14 @@ autoSim.LangSimulator = function ($scope) {
                 setTimeout(self.play, self.stepTimeOut);
             } else {
                 self.nextStep();
-                if (!self.simulationDone)
+                if (!self.simulationDone) {
                     setTimeout(self.play, self.stepTimeOut);
+                    
+                } else if (self.loopSimulation) {
+                    self.isInAnimation = false;
+                    self.isInPlay = true;
+                    setTimeout(self.play, self.loopTimeOut);
+                }
             }
         }
     };
