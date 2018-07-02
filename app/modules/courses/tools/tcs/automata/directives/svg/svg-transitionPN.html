@@ -1,0 +1,13 @@
+<g ng-attr-transform="translate({{state.x}} {{state.y}})" class="state" ng-attr-object-id="{{state.id}}"
+   ng-class="{active:state === states.selected,
+   'animated-currentstate-svg':state === simulator.animated.currentState || state.isAnimated,
+   'animated-nextstate-svg':state === simulator.animated.nextState,
+   'animated-accepted-svg':(state === simulator.animated.currentState && simulator.status == 'accepted') ||(state.isAnimatedFinal && state.isPossible),
+   'animated-not-accepted-svg':(state === simulator.animated.currentState && simulator.status == 'notAccepted') ||(state.isAnimatedFinal && !state.isPossible)}">
+    <rect class="state-circle" x="-16" y="-16" width="32" height="32"></rect>
+    <rect class="state-circle hover-circle" x="-16" y="-16" width="32" height="32"></rect>
+    <text class="state-text" dominant-baseline="central" text-anchor="middle"
+          style="font-family:'Roboto', sans-serif;">
+        {{state.name}}
+    </text>
+</g>

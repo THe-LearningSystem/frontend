@@ -16,6 +16,11 @@
             <menubutton icon="plus-circle" action="statediagram.createState()"
                         ng-disabled="simulator.isInPlay"
                         tttext="as.core.addState">
+            </menubutton> 
+            <menubutton icon="plus-circle" action="statediagram.createTransitionPn()"
+                        ng-disabled="simulator.isInPlay"
+                        ng-show="automatonData.type === 'PN'"
+                        tttext="as.petrinets.addTransition">
             </menubutton>
             <menubutton icon="long-arrow-right" action="statediagram.createTransition()"
                         ng-disabled="simulator.isInPlay"
@@ -39,8 +44,13 @@
                 </g>
                 <svg-tmp-transition></svg-tmp-transition>
 
-                <g id="states">
+                <g id="states" ng-show="automatonData.type !== 'PN'">
                     <svg-state ng-repeat="state in states" state="state"></svg-state>
+                </g>
+                
+                <g ng-repeat="state in states" ng-show="automatonData.type === 'PN'">
+                    <svg-state ng-if="state.place" state="state"></svg-state>
+                    <svg-transition-pn ng-if="!state.place" state="state"></svg-transition-pn>
                 </g>
 
             </svg-outer>

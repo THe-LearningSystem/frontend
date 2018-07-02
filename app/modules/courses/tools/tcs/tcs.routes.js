@@ -79,6 +79,13 @@
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/languages/type-lll+ll/views/view.html'
             })
+            //petrinets
+            .state('tcs.petrinets', {
+                url: 'petrinets',
+                controller: 'PNCtrl',
+                controllerAs: 'vm',
+                templateUrl: '/modules/courses/tools/tcs/automata/petrinets/views/pn.html'
+            })
         ;
 
     }

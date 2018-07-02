@@ -13,9 +13,13 @@
     <circle class="final-state" r="29" ng-show="states.final.isFinalState(state)"></circle>
     <circle class="state-circle" r="25"></circle>
     <circle class="state-circle hover-circle" r="25"></circle>
-    <text class="state-text" dominant-baseline="central" text-anchor="middle"
+    <text ng-show="state.tokens === undefined" class="state-text" dominant-baseline="central" text-anchor="middle"
           style="font-family:'Roboto', sans-serif;">
         {{state.name}}
+    </text>
+    <text ng-show="state.tokens !== undefined" class="state-text" dominant-baseline="central" text-anchor="middle"
+          style="font-family:'Roboto', sans-serif;">
+        {{state.tokens}}
     </text>
 
 </g>

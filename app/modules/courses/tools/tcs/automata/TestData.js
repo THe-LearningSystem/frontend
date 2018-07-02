@@ -264,4 +264,8 @@ function TestData($scope) {
         $scope.cellSpace.cellData[Math.round($scope.cellSpace.sizeX/2-1)][0].color = '#0066CC';
         $scope.cellSpace.draw1DCanvas();
     };
+    
+    self.testPN = function () {
+        console.log("TestsPN");
+    };
 }
