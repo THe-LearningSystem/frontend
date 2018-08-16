@@ -1,4 +1,5 @@
 <div class="container-wrapper">
+
     <div class="title">{{"as.core.diagram" | translate}}</div>
     <div class="svg-controls">
         <div class="button-group">
@@ -16,8 +17,8 @@
             <menubutton icon="plus-circle" action="statediagram.createState()"
                         ng-disabled="simulator.isInPlay"
                         tttext="as.core.addState">
-            </menubutton> 
-            <menubutton icon="plus-circle" action="statediagram.createTransitionPn()"
+            </menubutton>
+            <menubutton class="fas fa-plus-square"action="statediagram.createTransitionPn()"
                         ng-disabled="simulator.isInPlay"
                         ng-show="automatonData.type === 'PN'"
                         tttext="as.petrinets.addTransition">

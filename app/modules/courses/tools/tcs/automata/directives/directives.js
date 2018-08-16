@@ -170,3 +170,32 @@ angular.module('courses.tcs').directive("unsavedChanges", function () {
     };
 
 });
+
+angular.module('courses.tcs').directive("capacityChangeToInfinite", function () {
+    return {
+        restrict: 'E',
+        scope: {
+            char: '@char'
+        },
+        link: function (scope, elm, attrs) {
+            scope.saveApply = scopeSaveApply;
+            scope.changeInputFieldValue = function () {
+                scope.saveApply(function () {
+                    event.preventDefault();
+                    var element = document.getElementById('state-input-capacity');
+                    if (element != null) {
+                        element.value = scope.char;
+                        if ("createEvent" in document) {
+                            var evt = document.createEvent("HTMLEvents");
+                            evt.initEvent("change", false, true);
+                            element.dispatchEvent(evt);
+                        }
+                        else
+                            element.fireEvent("onchange");
+                    }
+                });
+            };
+        },
+        template: '<button class="btn btn-default" ng-mousedown="changeInputFieldValue()">{{char}}</button>'
+    };
+});

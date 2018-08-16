@@ -12,8 +12,8 @@
         $scope.states = new autoSim.StatesPN($scope);
         $scope.states.menu = new autoSim.StateMenusPN($scope);
         $scope.transitions = new autoSim.TransitionsPN($scope);
-        $scope.transitions.menu = new autoSim.TransitionMenus($scope);
-        $scope.simulator = new autoSim.Simulator($scope);
+        $scope.transitions.menu = new autoSim.TransitionMenusPN($scope);
+        $scope.simulator = new autoSim.SimulatorPN($scope);
         $scope.statediagram = new autoSim.StateDiagramPN($scope);
         $scope.statediagram.grid = new autoSim.StateDiagramGrid($scope);
         $scope.statediagram.menu = new autoSim.StateDiagramMenu($scope);
@@ -32,7 +32,6 @@
     function PNCtrl($scope,$uibModal) {
         _initAutomaton($scope);
         $scope.$uibModal = $uibModal;
-        $scope.testAgent.testPN();
     }
 
     angular

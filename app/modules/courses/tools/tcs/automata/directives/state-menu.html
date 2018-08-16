@@ -1,19 +1,35 @@
 <container-item titlename="as.core.stateMenu" ng-show="states.menu.edit.isOpen" extendable-raw="false">
     <form name="editstatemenu">
+        
+        <capacity-change-to-infinite ng-show="states.menu.edit.state.place" char="∞"></capacity-change-to-infinite>
+        
         <div class="input-group"
              ng-class="states.menu.edit.state.name.length === 0 ||
              states.existsWithName(states.menu.edit.state.name,states.menu.edit.state.id)? 'has-error':''">
             <span class="input-group-addon">{{"as.core.stateName" | translate}}</span>
-            <input class="form-control" id="state-input-name" maxlength="5"
+            <input ng-show="automatonData.type !== 'PN'" class="form-control" id="state-input-name" maxlength="2"
+                   show-focus="states.menu.edit.state.name"
+                   ng-model="states.menu.edit.state.name"
+                   ng-disabled="simulator.isInPlay">
+            <input ng-show="automatonData.type === 'PN'" class="form-control" id="state-input-name" maxlength="35"
                    show-focus="states.menu.edit.state.name"
                    ng-model="states.menu.edit.state.name"
                    ng-disabled="simulator.isInPlay">
         </div>
-        <div ng-show="automatonData.type === 'PN' && states.menu.edit.state.place" class="input-group">
-
+        <div class="input-group"
+             ng-show="automatonData.type === 'PN' && states.menu.edit.state.place"
+             ng-class="states.onlyPositiveNumbers(states.menu.edit.state.tokens) || !states.capacityBiggerThanTokens(states.menu.edit.state.capacity, states.menu.edit.state.tokens)? 'has-error':''">
             <span class="input-group-addon">{{"as.petrinets.tokens" | translate}}</span>
-            <input class="form-control" id="state-input-tokens" maxlength="2"
+            <input class="form-control" id="state-input-tokens" maxlength="3"
                    ng-model="states.menu.edit.state.tokens"
+                   ng-disabled="simulator.isInPlay">
+        </div>
+        <div class="input-group"
+             ng-show="automatonData.type === 'PN' && states.menu.edit.state.place"
+             ng-class="states.onlyPositiveNumbers(states.menu.edit.state.capacity) || !states.capacityBiggerThanTokens(states.menu.edit.state.capacity, states.menu.edit.state.tokens)? 'has-error':''">
+            <span class="input-group-addon">{{"as.petrinets.capacity" | translate}}</span>
+            <input class="form-control" id="state-input-capacity" maxlength="3"
+                   ng-model="states.menu.edit.state.capacity"
                    ng-disabled="simulator.isInPlay">
         </div>
         <div ng-show="automatonData.type !== 'PN'" class="checkbox">
@@ -35,6 +51,14 @@
         <div class="alert alert-danger alert-transition"
              ng-show="states.menu.edit.state.name.length === 0">
             {{"as.core.stateNameTooShort"| translate}}
+        </div>
+        <div class="alert alert-danger alert-transition"
+             ng-show="(states.onlyPositiveNumbers(states.menu.edit.state.capacity) || states.onlyPositiveNumbers(states.menu.edit.state.tokens)) && states.menu.edit.state.place">
+            {{"as.petrinets.noPositiveNumber"| translate}}
+        </div>
+        <div class="alert alert-danger alert-transition"
+             ng-show="!states.capacityBiggerThanTokens(states.menu.edit.state.capacity, states.menu.edit.state.tokens) && states.menu.edit.state.place">
+            {{"as.petrinets.capacityBiggerThanTokens"| translate}}
         </div>
         <div class="alert alert-danger  alert-transition"
              ng-show="states.existsWithName(states.menu.edit.state.name,states.menu.edit.state.id)">

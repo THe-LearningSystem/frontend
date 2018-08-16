@@ -108,6 +108,33 @@
   fill:$stateFontColor;
 }
 
+.pn-state-text {
+  font-size: $pnStateFontSize;
+  stroke:$stateFontColor;
+  stroke-width:$stateFontStrokeWidth;
+  fill:$stateFontColor;
+}
+
+.stf-overflow {
+    //display: block;
+    max-width: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.transitionPN-Switchable {
+    fill: $stateColor;
+    stroke: #0F0;
+    stroke-width: $stateBorderWidth;
+}
+
+.transitionPN-notSwitchable {
+    fill: $stateColor;
+    stroke: #F00;
+    stroke-width: $stateBorderWidth;
+}
+
 //animated state for the simulation
 //svg
 .animated-currentstate-svg .state-circle {

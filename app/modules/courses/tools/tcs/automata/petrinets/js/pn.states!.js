@@ -33,11 +33,53 @@ autoSim.StatesPN = function ($scope) {
         return transition;
     };
     
+    self.remove = function (state) {
+
+        if (self.hasTransitions(state)) {
+            $scope.$uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                templateUrl: '/modules/courses/tools/tcs/automata/directives/modal/deleteState/deleteState.modal.view.html',
+                controller: 'DeleteStateModalCtrl',
+                controllerAs: 'vm',
+                resolve: {
+                    data: function () {
+                        return {
+                            state: state,
+                            parentScope: $scope
+                        };
+                    }
+                }
+            });
+            return false;
+        } else {
+            self.splice(self.getIndexByStateId(state.id), 1);
+            $scope.simulator.removeError(state);
+            $scope.simulator.undoList = [];
+            $scope.simulator.redoList = [];
+            $scope.core.updateListener();
+            return true;
+        }
+    };
+    
+    self.updateTokens = function (states) {
+        
+        _.forEach(states, function (state) {
+            
+            
+            for(var i = 0; i < self.length; i++) {
+
+                if (self[i].id === state.id) {
+                    self[i].tokens = state.tokens;
+                }
+            }
+             
+        });
+    };
 
     self.createWithId = function (placeId, placeName, x, y) {
-        console.log("test");
         var tokens = 0;
-        var place = new autoSim.Place(placeId, placeName, tokens, x, y, true);
+        var capacity = "∞";
+        var place = new autoSim.Place(placeId, placeName, tokens, capacity, x, y, true);
         self.push(place);
         $scope.core.updateListener();
         $scope.saveApply();
@@ -46,14 +88,55 @@ autoSim.StatesPN = function ($scope) {
     };
     
     self.changeTokenCount = function (state, newTokenCount) {
-        if (angular.isNumber(newTokenCount)) {
-            console.error("Tokens can only be numbers!", self.getByName(newTokenCount));
+
+        if (self.onlyPositiveNumbers(newTokenCount) && state.place) {
+            console.error("Tokens can only be positive numbers!", self.getByName(newTokenCount));
             return false;
         } else {
+            newTokenCount = parseInt(newTokenCount);
             state.tokens = newTokenCount;
+            $scope.simulator.checkErrors(state);
             $scope.core.updateListener();
+            $scope.simulator.undoList = [];
+            $scope.simulator.redoList = [];
             return true;
         }
     };
+    
+    self.changeCapacity = function (state, capacity) {
+
+        if (self.onlyPositiveNumbers(capacity) && state.place) {
+            console.error("Capacity can only be positive numbers!", self.onlyPositiveNumbers(capacity));
+            return false;
+        } else {
+            
+            if (capacity !== "∞")
+                capacity = parseInt(capacity);
+            state.capacity = capacity;
+            $scope.simulator.checkErrors(state);
+            $scope.core.updateListener();
+            $scope.simulator.undoList = [];
+            $scope.simulator.redoList = [];
+            return true;
+        }
+    };
+    
+    self.onlyPositiveNumbers = function (toCheck) {
+        
+        if (toCheck === "∞")
+            return false;
+        else if (toCheck !== undefined)
+            return !/^\+?(0|[1-9]\d*)$/.test(toCheck);
+    };
+    
+    self.capacityBiggerThanTokens = function (capacity, tokens) {
+        tokens = parseInt(tokens);
+        
+        if (capacity === "∞")
+            return true;
+        else 
+            return capacity >= tokens;
+    };
+    
 };
 autoSim.StatesPN.prototype = Array.prototype;
