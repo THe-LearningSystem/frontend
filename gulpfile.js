@@ -97,7 +97,7 @@ gulp.task('serveLibs',function(){
         .pipe(gulp.dest('dist/fonts'));
 });
 gulp.task('serveIndex',function(){
-    gulp.src(['app/index.html'])
+    gulp.src(['app/index_template.html'])
         .pipe(gulp.dest('dist'));
 });
 
@@ -157,7 +157,7 @@ gulp.task('serveLibsCss', function () {
 
 
 gulp.task('build-inject',function(){
-    var target = gulp.src('./dist/index.html');
+    var target = gulp.src('./dist/index_template.html');
     // It's not necessary to read the files (will speed up things), we're only after their paths:
     return target
         .pipe(plugins.inject(
@@ -170,6 +170,7 @@ gulp.task('build-inject',function(){
                 relative: true,
                 addRootSlash: true
             }))
+        .pipe(plugins.rename('index.html'))
         .pipe(gulp.dest('./dist'));
 });
 

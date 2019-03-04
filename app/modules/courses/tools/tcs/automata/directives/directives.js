@@ -27,8 +27,10 @@ angular.module('courses.tcs').directive("containerItem", function () {
             } else {
                 scope.extendable = false;
             }
-            scope.extended = true;
-
+            if (!scope.isCollapsed)
+                scope.extended = true;
+            else
+                scope.extended = false;
             scope.toggle = function () {
                 if (scope.extendable)
                     scope.extended = !scope.extended;
@@ -36,7 +38,8 @@ angular.module('courses.tcs').directive("containerItem", function () {
         },
         scope: {
             titlename: '@',
-            extendableRaw: '='
+            extendableRaw: '=',
+            isCollapsed: '@'
         },
         templateUrl: 'modules/courses/tools/tcs/automata/directives/container-item.html'
     };
@@ -128,7 +131,7 @@ angular.module('courses.tcs').directive("stateTransitionFunction", function () {
 });
 angular.module('courses.tcs').directive("stateMenu", function () {
     return {
-        scope:false,
+        scope: false,
         templateUrl: 'modules/courses/tools/tcs/automata/directives/state-menu.html'
     };
 });

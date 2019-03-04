@@ -1,0 +1,63 @@
+<!--Directive-Template for the color-picker for the cellular automaton-->
+<div>
+    <p class="stateHeader">Zustände</p>
+    <div class="input-group centered color-picker">
+                            <span class="input-group-addon color-display"
+                                  style="background-color:{{cellSpace.selectedColor}}"></span>
+        <input type="text" class="form-control" ng-model="cellSpace.selectedColor"
+               ng-change="stateTransitionRules.selectedColor = cellSpace.selectedColor">
+    </div>
+
+    <div class="color-table">
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#FFFFFF'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#FFFFFF'"
+             style="background-color: #FFFFFF">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#FFFF00'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#FFFF00'"
+             style="background-color: #FFFF00">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#FFA500'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#FFA500'"
+             style="background-color: #FFA500">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#FF0000'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#FF0000'"
+             style="background-color: #FF0000">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#800080'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#800080'"
+             style="background-color: #800080">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#0066CC'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#0066CC'"
+             style="background-color: #0066CC">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#00BFFF'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#00BFFF'"
+             style="background-color: #00BFFF">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#00FF00'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#00FF00'"
+             style="background-color: #00FF00">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#006400'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#006400'"
+             style="background-color: #006400">
+        </div>
+        <div ng-class="{'selected-Color' : cellSpace.selectedColor === '#000000'}"
+             class="pick-color"
+             ng-click="cellSpace.selectedColor = stateTransitionRules.selectedColor = '#000000'"
+             style="background-color: #000000">
+        </div>
+    </div>
+</div>

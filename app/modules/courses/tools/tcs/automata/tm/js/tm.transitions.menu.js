@@ -1,9 +1,15 @@
+/**
+ * JS code for the transition menu
+ */
 autoSim.TransitionMenusTM = function($scope) {
     var self = this;
 
     autoSim.TransitionMenus.apply(this, arguments);
 
-
+    /**
+     *  Clones the transitionGroup so that we can changes
+     * @param transitionGroup: TransitionGroup which should be cloned
+     */
     self.prepareTransitionMenuData = function(transitionGroup) {
         self.edit.transitionGroup = _.cloneDeep(transitionGroup);
         _.forEach(self.edit.transitionGroup, function(transition) {
@@ -19,10 +25,14 @@ autoSim.TransitionMenusTM = function($scope) {
             transition.movingDirection = {};
             transition.movingDirection.value = tmpMovingDirection;
             transition.movingDirection.error = false;
-        })
+        });
     };
 
-
+    /**
+     * Watcher who controls the input of the user for the input fields of input symbol, output symbol and moving
+     * direction
+     * He also fires an error if the transition exists according to the deterministic approach
+     */
     self.edit.addWatcher = function() {
         for (var i = 0; i < self.edit.transitionGroup.length; i++) {
             self.edit.watcher.push($scope.$watch("transitions.menu.edit.transitionGroup['" + i + "']", function(newValue, oldValue) {
@@ -31,7 +41,7 @@ autoSim.TransitionMenusTM = function($scope) {
                     movingDirectionErrorFound = false;
                 if (newValue.inputSymbol.value !== oldValue.inputSymbol.value) {
                     newValue.inputSymbol.error = false;
-                    if (newValue.inputSymbol.value !== "" && !$scope.transitions.exists($scope.states.getById(newValue.fromState.id), $scope.states.getById(newValue.toState.id), newValue.inputSymbol.value)) {
+                    if (newValue.inputSymbol.value !== "" && !$scope.transitions.deterministicExists($scope.states.getById(newValue.fromState.id), $scope.states.getById(newValue.toState.id), newValue.inputSymbol.value)) {
                       if (newValue.inputSymbol.value !== '→' && newValue.inputSymbol.value !== '←' && newValue.inputSymbol.value !== '↺') {
                           $scope.transitions.modify($scope.transitions.getById(newValue.id), newValue.inputSymbol.value, newValue.outputSymbol.value, newValue.movingDirection.value);
                       } else {
@@ -76,16 +86,16 @@ autoSim.TransitionMenusTM = function($scope) {
                     }
 
                 }
-                if ($scope.transitions.exists($scope.states.getById(newValue.fromState.id), $scope.states.getById(newValue.toState.id), newValue.inputSymbol.value, newValue.outputSymbol.value, newValue.movingDirection.value, newValue.id)) {
+                if ($scope.transitions.deterministicExists($scope.states.getById(newValue.fromState.id), $scope.states.getById(newValue.toState.id), newValue.inputSymbol.value, newValue.id)) {
                     newValue.isUnique = false;
                     newValue.inputSymbol.error = true;
-                    newValue.outputSymbol.error = true;
-                    newValue.movingDirection.error = true;
+                    // newValue.outputSymbol.error = true;
+                    // newValue.movingDirection.error = true;
                 } else {
                     if (!newValue.isUnique) {
                         newValue.inputSymbol.error = nameErrorFound;
-                        newValue.outputSymbol.error = outputSymbolErrorFound;
-                        newValue.movingDirection.error = movingDirectionErrorFound;
+                        // newValue.outputSymbol.error = outputSymbolErrorFound;
+                        // newValue.movingDirection.error = movingDirectionErrorFound;
                     }
                     newValue.isUnique = true;
 

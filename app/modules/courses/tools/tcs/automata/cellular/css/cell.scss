@@ -1,17 +1,112 @@
 $cellSize: 50px;
 
-
-.cell{
+.cell {
   display:inline-block;
 }
 
-.pick-color{
-  width:20px;
-  height:20px;
+.color-picker {
+  width: 200px;
 }
 
-#cellular-canvas{
-  //width:700px;
-  //height:700px;
-  background-color:black;
+.color-split {
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.canvas-centered {
+  padding: 0;
+  margin: 0 auto;
+  margin-left: 42px;
+}
+
+.button-centered {
+  margin:0 auto;
+}
+
+.pick-color {
+  border:1px solid #CCCCCC;
+  width:20px;
+  height:20px;
+  float: left;
+  display: inline-block;
+}
+
+.selected-Color {
+  border: 1px solid #000000;
+}
+
+.color-display {
+  width: 34px;
+  height: 30px;
+}
+
+.color-table {
+  width: 87%;
+  margin: 0 auto;
+  margin-left: 16px;
+}
+
+.rules {
+  clear: left;
+  margin-top: 20px;
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.rule {
+  margin-top: 10px;
+}
+
+.dimension {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding-bottom: 5px;
+}
+
+.vNmRule-del-btn {
+  margin-top: 0;
+}
+
+.stateHeader {
+  text-align: center;
+  font-weight: bold;
+}
+
+.ruleHeader {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.addRule {
+  background-color: #469bcf;
+  color: white;
+}
+
+#cellSpace {
+  margin: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c4c4c4;
+}
+
+.div-one {
+  display: inline-block;
+  margin: 0 15px 0 0;
+  vertical-align: middle;
+}
+
+.div-one-moore {
+  margin-top: 5px;
+  margin-left: 12px;
+}
+
+.div-two {
+  display: inline-block;
+  vertical-align: middle;
 }

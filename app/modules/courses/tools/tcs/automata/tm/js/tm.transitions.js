@@ -15,14 +15,14 @@ autoSim.TransitionsTM = function($scope) {
 
 
     /**
-     * Checks if a transition with the params already exists, excepts the given transition
-     * @param fromState
-     * @param toState
-     * @param inputSymbol
-     * @param outputSymbol
-     * @param movingDirection
-     * @param transitionId
-     * @returns {boolean}
+     * Checks if an transition already exists
+     * @param fromState: state from which the transition originates
+     * @param toState: state where the transition leads
+     * @param inputSymbol: input symbol of the transition
+     * @param outputSymbol: output symbol which is written on the tape
+     * @param movingDirection: moving direction of the write-read-head after reading and writing on the tape
+     * @param transitionId: transition id of the transition we want to check
+     * @returns {boolean}: Returns 'true' if transition already exists otherwise 'false'
      */
     self.exists = function(fromState, toState, inputSymbol, outputSymbol, movingDirection, transitionId) {
         var tmp = false;
@@ -43,9 +43,35 @@ autoSim.TransitionsTM = function($scope) {
         return tmp;
     };
 
+
     /**
-     * Return the next possible inputSymbol (a,b,c already used -> returns d)
-     * @param fromState
+     *  Checks whether a transition exists according to the deterministic approach
+     * @param fromState: fromState: state from which the transition originates
+     * @param toState: state where the transition leads
+     * @param inputSymbol: input symbol of the transition
+     * @param transitionId: transition id of the transition we want to check
+     * @returns {boolean}: Returns 'true' if transition already exists otherwise 'false'
+     */
+    self.deterministicExists = function(fromState, toState, inputSymbol, transitionId) {
+      var tmp = false;
+      _.forEach(self, function(transitionGroup) {
+          if (fromState === transitionGroup.fromState) {
+              _.forEach(transitionGroup, function(transition) {
+                  if (transition.fromState === fromState && transition.inputSymbol === inputSymbol && transitionId !== transition.id) {
+                      tmp = true;
+                      return false;
+                  }
+              });
+              if (tmp === true)
+                  return false;
+          }
+      });
+      return tmp;
+    };
+
+    /**
+     * Returns the next possible output symbol (Example: a,b,c already used -> returns d)
+     * @param fromState: the state for which we want to have the next ouputsymbol
      * @returns {string}
      */
     self.getNextOutputSymbol = function(fromState) {

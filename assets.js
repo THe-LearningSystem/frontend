@@ -7,7 +7,8 @@ module.exports = {
             'app/lib/angular-ui-select/dist/select.css',
             'app/lib/font-awesome/css/font-awesome.css',
             'app/lib/json-formatter/dist/json-formatter.css',
-            'app/lib/angularjs-slider/dist/rzslider.css'
+            'app/lib/angularjs-slider/dist/rzslider.css',
+            'app/lib/font-awesome/css/font-awesome.css'
 
         ],
         js: [

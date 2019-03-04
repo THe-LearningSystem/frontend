@@ -8,29 +8,107 @@
     <div class="flex-item  inner-wrapper">
         <div class="main main-wrapper">
             <div class="main-item layout-item container-wrapper">
-                <!--<div class="cell-row" style="height:{{vm.cellSize}}"-->
-                     <!--ng-repeat="row in vm.cellData">-->
-                    <!--<tcs-cell ng-repeat="cell in row"></tcs-cell>-->
-                <!--</div>-->
-                <canvas id="cellular-canvas" width="500px" height="500px">
+                <div class="container-wrapper">
+                    <div class="title">{{"as.core.diagram" | translate}}</div>
+                    <ca-toolbar></ca-toolbar>
+                    <div style="width:100px; height: 100px;">
+                        <!--1900er Auflösung width: 1290px (1050) height: 804px (661)-->
+                        <canvas id="cellSpace" width="1050px" height="661px"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
         <aside class="sidebar sidebar-1 container-item layout-item">
-            <!--<simulation></simulation>-->
-            <!--<bulk-test></bulk-test>-->
-            <!--<simulation-settings></simulation-settings>-->
-            <!--<develop></develop>-->
+            <cell-space-settings></cell-space-settings>
+            <ca-simulation></ca-simulation>
+            <simulation-settings></simulation-settings>
+            <develop></develop>
         </aside>
-        <aside class="sidebar sidebar-2 container-item layout-item">    <!--Diagram Settings -->
-            <tcs-ca-menu></tcs-ca-menu>
-            <!--<settings></settings>-->
-            <!--&lt;!&ndash;State Menu &ndash;&gt;-->
-            <!--<state-menu></state-menu>-->
-            <!--&lt;!&ndash;Transition Menu &ndash;&gt;-->
-            <!--<transition-menu></transition-menu>-->
-            <!--<credits></credits>-->
+        <aside id="ruleEditor" class="sidebar sidebar-2 container-item layout-item">
+            <div class="state-transition-function">
+                <div class="title">{{"as.core.stateTransitionFunction" | translate}}</div>
+                <div class="content">
+                    <ca-color-picker></ca-color-picker>
+
+                    <hr class="color-split">
+
+                    <!--1900er Auflösung max-height: 750px (600)-->
+                    <div style="max-height: 600px; overflow: auto;" ng-if="stateTransitionRules.deleteRules">
+                        <p class="ruleHeader">Regeln</p>
+                        <li ng-repeat="rule in stateTransitionRules.array track by $index" class="rules">
+                            <div class="rules" ng-if="cellSpace.twoD">
+                                <div class="div-one div-one-moore">
+                                    <canvas id="demoCanvas{{$index}}"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="152px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove"
+                                            ng-click="stateTransitionRules.deleteRule(rule.id);">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rules" ng-if="!cellSpace.twoD">
+                                <div class="div-one">
+                                    <canvas id="demoCanvas{{$index}}" class="canvas-centered"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="92px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove vNmRule-del-btn deleteRule"
+                                            style="display: table-cell; vertical-align: center;"
+                                            ng-click="stateTransitionRules.deleteRule($index);">
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <button class="btn btn-default button-centered addRule"
+                                ng-style="stateTransitionRules.buttonSize"
+                                ng-click="stateTransitionRules.createRuleObject();">Neue Regel
+                            erstellen
+                        </button>
+                    </div>
+
+                    <div style="max-height: 600px; overflow: auto;" ng-if="!stateTransitionRules.deleteRules">
+                        <p class="ruleHeader">Regeln</p>
+                        <li ng-repeat="rule in stateTransitionRules.array track by $index" class="rules">
+                            <div class="rules" ng-if="cellSpace.twoD">
+                                <div class="div-one div-one-moore">
+                                    <canvas id="demoCanvas{{$index}}"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="152px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove"
+                                            ng-click="stateTransitionRules.deleteRule(rule.id);">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rules" ng-if="!cellSpace.twoD">
+                                <div class="div-one">
+                                    <canvas id="demoCanvas{{$index}}" class="canvas-centered"
+                                            elem-ready="stateTransitionRules.initRule($event, $index)" width="92px"
+                                            height="92px"></canvas>
+                                </div>
+                                <div class="div-two">
+                                    <button class="btn btn-danger button-centered fa fa-remove vNmRule-del-btn deleteRule"
+                                            style="display: table-cell; vertical-align: center;"
+                                            ng-click="stateTransitionRules.deleteRule($index);">
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <button class="btn btn-default button-centered addRule"
+                                ng-style="stateTransitionRules.buttonSize"
+                                ng-click="stateTransitionRules.createRuleObject();">Neue Regel
+                            erstellen
+                        </button>
+                    </div>
+                </div>
+            </div>
         </aside>
 
     </div>
-
+    <tools-bottom-toolbar></tools-bottom-toolbar>
 </div>

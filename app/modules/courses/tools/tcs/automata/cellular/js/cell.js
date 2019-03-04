@@ -1,29 +1,13 @@
-function cell(color, isAlive) {
+/**
+ * Object for a single cell
+ * @param color: Color in which it will be colored
+ */
+function cell(color) {
     var self = this;
-
-    if (isAlive) {
-        self.isALive = isAlive
-    } else {
-        self.isAlive = false;
-    }
 
     if (color) {
         self.color = color;
     } else {
-        self.color = "#000";
-
+        self.color = "#000000";
     }
-
-    self.getNeighbours = function () {
-        return false;
-    };
-
-    self.getLivingNeighbours = function () {
-
-    };
-
-    self.change = function (isAlive, color) {
-        self.isALive = isAlive;
-        self.color = color;
-    };
 }

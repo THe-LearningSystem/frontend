@@ -11,7 +11,11 @@
         var vm = this;
 
         vm.delete = function () {
-            data.parentScope.core.resetAutomaton();
+            if (data.parentScope.automatonData.type === 'CA') {
+                data.parentScope.simulator.resetAutomaton();
+            } else {
+                data.parentScope.core.resetAutomaton();
+            }
             $uibModalInstance.close();
         };
 

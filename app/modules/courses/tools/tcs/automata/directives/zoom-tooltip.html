@@ -1,10 +1,10 @@
 <div uib-dropdown on-toggle="toggled(open)">
-    <button type="button" class="menu-button dropbutton" uib-dropdown-toggle>
+    <button type="button" class="menu-button dropbutton" uib-dropdown-toggle ng-if="automatonData.type !== 'CA'">
         {{automatonData.diagram.scale*100 | number:0}}%
         <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
     </button>
 
-    <ul uib-dropdown-menu aria-labelledby="simple-dropdown">
+    <ul uib-dropdown-menu aria-labelledby="simple-dropdown" ng-if="automatonData.type !== 'CA'">
         <li>
             <a ng-click="statediagram.zoom.zoomTo(25)">25%</a>
         </li>
@@ -33,4 +33,43 @@
             <a ng-click="statediagram.zoom.zoomFitWindow()">{{"as.core.zoomFitWindow" | translate}}</a>
         </li>
     </ul>
+
+    <button type="button" class="menu-button dropbutton" uib-dropdown-toggle ng-if="automatonData.type === 'CA'" ng-disabled="simulator.isInPlay">
+        {{cellSpace.stage.scaleX * 100 | number:0}}%
+        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+    </button>
+
+    <ul uib-dropdown-menu aria-labelledby="simple-dropdown" ng-if="automatonData.type === 'CA'" ng-hide="simulator.isInPlay">
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 0.25)">25%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 0.5)">50%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 0.75)">75%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 1)">100%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 1.25)">125%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 1.5)">150%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 1.75)">175%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 2)">200%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 2.25)">225%</a>
+        </li>
+        <li>
+            <a ng-click="cellSpaceZoom.zoomTo(cellSpace.stage, 2.5)">250%</a>
+        </li>
+    </ul>
 </div>
+
