@@ -13,13 +13,24 @@
             <change-input-field-value char="↺"></change-input-field-value>
         </div>
         <li ng-repeat="(key, transition) in transitions.menu.edit.transitionGroup">
-            <div ng-show="automatonData.type!=='TM'" class="input-group" ng-class="transition.inputSymbol.error ===true ? 'has-error':''">
+            <div ng-show="automatonData.type !== 'PN' && automatonData.type!=='TM'" class="input-group" ng-class="transition.inputSymbol.error ===true ? 'has-error':''">
                 <span class="input-group-addon">{{"as.core.transitionReadedChar" | translate}}</span>
                 <input class="form-control" type="text" ng-model="transition.inputSymbol.value" maxlength="1"
                        ng-attr-show-focus="true" ng-disabled="simulator.isInPlay">
 
                 <span class="input-group-addon btn btn-danger transbutton"
                       ng-show="automatonData.type==='DFA' || automatonData.type==='NFA'"
+                      ng-click="simulator.isInPlay ? pseudoFunction() :
+                      transitions.remove(transitions.getById(transition.id)); transitions.menu.edit.open(transitions.selected)"
+                      ng-disabled="simulator.isInPlay"><span class="icon-times"></span></span>
+            </div> 
+            <div ng-show="automatonData.type === 'PN'" class="input-group" ng-class="transition.inputSymbol.error === true ? 'has-error':''">
+                <span class="input-group-addon">{{"as.petrinets.tokens" | translate}}</span>
+                <input class="form-control" type="text" ng-model="transition.inputSymbol.value" maxlength="2"
+                       ng-attr-show-focus="true" ng-disabled="simulator.isInPlay">
+
+                <span class="input-group-addon btn btn-danger transbutton"
+                      ng-show="automatonData.type === 'PN'"
                       ng-click="simulator.isInPlay ? pseudoFunction() :
                       transitions.remove(transitions.getById(transition.id)); transitions.menu.edit.open(transitions.selected)"
                       ng-disabled="simulator.isInPlay"><span class="icon-times"></span></span>
@@ -94,6 +105,10 @@
             <div class="alert alert-danger alert-transition"
                  ng-show="!transition.isUnique&& automatonData.nonDeterministic">
                 {{"TRANS_MENU.TRANS_ALREADY_EXISTS"| translate}}
+            </div>
+            <div class="alert alert-danger alert-transition"
+                 ng-show="automatonData.type === 'PN' && transition.inputSymbol.error">
+                {{"as.petrinets.noPositiveNumber"| translate}}
             </div>
         </li>
     </ul>

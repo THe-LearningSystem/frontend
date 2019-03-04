@@ -84,6 +84,20 @@
   fill: $animatedTransitionColor;
 }
 
+.hover-place-text {
+    font-size: $pnStateFontSize;
+    stroke-width:$stateFontStrokeWidth;
+    fill:$stateFontColor;
+    stroke: $animatedTransitionColor;
+}
+
+.hover-transition-text {
+    font-size: $stateFontSize;
+    stroke-width: $stateFontStrokeWidth;
+    fill: $stateFontColor;
+    stroke: yellow;
+}
+
 .animated-transition {
   color: $animatedTransitionColor;
 }

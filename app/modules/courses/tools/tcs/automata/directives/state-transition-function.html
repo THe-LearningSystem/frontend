@@ -1,10 +1,79 @@
 <div class="state-transition-function">
 
-  <div class="title">{{"as.core.stateTransitionFunction" | translate}}</div>
-  <div class="content">
-    <div class="stf-element" uib-tooltip="{{ 'as.core.states' | translate}}" tooltip-placement="right">
-      S = {
-      <span ng-repeat="state in states track by $index">
+    <div class="title">{{"as.core.stateTransitionFunction" | translate}}</div>
+
+    <div class="content">
+        
+        <!-- Petrinets -->
+        
+        <div ng-show="automatonData.type === 'PN'" class="stf-element" uib-tooltip="{{ 'as.petrinets.place' | translate}}" tooltip-placement="right">
+            S = {
+            <span class="stf-overflow" ng-repeat="state in states track by $index">
+                <span ng-show="state.place" ng-class="{selected:state === states.selected, 'animated-currentstate': simulator.hoverPlace(state)}">
+                    {{state.name}}{{$last ? ' ' : ', '}}
+                </span>
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type === 'PN'" class="stf-element" uib-tooltip="{{ 'as.petrinets.transition' | translate}}" tooltip-placement="right">
+            T = {
+            <span ng-repeat="state in states track by $index">
+                <span ng-show="!state.place" ng-class="{selected:state === states.selected, 'animated-currentstate': state === simulator.hover}">
+                    {{state.name}}{{$last ? ' ' : ', '}}
+                </span>
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type === 'PN'" class="stf-element" uib-tooltip="{{ 'as.petrinets.flowrelation' | translate}}" tooltip-placement="right">
+            F = {
+            <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
+                <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'" ng-class="{selected:transitionGroup === transitions.selected}">
+                    <span ng-class="{selected:transition.fromState === states.selected || transition.toState === states.selected, 'animated-currentstate': transition.fromState === simulator.hover || transition.toState === simulator.hover}">
+                        ({{transition.fromState.name}}, {{transition.toState.name}})
+                    </span>
+                </span>
+                {{$last ? ' ' : ', '}}
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type === 'PN'" class="stf-element" uib-tooltip="{{ 'as.petrinets.defCapacity' | translate}}" tooltip-placement="right">
+            K = {
+            <span ng-repeat="state in states track by $index">
+                <span ng-show="state.place" ng-class="{selected:state === states.selected, 'animated-currentstate': simulator.hoverPlace(state)}">
+                    ({{state.name}} &#11106; {{state.capacity}})
+                </span>
+                {{$last ? ' ' : ', '}}
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type === 'PN'" class="stf-element" uib-tooltip="{{ 'as.petrinets.weightFunction' | translate}}" tooltip-placement="right">
+            W = {
+            <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
+                <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'" ng-class="{selected:transitionGroup === transitions.selected }">
+                    <span ng-class="{selected:transition.fromState === states.selected || transition.toState === states.selected, 'animated-currentstate': transition.fromState === simulator.hover || transition.toState === simulator.hover}">
+                        ({{transition.fromState.name}}, {{transition.toState.name}}) &#11106; {{transition.tokens}}
+                    </span>
+                </span>
+                {{$last ? ' ' : ', '}}
+            </span>
+            }
+        </div>
+         <span ng-show="automatonData.type === 'PN'" class="stf-element" uib-tooltip="{{ 'as.petrinets.startFunction' | translate}}" tooltip-placement="right">
+            M = {
+            <span ng-repeat="state in simulator.startMarkingFunction.states track by $index">
+                <span ng-show="state.place" ng-class="{selected:state.id === states.selected.id, 'animated-currentstate': simulator.hoverPlace(state)}">
+                    ({{state.name}} &#11106; {{state.tokens}})
+                </span>
+                {{$last ? ' ' : ', '}}
+            </span>
+            }
+        </span>
+        
+        <!-- End Petrinets -->
+        
+        <div ng-show="automatonData.type !== 'PN'" class="stf-element" uib-tooltip="{{ 'as.core.states' | translate}}" tooltip-placement="right">
+            S = {
+            <span ng-repeat="state in states track by $index">
             <span ng-class="{selected:state === states.selected ,
                     'animated-currentstate':(state === simulator.animated.currentState) || (state.isAnimated),
                     'animated-accepted':(state === simulator.animated.currentState&& simulator.status == 'accepted')
@@ -13,76 +82,71 @@
                     || (state.isAnimatedFinal && !state.isPossible)}">
                 {{state.name}}
             </span> {{$last ? ' ' : ', '}}
-      </span>
-      }
-    </div>
-    <div ng-show="automatonData.type!=='TM'">
-      <div class="stf-element" uib-tooltip="{{ 'as.core.automataAlphabet' | translate}}" tooltip-placement="right">
-        &Sigma; = {
-        <span ng-repeat="inputSymbol in transitions.inputSymbolAlphabet">
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type !== 'PN' && automatonData.type!=='TM'">
+            <div class="stf-element" uib-tooltip="{{ 'as.core.automataAlphabet' | translate}}" tooltip-placement="right">
+                &Sigma; = {
+                <span ng-repeat="inputSymbol in transitions.inputSymbolAlphabet">
             {{inputSymbol}}
             {{$last ? ' ' : ', '}}
         </span> }
-      </div>
-    </div>
-    <div ng-show="automatonData.type=='PDA'">
-      <div class="stf-element" uib-tooltip="{{ 'as.core.states' | translate}}" tooltip-placement="right">
-        Γ = {
-        <span ng-repeat="stackSymbol in transitions.stackAlphabet">
+            </div>
+        </div>
+        <div ng-show="automatonData.type=='PDA'">
+            <div class="stf-element" uib-tooltip="{{ 'as.core.states' | translate}}" tooltip-placement="right">
+                Γ = {
+                <span ng-repeat="stackSymbol in transitions.stackAlphabet">
                 {{stackSymbol}}{{$last ? ' ' : ', '}}
-            </span>
-                }
+            </span> }
             </div>
         </div>
         <!--Alphabet for the TM-->
         <div ng-show="automatonData.type==='TM'">
-            <div class="stf-element" uib-tooltip="{{ 'as.core.automataAlphabet' | translate}}"
-                 tooltip-placement="right">
+            <div class="stf-element" uib-tooltip="{{ 'as.core.automataAlphabet' | translate}}" tooltip-placement="right">
                 &Sigma; = {
                 <span ng-repeat="inputSymbol in transitions.inputSymbolAlphabet">
                   {{inputSymbol}}
                   {{$last ? ' ' : ', '}}
                 </span> }
-      </div>
-      <!--Tape alphabet for the TM-->
-      <div class="stf-element" uib-tooltip="{{ 'as.tm.tapeAlphabet' | translate}}" tooltip-placement="right">
-        &Gamma; = {
-        <span ng-repeat="tapeSymbol in transitions.tapeAlphabet">
+            </div>
+            <!--Tape alphabet for the TM-->
+            <div class="stf-element" uib-tooltip="{{ 'as.tm.tapeAlphabet' | translate}}" tooltip-placement="right">
+                &Gamma; = {
+                <span ng-repeat="tapeSymbol in transitions.tapeAlphabet">
                 {{tapeSymbol}}{{$last ? ' ' : ', '}}
             </span> }
-      </div>
-    </div>
-    <div ng-show="automatonData.type!=='PDA' && automatonData.type!=='NPDA' && automatonData.type!=='TM'" class="stf-element" uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}" tooltip-placement="right">
-      &delta; = {
-      <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
+            </div>
+        </div>
+        <div ng-show="automatonData.type !== 'PN' && automatonData.type!=='PDA' && automatonData.type!=='NPDA' && automatonData.type!=='TM'" class="stf-element" uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}" tooltip-placement="right">
+            &delta; = {
+            <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
         <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'">
             <span ng-class="{selected:transitionGroup === transitions.selected,
             'animated-transition':transition ===simulator.animated.transition ||transition.isAnimated }">
                 ({{transition.fromState.name}}, {{transition.inputSymbol}}, {{transition.toState.name}})
             </span> {{$last ? ' ' : ', '}}
-      </span>
-      {{$last ? ' ' : ', '}}
-      </span>
-      }
-    </div>
-    <div ng-show="automatonData.type==='PDA' || automatonData.type==='NPDA'" class="stf-element" uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}" tooltip-placement="right">
-      &delta; = {
-      <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
+            </span>
+            {{$last ? ' ' : ', '}}
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type==='PDA' || automatonData.type==='NPDA'" class="stf-element" uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}" tooltip-placement="right">
+            &delta; = {
+            <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
             <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'">
                 <span ng-class="{selected:transitionGroup === transitions.selected,
                 'animated-transition':transition ===simulator.animated.transition || transition.isAnimated}">
                     ({{transition.fromState.name}}, {{transition.inputSymbol}}, {{transition.readFromStack}}, {{transition.toState.name}}, {{transition.writeToStack}} )
-                </span>
-                {{$last ? '' : ', '}}
+                </span> {{$last ? '' : ', '}}
             </span>
             {{$last ? ' ' : ', '}}
-        </span>
+            </span>
             }
         </div>
         <!--State transition functions for the TM-->
-        <div ng-show="automatonData.type==='TM'" class="stf-element"
-             uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}"
-             tooltip-placement="right">
+        <div ng-show="automatonData.type==='TM'" class="stf-element" uib-tooltip="{{ 'as.core.stateTransitionFunction' | translate}}" tooltip-placement="right">
             &delta; = {
             <span ng-repeat="transitionGroup in transitions | orderBy: 'fromState.name'">
             <span ng-repeat="transition in transitionGroup| orderBy: 'inputSymbol'">
@@ -90,22 +154,22 @@
                 'animated-transition':transition ===simulator.animated.transition || transition.isAnimated}">
                     ({{transition.fromState.name}}, {{transition.inputSymbol}}, {{transition.toState.name}}, {{transition.outputSymbol}}, {{transition.movingDirection}} )
                 </span> {{$last ? '' : ', '}}
-      </span>
-      {{$last ? ' ' : ', '}}
-      </span>
-      }
-    </div>
-    <div class="stf-element" uib-tooltip="{{ 'as.core.startState' | translate}}" tooltip-placement="right">
-      S<sub>0</sub>= {{states.startState.name}}
-    </div>
-    <div ng-show="automatonData.type!=='PDA'">
-      <div class="stf-element" uib-tooltip="{{ 'as.core.finalState' | translate}}" tooltip-placement="right">
-        {{"as.core.finalStateShort" | translate}} = {
-        <span ng-repeat="finalState in states.final">
+            </span>
+            {{$last ? ' ' : ', '}}
+            </span>
+            }
+        </div>
+        <div ng-show="automatonData.type !== 'PN'" class="stf-element" uib-tooltip="{{ 'as.core.startState' | translate}}" tooltip-placement="right">
+            S<sub>0</sub>= {{states.startState.name}}
+        </div>
+        <div ng-show="automatonData.type !== 'PN' && automatonData.type!=='PDA'">
+            <div class="stf-element" uib-tooltip="{{ 'as.core.finalState' | translate}}" tooltip-placement="right">
+                {{"as.core.finalStateShort" | translate}} = {
+                <span ng-repeat="finalState in states.final">
                 {{finalState.name}}{{$last ? '' : ', '}}
             </span> }
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
 </div>

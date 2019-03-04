@@ -264,4 +264,43 @@ function TestData($scope) {
         $scope.cellSpace.cellData[Math.round($scope.cellSpace.sizeX/2-1)][0].color = '#0066CC';
         $scope.cellSpace.draw1DCanvas();
     };
+    
+    self.testPN01 = function () {
+        var place1 = $scope.states.createWithPresets(100, 200);
+        var place2 = $scope.states.createWithPresets(300, 300);
+        var trans1 = $scope.states.createTransitionWithPresets(300, 200);
+        var trans2 = $scope.states.createTransitionWithPresets(200, 100);
+        var trans3 = $scope.states.createTransitionWithPresets(400, 200);
+        
+        $scope.transitions.create(place1, trans1, "a");
+        $scope.transitions.create(trans1, place1, "a");
+        $scope.transitions.create(trans1, place2, "b");
+        $scope.transitions.create(trans2, place1, "b");
+        $scope.transitions.create(place2, trans3, "b");
+    };
+    
+    self.testPN02 = function () {
+        var place1 = $scope.states.createWithPresets(300, 100);
+        var place2 = $scope.states.createWithPresets(300, 200);
+        var place3 = $scope.states.createWithPresets(300, 300);
+        var place4 = $scope.states.createWithPresets(300, 400);
+        var place5 = $scope.states.createWithPresets(300, 500);
+        var trans1 = $scope.states.createTransitionWithPresets(100, 200);
+        var trans2 = $scope.states.createTransitionWithPresets(500, 200);
+        var trans3 = $scope.states.createTransitionWithPresets(100, 400);
+        var trans4 = $scope.states.createTransitionWithPresets(500, 400);
+        
+        $scope.transitions.create(place1, trans1);
+        $scope.transitions.create(place2, trans2);
+        $scope.transitions.create(place3, trans1);
+        $scope.transitions.create(place3, trans4);
+        $scope.transitions.create(place4, trans3);
+        $scope.transitions.create(place5, trans4);
+        $scope.transitions.create(trans1, place2);
+        $scope.transitions.create(trans2, place1);
+        $scope.transitions.create(trans2, place3);
+        $scope.transitions.create(trans3, place3);
+        $scope.transitions.create(trans3, place5);
+        $scope.transitions.create(trans4, place4);
+    };
 }

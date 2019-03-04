@@ -1,20 +1,38 @@
 <container-item titlename="as.sim.title" id="simulation-tab">
     <div class="sim-buttons">
+
+        
         <menubutton icon="play" action="simulator.playOrPause()" tttext="as.core.play"
                     ng-disabled="simulator.animatedSequence !== null"
-                    ng-hide="simulator.isInPlay"></menubutton>
-        <menubutton icon="pause" action="simulator.playOrPause()" tttext="as.core.pause"
-                    ng-hide="!simulator.isInPlay"></menubutton>
+                    ng-hide="simulator.isInPlay || automatonData.type === 'PN'"></menubutton>
+        <menubutton icon="pause" action="simulator.playOrPause()" tttext="as.petrinets.pause"
+                    ng-hide="!simulator.isInPlay || automatonData.type === 'PN'"></menubutton>
         <menubutton icon="stop" action="simulator.stop()" ng-disabled="!simulator.isInAnimation"
-                    tttext="as.core.stop"></menubutton>
+                    tttext="as.petrinets.reset"
+                    ng-hide="automatonData.type === 'PN'"></menubutton>
         <menubutton icon="fast-backward" action="simulator.stepBackwardWrapper()"
                     ng-disabled="!simulator.isInAnimation || simulator.animatedSequence !== null"
-                    tttext="as.core.stepBackward"></menubutton>
+                    tttext="as.core.stepBackward"
+                    ng-hide="automatonData.type === 'PN'"></menubutton>
         <menubutton icon="fast-forward" action="simulator.stepForwardWrapper()"
                     ng-disabled="simulator.status =='notAccepted' || simulator.status=='accepted' || simulator.animatedSequence !== null"
-                    tttext="as.core.stepForward"></menubutton>
+                    tttext="as.core.stepForward"
+                    ng-hide="automatonData.type === 'PN'"></menubutton>
+        
+        <menubutton ng-disabled="simulator.undoList.length === 0" class="fas fa-arrow-left" action="simulator.undo()" tttext="as.petrinets.undo"
+                    ng-hide="automatonData.type !== 'PN'"></menubutton>
+        <menubutton icon="play" action="simulator.playOrPause()" tttext="as.core.play"
+                    ng-disabled="states.length === 0 || simulator.errors.length > 0"
+                    ng-hide="simulator.isInPlay || automatonData.type !== 'PN'"></menubutton>
+        <menubutton icon="pause" action="simulator.playOrPause()" tttext="as.petrinets.pause"
+                    ng-hide="!simulator.isInPlay || automatonData.type !== 'PN'"></menubutton>
+        <menubutton icon="stop" action="simulator.resetSimulation()" ng-disabled="!simulator.startMarkingFunction.saved || (simulator.undoList.length === 0 && simulator.redoList.length === 0)"
+                    tttext="as.petrinets.stop"
+                    ng-hide="automatonData.type !== 'PN'"></menubutton>
+        <menubutton ng-disabled="simulator.redoList.length === 0" class="fas fa-arrow-right" action="simulator.redo()" tttext="as.petrinets.redo"
+                    ng-hide="automatonData.type !== 'PN'"></menubutton>
     </div>
-    <div class="input-group" ng-show="!simulator.isInAnimation  || simulator.animatedSequence !== null" ng-if="automatonData.type !== 'CA'">
+    <div class="input-group" ng-show="!simulator.isInAnimation  || simulator.animatedSequence !== null" ng-if="automatonData.type !== 'PN' && automatonData.type !== 'CA'">
         <span class="input-group-addon" aria-hidden="true">{{"as.core.inputWord" | translate}}</span>
         <input class="inputWord form-control" ng-if="automatonData.type !== 'TM'" ng-model="automatonData.inputWord" ng-change="simulator.updateFunction()" ng-disabled="simulator.isInAnimation" />
         <!--Inputfield for the inputword for the turing machine-->
