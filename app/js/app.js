@@ -18,7 +18,6 @@ var config = {
         'ui.router',
         'ui.bootstrap',
         'ui-notification',
-        'angular-jwt',
         'LocalStorageModule',
         'ngSanitize',
         'ui.select',
@@ -32,23 +31,12 @@ var config = {
 };
 
 var app = angular.module(config.name, config.vendorDependencies)
-    .config(["$httpProvider", "$locationProvider", "localStorageServiceProvider", "jwtOptionsProvider", "I18N_DATA", 'bsValidationConfigProvider',
-        function ($httpProvider, $locationProvider, localStorageServiceProvider, jwtOptionsProvider, I18N_DATA, bsValidationConfigProvider) {
+    .config(["$httpProvider", "$locationProvider", "localStorageServiceProvider", "I18N_DATA", 'bsValidationConfigProvider',
+        function ($httpProvider, $locationProvider, localStorageServiceProvider, I18N_DATA, bsValidationConfigProvider) {
             localStorageServiceProvider
                 .setPrefix('learningsystem');
-            jwtOptionsProvider
-                .config({
-                    //Prefix JWT already in the Token
-                    authPrefix: '',
-                    tokenGetter: ['Authentication', function (Authentication) {
-                        return Authentication.token;
-                    }],
-                    unauthenticatedRedirectPath: '/login',
-                    whiteListedDomains: [theLearningSystemConfig.whitedListedDomains]
-                });
             $locationProvider.html5Mode(true);
 
-            $httpProvider.interceptors.push('jwtInterceptor');
 
 
             bsValidationConfigProvider.global.setValidateFieldsOn('submit');
@@ -56,8 +44,8 @@ var app = angular.module(config.name, config.vendorDependencies)
             bsValidationConfigProvider.global.successClass = '';
         }])
 
-    .run(['$rootScope', '$state', 'jwtHelper', 'localStorageService', 'Authentication', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG", 'bsValidationConfig', 'Courses', 'CustomNotify',
-        function ($rootScope, $state, jwtHelper, localStorageService, Authentication, Notification, I18nManager, I18N_DATA, I18N_CONFIG, bsValidationConfig, Courses, CustomNotify) {
+    .run(['$rootScope', '$state', 'localStorageService', 'Notification', 'I18nManager', "I18N_DATA", "I18N_CONFIG", 'bsValidationConfig',
+        function ($rootScope, $state, localStorageService, Notification, I18nManager, I18N_DATA, I18N_CONFIG, bsValidationConfig) {
             $rootScope.getDeepValue = function (obj, path) {
                 for (var i = 0, tmpPath = path.split('.'), len = tmpPath.length; i < len; i++) {
                     if (obj !== undefined) {
@@ -74,8 +62,6 @@ var app = angular.module(config.name, config.vendorDependencies)
             };
 
 
-            $rootScope.Authentication = Authentication.init();
-
             I18nManager.setData(I18N_DATA);
             I18nManager.setConfig(I18N_CONFIG);
             $rootScope.i18nj = I18nManager.init();
@@ -89,7 +75,6 @@ var app = angular.module(config.name, config.vendorDependencies)
             bsValidationConfig.messages.required = $rootScope.getDeepValue(I18N_DATA, "core.general.required");
 
             $rootScope.serverUrl = theLearningSystemConfig.serverUrl;
-            $rootScope.isAuthenticated = Authentication.isAuthenticated;
 
 
             $rootScope.getLocalized = function (obj, defaultLanguage) {
@@ -102,58 +87,6 @@ var app = angular.module(config.name, config.vendorDependencies)
                 }
 
             };
-
-
-            //Dont show signin or signup page when the user is already logged in
-            //Not the best solution
-            //TODO: find a better solution
-            // $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-            //     event.preventDefault();
-            //     $state.transitionTo('not-reachable'); // error has data, status and config properties
-            // });
-
-            $rootScope.$on("$stateChangeStart",
-                function (event, toState, toParams, fromState, fromParams) {
-                    $state.previous = {};
-                    $state.previous.state = fromState;
-                    $state.previous.params = fromParams;
-                    Authentication.init();
-                    if (Authentication.isAuthenticated && (toState.name === "frontend.users.signin" || toState.name === "frontend.users.signup")) {
-                        event.preventDefault();
-                        $state.transitionTo('frontend.home');
-                    }
-                    if (toState.name === "frontend.users.signout" && Authentication.isAuthenticated) {
-                        event.preventDefault();
-                        Authentication.removeToken();
-                        CustomNotify.success($rootScope.getTranslation('core.general.signoutSuccessfull'));
-                        $state.go('frontend.home', {}, { reload: true });
-                    }
-                    //if the site is restricted and the user isnt logged in then redirect to login
-                    if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
-                        event.preventDefault();
-                        $state.go('frontend.users.signin', { fromOutside: true });
-                        //if the user has not the right then redirect to not-authorized
-                    } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
-                        event.preventDefault();
-                        $state.go('not-authorized', {}, { inherit: true });
-                    }
-                    //check if the user has the right to edit the course
-                    if (toState.needCourseRights) {
-                        var data = {
-                            courseId: toParams.courseUrl
-                        };
-                        Courses.getCourseModerators(data).then(function (response) {
-                            var data = response.data;
-                            if (Authentication.user._id === data.author || _.includes(data.moderators, Authentication.user._id)) {
-                            } else {
-                                event.preventDefault();
-                                $state.go('not-authorized', {}, { inherit: true });
-                            }
-                        });
-                    }
-
-                }
-            );
         }]);
 
 

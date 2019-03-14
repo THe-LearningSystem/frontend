@@ -52,7 +52,7 @@ module.exports = {
         'app/css/variables.scss',
         'app/modules/**/css/*.scss'
     ],
-js: [
+    js: [
         'app/js/config.js',
         'app/js/*.js',
         'app/modules/**/*.module.js',
@@ -64,6 +64,6 @@ js: [
     views: [
         'app/index.html',
         'app/modules/**/views/*.html',
-        'app/modules/courses/tools/**/directives/**/*.html'
+        'app/modules/tools/**/directives/**/*.html'
     ]
 };
