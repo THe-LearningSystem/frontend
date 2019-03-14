@@ -3,10 +3,10 @@ deferredBootstrapper.bootstrap({
     module: 'app',
     resolve: {
         I18N_DATA: ['$http', function ($http) {
-            return $http.get(theLearningSystemConfig.serverUrl + '/i18n/?simplified=true');
+            return $http.get(theLearningSystemConfig.frontendUrl + '/languages.json');
         }],
         I18N_CONFIG: ['$http', function ($http) {
-            return $http.get(theLearningSystemConfig.serverUrl + '/i18n/config');
+            return $http.get(theLearningSystemConfig.frontendUrl + '/configs.json');
         }]
     }
 });
@@ -126,16 +126,16 @@ var app = angular.module(config.name, config.vendorDependencies)
                         event.preventDefault();
                         Authentication.removeToken();
                         CustomNotify.success($rootScope.getTranslation('core.general.signoutSuccessfull'));
-                        $state.go('frontend.home', {}, {reload: true});
+                        $state.go('frontend.home', {}, { reload: true });
                     }
                     //if the site is restricted and the user isnt logged in then redirect to login
                     if (toState.requiredRight !== undefined && Authentication.isAuthenticated === false) {
                         event.preventDefault();
-                        $state.go('frontend.users.signin', {fromOutside: true});
+                        $state.go('frontend.users.signin', { fromOutside: true });
                         //if the user has not the right then redirect to not-authorized
                     } else if (toState.requiredRight !== undefined && !Authentication.hasRight(toState.requiredRight)) {
                         event.preventDefault();
-                        $state.go('not-authorized', {}, {inherit: true});
+                        $state.go('not-authorized', {}, { inherit: true });
                     }
                     //check if the user has the right to edit the course
                     if (toState.needCourseRights) {
@@ -147,7 +147,7 @@ var app = angular.module(config.name, config.vendorDependencies)
                             if (Authentication.user._id === data.author || _.includes(data.moderators, Authentication.user._id)) {
                             } else {
                                 event.preventDefault();
-                                $state.go('not-authorized', {}, {inherit: true});
+                                $state.go('not-authorized', {}, { inherit: true });
                             }
                         });
                     }

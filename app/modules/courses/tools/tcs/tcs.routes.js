@@ -22,9 +22,9 @@
         //automata
         $stateProvider
             .state('tcs', {
-                url: '/courses/:courseUrl/tools/',
+                url: '/tools/',
                 parent: 'frontend',
-                abstract:true,
+                abstract: true,
                 templateUrl: '/modules/courses/tools/tools-template.view.html',
                 controller: 'CoursesToolsCtrl'
             })
@@ -86,7 +86,7 @@
                 controllerAs: 'vm',
                 templateUrl: '/modules/courses/tools/tcs/automata/petrinets/views/pn.html'
             })
-        ;
+            ;
 
     }
 }());

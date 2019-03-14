@@ -1,0 +1,679 @@
+{
+    "core": {
+        "courses": {
+            "overview": {
+                "de": "Übersicht",
+                "en": "Overview"
+            },
+            "content": {
+                "en": "Content",
+                "de": "Inhalt"
+            },
+            "tools": {
+                "en": "Tools",
+                "de": "Werkzeuge"
+            },
+            "course": {
+                "en": "course",
+                "de": "Kurs"
+            },
+            "courses": {
+                "en": "Courses",
+                "de": "Kurse"
+            },
+            "questionsAndAnswers": {
+                "en": "Questions and Answers",
+                "de": "Fragen und Antworten"
+            },
+            "notifications": {
+                "en": "Notifications",
+                "de": "Mitteilungen"
+            },
+            "section": {
+                "en": "Section",
+                "de": "Abschnitt"
+            },
+            "noLessonFound": {
+                "de": "Der Abschnitt enthält noch keine Unterichtseinheiten."
+            },
+            "createLesson": {
+                "en": "Create Lesson",
+                "de": "Unterrichtseinheit erstellen"
+            },
+            "noSectionFound": {
+                "de": "Der Kurs enthält noch keine Abschnitte."
+            },
+            "lections": {
+                "en": "Lections",
+                "de": "Lektionen"
+            },
+            "createCourse": {
+                "en": "Create new course",
+                "de": "Neuen Kurs erstellen"
+            },
+            "name": {
+                "en": "Course name",
+                "de": "Kursname"
+            },
+            "courseUrl": {
+                "en": "Courseurl",
+                "de": "Kursurl"
+            },
+            "sectionUrl": {
+                "en": "Sectionurl",
+                "de": "Abschnittsurl"
+            },
+            "sectionName": {
+                "en": "Sectionname",
+                "de": "Abschnittsname"
+            },
+            "createSection": {
+                "en": "Create a new section",
+                "de": "Einen neuen Abschnitt hinzufügen"
+            },
+            "toolName": {
+                "en": "Toolname",
+                "de": "Werkzeugname"
+            },
+            "tool": {
+                "en": "Tool",
+                "de": "Werkzeug"
+            },
+            "toolUrl": {
+                "en": "Toolurl",
+                "de": "Werkzeugurl"
+            },
+            "externalTool": {
+                "en": "external Tool",
+                "de": "Externes Werkzeug"
+            },
+            "continueWithNextLesson": {
+                "en": "Continue with the next lesson",
+                "de": "Weiter mit der nächsten Einheit"
+            },
+            "courseNotAvailableInYourLanguage": {
+                "en": "This course isnt available in your language",
+                "de": "Dieser Kurs ist nicht in ihrer Sprache verfügbar"
+            },
+            "enrollToCourse": {
+                "en": "Enroll to course",
+                "de": "Zum Kurs  anmelden"
+            },
+            "infosAboutThisCourse": {
+                "en": "Infos about this course",
+                "de": "Infos über diesen Kurs"
+            },
+            "lessonNumber": {
+                "en": "Lesson number",
+                "de": "Lektionanzahl"
+            },
+            "offeredLanguages": {
+                "en": "Offered languages",
+                "de": "Angebotene Sprachen"
+            },
+            "backToContentOverview": {
+                "en": "Back to content overview",
+                "de": "Zurück zur Inhaltsübersicht"
+            },
+            "finishLesson": {
+                "en": "Finish lesson",
+                "de": "Lektion abschließen"
+            },
+            "backToLesson": {
+                "en": "Back to lesson",
+                "de": "Zurück zur Unterrichtseinheit"
+            },
+            "updateLesson": {
+                "en": "Update Lesson",
+                "de": "Unterrichtseinheit aktualisieren"
+            },
+            "lessonTypeQuiz": {
+                "en": "Quiz",
+                "de": "Quiz"
+            },
+            "accessToNotPublishedLesson": {
+                "de": "Die Unterrichtseinheit auf die Sie zugreifen wollen ist nicht für sie freigegeben."
+            },
+            "contentNotPublished": {
+                "de": "Der Inhalt ist noch nicht veröffentlicht. Veröffentlichen sie diese um sie den Benutzern zugänglich zu machen."
+            },
+            "answer": {
+                "en": "Answer",
+                "de": "Antwort"
+            },
+            "setRightAnswer": {
+                "en": "Right answer",
+                "de": "Richtige Antwort"
+            },
+            "createQuestion": {
+                "en": "Create Question",
+                "de": "Frage erstellen"
+            },
+            "questionTitle": {
+                "en": "Question title",
+                "de": "Fragentitel"
+            },
+            "answers": {
+                "en": "Answers",
+                "de": "Antworten"
+            },
+            "backToTools": {
+                "en": "Back to Tools",
+                "de": "Zurück zu den Werkzeugen"
+            },
+            "passedLesson": {
+                "en": "Passed lesson",
+                "de": "Unterrichtseinheit bestanden"
+            },
+            "notPassedLesson": {
+                "en": "Didn't pass the lesson",
+                "de": "Unterrichtseinheit nicht bestanden"
+            },
+            "lessonAlreadyPassed": {
+                "en": "Lesson already passed",
+                "de": "Unterrichtseinheit bereits bestanden"
+            },
+            "lessonNotAlreadyPassed": {
+                "en": "",
+                "de": "Unterrichtseinheit bereits bearbeitet, aber nicht bestanden"
+            },
+            "addAnswer": {
+                "en": "Add answer",
+                "de": "Antwortmöglichkeit hinzufügen"
+            },
+            "removeAnswer": {
+                "en": "Remove answer",
+                "de": "Entferne Antwortmöglichkeit"
+            },
+            "goToNextLesson": {
+                "en": "Go to the next lesson",
+                "de": "Zur nächsten Lektion"
+            },
+            "lessonFailedWithErrors": {
+                "de": "Unterrichtseinheit nicht bestanden, folgende Fehler sind noch offen"
+            },
+            "createNotification": {
+                "en": "Create Notification",
+                "de": "Mitteilung erstellen"
+            },
+            "backToAllQuestions": {
+                "en": "Back to all questions",
+                "de": "Zurück zu allen Fragen"
+            },
+            "lessonTitle": {
+                "en": "Lesson title",
+                "de": "Unterrichtseinheittitel"
+            },
+            "exercise": {
+                "en": "Exercise",
+                "de": "Aufgabe"
+            }
+        },
+        "users": {
+            "profile": {
+                "en": "Profil",
+                "de": "Profil"
+            },
+            "signout": {
+                "en": "Signout",
+                "de": "Logout"
+            },
+            "signin": {
+                "en": "Singin",
+                "de": "Login"
+            },
+            "signup": {
+                "en": "Signup",
+                "de": "Registrieren"
+            },
+            "forgotYourPassword": {
+                "en": "Forgot your password?",
+                "de": "Passwort vergessen?"
+            },
+            "username": {
+                "en": "username",
+                "de": "Benutzername"
+            },
+            "password": {
+                "en": "Password",
+                "de": "Passwort"
+            },
+            "validUsername": {
+                "en": "Please enter a valid username!",
+                "de": "Bitte gib ein Validen Benutzernamen ein!"
+            },
+            "uniqueUsername": {
+                "en": "Username already used!",
+                "de": "Benutzername bereits verwendet!"
+            },
+            "validEmail": {
+                "en": "Please enter a valid email.",
+                "de": "Bitte gib eine valide Email ein."
+            },
+            "uniqueEmail": {
+                "en": "Email already used.",
+                "de": "Email wird bereits verwendet."
+            }
+        },
+        "general": {
+            "description": {
+                "en": "description",
+                "de": "Beschreibung"
+            },
+            "save": {
+                "en": "Save",
+                "de": "Speichern"
+            },
+            "needToBeLoggedInMsg": {
+                "en": "You need to be logged in to access this area!",
+                "de": "Sie müssen eingeloggt sein um auf diese Seite zuzugreifen."
+            },
+            "or": {
+                "en": "or",
+                "de": "oder"
+            },
+            "edit": {
+                "en": "Edit",
+                "de": "Bearbeiten"
+            },
+            "delete": {
+                "en": "Delete",
+                "de": "Löschen"
+            },
+            "cancel": {
+                "en": "Cancel",
+                "de": "Abbrechen"
+            },
+            "content": {
+                "en": "Content",
+                "de": "Inhalt"
+            },
+            "published": {
+                "en": "Published",
+                "de": "Veröffentlicht"
+            },
+            "required": {
+                "en": "This field is required.",
+                "de": "Dieses Feld wird benötigt."
+            },
+            "play": {
+                "en": "Play",
+                "de": "Start"
+            },
+            "development": {
+                "en": "Development",
+                "de": "Entwicklung"
+            },
+            "bulkTitle": {
+                "en": "BulkTester",
+                "de": "BulkTester"
+            },
+            "transMenuTitle": {
+                "en": "Transitionmenu",
+                "de": "Zustandsübergangsmenü"
+            },
+            "nextState": {
+                "en": "Next state",
+                "de": "Nächster Zustand"
+            },
+            "accepted": {
+                "en": "Accepted",
+                "de": "Akzeptiert"
+            },
+            "rejected": {
+                "en": "Rejected",
+                "de": "Abgelehnt"
+            },
+            "question": {
+                "en": "Question",
+                "de": "Frage"
+            },
+            "comment": {
+                "en": "Comment",
+                "de": "Kommentar"
+            },
+            "from": {
+                "en": "from",
+                "de": "von"
+            },
+            "signoutSuccessfull": {
+                "en": "Signout successfull",
+                "de": "Logout erfolgreich"
+            },
+            "signinSuccessfull": {
+                "en": "Signin successfull",
+                "de": "Login erfolgreich"
+            },
+            "close": {
+                "en": "Close",
+                "de": "Schließen"
+            },
+            "enable": {
+                "en": "Enable",
+                "de": "Aktiviere"
+            },
+            "disable": {
+                "en": "Disable",
+                "de": "Deaktiviere"
+            }
+        },
+        "languages": {
+            "en": {
+                "en": "English",
+                "de": "Englisch"
+            },
+            "de": {
+                "en": "German",
+                "de": "Deutsch"
+            },
+            "es": {
+                "en": "Spanish",
+                "de": "Spanisch"
+            },
+            "fr": {
+                "en": "French",
+                "de": "Französisch"
+            },
+            "ru": {
+                "en": "Russian",
+                "de": "Russisch"
+            },
+            "primaryLanguage": {
+                "en": "Primary language",
+                "de": "Primärsprache"
+            }
+        }
+    },
+    "as": {
+        "core": {
+            "inputWord": {
+                "en": "Input word",
+                "de": "Eingabewort"
+            },
+            "play": {
+                "en": "Play",
+                "de": "Start"
+            },
+            "diagram": {
+                "de": "Zustandsübergangsdiagram"
+            },
+            "stateMenu": {
+                "de": "Zustandsmenü"
+            },
+            "stateName": {
+                "en": "Name",
+                "de": "Name"
+            },
+            "startState": {
+                "de": "Startzustand"
+            },
+            "finalState": {
+                "en": "Finalstate",
+                "de": "Endzustand"
+            },
+            "stateNameAlreadyExists": {
+                "en": "Statename already used!",
+                "de": "Zustandsname wird bereits verwendet!"
+            },
+            "stateNameTooShort": {
+                "en": "Statename is too short!",
+                "de": "Zustandsname zu kurz!"
+            },
+            "deleteModalTitle": {
+                "de": "Zustand löschen"
+            },
+            "deleteModalDescription": {
+                "de": "Wollen sie den Zustand und alle zugehörigen Zustandsübergänge löschen?"
+            },
+            "stateTransitionTableTitle": {
+                "de": "Zustandsübergangstabelle"
+            },
+            "stateTransitionFunction": {
+                "de": "Zustandsübergangsfunktion"
+            },
+            "bulkTitle": {
+                "en": "BulkTester",
+                "de": "BulkTester"
+            },
+            "finalStateShort": {
+                "en": "F",
+                "de": "E"
+            },
+            "states": {
+                "en": "States",
+                "de": "Zustände"
+            },
+            "automataAlphabet": {
+                "en": "Alphabet",
+                "de": "Alphabet"
+            },
+            "zoomFitWindow": {
+                "en": "Fit window",
+                "de": "Fenster ausfüllen"
+            },
+            "zoomIn": {
+                "en": "Zoom in",
+                "de": "Vergrößern"
+            },
+            "zoomOut": {
+                "en": "Zoom out",
+                "de": "Verkleinern"
+            },
+            "addState": {
+                "en": "Add state",
+                "de": "Zustand hinzufügen"
+            },
+            "addTransition": {
+                "en": "Add transition",
+                "de": "Zustandsübergang hinzufügen"
+            },
+            "diagramSettingsTitle": {
+                "en": "Diagram settings",
+                "de": "Diagrammeinstellungen"
+            },
+            "view": {
+                "en": "View",
+                "de": "Ansicht"
+            },
+            "grid": {
+                "en": "Grid",
+                "de": "Gitter"
+            },
+            "snapping": {
+                "en": "Snapping",
+                "de": "Einrasten"
+            },
+            "removeState": {
+                "en": "Remove state",
+                "de": "Zustand entfernen"
+            },
+            "removeStartState": {
+                "en": "Remove start state",
+                "de": "Startzustand entfernen"
+            },
+            "removeFromFinalStates": {
+                "en": "Remove from final states",
+                "de": "Von Endzuständen entfernen"
+            },
+            "addToFinalStates": {
+                "en": "Add to final states",
+                "de": "Zu Endzuständen hinzufügen"
+            },
+            "transitionMenu": {
+                "en": "Transitionmenu",
+                "de": "Zustandsübergangsmenü"
+            },
+            "transitionReadedChar": {
+                "en": "readed Character",
+                "de": "eingelesenes Zeichen"
+            },
+            "onePerLine": {
+                "en": "One per line",
+                "de": "Eins Pro Zeile"
+            },
+            "deleteAutomaton": {
+                "en": "Delete Automaton",
+                "de": "Automaten löschen"
+            },
+            "addStartState": {
+                "en": "Set as start state",
+                "de": "Als Startzustand setzen"
+            },
+            "deleteState": {
+                "en": "Delete state",
+                "de": "Lösche Zustand"
+            },
+            "forcedDeleteState": {
+                "de": "Soll der Zustand gelöscht werden? Alle Zustandsübergänge am Zustand werden damit mitgelöscht."
+            },
+            "deleteAutomatonTitle": {
+                "en": "Delete Automaton",
+                "de": "Lösche Automaten"
+            },
+            "deleteAutomatonDescription": {
+                "de": "Möchten Sie den aktuellen Automaten löschen? Diese Aktion ist nicht umkehrbar!"
+            }
+        },
+        "sim": {
+            "title": {
+                "de": "Simulation",
+                "en": "Simulation"
+            },
+            "simWasResettedTitle": {
+                "de": "Simulation wurde resetted"
+            },
+            "simWasResettedDescription": {
+                "de": "Simulation wurde resettet, da die Simulation zerstört wurde."
+            },
+            "settings": {
+                "de": "Simulationseinstellungen"
+            },
+            "settingsLoop": {
+                "en": "Loop",
+                "de": "Schleife"
+            },
+            "STO": {
+                "de": "Schrittgeschwindigkeit"
+            },
+            "LTO": {
+                "de": "Schleifengeschwindigkeit"
+            }
+        },
+        "pda": {
+            "readFromStack": {
+                "en": "Read from stack",
+                "de": "Gelesenes Stack Zeichen"
+            },
+            "writeToStack": {
+                "en": "Write to stack char",
+                "de": "Geschriebenes Stack Zeichen"
+            }
+        }
+    },
+    "backend": {
+        "responseMsg": {
+            "sectionCreated": {
+                "en": "Section was created",
+                "de": "Abschnitt wurde erstellt."
+            },
+            "sectionUpdated": {
+                "en": "Section updated.",
+                "de": "Abschnitt wurde aktualisiert."
+            },
+            "sectionDeleted": {
+                "en": "Section deleted.",
+                "de": "Abschnitt wurde gelöscht."
+            },
+            "toolCreated": {
+                "en": "Tool created",
+                "de": "Werkzeug wurde erstellt"
+            },
+            "toolUpdated": {
+                "en": "Tool updated",
+                "de": "Werkzeug wurde aktualisiert"
+            },
+            "toolDeleted": {
+                "en": "Tool deleted",
+                "de": "Werkzeug wurde gelöscht"
+            },
+            "problemWithRequest": {
+                "en": "There was a problem with your request",
+                "de": "Es gab ein Problem mit Ihrer Anfrage"
+            },
+            "notificationCreated": {
+                "en": "Notification created",
+                "de": "Mitteilung wurde erstellt"
+            },
+            "notificationUpdated": {
+                "en": "Notification updated",
+                "de": "Mitteilung wurde aktualisiert"
+            },
+            "notificationDeleted": {
+                "en": "Notification deleted",
+                "de": "Mitteilung wurde gelöscht"
+            },
+            "questionCreated": {
+                "en": "Question created",
+                "de": "Frage wurde erstellt"
+            },
+            "questionUpdated": {
+                "en": "Question updated",
+                "de": "Frage wurde aktualisiert"
+            },
+            "questionDeleted": {
+                "en": "Question deleted",
+                "de": "Frage wurde gelöscht"
+            },
+            "answerCreated": {
+                "en": "Answer created",
+                "de": "Antwort wurde erstellt"
+            },
+            "answerUpdated": {
+                "es": "",
+                "en": "Answer updated",
+                "de": "Antwort wurde aktualisiert"
+            },
+            "answerDeleted": {
+                "en": "Answer deleted",
+                "de": "Antwort wurde gelöscht"
+            },
+            "courseCreated": {
+                "en": "Course created",
+                "de": "Kurs wurde erstellt"
+            },
+            "courseUpdated": {
+                "en": "Course updated",
+                "de": "Kurs wurde aktualisiert"
+            },
+            "courseDeleted": {
+                "en": "Course deleted",
+                "de": "Kurs wurde gelöscht"
+            },
+            "lessonCreated": {
+                "en": "Lesson created",
+                "de": "Unterrichtseinheit erstellt"
+            },
+            "noLessonTypeGiven": {
+                "en": "No lesson type given",
+                "de": "Kein Unterrichtseinheiten Typ angegeben"
+            },
+            "updatedLesson": {
+                "en": "Updated Lesson",
+                "de": "Unterrichtseinheit aktualisiert"
+            },
+            "didntUpdateLesson": {
+                "en": "Didn't update lesson",
+                "de": "Unterrichtseinheit nicht aktualisiert"
+            },
+            "deletedLesson": {
+                "en": "Lesson deleted",
+                "de": "Unterrichtseinheit gelöscht"
+            },
+            "didntDeleteLesson": {
+                "en": "Didn't delete lesson",
+                "de": "Unterrichtseinheit nicht gelöscht"
+            }
+        }
+    },
+    "languages": {}
+}
