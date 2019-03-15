@@ -40,12 +40,12 @@ gulp.task('inject', function () {
     // It's not necessary to read the files (will speed up things), we're only after their paths:
     return target
         .pipe(plugins.inject(
-            gulp.src(_.concat(defaultAssets.lib.js, defaultAssets.js), {read: false}), {
+            gulp.src(_.concat(defaultAssets.lib.js, defaultAssets.js), { read: false }), {
                 relative: true,
                 addRootSlash: true
             }))
         .pipe(plugins.inject(
-            gulp.src(_.concat(defaultAssets.lib.css, defaultAssets.css), {read: false}), {
+            gulp.src(_.concat(defaultAssets.lib.css, defaultAssets.css), { read: false }), {
                 relative: true,
                 addRootSlash: true
             }))
@@ -85,24 +85,26 @@ gulp.task('clean', function () {
     return del('dist/**/*');
 });
 
-gulp.task('serveModules',function(){
+gulp.task('serveModules', function () {
     gulp.src(['app/modules/**/*'])
         .pipe(gulp.dest('dist/modules'));
 });
 
-gulp.task('serveLibs',function(){
+gulp.task('serveLibs', function () {
     gulp.src(['app/lib/**/*'])
         .pipe(gulp.dest('dist/lib'));
+    gulp.src(['app/translations/*'])
+        .pipe(gulp.dest('dist/translations'));
     gulp.src(['app/lib/font-awesome/fonts/*'])
         .pipe(gulp.dest('dist/fonts'));
 });
-gulp.task('serveIndex',function(){
+gulp.task('serveIndex', function () {
     gulp.src(['app/index_template.html'])
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('serveLibsJs', function () {
-    var jsDest ='dist/scripts';
+    var jsDest = 'dist/scripts';
     return gulp.src(defaultAssets.lib.js)
         .pipe(plugins.concat('lib.js'))
         .pipe(gulp.dest(jsDest))
@@ -114,12 +116,13 @@ gulp.task('serveLibsJs', function () {
 gulp.task('serveJs', function () {
     var jsDest = 'dist/scripts';
     return gulp.src(defaultAssets.js)
-        .pipe(plugins.babel({presets: ['env']}))
+        .pipe(plugins.babel({ presets: ['env'] }))
         .pipe(plugins.concat('app.js'))
         .pipe(gulp.dest(jsDest))
         .pipe(plugins.rename('app.min.js'))
         .pipe(plugins.uglify({
-        mangle: false}))
+            mangle: false
+        }))
         .on('error', function (err) {
             plugins.util.log(plugins.util.colors.red('[Error]'), err.toString());
         })
@@ -143,7 +146,7 @@ gulp.task('serveCss', function () {
 
 gulp.task('serveLibsCss', function () {
     var cssDest = 'dist/css';
-    return gulp.src(defaultAssets.lib.css )
+    return gulp.src(defaultAssets.lib.css)
         .pipe(plugins.concat('lib.css'))
         .pipe(plugins.sass({
             includePaths: ['./app/css']
@@ -156,17 +159,17 @@ gulp.task('serveLibsCss', function () {
 });
 
 
-gulp.task('build-inject',function(){
+gulp.task('build-inject', function () {
     var target = gulp.src('./dist/index_template.html');
     // It's not necessary to read the files (will speed up things), we're only after their paths:
     return target
         .pipe(plugins.inject(
-            gulp.src(_.concat('./dist/scripts/lib.js','./dist/scripts/app.js'), {read: false}), {
+            gulp.src(_.concat('./dist/scripts/lib.js', './dist/scripts/app.js'), { read: false }), {
                 relative: true,
                 addRootSlash: true
             }))
         .pipe(plugins.inject(
-            gulp.src(_.concat('./dist/css/**/*.min.css'), {read: false}), {
+            gulp.src(_.concat('./dist/css/**/*.min.css'), { read: false }), {
                 relative: true,
                 addRootSlash: true
             }))
@@ -176,11 +179,11 @@ gulp.task('build-inject',function(){
 
 
 gulp.task('build', function () {
-    runSequence('clean', 'serveLibs','serveModules','serveIndex','serveLibsJs', 'serveJs','serveLibsCss','serveCss','build-inject');
+    runSequence('clean', 'serveLibs', 'serveModules', 'serveIndex', 'serveLibsJs', 'serveJs', 'serveLibsCss', 'serveCss', 'build-inject');
 });
 
-gulp.task('prodServer',function () {
-    runSequence('build','browserSync-dev');
+gulp.task('prodServer', function () {
+    runSequence('build', 'browserSync-dev');
 });
 gulp.task('browserSync-dev', function () {
     return browserSync.init({
