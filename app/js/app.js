@@ -3,10 +3,10 @@ deferredBootstrapper.bootstrap({
     module: 'app',
     resolve: {
         I18N_DATA: ['$http', function ($http) {
-            return $http.get(theLearningSystemConfig.frontendUrl + '/languages.json');
+            return $http.get('/translations/languages.json');
         }],
         I18N_CONFIG: ['$http', function ($http) {
-            return $http.get(theLearningSystemConfig.frontendUrl + '/configs.json');
+            return $http.get('/translations/configs.json');
         }]
     }
 });

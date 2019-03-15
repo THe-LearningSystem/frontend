@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolCircuit/boolCircuit.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolExpr/boolExpr.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolInput/boolInput.css">
-    <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKV/boolKV.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.css">
+    <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKV/boolKV.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolTable/boolTable.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/dropmenu/dropmenu.css">
@@ -62,13 +62,13 @@
 <script src="/modules/tools/tools.module.js"></script>
 <script src="/modules/tools/ToolsCtrl.controller.js"></script>
 <script src="/modules/tools/ToolsOverviewCtrl.controller.js"></script>
-<script src="/modules/tools/automata/cellular/controllers/cellular.controller.js"></script>
 <script src="/modules/tools/automata/dfa/controllers/dfa.controller.js"></script>
-<script src="/modules/tools/automata/nfa/controllers/nfa.controller.js"></script>
+<script src="/modules/tools/automata/cellular/controllers/cellular.controller.js"></script>
 <script src="/modules/tools/automata/npda/controllers/npda.controller.js"></script>
-<script src="/modules/tools/automata/pda/controllers/pda.controller.js"></script>
+<script src="/modules/tools/automata/nfa/controllers/nfa.controller.js"></script>
 <script src="/modules/tools/automata/petrinets/controllers/pn.controller.js"></script>
 <script src="/modules/tools/automata/tm/controllers/tm.controller.js"></script>
+<script src="/modules/tools/automata/pda/controllers/pda.controller.js"></script>
 <script src="/modules/tools/languages/type-lll+ll/controllers/lang.controller.js"></script>
 <script src="/modules/tools/automata/directives/modal/deleteState/deleteState.modal.controller.js"></script>
 <script src="/modules/tools/automata/directives/modal/info/info.modal.controller.js"></script>
@@ -78,33 +78,28 @@
 <script src="/modules/core/translate.filter.js"></script>
 <script src="/modules/tools/automata/automatonControllerHelper.js"></script>
 <script src="/modules/tools/automata/TestData.js"></script>
+<script src="/modules/tools/automata/directives/directives.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/ngRepeatFinish.js"></script>
 <script src="/modules/tools/languages/directives/lang-directives.js"></script>
-<script src="/modules/tools/automata/directives/directives.js"></script>
 <script src="/modules/tools/automata/cellular/directives/directives.js"></script>
 <script src="/modules/tools/boolean-algebra/js/ColorGenerator.js"></script>
 <script src="/modules/tools/boolean-algebra/js/constants.js"></script>
 <script src="/modules/tools/boolean-algebra/js/ext.js"></script>
 <script src="/modules/tools/boolean-algebra/js/utils.js"></script>
 <script src="/modules/tools/languages/type-lll+ll/TestLangData.js"></script>
+<script src="/modules/tools/automata/directives/bulkTest/bulkTest.js"></script>
+<script src="/modules/tools/automata/directives/portation/portation.js"></script>
+<script src="/modules/tools/automata/directives/svg/svgDirectives.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolCircuit/boolCircuit.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolExpr/boolExpr.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolInput/boolInput.js"></script>
-<script src="/modules/tools/boolean-algebra/directives/boolKV/boolKV.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.js"></script>
+<script src="/modules/tools/boolean-algebra/directives/boolKV/boolKV.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolTable/boolTable.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolTable/boolTableSelect.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/dropmenu/dropmenu.js"></script>
 <script src="/modules/tools/languages/directives/svg/svg-Lang-Directives.js"></script>
-<script src="/modules/tools/automata/directives/bulkTest/bulkTest.js"></script>
-<script src="/modules/tools/automata/directives/portation/portation.js"></script>
-<script src="/modules/tools/automata/directives/svg/svgDirectives.js"></script>
-<script src="/modules/tools/automata/cellular/js/ca.cellSpace.js"></script>
-<script src="/modules/tools/automata/cellular/js/ca.cellSpace.zoom.js"></script>
-<script src="/modules/tools/automata/cellular/js/ca.ruleObjects.js"></script>
-<script src="/modules/tools/automata/cellular/js/ca.simulator.js"></script>
-<script src="/modules/tools/automata/cellular/js/cell.js"></script>
 <script src="/modules/tools/automata/dfa/js/dfa.automatonData.js"></script>
 <script src="/modules/tools/automata/dfa/js/dfa.core.js"></script>
 <script src="/modules/tools/automata/dfa/js/dfa.hotkeysGenerator.js"></script>
@@ -123,12 +118,13 @@
 <script src="/modules/tools/automata/dfa/js/dfa.transitions.js"></script>
 <script src="/modules/tools/automata/dfa/js/dfa.transitions.menu.js"></script>
 <script src="/modules/tools/automata/dfa/js/dfa.transitions.transitionObjects.js"></script>
-<script src="/modules/tools/automata/nfa/js/nfa.transitions.js"></script>
+<script src="/modules/tools/automata/cellular/js/ca.cellSpace.js"></script>
+<script src="/modules/tools/automata/cellular/js/ca.cellSpace.zoom.js"></script>
+<script src="/modules/tools/automata/cellular/js/ca.ruleObjects.js"></script>
+<script src="/modules/tools/automata/cellular/js/ca.simulator.js"></script>
+<script src="/modules/tools/automata/cellular/js/cell.js"></script>
 <script src="/modules/tools/automata/npda/js/nfa.transitions.js"></script>
-<script src="/modules/tools/automata/pda/js/pda.simulator.js"></script>
-<script src="/modules/tools/automata/pda/js/pda.transitions.js"></script>
-<script src="/modules/tools/automata/pda/js/pda.transitions.menu.js"></script>
-<script src="/modules/tools/automata/pda/js/pda.transitions.transitionObjects.js"></script>
+<script src="/modules/tools/automata/nfa/js/nfa.transitions.js"></script>
 <script src="/modules/tools/automata/petrinets/js/pn.places.placeObject.js"></script>
 <script src="/modules/tools/automata/petrinets/js/pn.simulator.js"></script>
 <script src="/modules/tools/automata/petrinets/js/pn.statediagram!.js"></script>
@@ -143,6 +139,10 @@
 <script src="/modules/tools/automata/tm/js/tm.transitions.js"></script>
 <script src="/modules/tools/automata/tm/js/tm.transitions.menu.js"></script>
 <script src="/modules/tools/automata/tm/js/tm.transitions.transitionObjects.js"></script>
+<script src="/modules/tools/automata/pda/js/pda.simulator.js"></script>
+<script src="/modules/tools/automata/pda/js/pda.transitions.js"></script>
+<script src="/modules/tools/automata/pda/js/pda.transitions.menu.js"></script>
+<script src="/modules/tools/automata/pda/js/pda.transitions.transitionObjects.js"></script>
 <script src="/modules/tools/boolean-algebra/js/BoolAlgebra/BADomain.js"></script>
 <script src="/modules/tools/boolean-algebra/js/BoolAlgebra/BAExpression.js"></script>
 <script src="/modules/tools/boolean-algebra/js/BoolAlgebra/BAGroup.js"></script>

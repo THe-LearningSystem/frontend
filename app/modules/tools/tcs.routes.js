@@ -18,6 +18,7 @@
                 var newPath = path.substr(0, path.length - 1);
                 $location.replace().path(newPath);
             }
+            $urlRouterProvider.otherwise('/tools/overview');
         });
         //automata
         $stateProvider
