@@ -16,8 +16,8 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
         var moveToX = $scope.langDerivationtree.grid.spaceBetweenSnappingPoint;
         var moveToY = $scope.langWordChecker.getLongestArrayCountInPosArray(foundCandidate.position) * $scope.langDerivationtree.grid.spaceBetweenSnappingPoint;
         var startPosition = Math.floor(foundCandidate.position.length / 2);
-        
-        startOrderObject = new autoSim.LangDerivationtreeOrder(
+
+        var startOrderObject = new autoSim.LangDerivationtreeOrder(
             self.orderId++,
             $scope.langProductionRules.getStartRule().left,
             $scope.langWordChecker.getLongestArrayCountInPosArray(foundCandidate.position),
@@ -27,7 +27,7 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
             -1,
             0
         );
-        
+
         self.push(startOrderObject);
 
         // Counts the position in each array (i).
@@ -42,16 +42,16 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
                     var tmp = i;
 
                     if (i === 0) {
-                        
-                        for ( ; follower[tmp] === null; ) {
-                        
+
+                        for (; follower[tmp] === null;) {
+
                             if (follower[i] === null) {
                                 tmp++;
                             }
                         }
-                        
+
                         if (tmp > i) {
-                            newOrderObject = new autoSim.LangDerivationtreeOrder(
+                            var newOrderObject = new autoSim.LangDerivationtreeOrder(
                                 self.orderId++,
                                 lastDerivationSequence.sequence[j],
                                 i,
@@ -62,9 +62,9 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
                                 -1
                             );
                             self.push(newOrderObject);
-                        
+
                         } else {
-                            newOrderObject = new autoSim.LangDerivationtreeOrder(
+                            var newOrderObject = new autoSim.LangDerivationtreeOrder(
                                 self.orderId++,
                                 lastDerivationSequence.sequence[j],
                                 i,
@@ -78,18 +78,18 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
                         }
 
                     } else {
-                        
-                        if (value[i-1] !== null) {
-                            var char = $scope.langProductionRules.getByRuleId(value[i-1]).left;
-                            newOrderObject = new autoSim.LangDerivationtreeOrder(
+
+                        if (value[i - 1] !== null) {
+                            var char = $scope.langProductionRules.getByRuleId(value[i - 1]).left;
+                            var newOrderObject = new autoSim.LangDerivationtreeOrder(
                                 self.orderId++,
                                 char,
                                 i,
                                 posX * j + moveToX,
-                                -posY * (i-1) + moveToY,
+                                -posY * (i - 1) + moveToY,
                                 j,
                                 follower[i],
-                                follower[i-1]
+                                follower[i - 1]
                             );
                             self.push(newOrderObject);
                         }
@@ -98,39 +98,39 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
             }
         }
     };
-    
+
     /**
      * Checks the two foundCandidate arrays for right placement of rule and follower.
      * @param {object} foundCandidate [[Description]]
      */
     self.checkDerivationTree = function (foundCandidate) {
         var arrayAddDone = [];
-      
+
         // Counts the position in each array (i).
         for (var i = $scope.langWordChecker.getLongestArrayCountInPosArray(foundCandidate.position); i >= 0; i--) {
-            
+
             // Cycles through the main array with the given position (j).
             for (var j = 0; j < foundCandidate.position.length; j++) {
                 var follower = foundCandidate.position[j];
                 var value = foundCandidate.treeOrderArray[j];
-                
+
                 if (follower[i] !== undefined && follower[i - 1] !== undefined) {
-                    
+
                     // k = i.
                     for (var k = $scope.langWordChecker.getLongestArrayCountInPosArray(foundCandidate.position); k >= 0; k--) {
 
                         // l = j.
                         for (var l = 0; l < foundCandidate.position.length; l++) {
                             var checkFollower = foundCandidate.position[l];
-                                                        
-                            if (checkFollower[k] === follower[i-1]) {
-                                
+
+                            if (checkFollower[k] === follower[i - 1]) {
+
                                 if (i <= k && l <= j) {
-                                    
+
                                     for (var m = 0; m < foundCandidate.position[l].length; m++) {
-                                   
-                                        if (follower.length-1 < foundCandidate.position[l].length) {
-                                            
+
+                                        if (follower.length - 1 < foundCandidate.position[l].length) {
+
                                             if (!_.includes(arrayAddDone, follower)) {
                                                 follower.unshift(null);
                                                 value.unshift(null);
@@ -146,7 +146,7 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
             }
         }
     };
-    
+
     /**
      * Searches through itself and returns the order object by "predecessor", with the given value.
      * @param   {[[Type]]} id [[Description]]
@@ -154,17 +154,17 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
      */
     self.getOrderObjectByPredecessor = function (id) {
         var rule;
-        
+
         _.forEach(self, function (value) {
-            
+
             if (value.predecessor === id) {
                 rule = value;
             }
         });
-        
+
         return rule;
     };
-    
+
     /**
      * Searches through itself and returns the order object by "ruleId", with the given value.
      * @param   {[[Type]]} id [[Description]]
@@ -172,14 +172,14 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
      */
     self.getOrderObjectByRuleId = function (id) {
         var rule;
-        
+
         _.forEach(self, function (value) {
-            
+
             if (value.ruleId === id) {
                 rule = value;
             }
         });
-        
+
         return rule;
     };
 
@@ -239,13 +239,13 @@ autoSim.LangDerivationtreeDraw = function ($scope) {
 
     // Called by the listener in the core.
     self.updateFunction = function () {
-        while (self.pop() !== undefined) {}
+        while (self.pop() !== undefined) { }
 
         if ($scope.langWordChecker.foundCandidate !== undefined) {
             self.checkDerivationTree($scope.langWordChecker.foundCandidate);
-            
+
             self.createOrderObjects($scope.langDerivationSequence[$scope.langDerivationSequence.length - 1], $scope.langWordChecker.foundCandidate);
-            
+
             //self.calculateTreeWidth(self[0]);
             //self.createPositions(self[0], 0, 0);
         }
