@@ -740,6 +740,14 @@
             "description": {
                 "de": "Mit diesem Tool lassen sich die Typ lll Sprachen modellieren und Simulieren."
             }
+        },
+        "petrinets": {
+            "title": {
+                "de": "Petrinetze"
+            },
+            "description": {
+                "de": ""
+            }
         }
     },
     "languages": {}
