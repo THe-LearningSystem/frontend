@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="/lib/angularjs-slider/dist/rzslider.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolCircuit/boolCircuit.css">
-    <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolInput/boolInput.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolExpr/boolExpr.css">
+    <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolInput/boolInput.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKV/boolKV.css">
-    <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.css">
+    <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/boolTable/boolTable.css">
     <link rel="stylesheet" href="/modules/tools/boolean-algebra/directives/dropmenu/dropmenu.css">
     <!-- endinject -->
@@ -41,7 +41,6 @@
 <script src="/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="/lib/angular-ui-notification/dist/angular-ui-notification.js"></script>
 <script src="/lib/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="/lib/angular-jwt/dist/angular-jwt.js"></script>
 <script src="/lib/angular-local-storage/dist/angular-local-storage.js"></script>
 <script src="/lib/angular-sanitize/angular-sanitize.js"></script>
 <script src="/lib/angular-ui-select/dist/select.js"></script>
@@ -62,6 +61,7 @@
 <script src="/modules/tools/courses.tcs.module.js"></script>
 <script src="/modules/tools/tools.module.js"></script>
 <script src="/modules/tools/ToolsCtrl.controller.js"></script>
+<script src="/modules/tools/ToolsOverviewCtrl.controller.js"></script>
 <script src="/modules/tools/automata/cellular/controllers/cellular.controller.js"></script>
 <script src="/modules/tools/automata/dfa/controllers/dfa.controller.js"></script>
 <script src="/modules/tools/automata/nfa/controllers/nfa.controller.js"></script>
@@ -78,28 +78,28 @@
 <script src="/modules/core/translate.filter.js"></script>
 <script src="/modules/tools/automata/automatonControllerHelper.js"></script>
 <script src="/modules/tools/automata/TestData.js"></script>
-<script src="/modules/tools/automata/directives/directives.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/ngRepeatFinish.js"></script>
 <script src="/modules/tools/languages/directives/lang-directives.js"></script>
+<script src="/modules/tools/automata/directives/directives.js"></script>
 <script src="/modules/tools/automata/cellular/directives/directives.js"></script>
 <script src="/modules/tools/boolean-algebra/js/ColorGenerator.js"></script>
 <script src="/modules/tools/boolean-algebra/js/constants.js"></script>
 <script src="/modules/tools/boolean-algebra/js/ext.js"></script>
 <script src="/modules/tools/boolean-algebra/js/utils.js"></script>
 <script src="/modules/tools/languages/type-lll+ll/TestLangData.js"></script>
-<script src="/modules/tools/automata/directives/bulkTest/bulkTest.js"></script>
-<script src="/modules/tools/automata/directives/portation/portation.js"></script>
-<script src="/modules/tools/automata/directives/svg/svgDirectives.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolCircuit/boolCircuit.js"></script>
-<script src="/modules/tools/boolean-algebra/directives/boolInput/boolInput.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolExpr/boolExpr.js"></script>
+<script src="/modules/tools/boolean-algebra/directives/boolInput/boolInput.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolKV/boolKV.js"></script>
-<script src="/modules/tools/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolKVBlockInput/boolKVBlockInput.js"></script>
+<script src="/modules/tools/boolean-algebra/directives/boolKVBlockMin/boolKVBlockMin.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolTable/boolTable.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/boolTable/boolTableSelect.js"></script>
 <script src="/modules/tools/boolean-algebra/directives/dropmenu/dropmenu.js"></script>
 <script src="/modules/tools/languages/directives/svg/svg-Lang-Directives.js"></script>
+<script src="/modules/tools/automata/directives/bulkTest/bulkTest.js"></script>
+<script src="/modules/tools/automata/directives/portation/portation.js"></script>
+<script src="/modules/tools/automata/directives/svg/svgDirectives.js"></script>
 <script src="/modules/tools/automata/cellular/js/ca.cellSpace.js"></script>
 <script src="/modules/tools/automata/cellular/js/ca.cellSpace.zoom.js"></script>
 <script src="/modules/tools/automata/cellular/js/ca.ruleObjects.js"></script>
@@ -151,6 +151,8 @@
 <script src="/modules/tools/boolean-algebra/js/Canvas/CanvasInterface.js"></script>
 <script src="/modules/tools/boolean-algebra/js/Canvas/EaselInterface.js"></script>
 <script src="/modules/tools/boolean-algebra/js/Circuit/BACircuit.js"></script>
+<script src="/modules/tools/boolean-algebra/js/controllers/BACtrl.js"></script>
+<script src="/modules/tools/boolean-algebra/js/controllers/LangCtrl.js"></script>
 <script src="/modules/tools/boolean-algebra/js/KV/BAKV.js"></script>
 <script src="/modules/tools/boolean-algebra/js/KV/ColorPathLayer.js"></script>
 <script src="/modules/tools/boolean-algebra/js/KV/ColorPathMap.js"></script>
@@ -162,8 +164,6 @@
 <script src="/modules/tools/boolean-algebra/js/KV/KVReflectingBlockRect.js"></script>
 <script src="/modules/tools/boolean-algebra/js/KV/KVReflectingSearch.js"></script>
 <script src="/modules/tools/boolean-algebra/js/KV/KVRow.js"></script>
-<script src="/modules/tools/boolean-algebra/js/controllers/BACtrl.js"></script>
-<script src="/modules/tools/boolean-algebra/js/controllers/LangCtrl.js"></script>
 <script src="/modules/tools/languages/type-lll+ll/js/lang.checkInformationObject.js"></script>
 <script src="/modules/tools/languages/type-lll+ll/js/lang.core.js"></script>
 <script src="/modules/tools/languages/type-lll+ll/js/lang.derivationsequence.derivationsequenceObject.js"></script>

@@ -675,5 +675,72 @@
             }
         }
     },
+    "tools": {
+        "dfa": {
+            "title": {
+                "de": "DFA-Editor"
+            },
+            "description": {
+                "de": "Dieses Werkzeug ermöglicht das Modellieren sowie die Simulation von Deterministischen endlichen Automaten."
+            }
+        },
+        "nfa": {
+            "title": {
+                "de": "NFA-Editor"
+            },
+            "description": {
+                "de": "Dieses Tool ermöglicht das Modellieren sowie die Simulation von Nichtdeterministischen endlichen Automaten."
+            }
+        },
+        "pda": {
+            "title": {
+                "de": "PDA-Editor"
+            },
+            "description": {
+                "de": "Dieses Werkzeug ermöglicht das Modellieren sowie die Simulation von Deterministischen Kellerautomaten."
+            }
+        },
+        "npda": {
+            "title": {
+                "de": "NPDA-Editor"
+            },
+            "description": {
+                "de": "Dieses Werkzeug ermöglicht das Modellieren sowie die Simulation von Nichtdeterministischen Kellerautomaten."
+            }
+        },
+        "tm": {
+            "title": {
+                "de": "Turing"
+            },
+            "description": {
+                "de": "Dieses Werkzeug ermöglicht das Modellieren sowie die Simulation von Turingmaschinen"
+            }
+        },
+        "boolean-algebra": {
+            "title": {
+                "de": "Boolean Algebra"
+            },
+            "description": {
+                "de": "Dieses Werkzeug ermöglicht das Modellieren sowie die Simulation der Boolschen Algebra."
+            }
+        },
+        "cellular": {
+            "title": {
+                "en": "Ceullar Automaton",
+                "de": "Zellulärer Automat"
+            },
+            "description": {
+                "de": "Dieses Werkzeug ermöglicht das Modellieren sowie die Simulation von Zellulären Automaten"
+            }
+        },
+        "languages": {
+            "title": {
+                "de": "Sprachen Typ lll"
+            },
+            "description": {
+                "de": "Mit diesem Tool lassen sich die Typ lll Sprachen modellieren und Simulieren."
+            }
+        }
+    },
     "languages": {}
 }

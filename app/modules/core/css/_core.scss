@@ -376,3 +376,41 @@ body {
   overflow-x:hidden;
   overflow-y:scroll;
 }
+
+/**TOOLS general**/
+.tool-outer-wrapper{
+  height:100%;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding:20px;
+}
+
+.tool-wrapper{
+
+  border: 1px solid #dedede;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor:pointer;
+  color: #797979;
+  // flex: 1 1 33%;
+  margin:20px;
+}
+
+.tool-wrapper .tool{
+  width:300px;
+  height:180px;
+  background-color:white;
+  padding: 20px;
+}
+
+.tool-wrapper .title{
+  margin-bottom:5px;
+  font-size:20px;
+  
+}
+
+.tool-wrapper .tool-wrapper:not(:last-child){
+}
+

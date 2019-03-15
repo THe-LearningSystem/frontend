@@ -9,7 +9,6 @@ module.exports = {
             'app/lib/json-formatter/dist/json-formatter.css',
             'app/lib/angularjs-slider/dist/rzslider.css',
             'app/lib/font-awesome/css/font-awesome.css'
-
         ],
         js: [
             'app/lib/lodash/dist/lodash.js',
@@ -22,7 +21,6 @@ module.exports = {
             'app/lib/angular-mocks/angular-mocks.js',
             'app/lib/angular-ui-notification/dist/angular-ui-notification.js',
             'app/lib/angular-ui-router/release/angular-ui-router.js',
-            'app/lib/angular-jwt/dist/angular-jwt.js',
             'app/lib/angular-local-storage/dist/angular-local-storage.js',
             'app/lib/angular-sanitize/angular-sanitize.js',
             'app/lib/angular-ui-select/dist/select.js',

@@ -26,6 +26,11 @@
                 templateUrl: '/modules/tools/tools-template.view.html',
                 controller: 'ToolsCtrl'
             })
+            .state('tcs.overview', {
+                url: 'overview',
+                templateUrl: '/modules/tools/tools-overview.view.html',
+                controller: 'ToolsOverviewCtrl'
+            })
             .state('tcs.dfa', {
                 url: 'dfa',
                 controller: 'DFACtrl',
